@@ -1,0 +1,47 @@
+.navBar {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 9%;
+}
+.clogoBox {
+  display: flex;
+  align-items: center;
+}
+.clogoBox img {
+  cursor: pointer;
+}
+.navItemBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+}
+.navItemText {
+  color: #000;
+  font-family: poppins;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+}
+.navItemTextActive {
+  color: #fe8903;
+}
+.navItemText samp {
+  width: 100%;
+  height: 2px;
+  background: #fe8903;
+  position: absolute;
+  bottom: -3px;
+  left: 0px;
+}
+.navItemText .nl2 {
+}
+.navItemText .nl2 {
+  width: 80%;
+  bottom: -10px;
+}

@@ -1,0 +1,37 @@
+import React from "react";
+import "./style.css";
+
+interface btnProps {
+  btnText: string;
+  bgColor?: string;
+  width?: string;
+  height?: string;
+  textColor?: string;
+  icon?: string;
+  onClick?: () => void;
+}
+
+export const AppBtn: React.FC<btnProps> = ({
+  btnText,
+  bgColor,
+  width,
+  height,
+  textColor,
+  icon,
+  onClick,
+}) => {
+  return (
+    <div
+      onClick={onClick}
+      className="appBtn"
+      style={{
+        width,
+        minHeight: height || "50px",
+        background: bgColor || "#0D203B",
+      }}
+    >
+      <p style={{ color: textColor || "#fff" }}>{btnText}</p>
+      {icon ? <img src={icon} alt="" /> : null}
+    </div>
+  );
+};
