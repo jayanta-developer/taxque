@@ -1,4 +1,3 @@
-import React from "react";
 import "./style.css";
 
 //images
@@ -17,14 +16,13 @@ import Clogo8 from "../../assets/images/CLogo8.svg";
 import taxImg from "../../assets/images/taxImg.svg";
 import GreenBg from "../../assets/images/GreenBg.svg";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
-import expertIcon from "../../assets/images/ExpertIcon.svg";
 
 //data
 import { servicesData, TaxQueData } from "../../assets/Data/intex";
 
 //components
 import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
+// import Footer from "../../components/Footer";
 
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard, TaxQueCard } from "../../components/Tools/intex";
