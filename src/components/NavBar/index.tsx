@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+// import React,{useEffect} from "react";
 import "./style.css";
 import { useLocation } from "react-router-dom";
 
@@ -11,8 +11,7 @@ import { AppBtn } from "../Buttons";
 export default function NavBar() {
   const location = useLocation();
   const currentUrl = location.pathname.toUpperCase().replace(" ", "");
- 
-  
+
   const NavItem: string[] = [
     "/",
     "Services",
@@ -22,7 +21,6 @@ export default function NavBar() {
     "Contact Us",
   ];
 
- 
   return (
     <>
       <div className="navBar">
@@ -32,10 +30,31 @@ export default function NavBar() {
 
         <div className="navItemBox">
           {NavItem?.map((el, i) => (
-            <p className={currentUrl.includes(el.toUpperCase())? "navItemText navItemTextActive":"navItemText"} key={i}>
-              {el === "/"? "Home":el }
-              <samp style={{display:currentUrl.includes(el.toUpperCase())?"block":"none"}} className="nl1"></samp>
-              <samp style={{display:currentUrl.includes(el.toUpperCase())?"block":"none"}}  className="nl2"></samp>
+            <p
+              className={
+                currentUrl.includes(el.toUpperCase())
+                  ? "navItemText navItemTextActive"
+                  : "navItemText"
+              }
+              key={i}
+            >
+              {el === "/" ? "Home" : el}
+              <samp
+                style={{
+                  display: currentUrl.includes(el.toUpperCase())
+                    ? "block"
+                    : "none",
+                }}
+                className="nl1"
+              ></samp>
+              <samp
+                style={{
+                  display: currentUrl.includes(el.toUpperCase())
+                    ? "block"
+                    : "none",
+                }}
+                className="nl2"
+              ></samp>
             </p>
           ))}
 
