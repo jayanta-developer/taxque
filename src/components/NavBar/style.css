@@ -27,6 +27,10 @@
   font-size: 18px;
   cursor: pointer;
   position: relative;
+  transition: all 0.6s;
+}
+.navItemText:hover {
+  color: #fe8903;
 }
 .navItemTextActive {
   color: #fe8903;

@@ -1,13 +1,13 @@
-import React from 'react'
-import "./style.css"
+import React from "react";
+import "./style.css";
 
 //images
-import FooterBg from '../../assets/images/FooterBg.png'
+import FooterBg from "../../assets/images/FooterBg.png";
 
 export default function Footer() {
   return (
-    <div className='Footer'>
+    <div className="footer">
       <img src={FooterBg} />
     </div>
-  )
+  );
 }
