@@ -1,4 +1,3 @@
-import React from "react";
 import "./style.css";
 
 //images
@@ -9,7 +8,6 @@ import watchIcom from "../../assets/images/timeIcon.svg";
 
 //components
 import { AppBtn } from "../Buttons";
-import { data } from "react-router-dom";
 
 interface serviceCardProps {
   icon: string;
