@@ -13,6 +13,10 @@ import tailoredIcon from "../../assets/images/tailoredIcon.svg";
 import timelyIcom from "../../assets/images/timelyIcon.svg";
 import securityIcon from "../../assets/images/securityIcon.svg";
 
+import BlogImg1 from "../../assets/images/BlogImg1.png";
+import BlogImg2 from "../../assets/images/BlogImg2.png";
+import BlogImg3 from "../../assets/images/BlogImg3.png";
+
 export const servicesData = [
   {
     icon: gstIcon,
@@ -67,4 +71,98 @@ export const TaxQueData = [
     summery:
       "Your financial data is handled with the utmost care and confidentiality.",
   },
+];
+
+export const priceCardData = [
+  {
+    title: "Standard Plan",
+    basicPrice: "1274",
+    price: "1274",
+    summery: "Perfect for Small Teams, Startups, and Growing Businesses",
+    fetures: [
+      "Single & Multiple Employers",
+      "Single & Multiple House Property",
+      "Multiple Capital Gain Income",
+      "Income from Other Sources",
+      "Agriculture Income",
+    ],
+    MostPopular: false,
+  },
+  {
+    title: "Business Plan",
+    basicPrice: "4025",
+    price: "2655",
+    summery:
+      "Everything in Business Income plus capital gain income & relief u/s 89.",
+    fetures: [
+      "F&O Income/Loss (Non Audit)",
+      "Speculative Income",
+      "Single & Multiple House Property",
+      "Income from Other Sources",
+      "Agriculture Income",
+    ],
+    MostPopular: true,
+  },
+  {
+    title: "Premium Plan",
+    basicPrice: "9485",
+    price: "7968",
+    summery: "Provides maximum tax benefit on your Indian income.",
+    fetures: [
+      "Salary Income",
+      "House Property Income",
+      "Interest & Other Sources Income",
+      "Easy ITR preparation & e-filing",
+      "Tax Payment Assistance",
+    ],
+    MostPopular: false,
+  },
+];
+
+export const BlogData = [
+  {
+    title: "Legal Framework of Share holder Agreements in India",
+    summery:
+      "Properties are most budget friendly so you have are opportunity to find are the best the best...",
+    date: "March 17, 2020",
+    userName: "Vignesh",
+    imgUrl: BlogImg1,
+  },
+  {
+    title: "How Shareholders Agreement Defines Stakeholders Roles",
+    summery:
+      "Properties are most budget friendly so you have are opportunity to find are the best the best...",
+    date: "March 17, 2020",
+    userName: "Vignesh",
+    imgUrl: BlogImg2,
+  },
+  {
+    title: "Directorate General of Foreign Trade (DGFT) Portal",
+    summery:
+      "Properties are most budget friendly so you have are opportunity to find are the best the best...",
+    date: "March 17, 2020",
+    userName: "Vignesh",
+    imgUrl: BlogImg3,
+  },
+];
+
+export const ChipData = [
+  "Partnership",
+  "Income Certificate",
+  "Form 61A",
+  "Form 16",
+  "Aadhar",
+  "Limited Liability Partnership",
+  "ESI Rate",
+  "Trademark Status",
+  "Experience Certificate",
+  "Police Clearance Certificate",
+  "Income Tax Return",
+  "PAN Card Download",
+  "Unified Portal",
+  "Partnership",
+  "Copyright Registration",
+  "Trade License",
+  "Rent Receipt",
+  "PAN Card Correction",
 ];

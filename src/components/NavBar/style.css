@@ -6,6 +6,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 9%;
+  position: absolute;
+  top: 0;
 }
 .clogoBox {
   display: flex;

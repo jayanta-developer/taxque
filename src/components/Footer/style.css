@@ -1,8 +1,84 @@
 .footer {
   width: 100%;
-  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-top: 100px;
+  padding-bottom: 20px;
+  margin-top: 100px;
 }
-.footer img {
+.footer .footerBg {
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+.hrLine1 {
+  width: 85%;
+  margin-top: 45px;
+}
+.footerTextBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2%;
+  margin: 60px 0;
+}
+.footerItemBox {
+  width: 17%;
+  display: flex;
+  flex-direction: column;
+}
+.footerHeaderText {
+  font-family: "poppinsBold";
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 22px;
+}
+.footerSubText {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.6s;
+}
+.footerSubText:hover {
+  color: #ffffff98;
+}
+.copyRithText {
+  font-size: 16px;
+  color: #ffffffb5;
+  margin-top: 40px;
+}
+.mediaBox {
+  width: 85%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.mediaBox .hrLine {
+  position: absolute;
+}
+.mediaIcomBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding: 0 40px;
+  background: #0d203b;
+  z-index: 1;
+}
+.mediaIcomBox img {
+  cursor: pointer;
+}
+.footerClog {
+  cursor: pointer;
 }
