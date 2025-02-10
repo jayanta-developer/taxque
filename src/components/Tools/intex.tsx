@@ -100,7 +100,7 @@ export const PriceCard = ({
       </div>
       <div className="pcSummerySection">
         {fetures.map((el: string, i: number) => (
-          <div className="pcFeturesPera">
+          <div key={i} className="pcFeturesPera">
             <img src={GreenTik} />
             <p key={i}>{el}</p>
           </div>

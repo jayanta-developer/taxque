@@ -32,6 +32,7 @@ import {
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+import MyCarousel from "../../components/Carousel";
 
 import { AppBtn } from "../../components/Buttons";
 import {
@@ -140,11 +141,7 @@ export default function Home() {
       {/* Blog section */}
       <div className="pricePlaneBox BlogSection">
         <p className="sectionHeader">Our Latest News</p>
-        <div className="priceCardBox">
-          {BlogData?.map((el, i) => (
-            <BlogCard {...el} key={i} />
-          ))}
-        </div>
+        <MyCarousel data={BlogData} />
       </div>
       {/* Subscribe section */}
       <div className="subscribeSection">

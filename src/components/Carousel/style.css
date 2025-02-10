@@ -1,0 +1,9 @@
+.carousel-container {
+  padding: 20px;
+}
+.react-multi-carousel-item {
+  width: 400px !important;
+}
+.react-multi-carousel-track {
+  gap: 30px;
+}

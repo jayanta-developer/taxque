@@ -144,6 +144,22 @@ export const BlogData = [
     userName: "Vignesh",
     imgUrl: BlogImg3,
   },
+  {
+    title: "Legal Framework of Share holder Agreements in India",
+    summery:
+      "Properties are most budget friendly so you have are opportunity to find are the best the best...",
+    date: "March 17, 2020",
+    userName: "Vignesh",
+    imgUrl: BlogImg1,
+  },
+  {
+    title: "How Shareholders Agreement Defines Stakeholders Roles",
+    summery:
+      "Properties are most budget friendly so you have are opportunity to find are the best the best...",
+    date: "March 17, 2020",
+    userName: "Vignesh",
+    imgUrl: BlogImg2,
+  },
 ];
 
 export const ChipData = [
