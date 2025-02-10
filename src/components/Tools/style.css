@@ -1,5 +1,6 @@
 .serviceCard {
   width: 25%;
+  min-width: 330px;
   padding: 15px;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -47,6 +48,7 @@
 }
 .taxQueCard {
   width: 18%;
+  min-width: 258px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,6 +69,7 @@
 }
 .priceCard {
   width: 25%;
+  min-width: 359px;
   background: #fff;
   padding: 20px;
   border-radius: 20px;
@@ -202,4 +205,13 @@
   bottom: -16px;
   right: 23px;
   cursor: pointer;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+}
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .serviceCard {
+    min-width: unset;
+  }
 }

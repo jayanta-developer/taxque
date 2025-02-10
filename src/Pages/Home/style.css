@@ -13,31 +13,39 @@
 }
 .heroMainSection {
   width: 100%;
-  min-height: 455px;
-  padding: 6% 9%;
+  /* margin-top: 260px; */
+  padding: 6% 2%;
   display: flex;
-  flex-direction: row;
-  gap: 30px;
+  flex-direction: column-reverse;
+  gap: 20px;
   justify-content: space-between;
 }
 .hrTextBox {
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
 }
 .hrImgBox {
-  width: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.hrImgBox img {
+  width: 60%;
 }
 .hrMainText {
-  font-size: 50px;
+  font-size: 24px;
   font-weight: 700;
   color: #000;
   font-family: poppinsBold;
+  text-align: center;
 }
 .hrSummeryText {
   font-size: 20px;
   color: #4d4d4d;
+  text-align: center;
 }
 .gRatingBox {
   margin-top: 20px;
@@ -51,6 +59,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 50px;
+  overflow: scroll;
 }
 .ClogoBox img {
   cursor: pointer;
@@ -64,10 +73,11 @@
   padding-top: 35px;
 }
 .sectionHeader {
-  font-size: 46px;
+  font-size: 32px;
   color: #000;
   font-weight: 700;
   font-family: "poppinsBold";
+  text-align: center;
 }
 .serviceCardBox {
   width: 100%;
@@ -78,39 +88,47 @@
   margin-top: 20px;
   padding: 0 30px;
   margin-bottom: 11%;
+  overflow-y: scroll;
 }
 .texSection {
   width: 100%;
-  padding: 0 9%;
+  padding: 0 2%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   gap: 30px;
   margin-bottom: 6%;
   position: relative;
 }
 .taxImgBox {
-  width: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .taxImgBox img {
-  width: 100%;
+  width: 65%;
   height: 100%;
 }
 .taxTextBox {
-  width: 60%;
+  width: 100%;
   padding: 20px 0;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 .taxTextBox .taxTitle {
   font-family: "poppinsBold";
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 600;
   color: #000;
+  text-align: center;
 }
 .taxTextBox .taxSummery {
   font-size: 16px;
   color: #4d4d4d;
   margin: 30px 0;
+  text-align: center;
 }
 .greenBg {
   position: absolute;
@@ -143,8 +161,9 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   gap: 3%;
+  overflow-y: scroll;
 }
 .pricePlaneBox {
   width: 100%;
@@ -157,20 +176,23 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   gap: 30px;
   margin-top: 2%;
   position: relative;
+  overflow-y: scroll;
+  padding: 25px 20px;
 }
 .yellowBg {
   position: absolute;
-  top: -50%;
+  top: 0%;
+  display: none;
 }
 .BlogSection {
   width: 100%;
 }
 .BlogSection .carousel-container {
-  width: 78%;
+  width: 100%;
 }
 .PopularSection {
   width: 100%;
@@ -178,7 +200,7 @@
   justify-content: center;
 }
 .PopulariNSection {
-  width: 78%;
+  width: 95%;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -221,8 +243,8 @@
   margin-bottom: 100px;
 }
 .subscribeInSection {
-  width: 65%;
-  padding: 60px;
+  width: 95%;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -233,26 +255,29 @@
 .subBg {
   position: absolute;
   right: -30px;
+  bottom: -30px;
 }
 .subMobileImg {
+  width: 29%;
   position: absolute;
   right: 49px;
   top: 32px;
+  display: none;
 }
 .subTitle {
-  width: 60%;
-  font-size: 30px;
+  width: 100%;
+  font-size: 20px;
   font-weight: 600;
   color: #000;
 }
 .subSummery {
-  width: 60%;
+  width: 100%;
   font-size: 16px;
   color: #4d4d4d;
   margin: 4% 0;
 }
 .emailInputBox {
-  width: 50%;
+  width: 100%;
   height: 54px;
   position: relative;
   border: 1px solid gray;
@@ -278,7 +303,135 @@
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {
+  .heroMainSection {
+    padding: 6% 4%;
+  }
+  .hrMainText {
+    text-align: start;
+    font-size: 35px;
+  }
+  .heroBox {
+    min-height: 1000px;
+  }
+  .texSection {
+    padding: 0 4%;
+    flex-direction: row;
+  }
+  .taxTextBox {
+    display: block;
+  }
+  .taxTextBox .taxTitle {
+    font-size: 30px;
+    text-align: start;
+  }
+  .greenBg {
+    top: 23%;
+  }
+  .sectionHeader {
+    font-size: 40px;
+  }
+  .hrTextBox {
+    align-items: start;
+  }
+  .hrSummeryText {
+    text-align: start;
+  }
+  .taxImgBox {
+    width: 40%;
+  }
+  .taxTextBox {
+    width: 60%;
+  }
+  .taxImgBox {
+    display: block;
+  }
+  .taxImgBox img {
+    width: 100%;
+  }
+  .taxTextBox .taxSummery {
+    text-align: start;
+  }
+  .sectionHeader {
+    text-align: start;
+  }
+  .subTitle {
+    width: 60%;
+  }
+  .subSummery {
+    width: 60%;
+  }
+  .emailInputBox {
+    width: 63%;
+  }
+  .subMobileImg {
+    display: block;
+  }
 }
 /* Desktop view */
 @media only screen and (min-width: 1000px) {
+  .heroMainSection {
+    padding: 6% 9%;
+    min-height: 455px;
+    flex-direction: row;
+    gap: 30px;
+  }
+  .hrTextBox {
+    width: 60%;
+  }
+  .hrImgBox {
+    width: 40%;
+  }
+  .hrMainText {
+    font-size: 50px;
+  }
+  .heroBox {
+    min-height: unset;
+  }
+  .texSection {
+    padding: 0 9%;
+  }
+  .taxTextBox .taxTitle {
+    font-size: 40px;
+  }
+  .greenBg {
+    top: 0%;
+  }
+  .yellowBg {
+    top: -50%;
+    display: block;
+  }
+  .taxQueCardBox {
+    justify-content: center;
+  }
+  .sectionHeader {
+    font-size: 46px;
+  }
+  .priceCardBox {
+    justify-content: center;
+    padding: 0 20px;
+    overflow: visible;
+  }
+  .BlogSection .carousel-container {
+    width: 78%;
+  }
+  .subscribeInSection {
+    width: 65%;
+    padding: 60px;
+  }
+  .subTitle {
+    font-size: 30px;
+  }
+  .subMobileImg {
+    width: unset;
+    top: 72px;
+  }
+  .PopulariNSection {
+    width: 78%;
+  }
+  .emailInputBox {
+    width: 50%;
+  }
+  .hrImgBox img {
+    width: unset;
+  }
 }

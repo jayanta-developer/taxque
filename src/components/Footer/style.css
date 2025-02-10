@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding-top: 100px;
+  padding-top: 50px;
   padding-bottom: 20px;
   margin-top: 100px;
 }
@@ -19,20 +19,22 @@
 }
 .hrLine1 {
   width: 85%;
-  margin-top: 45px;
+  margin-top: 20px;
 }
 .footerTextBox {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   gap: 2%;
   margin: 60px 0;
+  padding-left: 30px;
 }
 .footerItemBox {
-  width: 17%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 35px;
 }
 .footerHeaderText {
   font-family: "poppinsBold";
@@ -81,4 +83,35 @@
 }
 .footerClog {
   cursor: pointer;
+}
+
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .footerTextBox {
+    margin: 20px 0;
+    padding: 0;
+    flex-direction: row;
+  }
+  .footerItemBox {
+    width: 21%;
+    margin: 0;
+  }
+  .footer {
+    padding-top: 50px;
+  }
+}
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .footerTextBox {
+    margin: 60px 0;
+  }
+  .footerItemBox {
+    width: 17%;
+  }
+  .hrLine1 {
+    margin-top: 45px;
+  }
+  .footer {
+    padding-top: 100px;
+  }
 }
