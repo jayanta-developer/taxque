@@ -128,10 +128,8 @@ export default function Home() {
         </div>
       </div>
       {/* -Price plane Box */}
-      <div className="pricePlaneBox">
-        <p style={{ paddingLeft: "20px" }} className="sectionHeader">
-          Income Tax Return Filing Pricing Plans
-        </p>
+      <div className="pricePlaneBox PriceplaneSection">
+        <p className="sectionHeader">Income Tax Return Filing Pricing Plans</p>
         <div className="priceCardBox">
           <img src={YellowBg} className="yellowBg" />
           {priceCardData?.map((el, i) => (
