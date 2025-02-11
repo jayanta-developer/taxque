@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./style.css";
-import { BlogCard } from "../Tools/intex";
+import { BlogCard } from "../Tools";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },

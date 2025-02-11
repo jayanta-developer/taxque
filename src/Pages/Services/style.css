@@ -1,0 +1,30 @@
+.servicesPage {
+  width: 100%;
+}
+.subPageHeroSection {
+  width: 100%;
+  position: relative;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  overflow: hidden;
+  padding-bottom: 60px;
+}
+.navigateText {
+  font-size: 18px;
+  color: #fe8903;
+  cursor: pointer;
+}
+.navigateText span {
+  color: #000;
+}
+.serviceMainSection {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.servContaintBox {
+}

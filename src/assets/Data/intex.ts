@@ -17,6 +17,11 @@ import BlogImg1 from "../../assets/images/BlogImg1.png";
 import BlogImg2 from "../../assets/images/BlogImg2.png";
 import BlogImg3 from "../../assets/images/BlogImg3.png";
 
+import user1 from "../../assets/images/user1.png";
+import user2 from "../../assets/images/user2.png";
+import user3 from "../../assets/images/user3.png";
+import user4 from "../../assets/images/user4.png";
+
 export const servicesData = [
   {
     icon: gstIcon,
@@ -181,4 +186,27 @@ export const ChipData = [
   "Trade License",
   "Rent Receipt",
   "PAN Card Correction",
+];
+
+export const memberData = [
+  {
+    name: "Bhavna Ahuja",
+    possession: "Managing Partner/CEO",
+    img: user1,
+  },
+  {
+    name: "Saimon Jhonson",
+    possession: "Tax Consultant",
+    img: user2,
+  },
+  {
+    name: "Samir Jayaswal",
+    possession: "ROC Compliance Expert",
+    img: user3,
+  },
+  {
+    name: "Kevin Pitersen",
+    possession: "GST Specialist",
+    img: user4,
+  },
 ];

@@ -208,6 +208,47 @@
   right: 23px;
   cursor: pointer;
 }
+.userCard {
+  width: 25%;
+  height: 365px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.userCard .ucAvatarImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+}
+.mbCardInfo {
+  width: 93%;
+  position: absolute;
+  bottom: -68px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.mbName {
+  font-size: 20px;
+  font-weight: 500;
+  color: #121129;
+}
+.mbpos {
+  font-size: 16px;
+  color: #4d4d4d;
+}
+.mbIconBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .serviceCard {

@@ -35,11 +35,7 @@ import Footer from "../../components/Footer";
 import MyCarousel from "../../components/Carousel";
 
 import { AppBtn } from "../../components/Buttons";
-import {
-  ServiceCard,
-  TaxQueCard,
-  PriceCard,
-} from "../../components/Tools/intex";
+import { ServiceCard, TaxQueCard, PriceCard } from "../../components/Tools";
 
 export default function Home() {
   return (

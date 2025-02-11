@@ -5,6 +5,9 @@ import UPRightArrow from "../../assets/images/right-up.svg";
 import GreenTik from "../../assets/images/GreenTik.svg";
 import avatarIcom from "../../assets/images/Avatar.svg";
 import watchIcom from "../../assets/images/timeIcon.svg";
+import facebookIcon from "../../assets/images/facebookIcon.svg";
+import twittercon from "../../assets/images/twitterIcon.svg";
+import linkdinIcon from "../../assets/images/linkdinIcon.svg";
 
 //components
 import { AppBtn } from "../Buttons";
@@ -37,6 +40,12 @@ interface BlogCardProps {
   date: string;
   userName: string;
   imgUrl: string;
+}
+
+interface MemberCardProps {
+  name: string;
+  possession: string;
+  img: string;
 }
 
 export const ServiceCard = ({
@@ -136,6 +145,23 @@ export const BlogCard = ({
         <p className="BlogTitle">{title}</p>
         <p className="BlogSummery">{summery}</p>
         <img src={UPRightArrow} className="UpRArrow" />
+      </div>
+    </div>
+  );
+};
+
+export const MemberCard = ({ name, possession, img }: MemberCardProps) => {
+  return (
+    <div className="userCard">
+      <img src={img} className="ucAvatarImg" />
+      <div className="mbCardInfo">
+        <p className="mbName">{name}</p>
+        <p className="mbpos">{possession}</p>
+        <div className="mbIconBox">
+          <img src={facebookIcon} />
+          <img src={twittercon} />
+          <img src={linkdinIcon} />
+        </div>
       </div>
     </div>
   );

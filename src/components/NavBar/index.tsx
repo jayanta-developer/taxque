@@ -14,6 +14,7 @@ import blogIcon from "../../assets/images/blogIcon.png";
 import contaceUsIcon from "../../assets/images/contact-us.png";
 import backRoundArrow from "../../assets/images/backRoundArrow.png";
 import avatarIcon from "../../assets/images/avatarIcon.png";
+import searchIcon from "../../assets/images/SearchIcon.svg";
 
 //components
 import { AppBtn } from "../Buttons";
@@ -61,7 +62,7 @@ export default function NavBar() {
   ];
 
   const navigatePage = (url: string) => {
-    navigate(url);
+    navigate(url.toLowerCase());
     setNav(false);
   };
 
@@ -115,6 +116,7 @@ export default function NavBar() {
                   ? "navItemText navItemTextActive"
                   : "navItemText"
               }
+              onClick={() => navigatePage(el?.url)}
               key={i}
             >
               {el?.url === "/" ? "Home" : el?.url}
@@ -136,7 +138,7 @@ export default function NavBar() {
               ></samp>
             </p>
           ))}
-
+          <img src={searchIcon} />
           <AppBtn btnText="Log In" icon={rightArrow} />
           <img src={avatarIcon} className="LogInIconM" />
           <img
