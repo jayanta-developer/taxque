@@ -39,7 +39,6 @@ import {
   ServiceCard,
   TaxQueCard,
   PriceCard,
-  BlogCard,
 } from "../../components/Tools/intex";
 
 export default function Home() {
