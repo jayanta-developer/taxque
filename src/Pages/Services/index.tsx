@@ -1,7 +1,7 @@
 import "./style.css";
 
 //images
-import homeBg from "../../assets/images/homeBg.svg";
+import pageBg from "../../assets/images/otherPageBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
 import subBg from "../../assets/images/subBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
@@ -11,13 +11,19 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 
-export default function Services() {
+interface NavProps {
+  currentNav: string;
+  setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Services({ setCurrentNav, currentNav }: NavProps) {
+  setCurrentNav("Services");
   return (
     <>
       <div className="servicesPage">
         <div className="subPageHeroSection">
-          <NavBar />
-          <img src={homeBg} className="homeBg" alt="" />
+          <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          <img src={pageBg} className="pageBg" />
           <p className="navigateText">
             Home <span>{">"} Services</span>
           </p>

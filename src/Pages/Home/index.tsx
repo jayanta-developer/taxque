@@ -19,6 +19,7 @@ import taxQueImg from "../../assets/images/TaxQueImg.png";
 import YellowBg from "../../assets/images/YellowBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
 import subBg from "../../assets/images/subBg.svg";
+import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //data
 import {
@@ -37,11 +38,17 @@ import MyCarousel from "../../components/Carousel";
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard, TaxQueCard, PriceCard } from "../../components/Tools";
 
-export default function Home() {
+interface NavProps {
+  currentNav: string;
+  setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Home({ setCurrentNav, currentNav }: NavProps) {
+  setCurrentNav("Home");
   return (
     <>
       <div className="heroBox">
-        <NavBar />
+        <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
         <img src={homeBg} className="homeBg" alt="" />
         {/*-Hero section --  */}
         <div className="heroMainSection">
@@ -133,6 +140,13 @@ export default function Home() {
           ))}
         </div>
       </div>
+      {/* Review section */}
+      <div className="reviewSection">
+        <p className="sectionHeader">Success Stories & Reviews</p>
+        <img src={GRatingImg} className="grating" />
+        <img src={reviewTemImg} className="gratingTemImg" />
+      </div>
+
       {/* Blog section */}
       <div className="pricePlaneBox BlogSection">
         <p className="sectionHeader">Our Latest News</p>

@@ -1,7 +1,7 @@
 import "./style.css";
 
 //images
-import homeBg from "../../assets/images/homeBg.svg";
+import pageBg from "../../assets/images/otherPageBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
 import subBg from "../../assets/images/subBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
@@ -10,6 +10,10 @@ import oslImg1 from "../../assets/images/oslImg1.png";
 import oslImg2 from "../../assets/images/oslImg2.png";
 import arrow from "../../assets/images/arrow.png";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
+import reviewTemImg from "../../assets//images/reviewTemImg.svg";
+import GRatingImg from "../../assets/images/GRatingImg.svg";
+import GreenBg from "../../assets/images/GreenBg.svg";
+import YellowBg from "../../assets/images/YellowBg.svg";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -19,14 +23,21 @@ import { TaxQueCard, MemberCard } from "../../components/Tools";
 
 //data
 import { TaxQueData, memberData } from "../../assets/Data/intex";
+interface NavProps {
+  currentNav: string;
+  setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
+}
 
-export default function AboutUs() {
+export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
+  setCurrentNav("About Us");
+
   return (
     <>
       <div className="servicesPage aboutPage">
         <div className="subPageHeroSection">
-          <NavBar />
-          <img src={homeBg} className="homeBg" />
+          <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          <img src={pageBg} className="pageBg" />
+
           <p className="navigateText">
             Home <span>{">"} About Us</span>
           </p>
@@ -91,6 +102,8 @@ export default function AboutUs() {
                 <img src={arrow} className="oslDlIMg2" />
                 <p className="dlLabelText1">Vision</p>
                 <p className="dlLabelText2">Mission</p>
+                <img className="grb1" src={YellowBg} />
+                <img className="grb2" src={YellowBg} />
               </div>
             </div>
 
@@ -126,12 +139,20 @@ export default function AboutUs() {
           </div>
         </div>
         <div className="memberSection">
+          <img className="grb1" src={YellowBg} />
           <p className="sectionHeader">Leadership & Management</p>
           <div className="memberCardBox">
             {memberData?.map((el, i) => (
               <MemberCard {...el} key={i} />
             ))}
           </div>
+        </div>
+
+        {/* Review section */}
+        <div className="reviewSection">
+          <p className="sectionHeader">Success Stories & Reviews</p>
+          <img src={GRatingImg} className="grating" />
+          <img src={reviewTemImg} className="gratingTemImg" />
         </div>
 
         {/* Subscribe section */}

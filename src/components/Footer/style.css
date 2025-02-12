@@ -7,7 +7,7 @@
   position: relative;
   padding-top: 50px;
   padding-bottom: 20px;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 .footer .footerBg {
   width: 100%;
@@ -98,6 +98,7 @@
   }
   .footer {
     padding-top: 50px;
+    margin-top: 70px;
   }
 }
 /* Desktop view */
@@ -113,5 +114,6 @@
   }
   .footer {
     padding-top: 100px;
+    margin-top: 100px;
   }
 }

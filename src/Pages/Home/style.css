@@ -37,6 +37,7 @@
   width: 60%;
 }
 .hrMainText {
+  width: 80%;
   font-size: 24px;
   font-weight: 700;
   color: #000;
@@ -74,7 +75,8 @@
   padding-top: 35px;
 }
 .sectionHeader {
-  font-size: 32px;
+  width: 80%;
+  font-size: 25px;
   color: #000;
   font-weight: 700;
   font-family: "poppinsBold";
@@ -197,7 +199,7 @@
 }
 .PopularSection {
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
 }
 .PopulariNSection {
@@ -241,7 +243,6 @@
   display: flex;
   justify-content: center;
   margin-top: 40px;
-  margin-bottom: 100px;
 }
 .subscribeInSection {
   width: 95%;
@@ -302,12 +303,26 @@
   right: 0px;
   top: 0px;
 }
+.reviewSection {
+  width: 100%;
+  padding: 2% 9%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.reviewSection .grating {
+  margin: 45px 0;
+}
+.gratingTemImg {
+  width: 100%;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .heroMainSection {
     padding: 6% 4%;
   }
   .hrMainText {
+    width: unset;
     text-align: start;
     font-size: 35px;
   }
@@ -329,6 +344,7 @@
     top: 23%;
   }
   .sectionHeader {
+    width: unset;
     font-size: 40px;
   }
   .hrTextBox {
@@ -352,9 +368,7 @@
   .taxTextBox .taxSummery {
     text-align: start;
   }
-  .sectionHeader {
-    text-align: start;
-  }
+
   .subTitle {
     width: 60%;
   }
@@ -369,6 +383,11 @@
   }
   .serviceCardBox {
     padding: 20px 30px;
+  }
+
+  .PopularSection {
+    display: flex;
+    margin-top: 100px;
   }
 }
 /* Desktop view */
@@ -409,6 +428,7 @@
   }
   .sectionHeader {
     font-size: 46px;
+    text-align: start;
   }
   .priceCardBox {
     justify-content: center;

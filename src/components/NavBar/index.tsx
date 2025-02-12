@@ -19,10 +19,14 @@ import searchIcon from "../../assets/images/SearchIcon.svg";
 //components
 import { AppBtn } from "../Buttons";
 
-export default function NavBar() {
+interface NavProps {
+  currentNav: string;
+  setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function NavBar({ setCurrentNav, currentNav }: NavProps) {
   const location = useLocation();
   const navigate = useNavigate();
-  const currentUrl = location.pathname.toUpperCase().replace(" ", "");
   const [nav, setNav] = useState(false);
 
   const closeNav = (e: any) => {
@@ -31,32 +35,39 @@ export default function NavBar() {
     }
   };
   interface navItemType {
+    title: string;
     url: string;
     icon: string;
   }
   const NavItem: navItemType[] = [
     {
+      title: "Home",
       url: "/",
       icon: homeIcon,
     },
     {
-      url: "Services",
+      title: "Services",
+      url: "/services",
       icon: serviceIcon,
     },
     {
-      url: "About Us",
+      title: "About Us",
+      url: "/about",
       icon: aboutUsIcon,
     },
     {
-      url: "Pricing",
+      title: "Pricing",
+      url: "/pricing",
       icon: pricIngIcon,
     },
     {
-      url: "Blog",
+      title: "Blog",
+      url: "/blog",
       icon: blogIcon,
     },
     {
-      url: "Contact Us",
+      title: "Contact Us",
+      url: "/contactUs",
       icon: contaceUsIcon,
     },
   ];
@@ -79,7 +90,7 @@ export default function NavBar() {
     <>
       <div className="navBar">
         <div className="clogoBox">
-          <img src={Clogo} />
+          <img src={Clogo} onClick={() => navigate("/")} />
         </div>
 
         {/* Mobile nav */}
@@ -91,12 +102,12 @@ export default function NavBar() {
         >
           <div className="MobileMenu">
             {NavItem?.map((el, i) => (
-              <div className="mobileNavItem">
+              <div
+                className="mobileNavItem"
+                onClick={() => navigatePage(el?.url)}
+              >
                 <img src={el?.icon} />
-                <p key={i} onClick={() => navigatePage(el?.url)}>
-                  {" "}
-                  {el.url === "/" ? "Home" : el.url}
-                </p>
+                <p key={i}>{el.title}</p>
               </div>
             ))}
             <img
@@ -112,27 +123,23 @@ export default function NavBar() {
           {NavItem?.map((el, i) => (
             <p
               className={
-                currentUrl.includes(el?.url?.toUpperCase())
+                currentNav === el.title
                   ? "navItemText navItemTextActive"
                   : "navItemText"
               }
               onClick={() => navigatePage(el?.url)}
               key={i}
             >
-              {el?.url === "/" ? "Home" : el?.url}
+              {el?.title}
               <samp
                 style={{
-                  display: currentUrl.includes(el.url.toUpperCase())
-                    ? "block"
-                    : "none",
+                  display: currentNav === el.title ? "block" : "none",
                 }}
                 className="nl1"
               ></samp>
               <samp
                 style={{
-                  display: currentUrl.includes(el.url.toUpperCase())
-                    ? "block"
-                    : "none",
+                  display: currentNav === el.title ? "block" : "none",
                 }}
                 className="nl2"
               ></samp>

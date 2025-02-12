@@ -1,51 +1,53 @@
 .trustPatnarSection {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   justify-content: center;
   gap: 50px;
-  padding: 6% 9%;
+  padding: 6% 2%;
 }
 .tpTextBox {
-  width: 60%;
+  width: 100%;
 }
 .tpImgBox {
-  width: 40%;
+  width: 100%;
 }
 .tpImgBox img {
   width: 100%;
 }
 .tpHeaderText {
-  font-size: 37px;
+  font-size: 24px;
   font-weight: 600;
+  text-align: center;
 
   color: #000;
 }
 .tpSubHeaderText {
   font-size: 16px;
   color: #4d4d4d;
+  text-align: center;
 }
 .storyLineSection {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3% 9%;
+  padding: 3% 2%;
   padding-bottom: 7%;
 }
 .storyLineSection .oslSubText {
-  width: 80%;
+  width: 100%;
   text-align: center;
 }
 .oslMainBox {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 50px;
 }
 .oslBox {
-  width: 48%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -65,7 +67,7 @@
 }
 .oslLineBox {
   width: 160px;
-  display: flex;
+  display: none;
   justify-content: center;
 }
 .divLine {
@@ -110,9 +112,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2% 9%;
+  padding: 2%;
   margin-top: 80px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.memberSection .grb1 {
+  display: none;
+  width: 590px;
+  top: -259px;
+  position: absolute;
 }
 .memberCardBox {
   width: 100%;
@@ -121,4 +130,83 @@
   justify-content: center;
   gap: 30px;
   margin-top: 40px;
+  overflow-y: scroll;
+  padding-bottom: 105px;
+}
+
+.divLine .grb1 {
+  width: 590px;
+  top: -259px;
+  position: absolute;
+}
+.divLine .grb2 {
+  width: 638px;
+  position: absolute;
+  bottom: -254px;
+}
+.oslB2 {
+  flex-direction: column-reverse;
+  margin-top: 30px;
+}
+.aboutPage .sectionHeader {
+  width: 100%;
+  text-align: center;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .storyLineSection {
+    padding: 8% 3%;
+  }
+  .tpHeaderText {
+    font-size: 37px;
+  }
+  .oslLineBox {
+    display: flex;
+  }
+  .oslMainBox {
+    flex-direction: row;
+  }
+  .oslBox {
+    width: 48%;
+  }
+  .storyLineSection .oslSubText {
+    width: 80%;
+  }
+  .oslB2 {
+    flex-direction: column;
+    margin-top: 0px;
+  }
+  .memberSection .grb1 {
+    display: block;
+  }
+  .memberSection {
+    padding: 2% 9%;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .trustPatnarSection {
+    flex-direction: row;
+    padding: 6% 9%;
+  }
+  .tpTextBox {
+    width: 60%;
+  }
+  .tpImgBox {
+    width: 40%;
+  }
+
+  .tpHeaderText {
+    text-align: start;
+  }
+  .tpSubHeaderText {
+    text-align: start;
+  }
+  .storyLineSection {
+    padding: 6% 9%;
+  }
+  .memberSection {
+    margin-bottom: 0;
+  }
 }
