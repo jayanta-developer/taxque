@@ -20,6 +20,7 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { TaxQueCard, MemberCard } from "../../components/Tools";
+import Responsive from "../../components/Slider";
 
 //data
 import { TaxQueData, memberData } from "../../assets/Data/intex";
@@ -141,11 +142,12 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
         <div className="memberSection">
           <img className="grb1" src={YellowBg} />
           <p className="sectionHeader">Leadership & Management</p>
-          <div className="memberCardBox">
+          <Responsive />
+          {/* <div className="memberCardBox">
             {memberData?.map((el, i) => (
               <MemberCard {...el} key={i} />
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Review section */}

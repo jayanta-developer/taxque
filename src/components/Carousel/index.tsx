@@ -59,8 +59,8 @@ const MyCarousel = ({ data }: { data: BlogCardProps[] }) => {
       ssr={true}
       infinite={true}
       // autoPlay={deviceType !== "mobile"}
-      autoPlay={true}
-      autoPlaySpeed={4000}
+      // autoPlay={true}
+      autoPlaySpeed={3000}
       keyBoardControl={true}
       customTransition="all .5s"
       transitionDuration={500}

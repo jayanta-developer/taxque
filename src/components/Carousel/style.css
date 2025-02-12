@@ -2,8 +2,17 @@
   padding: 20px;
 }
 .react-multi-carousel-item {
-  width: 400px !important;
+  width: 92.5vw !important;
 }
 .react-multi-carousel-track {
   gap: 30px;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .react-multi-carousel-item {
+    width: 345px !important;
+  }
+}
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
 }

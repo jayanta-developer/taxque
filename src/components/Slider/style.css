@@ -1,0 +1,7 @@
+.slick-slide {
+  height: 200px !important;
+  background: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
