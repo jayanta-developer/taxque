@@ -5,11 +5,19 @@ import pageBg from "../../assets/images/otherPageBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
 import subBg from "../../assets/images/subBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
+import GRatingImg from "../../assets/images/GRatingImg.svg";
+import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
+
+//data
+import { servicesData } from "../../assets/Data/intex";
+
+//components
+import { ServiceCard } from "../../components/Tools";
 
 interface NavProps {
   currentNav: string;
@@ -27,12 +35,18 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
           <p className="navigateText">
             Home <span>{">"} Services</span>
           </p>
-          <p className="hrMainText">Expert Online tax consultant Services</p>
+          <p className="hrMainText">Expert Online Tax Consultant Services</p>
         </div>
         <div className="serviceMainSection">
-          <div className="servContaintBox"></div>
-          <div className="servMLineBox"></div>
-          <div className="servContaintBox"></div>
+          {servicesData?.map((el, i) => (
+            <ServiceCard {...el} key={i} />
+          ))}
+        </div>
+        {/* Review section */}
+        <div className="reviewSection">
+          <p className="sectionHeader">Success Stories & Reviews</p>
+          <img src={GRatingImg} className="grating" />
+          <img src={reviewTemImg} className="gratingTemImg" />
         </div>
         {/* Subscribe section */}
         <div className="subscribeSection">

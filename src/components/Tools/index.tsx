@@ -62,7 +62,7 @@ export const ServiceCard = ({
         <p>{title}</p>
       </div>
       <div className="hrLine"></div>
-      <p className="svrCardSummery">{summery}</p>
+      <p className="svrCardSummery">{summery.slice(0, 100)}...</p>
       <div className="sveCardImgBox">
         <img src={img} alt="" />
       </div>

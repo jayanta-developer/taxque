@@ -23,7 +23,12 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding: 0 20px;
 }
 .pageBg {
   position: absolute;
@@ -33,4 +38,24 @@
   height: 100%;
   z-index: -1;
   object-fit: cover;
+}
+.servicesPage .serviceCard {
+  width: 100%;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .serviceMainSection {
+    margin: 50px 0;
+  }
+  .servicesPage .serviceCard {
+    width: 25%;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .serviceMainSection {
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
 }

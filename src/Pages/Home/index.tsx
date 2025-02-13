@@ -90,7 +90,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       <div className="serviceSection">
         <p className="sectionHeader">Our Services</p>
         <div className="serviceCardBox">
-          {servicesData?.map((el, i) => (
+          {servicesData?.slice(0, 4).map((el, i) => (
             <ServiceCard key={i} {...el} />
           ))}
         </div>

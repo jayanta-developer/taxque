@@ -42,7 +42,7 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
           <p className="navigateText">
             Home <span>{">"} About Us</span>
           </p>
-          <p className="hrMainText">Our Journey to Simplify Taxes for You</p>
+          <p className="hrMainText">Our Journey to Simplify Taxes For You</p>
         </div>
         {/* trust patnar */}
         <div className="trustPatnarSection">

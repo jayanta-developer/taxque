@@ -17,11 +17,13 @@ function AppSlider({ data, cardName }: any) {
     initialSlide: 0,
     infinite: true,
     autoplay: true,
-    speed: 5000,
-    autoplaySpeed: 1000,
+    speed: 1000,
+    autoplaySpeed: 2000,
     cssEase: "linear",
     pauseOnHover: true,
-
+    centerMode: true,
+    className: "center",
+    centerPadding: "30px",
     responsive: [
       {
         breakpoint: 1024,
