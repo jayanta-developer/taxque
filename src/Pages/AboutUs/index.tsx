@@ -19,7 +19,7 @@ import YellowBg from "../../assets/images/YellowBg.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-import { TaxQueCard, MemberCard } from "../../components/Tools";
+import { TaxQueCard } from "../../components/Tools";
 import AppSlider from "../../components/Slider";
 
 //data
