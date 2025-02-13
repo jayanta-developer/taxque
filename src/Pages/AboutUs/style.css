@@ -152,6 +152,12 @@
   width: 100%;
   text-align: center;
 }
+.btnBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .storyLineSection {
@@ -180,7 +186,7 @@
     display: block;
   }
   .memberSection {
-    padding: 2% 9%;
+    /* padding: 2% %; */
   }
 }
 
@@ -188,7 +194,8 @@
 @media only screen and (min-width: 1000px) {
   .trustPatnarSection {
     flex-direction: row;
-    padding: 6% 9%;
+    padding: 0% 9%;
+    padding-top: 6%;
   }
   .tpTextBox {
     width: 60%;
@@ -208,5 +215,6 @@
   }
   .memberSection {
     margin-bottom: 0;
+    padding: 2% 9%;
   }
 }

@@ -1,7 +1,22 @@
 .slick-slide {
-  height: 200px !important;
-  background: gray;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 270px !important;
+  height: 440px !important;
+  margin: 0 27px;
+}
+.slider-container {
+  margin-top: 30px;
+  height: 480px;
+}
+.slider-container > div {
+  height: 480px;
+}
+.slick-list {
+  height: 480px;
+}
+.slick-list > div {
+  height: 100%;
+}
+.slick-track {
+  display: flex !important;
+  flex-wrap: nowrap;
 }

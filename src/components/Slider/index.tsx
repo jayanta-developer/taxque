@@ -4,17 +4,24 @@ import "./style.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function Responsive() {
+// card
+import { TaxQueCard, MemberCard } from "../../components/Tools";
+
+function AppSlider({ data, cardName }: any) {
+  console.log(data, cardName);
+
   var settings = {
-    dots: true,
+    dots: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
     infinite: true,
     autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 4000,
+    speed: 5000,
+    autoplaySpeed: 1000,
     cssEase: "linear",
+    pauseOnHover: true,
+
     responsive: [
       {
         breakpoint: 1024,
@@ -45,33 +52,12 @@ function Responsive() {
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        <div>
-          <h3>1</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
-        <div>
-          <h3>7</h3>
-        </div>
-        <div>
-          <h3>8</h3>
-        </div>
+        {data?.map((el: any, i: any) => (
+          <MemberCard {...el} key={i} />
+        ))}
       </Slider>
     </div>
   );
 }
 
-export default Responsive;
+export default AppSlider;
