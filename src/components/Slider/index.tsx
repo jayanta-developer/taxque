@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // card
-import { TaxQueCard, MemberCard } from "../../components/Tools";
+import { MemberCard } from "../../components/Tools";
 
 function AppSlider({ data, cardName }: any) {
   console.log(data, cardName);
