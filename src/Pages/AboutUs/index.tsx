@@ -12,7 +12,7 @@ import arrow from "../../assets/images/arrow.png";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 import GRatingImg from "../../assets/images/GRatingImg.svg";
-import GreenBg from "../../assets/images/GreenBg.svg";
+// import GreenBg from "../../assets/images/GreenBg.svg";
 import YellowBg from "../../assets/images/YellowBg.svg";
 
 //components
