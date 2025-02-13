@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./style.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //images
 import Clogo from "../../assets/images/logo.svg";
@@ -24,8 +24,7 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function NavBar({ setCurrentNav, currentNav }: NavProps) {
-  const location = useLocation();
+export default function NavBar({ currentNav }: NavProps) {
   const navigate = useNavigate();
   const [nav, setNav] = useState(false);
 
