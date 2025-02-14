@@ -12,7 +12,7 @@
   padding-bottom: 60px;
 }
 .navigateText {
-  font-size: 18px;
+  font-size: 12px;
   color: #fe8903;
   cursor: pointer;
 }
@@ -49,6 +49,9 @@
   }
   .servicesPage .serviceCard {
     width: 25%;
+  }
+  .navigateText {
+    font-size: 18px;
   }
 }
 

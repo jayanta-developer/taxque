@@ -1,0 +1,142 @@
+.productPage {
+  width: 100%;
+}
+.SMHeroBox {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  /* margin-bottom: 50px; */
+}
+.smPageBG {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+.productPageMainSection {
+  width: 100%;
+  padding: 2%;
+}
+.productPage .navigateText {
+  margin-bottom: 40px;
+}
+
+.productDetailBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+.productInfoSection {
+  width: 100%;
+}
+.sideBannerSection {
+  display: none;
+  width: 30%;
+}
+.productHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+.productHeader p {
+  font-size: 20px;
+  font-family: "poppinsBold";
+  color: #000;
+}
+.productInfoBox {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(
+    204.27deg,
+    rgba(150, 221, 111, 0.1) 0%,
+    rgba(255, 255, 255, 0.1) 49.84%,
+    rgba(241, 255, 47, 0.1) 99.31%
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(128, 128, 128, 0.185);
+  margin-top: 30px;
+}
+.productBannder {
+  width: 100%;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+.productInfoHeader {
+  font-size: 26px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 30px;
+}
+.piNText {
+  font-size: 16px;
+  color: #4d4d4d;
+  margin: 20px 0;
+}
+.piSubTitleText {
+  font-size: 20px;
+  font-weight: 600;
+}
+/* contact box */
+.contactBox {
+  width: 100%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(128, 128, 128, 0.192);
+}
+.contactHeader {
+  font-size: 22px;
+  font-weight: 600;
+  color: #121129;
+}
+.inputBox {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.inputLabel {
+  font-size: 16px;
+  color: #979797;
+}
+.inputBox input {
+  width: 100%;
+  border: none;
+  border-bottom: gray 1px solid;
+}
+.inputBox input:focus {
+  outline: none;
+}
+.inputBox textarea {
+  width: 100%;
+  border: none;
+  border-bottom: gray 1px solid;
+}
+.inputBox textarea:focus {
+  outline: none;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .productHeader p {
+    font-size: 30px;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .productInfoSection {
+    width: 70%;
+  }
+  .sideBannerSection {
+    width: 30%;
+    display: block;
+  }
+  .productPageMainSection {
+    padding: 2% 9%;
+  }
+  .productHeader p {
+    font-size: 40px;
+  }
+}

@@ -34,6 +34,7 @@ import {
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import MyCarousel from "../../components/Carousel";
+import Subscribe from "../../components/Subscribe/intex";
 
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard, TaxQueCard, PriceCard } from "../../components/Tools";
@@ -153,34 +154,12 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         <MyCarousel data={BlogData} />
       </div>
       {/* Subscribe section */}
-      <div className="subscribeSection">
-        <div className="subscribeInSection">
-          <img className="subBg" src={subBg} />
-          <img className="subMobileImg" src={MobileImg} />
-          <p className="subTitle">
-            Subscribe to Our Newsletter and Reduce your tax liability up to 26%
-          </p>
-          <p className="subSummery">
-            We are India's most trusted tax filing platform. Our team goes
-            through in-depth training to help you plan and minimize your tax
-            liability.
-          </p>
-          <div className="emailInputBox">
-            <input type="text" placeholder="Enter Your Email..." />
-            <AppBtn
-              btnText="Subscribe"
-              icon={rightArrow}
-              width="166px"
-              height="52px"
-            />
-          </div>
-        </div>
-      </div>
+      <Subscribe />
 
       {/* Popular tag section */}
       <div className="PopularSection">
         <div className="PopulariNSection">
-          <p className="sectionHeader">Popular Searches</p>
+          <p className="sectionHeader">Popular Services</p>
           <div className="ChipBox">
             {ChipData?.map((el, i) => (
               <div key={i} className="chip">
