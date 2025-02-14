@@ -17,8 +17,6 @@ import taxImg from "../../assets/images/taxImg.svg";
 import GreenBg from "../../assets/images/GreenBg.svg";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
 import YellowBg from "../../assets/images/YellowBg.svg";
-import MobileImg from "../../assets/images/MobileImg.png";
-import subBg from "../../assets/images/subBg.svg";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //data
