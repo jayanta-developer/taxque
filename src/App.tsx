@@ -7,6 +7,7 @@ import Home from "./Pages/Home";
 import Services from "./Pages/Services";
 import AboutUs from "./Pages/AboutUs";
 import ProductDetails from "./Pages/ProductDetails";
+import ProductPayment from "./Pages/ProductPayment";
 
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
@@ -36,6 +37,15 @@ function App() {
           path="/services/product-details"
           element={
             <ProductDetails
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+          }
+        />
+        <Route
+          path="/services/product-details/payment"
+          element={
+            <ProductPayment
               setCurrentNav={setCurrentNav}
               currentNav={currentNav}
             />
