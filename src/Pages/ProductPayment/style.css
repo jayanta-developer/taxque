@@ -15,8 +15,8 @@
   margin-bottom: 20px;
 }
 .checkBox input {
-  width: 20px;
-  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
 }
 .checkBox p {
   font-size: 16px;
@@ -26,24 +26,26 @@
   margin-bottom: 20px;
 }
 .productCoverBox {
-  width: 50%;
+  width: 100%;
 }
 .productPaymentPage .productDetailBox {
-  margin-top: 100px;
+  margin-top: 50px;
   gap: 40px;
+  flex-direction: column;
 }
 
 .productNInfoBoxBox {
-  width: 50%;
+  width: 100%;
 }
 .productPaymentPage .productHeader {
   margin-bottom: 30px;
 }
 .productPaymentPage .pricePlaneBox {
-  padding: 6% 9%;
+  padding: 2% 2%;
 }
 .pricePanaleTableBox {
   width: 100%;
+  min-width: 990px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -76,4 +78,31 @@
 }
 .PrmTextColor {
   color: #fa8a05;
+}
+.tableOuterBox {
+  width: 100%;
+  overflow-x: scroll;
+}
+.contactBox {
+  min-width: 345px;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+}
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .productPaymentPage .productDetailBox {
+    margin-top: 100px;
+    flex-direction: row;
+  }
+  .productCoverBox {
+    width: 50%;
+  }
+
+  .productNInfoBoxBox {
+    width: 50%;
+  }
+  .productPaymentPage .pricePlaneBox {
+    padding: 6% 9%;
+  }
 }

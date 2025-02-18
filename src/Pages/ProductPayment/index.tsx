@@ -148,104 +148,106 @@ export default function ProductPayment({
         {/* Price chart Box  */}
         <div className="pricePlaneBox">
           <p className="sectionHeader">See features includes</p>
-          <div className="pricePanaleTableBox">
-            <div className="PRow PheaderRow">
-              <div className="tableSel" style={{ minWidth: "30%" }}>
-                <p></p>
+          <div className="tableOuterBox">
+            <div className="pricePanaleTableBox">
+              <div className="PRow PheaderRow">
+                <div className="tableSel" style={{ minWidth: "30%" }}>
+                  <p></p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <p className="tableHeaderText">Standard</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <p className="tableHeaderText">NRI</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <p className="tableHeaderText">Business Income</p>
+                </div>
               </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <p className="tableHeaderText">Standard</p>
+              {/*  */}
+              <div className="PRow">
+                <div className="tableSel textAS" style={{ minWidth: "30%" }}>
+                  <p>Price</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <p className="tableHeaderText PrmTextColor">₹ 1274</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <p className="tableHeaderText PrmTextColor">₹ 2655</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <p className="tableHeaderText PrmTextColor">₹ 7968</p>
+                </div>
               </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <p className="tableHeaderText">NRI</p>
+              <div className="PRow">
+                <div className="tableSel textAS" style={{ minWidth: "30%" }}>
+                  <p>Interest & Other Sources Income</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={grayTik} />{" "}
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />{" "}
+                </div>
               </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <p className="tableHeaderText">Business Income</p>
+              <div className="PRow">
+                <div className="tableSel textAS" style={{ minWidth: "30%" }}>
+                  <p>Expanded set of self-help tools</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={grayTik} />
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />{" "}
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />{" "}
+                </div>
               </div>
-            </div>
-            {/*  */}
-            <div className="PRow">
-              <div className="tableSel textAS" style={{ minWidth: "30%" }}>
-                <p>Price</p>
+              <div className="PRow">
+                <div className="tableSel textAS" style={{ minWidth: "30%" }}>
+                  <p>Examination of previous year ITR</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />{" "}
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={grayTik} />{" "}
+                </div>
               </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <p className="tableHeaderText PrmTextColor">₹ 1274</p>
+              <div className="PRow">
+                <div className="tableSel textAS" style={{ minWidth: "30%" }}>
+                  <p>26AS Data Import</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={grayTik} />{" "}
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />{" "}
+                </div>
               </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <p className="tableHeaderText PrmTextColor">₹ 2655</p>
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <p className="tableHeaderText PrmTextColor">₹ 7968</p>
-              </div>
-            </div>
-            <div className="PRow">
-              <div className="tableSel textAS" style={{ minWidth: "30%" }}>
-                <p>Interest & Other Sources Income</p>
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={grayTik} />{" "}
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />{" "}
-              </div>
-            </div>
-            <div className="PRow">
-              <div className="tableSel textAS" style={{ minWidth: "30%" }}>
-                <p>Expanded set of self-help tools</p>
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={grayTik} />
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />{" "}
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />{" "}
-              </div>
-            </div>
-            <div className="PRow">
-              <div className="tableSel textAS" style={{ minWidth: "30%" }}>
-                <p>Examination of previous year ITR</p>
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />{" "}
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={grayTik} />{" "}
-              </div>
-            </div>
-            <div className="PRow">
-              <div className="tableSel textAS" style={{ minWidth: "30%" }}>
-                <p>26AS Data Import</p>
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={grayTik} />{" "}
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />{" "}
-              </div>
-            </div>
-            <div className="PRow">
-              <div className="tableSel textAS" style={{ minWidth: "30%" }}>
-                <p>Tax Payment Assistance</p>
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={grayTik} />
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />{" "}
-              </div>
-              <div className="tableSel" style={{ minWidth: "23%" }}>
-                <img src={greenTik} />{" "}
+              <div className="PRow">
+                <div className="tableSel textAS" style={{ minWidth: "30%" }}>
+                  <p>Tax Payment Assistance</p>
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={grayTik} />
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />{" "}
+                </div>
+                <div className="tableSel" style={{ minWidth: "23%" }}>
+                  <img src={greenTik} />{" "}
+                </div>
               </div>
             </div>
           </div>
