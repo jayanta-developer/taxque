@@ -257,7 +257,7 @@
 .blogRowCard {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 20px;
   padding: 20px;
   border-radius: 20px;
@@ -265,10 +265,10 @@
   background: #f8f8f8;
 }
 .blogRowCard .blogImg {
-  width: 40%;
+  width: 100%;
 }
 .blogRowCard .BlogTextBox {
-  width: 60%;
+  width: 100%;
 }
 .blogBUserInfoBox {
   width: 100%;
@@ -309,6 +309,15 @@
   }
   .blogRowCard {
     gap: 8px;
+  }
+  .blogRowCard {
+    flex-direction: row;
+  }
+  .blogRowCard .blogImg {
+    width: 40%;
+  }
+  .blogRowCard .BlogTextBox {
+    width: 60%;
   }
 }
 /* Desktop view */
