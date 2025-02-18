@@ -1,0 +1,81 @@
+.blogMainSection {
+  width: 100%;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.blogNavBox {
+  width: 100%;
+}
+.blogInfoBox {
+  width: 100%;
+}
+.blogCardBottomLine {
+  width: 100%;
+  border-top: 1px solid rgba(128, 128, 128, 0.347);
+  margin: 10px 0;
+}
+.UpRArrow {
+  bottom: -5px;
+  right: -5px;
+}
+.blogCatagoribox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+.bcRow {
+  width: 100%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background: #feffea;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  position: relative;
+}
+.bcRow p {
+  color: #003057;
+}
+.bcHeaderRow {
+  background: #003057;
+  border-radius: 10px 10px 0 0;
+}
+.bcHeaderRow p {
+  color: #fff;
+}
+.dropArrow {
+  position: absolute;
+  right: 20px;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .blogMainSection {
+    flex-direction: row;
+  }
+  .blogNavBox {
+    width: 25%;
+  }
+  .blogInfoBox {
+    width: 75%;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .blogMainSection {
+    padding: 6% 9%;
+    gap: 30px;
+  }
+  .blogCardBottomLine {
+    margin: 20px 0;
+  }
+}

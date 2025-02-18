@@ -254,6 +254,32 @@
   justify-content: center;
   gap: 8px;
 }
+.blogRowCard {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(128, 128, 128, 0.256);
+  background: #f8f8f8;
+}
+.blogRowCard .blogImg {
+  width: 40%;
+}
+.blogRowCard .BlogTextBox {
+  width: 60%;
+}
+.blogBUserInfoBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.blogRowCard .buABox p {
+  color: #fe8903;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .serviceCard {
@@ -281,10 +307,16 @@
   .pcHeroSection {
     padding: 20px;
   }
+  .blogRowCard {
+    gap: 8px;
+  }
 }
 /* Desktop view */
 @media only screen and (min-width: 1000px) {
   .serviceCard {
     min-width: unset;
+  }
+  .blogRowCard {
+    gap: 20px;
   }
 }

@@ -166,3 +166,34 @@ export const MemberCard = ({ name, possession, img }: MemberCardProps) => {
     </div>
   );
 };
+
+export const BlogRowCard = ({
+  title,
+  summery,
+  date,
+  userName,
+  imgUrl,
+}: BlogCardProps) => {
+  return (
+    <div className="blogRowCard">
+      <img src={imgUrl} className="blogImg" />
+      <div className="BlogTextBox">
+        <div className="blogBUserInfoBox">
+          <div className="buABox">
+            <img src={avatarIcom} />
+            <p>{userName}</p>
+          </div>
+
+          <div className="buABox">
+            <img src={watchIcom} />
+            <p>{date}</p>
+          </div>
+        </div>
+
+        <p className="BlogTitle">{title}</p>
+        <p className="BlogSummery">{summery}</p>
+        <img src={UPRightArrow} className="UpRArrow" />
+      </div>
+    </div>
+  );
+};

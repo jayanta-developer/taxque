@@ -8,6 +8,7 @@ import Services from "./Pages/Services";
 import AboutUs from "./Pages/AboutUs";
 import ProductDetails from "./Pages/ProductDetails";
 import ProductPayment from "./Pages/ProductPayment";
+import BlogPage from "./Pages/BlogPage";
 
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
@@ -49,6 +50,12 @@ function App() {
               setCurrentNav={setCurrentNav}
               currentNav={currentNav}
             />
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <BlogPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
           }
         />
         <Route path="*" element={<GlobalPage />} />

@@ -12,12 +12,10 @@ import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
+import { ServiceCard } from "../../components/Tools";
 
 //data
 import { servicesData } from "../../assets/Data/intex";
-
-//components
-import { ServiceCard } from "../../components/Tools";
 
 interface NavProps {
   currentNav: string;
