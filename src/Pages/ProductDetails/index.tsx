@@ -15,7 +15,6 @@ import ContactSection from "../../components/ContactSection";
 
 //data
 import { priceCardData } from "../../assets/Data/intex";
-import { AppBtn } from "../../components/Buttons";
 
 interface NavProps {
   currentNav: string;
