@@ -11,6 +11,7 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { PriceCard } from "../../components/Tools";
 import Subscribe from "../../components/Subscribe/intex";
+import ContactSection from "../../components/ContactSection";
 
 //data
 import { priceCardData } from "../../assets/Data/intex";
@@ -85,26 +86,7 @@ export default function ProductDetails({
               </div>
             </div>
             <div className="sideBannerSection">
-              <div className="contactBox">
-                <p className="contactHeader">We’re Here To Get In Touch</p>
-                <div className="inputBox">
-                  <p className="inputLabel">Full Name *</p>
-                  <input type="text" />
-                </div>
-                <div className="inputBox">
-                  <p className="inputLabel">Phone *</p>
-                  <input type="text" />
-                </div>
-                <div className="inputBox">
-                  <p className="inputLabel">Email Address *</p>
-                  <input type="text" />
-                </div>
-                <div className="inputBox">
-                  <p className="inputLabel">Message *</p>
-                  <textarea />
-                </div>
-                <AppBtn btnText="Submit Now" />
-              </div>
+              <ContactSection />
             </div>
           </div>
 

@@ -35,3 +35,28 @@ export const AppBtn: React.FC<btnProps> = ({
     </div>
   );
 };
+
+export const AppHoloBtn: React.FC<btnProps> = ({
+  btnText,
+  bgColor,
+  width,
+  height,
+  textColor,
+  icon,
+  onClick,
+}) => {
+  return (
+    <div
+      onClick={onClick}
+      className="appBtn appholorBtn"
+      style={{
+        width,
+        minHeight: height || "50px",
+        background: bgColor,
+      }}
+    >
+      <p style={{ color: textColor || "#fff" }}>{btnText}</p>
+      {icon ? <img src={icon} alt="" /> : null}
+    </div>
+  );
+};

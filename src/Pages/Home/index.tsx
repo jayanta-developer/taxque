@@ -25,7 +25,6 @@ import {
   TaxQueData,
   priceCardData,
   BlogData,
-  ChipData,
 } from "../../assets/Data/intex";
 
 //components
@@ -153,20 +152,6 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       </div>
       {/* Subscribe section */}
       <Subscribe />
-
-      {/* Popular tag section */}
-      <div className="PopularSection">
-        <div className="PopulariNSection">
-          <p className="sectionHeader">Popular Services</p>
-          <div className="ChipBox">
-            {ChipData?.map((el, i) => (
-              <div key={i} className="chip">
-                <p>{el}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
       <Footer />
     </>
   );

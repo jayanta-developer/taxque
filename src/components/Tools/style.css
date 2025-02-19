@@ -17,9 +17,10 @@
   position: relative;
 }
 .svrUpArrow {
+  width: 30px;
   position: absolute;
-  top: 12px;
-  right: 3px;
+  top: -5px;
+  right: -5px;
   cursor: pointer;
 }
 .svrCardHeader p {

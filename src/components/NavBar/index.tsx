@@ -102,6 +102,7 @@ export default function NavBar({ currentNav }: NavProps) {
           <div className="MobileMenu">
             {NavItem?.map((el, i) => (
               <div
+                key={i}
                 className="mobileNavItem"
                 onClick={() => navigatePage(el?.url)}
               >
