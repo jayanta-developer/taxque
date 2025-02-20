@@ -56,6 +56,7 @@ export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
           <p className="hrMainText">News & Press Releases</p>
         </div>
         <div className="blogMainSection">
+          <p className="sectionHeader">Explore all articles</p>
           <div className="blogNavBox">
             <div className="blogCatagoribox">
               <div className="bcRow bcHeaderRow">

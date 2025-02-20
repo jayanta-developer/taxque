@@ -28,8 +28,6 @@ interface BlogCardProps {
   imgUrl: string;
 }
 const MyCarousel = ({ data }: { data: BlogCardProps[] }) => {
-  console.log(data);
-
   const [deviceType, setDeviceType] = useState("desktop");
 
   useEffect(() => {

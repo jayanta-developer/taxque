@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +18,7 @@ import searchIcon from "../../assets/images/SearchIcon.svg";
 
 //components
 import { AppBtn } from "../Buttons";
+import { GoTop } from "../Tools";
 
 interface NavProps {
   currentNav: string;
@@ -27,6 +28,8 @@ interface NavProps {
 export default function NavBar({ currentNav }: NavProps) {
   const navigate = useNavigate();
   const [nav, setNav] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   const closeNav = (e: any) => {
     if (e.target.id === "grayBox") {
@@ -85,9 +88,28 @@ export default function NavBar({ currentNav }: NavProps) {
       setNav(false);
     }
   }, [nav]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.5 } // Adjust threshold for visibility percentage
+    );
+
+    if (divRef.current) {
+      observer.observe(divRef.current);
+    }
+
+    return () => {
+      if (divRef.current) {
+        observer.unobserve(divRef.current);
+      }
+    };
+  }, []);
   return (
     <>
-      <div className="navBar">
+      <div ref={divRef} className="navBar">
         <div className="clogoBox">
           <img src={Clogo} onClick={() => navigate("/")} />
         </div>
@@ -154,6 +176,14 @@ export default function NavBar({ currentNav }: NavProps) {
             onClick={() => setNav(true)}
           />
         </div>
+
+        <img
+          style={{ display: isVisible ? "none" : "block" }}
+          className="goTopIcon"
+          src="https://img.icons8.com/carbon-copy/100/fe8903/circled-up.png"
+          alt="goTop img"
+          onClick={GoTop}
+        />
       </div>
     </>
   );

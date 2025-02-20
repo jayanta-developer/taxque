@@ -197,3 +197,6 @@ export const BlogRowCard = ({
     </div>
   );
 };
+export const GoTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
