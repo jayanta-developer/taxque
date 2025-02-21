@@ -73,6 +73,7 @@
   align-items: center;
   background: #fff;
   padding-top: 35px;
+  margin-bottom: 9%;
 }
 .sectionHeader {
   width: 80%;
@@ -90,7 +91,6 @@
   gap: 20px;
   margin-top: 20px;
   padding: 20px;
-  margin-bottom: 11%;
   overflow-y: scroll;
 }
 .texSection {
@@ -388,6 +388,9 @@
   .PopularSection {
     display: flex;
     margin-top: 100px;
+  }
+  .serviceSection {
+    margin-bottom: 5%;
   }
 }
 /* Desktop view */

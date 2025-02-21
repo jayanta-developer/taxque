@@ -46,6 +46,7 @@ interface MemberCardProps {
   name: string;
   possession: string;
   img: string;
+  summary?: string;
 }
 
 export const ServiceCard = ({
@@ -199,4 +200,31 @@ export const BlogRowCard = ({
 };
 export const GoTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+export const TeamCard = ({
+  name,
+  possession,
+  img,
+  summary,
+}: MemberCardProps) => {
+  return (
+    <div className="teamCard">
+      <div className="userCard">
+        <img src={img} className="ucAvatarImg" />
+        <div className="mbCardInfo">
+          <div className="mbIconBox">
+            <img src={facebookIcon} />
+            <img src={twittercon} />
+            <img src={linkdinIcon} />
+          </div>
+        </div>
+      </div>
+      <div className="teamNote">
+        <p className="mbName">{name}</p>
+        <p className="mbpos">{possession}</p>
+        <p className="mbposSummary">{summary}</p>
+      </div>
+    </div>
+  );
 };

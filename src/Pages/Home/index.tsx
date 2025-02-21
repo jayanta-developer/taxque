@@ -25,7 +25,7 @@ import {
   TaxQueData,
   priceCardData,
   BlogData,
-} from "../../assets/Data/intex";
+} from "../../assets/Data";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -92,32 +92,41 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
             <ServiceCard key={i} {...el} />
           ))}
         </div>
-        {/* -Tax section */}
-        <div className="texSection">
-          <img className="greenBg" src={GreenBg} alt="" />
-          <div className="taxImgBox">
-            <img src={taxImg} />
-          </div>
-          <div className="taxTextBox">
-            <p className="taxTitle">
-              Your Trusted Partner for Expert Income Tax Return Verification
-            </p>
-            <p className="taxSummery">
-              Are you a business owner or salaried professional looking for tax
-              guidance? Taxbuddy is here to offer the best tax filing service in
-              India. With experts guiding you for better tax planning, assisted
-              ITR filing, Resolving Income tax notices, and filing Tax appeals,
-              you cannot go wrong with Taxbuddy. As an Indian taxpayer, you know
-              the complexities of tax filing and the consequences of the
-              smallest error in your returns. We make sure that you never miss a
-              deadline, make a calculation error, or omit an item from your
-              returns. Our platform covers diverse needs and facilitates tax
-              filing for everyone.
-            </p>
-            <AppBtn btnText="Know About Us" icon={rightArrow} width="225px" />
-          </div>
+        <div className="btnBox">
+          <AppBtn
+            btnText="More Services"
+            width="200px"
+            height="50px"
+            icon={rightArrow}
+          />
         </div>
       </div>
+      {/* -Tax section */}
+      <div className="texSection">
+        <img className="greenBg" src={GreenBg} alt="" />
+        <div className="taxImgBox">
+          <img src={taxImg} />
+        </div>
+        <div className="taxTextBox">
+          <p className="taxTitle">
+            Your Trusted Partner for Expert Income Tax Return Verification
+          </p>
+          <p className="taxSummery">
+            Are you a business owner or salaried professional looking for tax
+            guidance? Taxbuddy is here to offer the best tax filing service in
+            India. With experts guiding you for better tax planning, assisted
+            ITR filing, Resolving Income tax notices, and filing Tax appeals,
+            you cannot go wrong with Taxbuddy. As an Indian taxpayer, you know
+            the complexities of tax filing and the consequences of the smallest
+            error in your returns. We make sure that you never miss a deadline,
+            make a calculation error, or omit an item from your returns. Our
+            platform covers diverse needs and facilitates tax filing for
+            everyone.
+          </p>
+          <AppBtn btnText="Know About Us" icon={rightArrow} width="225px" />
+        </div>
+      </div>
+
       {/* --tax que section -- */}
       <div className="taxQueSection">
         <img src={taxQueImg} className="taxQueImg" />

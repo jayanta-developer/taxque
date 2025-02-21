@@ -14,7 +14,7 @@ import Subscribe from "../../components/Subscribe/intex";
 import ContactSection from "../../components/ContactSection";
 
 //data
-import { priceCardData } from "../../assets/Data/intex";
+import { priceCardData } from "../../assets/Data";
 
 interface NavProps {
   currentNav: string;

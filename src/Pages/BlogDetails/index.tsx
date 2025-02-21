@@ -17,7 +17,7 @@ import Subscribe from "../../components/Subscribe/intex";
 import { ServiceCard } from "../../components/Tools";
 
 //data
-import { BlogData, servicesData, ChipData } from "../../assets/Data/intex";
+import { BlogData, servicesData, ChipData } from "../../assets/Data";
 
 interface NavProps {
   currentNav: string;

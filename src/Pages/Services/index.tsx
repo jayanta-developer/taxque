@@ -15,7 +15,7 @@ import { AppBtn } from "../../components/Buttons";
 import { ServiceCard } from "../../components/Tools";
 
 //data
-import { servicesData } from "../../assets/Data/intex";
+import { servicesData } from "../../assets/Data";
 
 interface NavProps {
   currentNav: string;

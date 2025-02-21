@@ -281,6 +281,53 @@
 .blogRowCard .buABox p {
   color: #fe8903;
 }
+.teamCard {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.teamCard .userCard {
+  width: 39%;
+  height: auto;
+  min-width: unset;
+}
+.teamNote {
+  width: 61%;
+  background: #feffea;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.teamPage .sectionHeader {
+  top: -4% !important;
+  font-size: 17px !important;
+}
+.teamNote .mbName {
+  font-size: 20px;
+  font-weight: 500;
+  color: #121129;
+}
+.teamNote .mbpos {
+  font-size: 16px;
+  color: #fe8903;
+}
+.teamNote .mbposSummary {
+  font-size: 11px;
+  color: #4d4d4d;
+}
+.teamPage .teamCard {
+  height: 196px;
+}
+
+.teamCard .mbCardInfo {
+  width: 100%;
+  bottom: -1px;
+}
+.teamCard .mbCardInfo .mbIconBox {
+  gap: 25px;
+}
+
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .serviceCard {
@@ -320,6 +367,16 @@
   .blogRowCard .BlogTextBox {
     width: 60%;
   }
+  .teamPage .sectionHeader {
+    top: -6% !important;
+    font-size: 24px !important;
+  }
+  .teamNote .mbposSummary {
+    font-size: 14px;
+  }
+  .teamPage .teamCard {
+    height: 250px;
+  }
 }
 /* Desktop view */
 @media only screen and (min-width: 1000px) {
@@ -328,5 +385,12 @@
   }
   .blogRowCard {
     gap: 20px;
+  }
+  .teamCard {
+    width: 46%;
+  }
+  .teamPage .sectionHeader {
+    top: -18% !important;
+    font-size: 40px !important;
   }
 }

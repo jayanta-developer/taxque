@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 import { BlogRowCard } from "../../components/Tools";
 
 //data
-import { BlogData } from "../../assets/Data/intex";
+import { BlogData } from "../../assets/Data";
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;

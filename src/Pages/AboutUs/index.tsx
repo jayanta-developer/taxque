@@ -23,7 +23,7 @@ import { TaxQueCard } from "../../components/Tools";
 import AppSlider from "../../components/Slider";
 
 //data
-import { TaxQueData, memberData } from "../../assets/Data/intex";
+import { TaxQueData, memberData } from "../../assets/Data";
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
