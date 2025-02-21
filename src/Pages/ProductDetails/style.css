@@ -117,6 +117,88 @@
 .inputBox textarea:focus {
   outline: none;
 }
+.paraSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.paraNavSection {
+  width: 100%;
+  border: 1px solid gray;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: rgb(184, 255, 146);
+  background: linear-gradient(
+    189deg,
+    rgba(184, 255, 146, 1) 0%,
+    rgba(253, 255, 200, 1) 59%
+  );
+  margin-bottom: 40px;
+  position: sticky;
+  top: 20px;
+}
+.paraNavSection p {
+  cursor: pointer;
+}
+.paraSubSection {
+  margin-bottom: 40px;
+}
+.overViewSection {
+  width: 100%;
+  padding: 0 10px;
+}
+.overViewSection p {
+  font-size: 18px;
+  color: #555555;
+  margin-bottom: 16px;
+}
+.privateLC {
+  width: 100%;
+  padding: 0 10px;
+}
+.privateLC .privateSHeader {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.privateLC .privateSHeader b {
+  color: #fa8a05;
+}
+.prNText {
+  font-size: 18px;
+  color: #555555;
+  margin-bottom: 16px;
+}
+.cplPVCBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin: 50px 0;
+  justify-content: space-between;
+}
+.pvcTextBox {
+  width: 55%;
+}
+.cplPVCBox img {
+  width: 35%;
+}
+.plcNoteSection {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  background: rgb(150, 221, 111);
+  background: linear-gradient(
+    189deg,
+    rgba(150, 221, 111, 0.14609593837535018) 0%,
+    rgba(252, 255, 195, 0.14609593837535018) 59%
+  );
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .productHeader p {

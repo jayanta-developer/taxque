@@ -20,6 +20,7 @@ interface NavProps {
 }
 
 export default function Teams({ setCurrentNav, currentNav }: NavProps) {
+  setCurrentNav("Home");
   return (
     <>
       <div className="BlogPage teamPage">

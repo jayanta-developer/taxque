@@ -5,6 +5,7 @@ import smPageBG from "../../assets/images/smPageBG.svg";
 import GSTIcon from "../../assets/images/gstIcon.svg";
 import GSTImg from "../../assets/images/GSTCardImg.png";
 import YellowBg from "../../assets/images/YellowBg.svg";
+import pvtOverver from "../../assets/images/pvtOverver.svg";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -25,6 +26,19 @@ export default function ProductDetails({
   currentNav,
 }: NavProps) {
   setCurrentNav("Services");
+
+  const ParaSection: string[] = [
+    "Overview",
+    "Private Limited Company",
+    "Key Features",
+    "Benefits",
+    "Difference",
+    "Documents Required",
+    "Steps",
+    "MCA Compliance",
+    "Why Vakilsearch",
+    "FAQ's",
+  ];
 
   return (
     <>
@@ -97,6 +111,135 @@ export default function ProductDetails({
               {priceCardData?.map((el, i) => (
                 <PriceCard {...el} key={i} />
               ))}
+            </div>
+          </div>
+
+          {/* PeraSection */}
+          <div className="paraSection">
+            <div className="paraNavSection">
+              {ParaSection?.map((el, i) => (
+                <p key={i}>{el}</p>
+              ))}
+            </div>
+
+            {/* Overview section */}
+            <div className="paraSubSection overViewSection">
+              <p>
+                Starting a private limited company in India is a preferred
+                option for entrepreneurs aiming to establish professional and
+                recognised businesses. Governed by the Companies Act, 2013, and
+                regulated by the Ministry of Corporate Affairs (MCA), this
+                business structure offers benefits like limited liability,
+                enhanced credibility, and growth opportunities.
+              </p>
+              <p>
+                The process involves submitting the SPICe+ form, obtaining
+                Digital Signature Certificates (DSC) for directors, and securing
+                Director Identification Numbers (DIN). Once approved by the
+                Registrar of Companies (RoC), your business receives a
+                Certificate of Incorporation, making it a separate legal entity.
+                This allows the company to own assets, sign contracts, and
+                operate independently.
+              </p>
+              <p>
+                After incorporation, compliance is vital for smooth operations.
+                This includes registering for GST, applying for PAN and TAN, and
+                filing annual returns and audits. These requirements not only
+                meet statutory obligations but also build trust with investors
+                and stakeholders.
+              </p>
+              <p>
+                A private limited company is the ideal choice for entrepreneurs
+                seeking scalability, structured growth, and funding
+                opportunities. While the process may involve challenges like
+                name approvals or regulatory steps, expert guidance ensures a
+                seamless experience.
+              </p>
+              <p>
+                At Vakilsearch, we handle every step of the registration
+                process, from documentation to compliance, so you can focus on
+                growing your business confidently and efficiently.
+              </p>
+            </div>
+
+            {/* PrivateLimitedCompany */}
+            <div className="paraSubSection privateLC">
+              <p className="privateSHeader">
+                What Is a <b>Private Limited Company?</b>
+              </p>
+
+              <p className="prNText">
+                A private limited company (commonly abbreviated as Pvt Ltd) is
+                considered a separate legal entity from its owners, offering a
+                secure framework for operations while safeguarding the personal
+                assets of its members. This business structure, governed by the
+                <b> Companies Act, 2013,</b> is popular among entrepreneurs and
+                small to medium-sized businesses (SMEs) for its combination of
+                <b> limited liability protection, ownership control,</b> and
+                <b> scalability.</b>
+              </p>
+              <p className="prNText">
+                <b>For instance,</b> startups like Swiggy began as private
+                limited companies due to their ability to secure venture capital
+                funding while maintaining limited liability for founders.
+              </p>
+              <p className="prNText">
+                Unlike public companies, a private limited company restricts the
+                transfer of shares and operates with a focused group of
+                stakeholders. This makes it ideal for businesses seeking
+                <b>operational independence, confidentiality,</b> and{" "}
+                <b>long-term growth.</b>
+              </p>
+              <div className="cplPVCBox">
+                <img src={pvtOverver} alt="" />
+                <div className="pvcTextBox">
+                  <p className="prNText">
+                    Definition as per the Companies Act, 2013{" "}
+                  </p>
+                  <p className="prNText">
+                    Section 2(68) of the <b>Companies Act, 2013,</b> defines a
+                    Private Limited Company as an entity that:
+                  </p>
+
+                  <ul>
+                    <li className="prNText">
+                      <b>Restricts the Transfer of Shares:</b> Shareholders
+                      cannot freely transfer their shares to the public or
+                      external parties. This restriction ensures that ownership
+                      remains within a close group of trusted individuals,
+                      protecting the company’s stability.
+                    </li>
+                    <li className="prNText">
+                      <b>Limits the Number of Members: </b> A private limited
+                      company can have a maximum of 200 members, excluding
+                      current and former employees who hold shares. This limit
+                      ensures the company remains a private entity. (Exception:
+                      A One Person Company (OPC) can have only one member.)
+                    </li>
+                    <li className="prNText">
+                      <b>Prohibits Public Invitations: </b> The company is not
+                      allowed to invite the public to subscribe to its shares,
+                      debentures, or other securities. This makes private
+                      limited companies more focused on raising capital
+                      privately, such as through friends, family, or
+                      institutional investors.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="plcNoteSection">
+                <h2 style={{ marginBottom: "10px" }}>Companies Act, 2013</h2>
+                <p className="prNText">
+                  The Companies Act 2013 (No. 18 of 2013) is the primary source
+                  of Indian company law. It received presidential assent on 29
+                  August 2013 and largely replaced the Companies Act 1956. The
+                  Act was implemented in stages. Section 1 came into force on 30
+                  August 2013. 98 sections became effective on 12 September 2013
+                  with some changes. Another 183 sections were enforced from 1
+                  April 2014.
+                </p>
+              </div>
             </div>
           </div>
         </div>
