@@ -48,7 +48,16 @@ interface MemberCardProps {
   img: string;
   summary?: string;
 }
-
+interface FeaturesProps {
+  title: string;
+  summary: string;
+  icon: string;
+}
+interface BenefitsProps {
+  title: string;
+  summary: string;
+  index: number;
+}
 export const ServiceCard = ({
   icon,
   img,
@@ -225,6 +234,28 @@ export const TeamCard = ({
         <p className="mbpos">{possession}</p>
         <p className="mbposSummary">{summary}</p>
       </div>
+    </div>
+  );
+};
+
+export const FeaturesCard = ({ icon, title, summary }: FeaturesProps) => {
+  return (
+    <div className="featuresCard">
+      <img src={icon} alt="" />
+      <p className="fecTitle">{title}</p>
+      <div className="fcHrLine"></div>
+      <p className="fecSummery">{summary}</p>
+    </div>
+  );
+};
+
+export const BenefitsCard = ({ title, summary, index }: BenefitsProps) => {
+  return (
+    <div className="benefiteCard">
+      <p className="fecTitle">
+        {index + 1}. {title}
+      </p>
+      <p className="fecSummery">{summary}</p>
     </div>
   );
 };

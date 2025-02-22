@@ -32,6 +32,13 @@ import user2 from "../../assets/images/user2.png";
 import user3 from "../../assets/images/user3.png";
 import user4 from "../../assets/images/user4.png";
 
+import featuresIcon from "../images/featuresIcon.png";
+
+interface paraType {
+  title: string;
+  id: string;
+}
+
 export const servicesData = [
   {
     icon: gstIcon,
@@ -260,5 +267,145 @@ export const memberData = [
     img: user4,
     summary:
       "Saimon jhonson is the force that powers the development of SSBA. He holds a Masters in Computer Science and has over two decades of rich professional experience across Asia.",
+  },
+];
+
+export const ParaSection: paraType[] = [
+  {
+    title: "Overview",
+    id: "overview",
+  },
+  {
+    title: "Private Limited Company",
+    id: "plc",
+  },
+  {
+    title: "Key Features",
+    id: "KeyFeatures",
+  },
+  {
+    title: "Benefits",
+    id: "Benefits",
+  },
+  {
+    title: "Difference",
+    id: "Difference",
+  },
+  {
+    title: "Documents Required",
+    id: "DocumentsRequired",
+  },
+  {
+    title: "MCA Compliance",
+    id: "MCACompliance",
+  },
+  {
+    title: "Why Vakilsearch",
+    id: "WhyVakilsearch",
+  },
+  {
+    title: "FAQ's",
+    id: "FAQ",
+  },
+];
+
+export const keyFeatureData = [
+  {
+    title: "Limited Liability Protection",
+    summery:
+      "Shareholders’ liability is limited to the unpaid amount of their shares. This safeguards personal assets from business liabilities.",
+    icon: featuresIcon,
+  },
+  {
+    title: "Separate Legal Entity",
+    summery:
+      "The company is treated as an independent entity, allowing it to own property, sue, and be sued in its own name.",
+    icon: featuresIcon,
+  },
+  {
+    title: "Perpetual Succession",
+    summery:
+      "The company continues to exist irrespective of changes in ownership or member status, ensuring continuity in business operations.",
+    icon: featuresIcon,
+  },
+  {
+    title: "Membership Flexibility",
+    summery:
+      "Requires at least 2 members and allows up to 200 members, making it suitable for small and medium-sized enterprises (SMEs).",
+    icon: featuresIcon,
+  },
+  {
+    title: "Restrictions on Share Transfers",
+    summery:
+      "Shares can only be transferred within the group, ensuring control over ownership and decision-making.",
+    icon: featuresIcon,
+  },
+  {
+    title: "No Minimum Paid-Up Capital",
+    summery:
+      "Entrepreneurs can register a private limited company in India without any mandatory requirement for minimum capital investment.",
+    icon: featuresIcon,
+  },
+  {
+    title: "Board of Directors",
+    summery:
+      "A private limited company must have at least 2 directors and can include up to 15 directors. If necessary, a special resolution can increase the limit.",
+    icon: featuresIcon,
+  },
+  {
+    title: "Privacy and Confidentiality",
+    summery:
+      "Private Limited Companies are not required to disclose sensitive information publicly, offering a competitive advantage in maintaining privacy.",
+    icon: featuresIcon,
+  },
+  {
+    title: " Eligibility for Foreign Direct Investment (FDI)",
+    summery:
+      "They can receive 100% FDI in most sectors without prior approval, enhancing global funding opportunities.",
+    icon: featuresIcon,
+  },
+  {
+    title: "Tax and Compliance Benefits",
+    summery:
+      "Smaller compliance burdens compared to public companies, with tax exemptions available for startups and small companies.",
+    icon: featuresIcon,
+  },
+];
+
+export const benefitData = [
+  {
+    title: "Ease of Raising Funds",
+    summary:
+      "Venture capitalists and private investors favor Private Limited Companies due to their structured ownership and legal protections.",
+  },
+  {
+    title: "Enhanced Credibility",
+    summary:
+      "Registration under the Companies Act, 2013, increases trustworthiness with banks, clients, and investors.",
+  },
+  {
+    title: "Attracts Talent",
+    summary:
+      "Ability to offer Employee Stock Ownership Plans (ESOPs) makes it attractive for skilled professionals.",
+  },
+  {
+    title: "Operational Independence",
+    summary:
+      "Management has full control over business decisions without interference from external parties.",
+  },
+  {
+    title: "Exemptions for Small Companies",
+    summary:
+      "Companies classified as “Small Companies” under Section 2(85) of the Companies Act enjoy reduced compliance and tax benefits.",
+  },
+  {
+    title: "Continuity of Business",
+    summary:
+      "Perpetual succession ensures that the business operates seamlessly despite changes in ownership or the demise of a member.",
+  },
+  {
+    title: "Legal and Financial Security",
+    summary:
+      "The separate legal identity and limited liability structure provide a secure foundation for long-term operations.",
   },
 ];

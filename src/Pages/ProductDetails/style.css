@@ -140,6 +140,7 @@
   margin-bottom: 40px;
   position: sticky;
   top: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .paraNavSection p {
   cursor: pointer;
@@ -159,6 +160,7 @@
 .privateLC {
   width: 100%;
   padding: 0 10px;
+  margin-bottom: 30px;
 }
 .privateLC .privateSHeader {
   font-size: 30px;
@@ -198,6 +200,33 @@
     rgba(150, 221, 111, 0.14609593837535018) 0%,
     rgba(252, 255, 195, 0.14609593837535018) 59%
   );
+}
+.productNavActive {
+  color: #fa8a05;
+}
+.keyFeaturesSection {
+  width: 100%;
+  margin-top: 30px;
+}
+.keyFeatureCardBox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.BenefitsSection {
+  margin-top: 30px;
+}
+.benefiteCardBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.DifferenceSection {
+  margin-top: 30px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {

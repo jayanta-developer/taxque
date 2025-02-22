@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
@@ -10,12 +10,17 @@ import pvtOverver from "../../assets/images/pvtOverver.svg";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { PriceCard } from "../../components/Tools";
+import { PriceCard, FeaturesCard, BenefitsCard } from "../../components/Tools";
 import Subscribe from "../../components/Subscribe/intex";
 import ContactSection from "../../components/ContactSection";
 
 //data
-import { priceCardData } from "../../assets/Data";
+import {
+  priceCardData,
+  ParaSection,
+  keyFeatureData,
+  benefitData,
+} from "../../assets/Data";
 
 interface NavProps {
   currentNav: string;
@@ -26,19 +31,52 @@ export default function ProductDetails({
   currentNav,
 }: NavProps) {
   setCurrentNav("Services");
+  const [activeSection, setActiveSection] = useState<string>("");
 
-  const ParaSection: string[] = [
-    "Overview",
-    "Private Limited Company",
-    "Key Features",
-    "Benefits",
-    "Difference",
-    "Documents Required",
-    "Steps",
-    "MCA Compliance",
-    "Why Vakilsearch",
-    "FAQ's",
-  ];
+  interface paraType {
+    title: string;
+    id: string;
+  }
+
+  const handlePDClick = (props: paraType) => {
+    const section = document.getElementById(props.id);
+    if (section) {
+      const offset = 100;
+      const topPosition =
+        section.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: topPosition, behavior: "smooth" });
+    }
+    scrollToSection(props?.id);
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { root: null, rootMargin: "-100px 0px 0px 0px", threshold: 0.6 }
+    );
+
+    ParaSection.forEach((el) => {
+      const section = document.getElementById(el?.id);
+      if (section) observer.observe(section);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string): void => {
+    const section = document.getElementById(id);
+    if (section) {
+      const offset = 100;
+      const topPosition =
+        section.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: topPosition, behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -118,12 +156,20 @@ export default function ProductDetails({
           <div className="paraSection">
             <div className="paraNavSection">
               {ParaSection?.map((el, i) => (
-                <p key={i}>{el}</p>
+                <p
+                  className={
+                    activeSection === el?.title ? "productNavActive" : ""
+                  }
+                  onClick={() => handlePDClick(el)}
+                  key={i}
+                >
+                  {el?.title}
+                </p>
               ))}
             </div>
 
             {/* Overview section */}
-            <div className="paraSubSection overViewSection">
+            <div id="overview" className="paraSubSection overViewSection">
               <p>
                 Starting a private limited company in India is a preferred
                 option for entrepreneurs aiming to establish professional and
@@ -163,7 +209,7 @@ export default function ProductDetails({
             </div>
 
             {/* PrivateLimitedCompany */}
-            <div className="paraSubSection privateLC">
+            <div id="plc" className="paraSubSection privateLC">
               <p className="privateSHeader">
                 What Is a <b>Private Limited Company?</b>
               </p>
@@ -187,7 +233,7 @@ export default function ProductDetails({
                 Unlike public companies, a private limited company restricts the
                 transfer of shares and operates with a focused group of
                 stakeholders. This makes it ideal for businesses seeking
-                <b>operational independence, confidentiality,</b> and{" "}
+                <b> operational independence, confidentiality,</b> and{" "}
                 <b>long-term growth.</b>
               </p>
               <div className="cplPVCBox">
@@ -240,6 +286,75 @@ export default function ProductDetails({
                   April 2014.
                 </p>
               </div>
+            </div>
+
+            {/* Key Features */}
+            <div
+              id="KeyFeatures"
+              className="paraSubSection privateLC keyFeaturesSection"
+            >
+              <p className="privateSHeader">
+                What Are the <b>Key Features </b>and Benefits of a Private
+                Limited Company?
+              </p>
+              <p className="prNText">
+                A Private Limited Company provides an ideal business structure
+                that combines legal protections, operational flexibility, and
+                growth opportunities, making it a preferred choice for
+                entrepreneurs and small to medium-sized businesses. Here are the
+                10 key features and 7 benefits of a Private Limited Company.
+              </p>
+              <div className="keyFeatureCardBox">
+                {keyFeatureData?.map((el, i) => (
+                  <FeaturesCard
+                    icon={el.icon}
+                    title={el.title}
+                    summary={el.summery}
+                    key={i}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Benefits section */}
+            <div id="Benefits" className="privateLC BenefitsSection">
+              <p className="privateSHeader">
+                <b>Benefits</b> of a Private Limited Company
+              </p>
+              <p className="prNText">
+                A Private Limited Company offers a range of advantages, making
+                it a preferred choice for entrepreneurs and growing businesses.
+                From ease of raising capital to legal protections, here’s why
+                businesses opt for this structure:
+              </p>
+              <div className="benefiteCardBox">
+                {benefitData?.map((el, i) => (
+                  <BenefitsCard {...el} index={i} key={i} />
+                ))}
+              </div>
+            </div>
+
+            {/* Difference section */}
+            <div id="Difference" className="privateLC DifferenceSection">
+              <p className="privateSHeader">
+                <b>Difference </b> Between Private Limited Company and Other
+                Business Structures
+              </p>
+              <p className="prNText">
+                The main difference between a Private Limited Company (Pvt Ltd)
+                and other business structures lies in the level of legal
+                protection, ownership flexibility, and compliance requirements
+                they offer. A Pvt Ltd company is often preferred for its ability
+                to limit personal liability, attract investors, and ensure
+                operational continuity. In contrast, structures like Sole
+                Proprietorship, Partnership, and Limited Liability Partnership
+                (LLP) have their own unique features and limitations.
+              </p>
+              <p className="prNText">
+                This table highlights the key differences between Private
+                Limited Companies and other business structures to help you
+                choose the one that fits your business needs best.
+              </p>
             </div>
           </div>
         </div>
