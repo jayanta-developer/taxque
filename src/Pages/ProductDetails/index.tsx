@@ -20,6 +20,7 @@ import {
   ParaSection,
   keyFeatureData,
   benefitData,
+  DifferenceTableData,
 } from "../../assets/Data";
 
 interface NavProps {
@@ -53,9 +54,8 @@ export default function ProductDetails({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
+          setActiveSection(entry.target.id);
+          console.log(entry);
         });
       },
       { root: null, rootMargin: "-100px 0px 0px 0px", threshold: 0.6 }
@@ -76,6 +76,7 @@ export default function ProductDetails({
         section.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: topPosition, behavior: "smooth" });
     }
+    setActiveSection(id);
   };
 
   return (
@@ -291,7 +292,7 @@ export default function ProductDetails({
 
             {/* Key Features */}
             <div
-              id="KeyFeatures"
+              id="Keyfeatures"
               className="paraSubSection privateLC keyFeaturesSection"
             >
               <p className="privateSHeader">
@@ -356,6 +357,55 @@ export default function ProductDetails({
                 Limited Companies and other business structures to help you
                 choose the one that fits your business needs best.
               </p>
+              <div className="tableOuterBox productViewDifTable">
+                <div className="pricePanaleTableBox">
+                  <div className="PRow PheaderRow headerRow">
+                    <div className="tableSel" style={{ width: "16%" }}>
+                      <p className="tableHeaderText">Key Feature</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "16%" }}>
+                      <p className="tableHeaderText">Private Limited Company</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "16%" }}>
+                      <p className="tableHeaderText">Public Limited Company</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "16%" }}>
+                      <p className="tableHeaderText">
+                        LLP (Limited Liability Partnership)
+                      </p>
+                    </div>
+                    <div className="tableSel" style={{ width: "16%" }}>
+                      <p className="tableHeaderText">Sole Proprietorship</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "16%" }}>
+                      <p className="tableHeaderText">Partnership Firm</p>
+                    </div>
+                  </div>
+
+                  {DifferenceTableData?.map((el, i) => (
+                    <div className="PRow NHeaderRow" key={i}>
+                      <div className="tableSel" style={{ width: "16%" }}>
+                        <p className="tableNText">{el.KeyFeature}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16%" }}>
+                        <p className="tableNText">{el.PrivateLimitedCompany}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16%" }}>
+                        <p className="tableNText">{el.PublicLimitedCompany}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16%" }}>
+                        <p className="tableNText">{el.LLP}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16%" }}>
+                        <p className="tableNText">{el.SoleProprietorship}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16%" }}>
+                        <p className="tableNText">{el.PartnershipFirm}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

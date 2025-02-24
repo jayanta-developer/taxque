@@ -281,7 +281,7 @@ export const ParaSection: paraType[] = [
   },
   {
     title: "Key Features",
-    id: "KeyFeatures",
+    id: "Keyfeatures",
   },
   {
     title: "Benefits",
@@ -407,5 +407,23 @@ export const benefitData = [
     title: "Legal and Financial Security",
     summary:
       "The separate legal identity and limited liability structure provide a secure foundation for long-term operations.",
+  },
+];
+export const DifferenceTableData = [
+  {
+    KeyFeature: "Applicable Law",
+    PrivateLimitedCompany: "Companies Act, 2013",
+    PublicLimitedCompany: "Companies Act, 2013",
+    LLP: "LLP Act, 2008",
+    SoleProprietorship: "No specified Act",
+    PartnershipFirm: "Partnership Act, 1932",
+  },
+  {
+    KeyFeature: "Ownership Structure",
+    PrivateLimitedCompany: "2–200 shareholders",
+    PublicLimitedCompany: "Unlimited public shareholders",
+    LLP: "2 or more partners",
+    SoleProprietorship: "Single owner",
+    PartnershipFirm: "2–50 partners",
   },
 ];
