@@ -157,9 +157,7 @@ export default function ProductDetails({
             <div className="paraNavSection">
               {ParaSection?.map((el, i) => (
                 <p
-                  className={
-                    activeSection === el?.title ? "productNavActive" : ""
-                  }
+                  className={activeSection === el?.id ? "productNavActive" : ""}
                   onClick={() => handlePDClick(el)}
                   key={i}
                 >
@@ -209,7 +207,10 @@ export default function ProductDetails({
             </div>
 
             {/* PrivateLimitedCompany */}
-            <div id="plc" className="paraSubSection privateLC">
+            <div
+              id="PrivateLimitedCompany"
+              className="paraSubSection privateLC"
+            >
               <p className="privateSHeader">
                 What Is a <b>Private Limited Company?</b>
               </p>

@@ -277,7 +277,7 @@ export const ParaSection: paraType[] = [
   },
   {
     title: "Private Limited Company",
-    id: "plc",
+    id: "PrivateLimitedCompany",
   },
   {
     title: "Key Features",
