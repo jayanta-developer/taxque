@@ -173,7 +173,11 @@ export default function NavBar({ currentNav }: NavProps) {
             icon={rightArrow}
             onClick={() => navigate("/login")}
           />
-          <img src={avatarIcon} className="LogInIconM" />
+          <img
+            src={avatarIcon}
+            className="LogInIconM"
+            onClick={() => navigate("/login")}
+          />
           <img
             src={MenuIcon}
             className="meneIcon"
