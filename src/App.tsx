@@ -11,6 +11,7 @@ import ProductPayment from "./Pages/ProductPayment";
 import BlogPage from "./Pages/BlogPage";
 import BlogDetails from "./Pages/BlogDetails";
 import Teams from "./Pages/Teams";
+import Login from "./Pages/LogIn";
 
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
@@ -73,6 +74,12 @@ function App() {
           path="/team"
           element={
             <Teams setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          }
+        />
+        <Route
+          path="/Login"
+          element={
+            <Login setCurrentNav={setCurrentNav} currentNav={currentNav} />
           }
         />
 

@@ -168,7 +168,11 @@ export default function NavBar({ currentNav }: NavProps) {
             </p>
           ))}
           <img src={searchIcon} />
-          <AppBtn btnText="Log In" icon={rightArrow} />
+          <AppBtn
+            btnText="Log In"
+            icon={rightArrow}
+            onClick={() => navigate("/login")}
+          />
           <img src={avatarIcon} className="LogInIconM" />
           <img
             src={MenuIcon}

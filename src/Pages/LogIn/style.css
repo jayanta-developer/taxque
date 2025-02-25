@@ -1,0 +1,102 @@
+.logInSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 5% 0;
+}
+.logInSection .yellowBg {
+  top: 31% !important;
+  right: -5%;
+  width: 42%;
+}
+.logBox {
+  width: 98%;
+  border-radius: 20px;
+  border: 1px solid rgba(128, 128, 128, 0.234);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 25px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  z-index: 1;
+}
+.logImgBox {
+  width: 100%;
+  height: 210px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.logImgBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.logInfoBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.LogHeader {
+  font-size: 30px;
+  font-weight: 600;
+}
+.logBtnBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 30px 0;
+}
+.logBtn {
+  width: 30%;
+  height: 42px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.logBtn p {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .logBox {
+    width: 70%;
+  }
+  .logInfoBox {
+    padding: 20px;
+  }
+  .logImgBox {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .logBox {
+    flex-direction: row;
+  }
+  .logImgBox {
+    width: 45%;
+  }
+  .logInfoBox {
+    width: 55%;
+  }
+  .logImgBox {
+    height: unset;
+  }
+}
