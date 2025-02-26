@@ -460,7 +460,7 @@ export const serviceProduct = [
     priceData: priceCardData,
     productDetails: [
       {
-        navText:"Overview",
+        navText: "Overview",
         title: "",
         summary: [
           "Starting a private limited company in India is a preferred option for entrepreneurs aiming to establish professional and recognised businesses. Governed by the Companies Act, 2013, and regulated by the Ministry of Corporate Affairs (MCA), this business structure offers benefits like limited liability, enhanced credibility, and growth opportunities.",
@@ -471,7 +471,7 @@ export const serviceProduct = [
         ],
       },
       {
-        navText:"Private Limited Company",
+        navText: "Private Limited Company",
         title: "What Is a Private Limited Company ?",
         summary: [
           "A private limited company (commonly abbreviated as Pvt Ltd) is considered a separate legal entity from its owners, offering a secure framework for operations while safeguarding the personal assets of its members. This business structure, governed by the Companies Act, 2013, is popular among entrepreneurs and small to medium-sized businesses (SMEs) for its combination of limited liability protection, ownership control, and scalability.",
@@ -499,15 +499,16 @@ export const serviceProduct = [
         },
       },
       {
-        navText:"Key Features",
-        title: "What Are the Key Features and Benefits of a Private Limited Company?",
+        navText: "Key Features",
+        title:
+          "What Are the Key Features and Benefits of a Private Limited Company?",
         summary: [
           "A Private Limited Company provides an ideal business structure that combines legal protections, operational flexibility, and growth opportunities, making it a preferred choice for entrepreneurs and small to medium-sized businesses. Here are the 10 key features and 7 benefits of a Private Limited Company.",
         ],
         keyFeatureCardData: keyFeatureData,
       },
       {
-        navText:"Benefits of a Private Limited Company",
+        navText: "Benefits of a Private Limited Company",
         title: "Benefits",
         summary: [
           "A Private Limited Company offers a range of advantages, making it a preferred choice for entrepreneurs and growing businesses. From ease of raising capital to legal protections, here’s why businesses opt for this structure:",
@@ -515,64 +516,119 @@ export const serviceProduct = [
         benefiteCardData: benefitData,
       },
       {
-        navText:"Difference",
-        title: "Difference Between Private Limited Company and Other Business Structures",
+        navText: "Difference",
+        title:
+          "Difference Between Private Limited Company and Other Business Structures",
         summary: [
           "The main difference between a Private Limited Company (Pvt Ltd) and other business structures lies in the level of legal protection, ownership flexibility, and compliance requirements they offer. A Pvt Ltd company is often preferred for its ability to limit personal liability, attract investors, and ensure operational continuity. In contrast, structures like Sole Proprietorship, Partnership, and Limited Liability Partnership (LLP) have their own unique features and limitations.",
           "This table highlights the key differences between Private Limited Companies and other business structures to help you choose the one that fits your business needs best.",
         ],
-        tableData:{
-          header:["Key Feature","Private Limited Company","Public Limited Company","LLP (Limited Liability Partnership)","Sole Proprietorship","Partnership Firm"],
-        row:[
-          {
-            KeyFeature: "Applicable Law",
-            PrivateLimitedCompany: "Companies Act, 2013",
-            PublicLimitedCompany: "Companies Act, 2013",
-            LLP: "LLP Act, 2008",
-            SoleProprietorship: "No specified Act",
-            PartnershipFirm: "Partnership Act, 1932",
-          },
-          {
-            KeyFeature: "Ownership Structure",
-            PrivateLimitedCompany: "2–200 shareholders",
-            PublicLimitedCompany: "Unlimited public shareholders",
-            LLP: "2 or more partners",
-            SoleProprietorship: "Single owner",
-            PartnershipFirm: "2–50 partners",
-          },
-        ]
-        }
+        tableData: {
+          header: [
+            "Key Feature",
+            "Private Limited Company",
+            "Public Limited Company",
+            "LLP (Limited Liability Partnership)",
+            "Sole Proprietorship",
+            "Partnership Firm",
+          ],
+          row: [
+            {
+              KeyFeature: "Applicable Law",
+              PrivateLimitedCompany: "Companies Act, 2013",
+              PublicLimitedCompany: "Companies Act, 2013",
+              LLP: "LLP Act, 2008",
+              SoleProprietorship: "No specified Act",
+              PartnershipFirm: "Partnership Act, 1932",
+            },
+            {
+              KeyFeature: "Ownership Structure",
+              PrivateLimitedCompany: "2–200 shareholders",
+              PublicLimitedCompany: "Unlimited public shareholders",
+              LLP: "2 or more partners",
+              SoleProprietorship: "Single owner",
+              PartnershipFirm: "2–50 partners",
+            },
+          ],
+        },
       },
       {
-        navText:"Documents Required",
-        title: "What Are the Documents Required for Private Limited Company Registration?",
-        summary:[
+        navText: "Documents Required",
+        title:
+          "What Are the Documents Required for Private Limited Company Registration?",
+        summary: [
           "Registering a Private Limited Company in India involves submitting key documents that verify the identity and address of the people and entities involved. These documents are required to meet the regulations set by the Ministry of Corporate Affairs (MCA) and ensure the company complies with all legal standards.",
           "The type of documents you’ll need depends on your role—whether you’re an Indian director, a foreign director, or a corporate shareholder. In addition to personal identification and address proofs, documents like a registered office address, Digital Signature Certificate (DSC), and Director Identification Number (DIN) are mandatory for the company’s incorporation.",
-          "To make it easier, the table below lists all the documents required for Private Limited Company registration, organized by category for quick reference."
+          "To make it easier, the table below lists all the documents required for Private Limited Company registration, organized by category for quick reference.",
         ],
-        tableData:{
-          header:["Category","Document Type","Specific Examples","Purpose"],
-        row:[
-          {
-            Category: "Applicable Law",
-            DocumentType: "Companies Act, 2013",
-            PublicLimitedCompany: "Companies Act, 2013",
-            LLP: "LLP Act, 2008",
-            SoleProprietorship: "No specified Act",
-            PartnershipFirm: "Partnership Act, 1932",
-          },
-          {
-            KeyFeature: "Ownership Structure",
-            PrivateLimitedCompany: "2–200 shareholders",
-            PublicLimitedCompany: "Unlimited public shareholders",
-            LLP: "2 or more partners",
-            SoleProprietorship: "Single owner",
-            PartnershipFirm: "2–50 partners",
-          },
-        ]
-        }
-      }
+        tableData: {
+          header: ["Category", "Document Type", "Specific Examples", "Purpose"],
+          row: [
+            {
+              Category: "Applicable Law",
+              DocumentType: "Companies Act, 2013",
+              PublicLimitedCompany: "Companies Act, 2013",
+              LLP: "LLP Act, 2008",
+              SoleProprietorship: "No specified Act",
+              PartnershipFirm: "Partnership Act, 1932",
+            },
+            {
+              KeyFeature: "Ownership Structure",
+              PrivateLimitedCompany: "2–200 shareholders",
+              PublicLimitedCompany: "Unlimited public shareholders",
+              LLP: "2 or more partners",
+              SoleProprietorship: "Single owner",
+              PartnershipFirm: "2–50 partners",
+            },
+          ],
+        },
+      },
     ],
+  },
+];
+
+export const faqData = [
+  {
+    question:
+      "What is the due date by which a taxpayer should get his accounts audited?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
+  },
+  {
+    question:
+      "What is the penalty for not getting the accounts audited as required by section 44AB?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
+  },
+  {
+    question: "How many tax audit reports can a Chartered Accountant sign?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
+  },
+  {
+    question: "Who is exempt from undergoing a tax audit?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
+  },
+  {
+    question: "When is the apt time to start tax planning?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
+  },
+  {
+    question: "I know nothing about taxes; how can I start tax planning?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
+  },
+  {
+    question: "Apart from 80C, what other ways can I save on taxes?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
+  },
+  {
+    question:
+      "What are some common mistakes people make when trying to save on taxes?",
+    answer:
+      "A person who has to follow section 44AB and does not get his accounts audited or submit the report as per section 44AB for any year or years may face a penalty from the Assessing Officer.",
   },
 ];
