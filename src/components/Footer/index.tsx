@@ -82,7 +82,12 @@ export default function Footer() {
         <div className="footerItemBox">
           <p className="footerHeaderText">Usage</p>
           <p className="footerSubText">Terms & Conditions</p>
-          <p className="footerSubText">Privacy Policy</p>
+          <p
+            className="footerSubText"
+            onClick={() => handleNavigation("/privacy-policy")}
+          >
+            Privacy Policy
+          </p>
           <p className="footerSubText">Refund Policy</p>
         </div>
       </div>

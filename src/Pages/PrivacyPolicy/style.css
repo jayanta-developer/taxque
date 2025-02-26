@@ -1,0 +1,44 @@
+.policyMainBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+}
+.policySubText {
+  font-size: 16px;
+  color: #4d4d4d;
+  text-align: center;
+}
+.policyNoteHText {
+  font-size: 20px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 10px;
+}
+.policyNoteText {
+  color: #4d4d4d;
+}
+.noticeBox li {
+  color: #4d4d4d;
+  margin-bottom: 10px;
+}
+.policyMainBox .noticeBox {
+  width: 100%;
+  margin: 25px 0;
+  padding-left: 30px;
+}
+.policyMainBox .sectionHeader {
+  margin-bottom: 15px;
+}
+
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .policyMainBox {
+    padding: 4% 9%;
+  }
+}

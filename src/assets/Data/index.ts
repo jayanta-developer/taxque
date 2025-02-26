@@ -585,7 +585,7 @@ export const serviceProduct = [
       },
     ],
   },
-];
+]; 
 
 export const faqData = [
   {
