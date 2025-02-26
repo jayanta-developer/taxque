@@ -1,9 +1,9 @@
 import React from "react";
-import "./style.css"
+import "./style.css";
 
 //Images
 import smPageBG from "../../assets/images/smPageBG.svg";
-import YellowBg from "../../assets/images/YellowBg.svg";
+// import YellowBg from "../../assets/images/YellowBg.svg";
 import logCover from "../../assets/images/loginCover.png";
 import GoogleIcon from "../../assets/images/google.svg";
 import FacbookIcon from "../../assets/images/facebook1.svg";
@@ -14,7 +14,6 @@ import rightArrow from "../../assets/images/rightArrow.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-
 
 interface NavProps {
   currentNav: string;
@@ -51,11 +50,15 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
                 <p>Linkedin</p>
               </div>
             </div>
-            <AppBtn height="50px" width="100%" btnText="Log In" icon={rightArrow}/>
-
+            <AppBtn
+              height="50px"
+              width="100%"
+              btnText="Log In"
+              icon={rightArrow}
+            />
           </div>
         </div>
-        <img src={YellowBg} className="yellowBg" />
+        {/* <img src={YellowBg} className="yellowBg" /> */}
       </div>
       <Footer />
     </>
