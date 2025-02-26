@@ -88,7 +88,12 @@ export default function Footer() {
           >
             Privacy Policy
           </p>
-          <p className="footerSubText">Refund Policy</p>
+          <p
+            className="footerSubText"
+            onClick={() => handleNavigation("/refund-policy")}
+          >
+            Refund Policy
+          </p>
         </div>
       </div>
       <div className="mediaBox">
