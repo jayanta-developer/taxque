@@ -69,7 +69,7 @@ export default function Footer() {
           >
             Our Team
           </p>
-          <p className="footerSubText">Career</p>
+          <p className="footerSubText" onClick={()=>handleNavigation("/career")}>Career</p>
           <p className="footerSubText">Faq</p>
         </div>
         <div className="footerItemBox">
