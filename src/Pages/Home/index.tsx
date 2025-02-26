@@ -31,7 +31,7 @@ import {
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import MyCarousel from "../../components/Carousel";
-import Subscribe from "../../components/Subscribe/intex";
+import Subscribe from "../../components/Subscribe";
 
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard, TaxQueCard, PriceCard } from "../../components/Tools";

@@ -11,7 +11,7 @@ import pvtOverver from "../../assets/images/pvtOverver.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { PriceCard, FeaturesCard, BenefitsCard } from "../../components/Tools";
-import Subscribe from "../../components/Subscribe/intex";
+import Subscribe from "../../components/Subscribe";
 import ContactSection from "../../components/ContactSection";
 
 //data

@@ -13,7 +13,7 @@ import grayTik from "../../assets/images/grayTick.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-import Subscribe from "../../components/Subscribe/intex";
+import Subscribe from "../../components/Subscribe";
 
 //data
 

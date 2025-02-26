@@ -13,7 +13,7 @@ import Footer from "../../components/Footer";
 import { AppHoloBtn } from "../../components/Buttons";
 import ContactSection from "../../components/ContactSection";
 import MyCarousel from "../../components/Carousel";
-import Subscribe from "../../components/Subscribe/intex";
+import Subscribe from "../../components/Subscribe";
 import { ServiceCard } from "../../components/Tools";
 
 //data

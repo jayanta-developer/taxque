@@ -12,6 +12,7 @@ import backRoundArrow from "../../assets/images/backRoundArrow.png";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+import Subscribe from "../../components/Subscribe";
 
 //data
 import { servicesData, faqData } from "../../assets/Data";
@@ -59,8 +60,8 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
           >
             <div
               onClick={() => {
-                setFaqNav("General Questions")
-                 setFaqSideNav(false)
+                setFaqNav("General Questions");
+                setFaqSideNav(false);
               }}
               className={
                 faqNav === "General Questions"
@@ -84,8 +85,8 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
               <div
                 key={i}
                 onClick={() => {
-                  setFaqNav(el.title)
-                   setFaqSideNav(false)
+                  setFaqNav(el.title);
+                  setFaqSideNav(false);
                 }}
                 className={
                   faqNav === el.title
@@ -131,6 +132,7 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
             )}
           </div>
         </div>
+        <Subscribe />
       </div>
       <Footer />
     </>
