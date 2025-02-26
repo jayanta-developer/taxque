@@ -12,7 +12,8 @@ import BlogPage from "./Pages/BlogPage";
 import BlogDetails from "./Pages/BlogDetails";
 import Teams from "./Pages/Teams";
 import Login from "./Pages/LogIn";
-import Careers from "./Pages/Careers"
+import Careers from "./Pages/Careers";
+import FAQ from "./Pages/FAQ";
 
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
@@ -87,6 +88,12 @@ function App() {
           path="/career"
           element={
             <Careers setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          }
+        />
+        <Route
+          path="/f&q"
+          element={
+            <FAQ setCurrentNav={setCurrentNav} currentNav={currentNav} />
           }
         />
 

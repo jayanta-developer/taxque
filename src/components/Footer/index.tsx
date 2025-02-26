@@ -69,8 +69,15 @@ export default function Footer() {
           >
             Our Team
           </p>
-          <p className="footerSubText" onClick={()=>handleNavigation("/career")}>Career</p>
-          <p className="footerSubText">Faq</p>
+          <p
+            className="footerSubText"
+            onClick={() => handleNavigation("/career")}
+          >
+            Career
+          </p>
+          <p className="footerSubText" onClick={() => handleNavigation("/f&q")}>
+            Faq
+          </p>
         </div>
         <div className="footerItemBox">
           <p className="footerHeaderText">Usage</p>

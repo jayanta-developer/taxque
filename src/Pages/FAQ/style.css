@@ -1,0 +1,220 @@
+.faqMainsection {
+  width: 100%;
+  /* height: 100vh; */
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 2%;
+  position: relative;
+}
+.faqNavSection {
+  width: 0%;
+  height: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: #fff;
+  z-index: 9;
+  /* overflow: hidden; */
+  transition: all 0.6s;
+}
+.faqNavSectionActive {
+  width: 60%;
+  padding: 20px;
+  padding-top: 10px;
+}
+.faqSection {
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 5px;
+  position: relative;
+  min-height: 500px;
+}
+.faqHavIcon {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 25px;
+}
+
+.faqNavTab {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  align-items: center;
+  gap: 9px;
+  border-radius: 5;
+  border: 1px solid rgba(128, 128, 128, 0.173);
+  transition: all 0.6s;
+  cursor: pointer;
+}
+.faqNavTab:hover {
+  background: rgba(172, 255, 47, 0.127);
+}
+.faqNavTabActive {
+  background: rgba(172, 255, 47, 0.127);
+}
+.faqNavTab p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4d4d4d;
+}
+.icon_Box {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.icon_Box .gqIcon {
+  width: 50% !important ;
+  height: 50% !important;
+  top: 5px !important;
+}
+.icon_Box img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.icon_Box :first-child {
+  width: 25px;
+  height: 25px;
+  z-index: 1;
+  top: 16px;
+}
+.faqQBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.faqHeader {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+}
+.qaBox {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.189);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding-top: 17px;
+  transition: all 0.6s;
+  overflow: hidden;
+}
+.qaBoxActive {
+  height: auto;
+  padding-bottom: 10px;
+}
+.faqIcon {
+  width: 20px;
+  height: 20px;
+}
+.questionColapsIcon {
+  position: absolute;
+  right: 1%;
+}
+.faqquestion {
+  width: 90%;
+  font-size: 17px;
+  font-weight: 500;
+  color: #2f1e21;
+  margin-bottom: 18px;
+  line-height: 19px;
+}
+.faqanswer {
+  color: #4d4d4d;
+  font-size: 16px;
+}
+.qaBoxActive .faqquestion {
+  color: #fe8903;
+}
+
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .icon_Box {
+    width: 35px;
+    height: 35px;
+  }
+  .faqIcon {
+    width: 35px;
+    height: 35px;
+  }
+  .faqNavTab {
+    min-height: 50px;
+  }
+  .faqNavSection {
+    width: 30%;
+    height: unset;
+    position: relative;
+    left: unset;
+    top: unset;
+  }
+  .faqSection {
+    width: 70%;
+  }
+  .faqanswer {
+    width: 85%;
+  }
+  .faqQBox {
+    padding: 20px;
+  }
+  .faqHavIcon {
+    display: none;
+  }
+  .faqNavSectionActive {
+    padding: 20px;
+    padding-top: 20px;
+  }
+  .faqMainsection {
+    padding: 0%;
+  }
+  .icon_Box .gqIcon {
+  top: 8px !important;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .faqMainsection {
+    padding: 2% 9%;
+    gap: 30px;
+  }
+  .questionColapsIcon {
+    right: 5%;
+  }
+  .faqNavTab p {
+    font-size: 18px;
+  }
+  .icon_Box {
+    width: 60px;
+    height: 60px;
+  }
+  .faqIcon {
+    width: 60px;
+    height: 60px;
+  }
+  .faqNavTab {
+    min-height: 70px;
+    gap: 16px;
+    padding-left: 15px;
+  }
+  .icon_Box .gqIcon {
+    top: 14px !important;
+    }
+}
