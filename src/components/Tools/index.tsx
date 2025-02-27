@@ -8,7 +8,6 @@ import watchIcom from "../../assets/images/timeIcon.svg";
 import facebookIcon from "../../assets/images/facebookIcon.svg";
 import twittercon from "../../assets/images/twitterIcon.svg";
 import linkdinIcon from "../../assets/images/linkdinIcon.svg";
-import roleLine from "../../assets/images/hrLine2.svg";
 import locationIcon from "../../assets/images/locationYicon.svg";
 import watchYIcom from "../../assets/images/watchYicon.svg";
 import blackArrowIcon from "../../assets/images/blackArrowIcon.svg";
