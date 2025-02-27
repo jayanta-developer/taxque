@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./style.css";
-import markIcon1 from "../../Assets/Images/locationIcon2.png";
+import markIcon1 from "../../assets/images/locationIcon2.svg";
 
 interface MapComponentProps {
   latitude: number;
