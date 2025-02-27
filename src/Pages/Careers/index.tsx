@@ -1,18 +1,20 @@
 import React from "react";
 import "./style.css";
 
-//Images
-import smPageBG from "../../assets/images/smPageBG.svg";
-import locationIcon from "../../assets/images/locationYicon.svg";
-import timeIcon from "../../assets/images/timeYicon.svg";
-import managerIcon from "../../assets/images/directorYicon.svg";
-import atatchIcon from "../../assets/images/atatchIcon.svg";
+//images
+import pageBg from "../../assets/images/otherPageBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
+import arrowLine from "../../assets/images/arrowLine.svg";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+import { JobCard } from "../../components/Tools";
+
+//data
+import { jobData } from "../../assets/Data";
 import { AppBtn } from "../../components/Buttons";
+import Subscribe from "../../components/Subscribe";
 
 interface NavProps {
   currentNav: string;
@@ -23,175 +25,50 @@ export default function Careers({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   return (
     <>
-      <div className="SMHeroBox">
-        <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
-        <img src={smPageBG} className="smPageBG" />
-      </div>
-      <div className="productPageMainSection careermainSection">
-        <p className="navigateText">
-          Home <span>{">"}</span> Careers{" "}
-          <span>{">"} Accounting and Taxation Analyst</span>
-        </p>
-        <div className="productDetailBox">
-          <div className="productInfoSection">
-            <div className="productHeader">
-              <p>Accounting and Taxation Analyst</p>
+      <div className=" teamPage careerPage">
+        <div className="subPageHeroSection">
+          <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          <img src={pageBg} className="pageBg" />
+          <p className="navigateText">
+            Home <span>{">"} Careers</span>
+          </p>
+          <p className="hrMainText">DO YOU HAVE IT IN YOU?</p>
+        </div>
+        <div className="careersMainSection">
+          <div className="joinTeamSection">
+            <div className="jtsimg">
+              <p>Join our team</p>
+              <img src={arrowLine} />
             </div>
-            <div className="carBtnBox">
-              <div className="carNavBtn">
-                <img src={locationIcon} alt="" />
-                <p>Chennai</p>
-              </div>
-              <div className="carNavBtn">
-                <img src={timeIcon} alt="" />
-                <p>Full time</p>
-              </div>
-              <div className="carNavBtn">
-                <img src={managerIcon} alt="" />
-                <p>Manager</p>
-              </div>
-            </div>
-            <div className="carTextBox">
-              <p className="carNText">
-                A Legal Advisor provides expert legal guidance and support to an
-                organization or individual, ensuring compliance with laws and
-                regulations while mitigating legal risks. This role involves
-                advising on legal matters, drafting and reviewing contracts, and
-                representing the organization in legal proceedings
+            <div className="jtsTextBox">
+              <p>
+                Looking for a career, collaborative team and unlimited
+                opportunities to grow? You’ve come to the right place. At
+                Taxque, you’ll be part of a leading legal-tech team that values
+                expert insights, bold ideas and intellectual courage. You will
+                find your place in an environment built on strong relationships
+                where every associate is empowered to make an impact and is
+                valued for their contributions. We invite you to apply at 
+                <span> hr@Taxque.com</span> or choose the opportunities that
+                suit you best from the given list of open positions.
               </p>
-              <p className="buletHeader">Requirements :</p>
-              <ul className="ulBox">
-                <li>
-                  Law Degree with 1 to 2 years of legal practice experience.
-                </li>
-                <li>
-                  Should be able to speak Tamil, English and Hindi Fluently.
-                  Knowledge of Native languages are added advantage.
-                </li>
-                <li>
-                  Excellent communication and interpersonal skills for client
-                  consultations and teamwork.
-                </li>
-                <li>
-                  Self-motivated, with effective time management and the ability
-                  to meet deadlines.
-                </li>
-                <li>
-                  Tech-savvy with an interest in leveraging technology for legal
-                  solutions.
-                </li>
-              </ul>
-
-              <p className="buletHeader">Responsibilities :</p>
-              <ul className="ulBox">
-                <li>
-                  Provide expert legal advice and consultation to clients across
-                  diverse subject matters.
-                </li>
-                <li>
-                  Understand client requirements and deliver effective legal
-                  solutions to address their needs.
-                </li>
-                <li>
-                  Introduce our comprehensive legal services based on initial
-                  consultations, prioritizing revenue growth and quality work.
-                </li>
-                <li>
-                  Draft and review a variety of commercial documents, ensuring
-                  accuracy and compliance.
-                </li>
-                <li>
-                  Collaborate with external counsels for litigation management,
-                  adhering to strict schedules.
-                </li>
-                <li>
-                  Demonstrate a strong sense of autonomy, working efficiently
-                  without constant supervision.
-                </li>
-                <li>
-                  Continuously update legal knowledge and adapt to evolving
-                  industry trends.
-                </li>
-              </ul>
-
-              <p className="buletHeader">
-                Skill Set & Personality Traits required :
-              </p>
-              <ul className="ulBox">
-                <li>
-                  Time Management: Adept at handling multiple assignments within
-                  tight deadlines in a fast-paced environment.
-                </li>
-                <li>
-                  Problem-Solving: Strong analytical skills to address complex
-                  legal issues and devise innovative solutions.
-                </li>
-                <li>
-                  Technology Integration: Comfortable leveraging legal tech
-                  tools to enhance services and streamline processes.
-                </li>
-                <li>
-                  Self-Motivation: Initiative to work independently, manage
-                  tasks efficiently, and stay productive without constant
-                  supervision.
-                </li>
-                <li>
-                  Should be able to speak Tamil, English and Hindi Fluently.
-                  Knowledge of Native languages are added advantage.
-                </li>
-                <li>
-                  Excellent communication and interpersonal skills for client
-                  consultations and teamwork.
-                </li>
-                <li>
-                  Self-motivated, with effective time management and the ability
-                  to meet deadlines.
-                </li>
-                <li>
-                  Tech-savvy with an interest in leveraging technology for legal
-                  solutions
-                </li>
-              </ul>
             </div>
           </div>
 
-          <div className="sideBannerSection">
-            <div className="contactBox">
-              <p className="contactHeader">Apply for this Job</p>
-              <div className="inputBox">
-                <p className="inputLabel">Full Name *</p>
-                <input type="text" />
-              </div>
-              <div className="inputBox">
-                <p className="inputLabel">Phone *</p>
-                <input type="text" />
-              </div>
-              <div className="inputBox">
-                <p className="inputLabel">Email Address *</p>
-                <input type="text" />
-              </div>
-              <div className="inputBox">
-                <p className="inputLabel">City *</p>
-                <input type="text" />
-              </div>
-              <label htmlFor="attachFile">
-                <div className="atachBtn">
-                  <img src={atatchIcon} />
-                  <p>Attach Your Resume</p>
-                  <input id="attachFile" type="file" />
-                </div>
-              </label>
-
-              <div className="checkBox">
-                <input type="checkBox" />
-                <p>I Agree to Terms & Privacy Policy</p>
-              </div>
-              <AppBtn btnText="Apply Now" icon={rightArrow} />
+          <div className="careerCardMainBox">
+            <p className="sectionHeader">Career opportunities</p>
+            <div className="careerCardBox">
+              {jobData?.map((el, i) => (
+                <JobCard {...el} key={i} />
+              ))}
+            </div>
+            <div className="btnBox">
+              <AppBtn btnText="Load more" icon={rightArrow} />
             </div>
           </div>
         </div>
+        <Subscribe/>
       </div>
-
       <Footer />
     </>
   );

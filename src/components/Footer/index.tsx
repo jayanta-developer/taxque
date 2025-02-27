@@ -71,7 +71,7 @@ export default function Footer() {
           </p>
           <p
             className="footerSubText"
-            onClick={() => handleNavigation("/career")}
+            onClick={() => handleNavigation("/careers")}
           >
             Career
           </p>

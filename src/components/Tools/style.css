@@ -375,6 +375,65 @@
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.jobCard {
+  width: 100%;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.roleBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+.roleLabel {
+  background: #ffe1c0;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0 14px;
+}
+.roleLabel p {
+  width: max-content;
+  font-size: 14px;
+  color: #fe8903;
+}
+.jobCardTitle {
+  font-size: 25px;
+  font-weight: 500;
+  margin-top: 15px;
+}
+.jcInfobox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.jobCard .buABox p {
+  color: #000;
+}
+.jobCard .buABox img {
+  width: 20px;
+  height: 25px;
+}
+.jobCard .roleBox .hrYline {
+  width: -webkit-fill-available;
+  height: 1px;
+  background: #fe8903;
+}
+.jobCardSummary{
+  font-size: 16px;
+  color: #4D4D4D;
+  margin: 20px 0;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .serviceCard {
@@ -424,6 +483,9 @@
   .teamPage .teamCard {
     height: 250px;
   }
+  .jobCard {
+    width: 48%;
+  }
 }
 /* Desktop view */
 @media only screen and (min-width: 1000px) {
@@ -439,5 +501,8 @@
   .teamPage .sectionHeader {
     top: -18% !important;
     font-size: 40px !important;
+  }
+  .jobCard {
+    width: 30%;
   }
 }

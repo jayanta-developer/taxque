@@ -12,7 +12,8 @@ import BlogPage from "./Pages/BlogPage";
 import BlogDetails from "./Pages/BlogDetails";
 import Teams from "./Pages/Teams";
 import Login from "./Pages/LogIn";
-import Careers from "./Pages/Careers";
+import Career from "./Pages/Careers";
+import CareerDetails from "./Pages/CareerDetails";
 import FAQ from "./Pages/FAQ";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import RefundPolicy from "./Pages/RefundPolicy";
@@ -87,9 +88,18 @@ function App() {
           }
         />
         <Route
-          path="/career"
+          path="/careers"
           element={
-            <Careers setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <Career setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          }
+        />
+        <Route
+          path="/career-details"
+          element={
+            <CareerDetails
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
           }
         />
         <Route

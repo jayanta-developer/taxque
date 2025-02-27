@@ -8,9 +8,13 @@ import watchIcom from "../../assets/images/timeIcon.svg";
 import facebookIcon from "../../assets/images/facebookIcon.svg";
 import twittercon from "../../assets/images/twitterIcon.svg";
 import linkdinIcon from "../../assets/images/linkdinIcon.svg";
+import roleLine from "../../assets/images/hrLine2.svg";
+import locationIcon from "../../assets/images/locationYicon.svg";
+import watchYIcom from "../../assets/images/watchYicon.svg";
+import blackArrowIcon from "../../assets/images/blackArrowIcon.svg";
 
 //components
-import { AppBtn } from "../Buttons";
+import { AppBtn, AppHoloBtn } from "../Buttons";
 
 interface serviceCardProps {
   icon: string;
@@ -57,6 +61,16 @@ interface BenefitsProps {
   title: string;
   summary: string;
   index: number;
+}
+interface jobcardProps {
+  title: string;
+  role: string;
+  location: string;
+  jobType: string;
+  summary: string;
+  requirements?: string[];
+  responsibilities?: string[];
+  Skill?: string[];
 }
 export const ServiceCard = ({
   icon,
@@ -256,6 +270,37 @@ export const BenefitsCard = ({ title, summary, index }: BenefitsProps) => {
         {index + 1}. {title}
       </p>
       <p className="fecSummery">{summary}</p>
+    </div>
+  );
+};
+export const JobCard = ({
+  title,
+  role,
+  location,
+  jobType,
+  summary,
+}: jobcardProps) => {
+  return (
+    <div className="jobCard">
+      <div className="roleBox">
+        <div className="roleLabel">
+          <p>{role}</p>
+        </div>
+        <div className="hrYline"></div>
+      </div>
+      <p className="jobCardTitle">{title}</p>
+      <div className="jcInfobox">
+        <div className="buABox">
+          <img src={locationIcon} />
+          <p>{location}</p>
+        </div>
+        <div className="buABox">
+          <img src={watchYIcom} />
+          <p>{jobType}</p>
+        </div>
+      </div>
+      <p className="jobCardSummary">{summary.slice(0, 102)}...</p>
+      <AppHoloBtn btnText="Apply Now" icon={blackArrowIcon} width="60%" />
     </div>
   );
 };
