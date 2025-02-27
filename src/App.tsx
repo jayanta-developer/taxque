@@ -17,6 +17,7 @@ import CareerDetails from "./Pages/CareerDetails";
 import FAQ from "./Pages/FAQ";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import RefundPolicy from "./Pages/RefundPolicy";
+import ContactUs from "./Pages/ContactUs"
 
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
@@ -121,6 +122,15 @@ function App() {
           path="/refund-policy"
           element={
             <RefundPolicy
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+          }
+        />
+        <Route
+          path="/contact-us"
+          element={
+            <ContactUs
               setCurrentNav={setCurrentNav}
               currentNav={currentNav}
             />

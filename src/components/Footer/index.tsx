@@ -41,7 +41,12 @@ export default function Footer() {
             About Us{" "}
           </p>
           <p className="footerSubText">Pricing</p>
-          <p className="footerSubText">Contact Us</p>
+          <p
+            className="footerSubText"
+            onClick={() => handleNavigation("/contact-us")}
+          >
+            Contact Us
+          </p>
         </div>
         <div className="footerItemBox">
           <p

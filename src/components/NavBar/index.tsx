@@ -69,7 +69,7 @@ export default function NavBar({ currentNav }: NavProps) {
     },
     {
       title: "Contact Us",
-      url: "/contactUs",
+      url: "/contact-us",
       icon: contaceUsIcon,
     },
   ];

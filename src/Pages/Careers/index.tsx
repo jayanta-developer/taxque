@@ -25,7 +25,7 @@ export default function Careers({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   return (
     <>
-      <div className=" teamPage careerPage">
+      <div className="teamPage careerPage">
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
