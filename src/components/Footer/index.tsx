@@ -86,7 +86,12 @@ export default function Footer() {
         </div>
         <div className="footerItemBox">
           <p className="footerHeaderText">Usage</p>
-          <p className="footerSubText">Terms & Conditions</p>
+          <p
+            className="footerSubText"
+            onClick={() => handleNavigation("/terms-of-use")}
+          >
+            Terms & Conditions
+          </p>
           <p
             className="footerSubText"
             onClick={() => handleNavigation("/privacy-policy")}

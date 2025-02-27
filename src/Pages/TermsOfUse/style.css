@@ -1,0 +1,12 @@
+.termsListBox {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {}
