@@ -338,7 +338,7 @@
   gap: 25px;
 }
 .featuresCard {
-  width: 31%;
+  width: 100%;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   display: flex;
   flex-direction: column;
@@ -548,6 +548,9 @@
   .jobCard {
     width: 48%;
   }
+  .featuresCard {
+    width: 47%;
+  }
 }
 /* Desktop view */
 @media only screen and (min-width: 1000px) {
@@ -566,5 +569,8 @@
   }
   .jobCard {
     width: 30%;
+  }
+  .featuresCard {
+    width: 31%;
   }
 }
