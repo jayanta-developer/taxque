@@ -264,7 +264,7 @@
   align-items: center;
 }
 .pcBRBox .pcRating {
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {
@@ -291,8 +291,7 @@
   }
   .pcBRBox .pcRating {
     width: 260px;
-  margin-left: 21px;
-
+    margin-left: 21px;
   }
 }
 
