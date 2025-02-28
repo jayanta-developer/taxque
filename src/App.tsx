@@ -5,6 +5,7 @@ import { useState } from "react";
 import GlobalPage from "./Pages/GlobalPage";
 import Home from "./Pages/Home";
 import Services from "./Pages/Services";
+import ProductList from "./Pages/ProductList";
 import AboutUs from "./Pages/AboutUs";
 import ProductDetails from "./Pages/ProductDetails";
 import ProductPayment from "./Pages/ProductPayment";
@@ -36,6 +37,15 @@ function App() {
           path="/services"
           element={
             <Services setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <ProductList
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
           }
         />
         <Route

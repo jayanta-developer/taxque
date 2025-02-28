@@ -50,6 +50,13 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
                 <p>Linkedin</p>
               </div>
             </div>
+            <div className="orBox">
+              <div className="grayLine"></div>
+              <p>Or continue with</p>
+            </div>
+            <div className="mailInputBox">
+              <input type="email" name="email" placeholder="Enter your Email" />
+            </div>
             <AppBtn
               height="50px"
               width="100%"

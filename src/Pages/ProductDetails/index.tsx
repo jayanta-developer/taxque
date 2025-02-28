@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
+
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
 import GSTIcon from "../../assets/images/gstIcon.svg";
-import GSTImg from "../../assets/images/GSTCardImg.png";
 import YellowBg from "../../assets/images/YellowBg.svg";
 import pvtOverver from "../../assets/images/pvtOverver.svg";
+import greenTik2 from "../../assets/images/greenTikV2.svg";
+import BlackRightArrow from "../../assets/images/BlackRightArrow.png";
+import star from "../../assets/images/star.png";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { PriceCard, FeaturesCard, BenefitsCard } from "../../components/Tools";
+import {
+  PriceCard,
+  FeaturesCard,
+  BenefitsCard,
+  ServiceCard,
+} from "../../components/Tools";
 import Subscribe from "../../components/Subscribe";
 import ContactSection from "../../components/ContactSection";
+import { AppHoloBtn } from "../../components/Buttons";
 
 //data
 import {
@@ -21,6 +30,8 @@ import {
   keyFeatureData,
   benefitData,
   DifferenceTableData,
+  servicesData,
+  serviceProduct,
 } from "../../assets/Data";
 
 interface NavProps {
@@ -98,8 +109,58 @@ export default function ProductDetails({
                 <img src={GSTIcon} />
                 <p>GST Compliance and Filing</p>
               </div>
+              <div className="productFeatures">
+                <div className="checkBox">
+                  <img src={greenTik2} alt="" />
+                  <p>
+                    <span>Affordable & Transparent:</span> Registration starting
+                    at ₹999 + Govt Fee with no hidden charges.
+                  </p>
+                </div>
+                <div className="checkBox">
+                  <img src={greenTik2} alt="" />
+                  <p>
+                    <span>Comprehensive Compliance:</span> SPICe-INC-32,
+                    eMoA-INC-33, eAOA-INC-34 filings, DSC, PAN, and TAN—all
+                    handled seamlessly.
+                  </p>
+                </div>
+                <div className="checkBox">
+                  <img src={greenTik2} alt="" />
+                  <p>
+                    <span>Post-Incorporation Benefits:</span> Includes free MSME
+                    registration, GST filing support, and banking setup.
+                  </p>
+                </div>
+                <div className="checkBox">
+                  <img src={greenTik2} alt="" />
+                  <p>
+                    <span>Trusted by Startups:</span> Rated #1 for Pvt Ltd
+                    Registration, with 100% MCA-compliant filings.
+                  </p>
+                </div>
+              </div>
+              <div className="pcBRBox">
+                <AppHoloBtn
+                  btnText="Chat With Us"
+                  width="200px"
+                  height="40px"
+                  icon={BlackRightArrow}
+                />
+
+                <div className="pcRating">
+                  <p>Review: </p>
+                  <p>4.8</p>
+                  <div className="ratingBOx">
+                    <img src={star} />
+                    <img src={star} />
+                    <img src={star} />
+                    <img src={star} />
+                  </div>
+                </div>
+              </div>
               <div className="productInfoBox">
-                <img src={GSTImg} className="productBannder" />
+                {/* <img src={GSTImg} className="productBannder" /> */}
                 <p className="productInfoHeader">
                   GST Registration Fees in India: Charges, Penalties & Payment
                   Process
@@ -139,6 +200,13 @@ export default function ProductDetails({
             </div>
             <div className="sideBannerSection">
               <ContactSection />
+              <div className="sideServiceBox">
+                <p className="blogMtitle">Our Services</p>
+                {servicesData?.splice(0, 2).map((el, i) => (
+                  <ServiceCard {...el} key={i} />
+                ))}
+                <AppHoloBtn btnText="Explore All Services" />
+              </div>
             </div>
           </div>
 

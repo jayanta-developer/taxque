@@ -149,7 +149,7 @@ export const priceCardData = [
     basicPrice: "4025",
     price: "2655",
     summery:
-      "Everything in Business Income plus capital gain income & relief u/s 89.",
+      "Everything in Business Income plus capital gain income.",
     fetures: [
       "F&O Income/Loss (Non Audit)",
       "Speculative Income",
@@ -430,6 +430,7 @@ export const DifferenceTableData = [
 export const serviceProduct = [
   {
     title: "GST Compliance and Filing",
+    icon: gstIcon,
     coverImg: GSTImg,
     fetureTitle:
       "GST Registration Fees in India: Charges, Penalties & Payment Process",
@@ -808,7 +809,8 @@ export const jobData = [
     role: "Business Specialist",
     location: "Chennai",
     jobType: "Full Time",
-    summary:"The key responsibilities include providing guidance to companies & clients regarding corporate governance and ensuring that they comply with legal and regulatory requirements.",
+    summary:
+      "The key responsibilities include providing guidance to companies & clients regarding corporate governance and ensuring that they comply with legal and regulatory requirements.",
     requirements: [
       "Law Degree with 1 to 2 years of legal practice experience.",
       "Should be able to speak Tamil, English and Hindi Fluently. Knowledge of Native languages are added advantage.",

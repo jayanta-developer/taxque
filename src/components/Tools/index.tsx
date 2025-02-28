@@ -1,8 +1,10 @@
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 //images
 import UPRightArrow from "../../assets/images/right-up.svg";
 import GreenTik from "../../assets/images/GreenTik.svg";
+import greenTik2 from "../../assets/images/greenTikV2.svg";
 import avatarIcom from "../../assets/images/Avatar.svg";
 import watchIcom from "../../assets/images/timeIcon.svg";
 import facebookIcon from "../../assets/images/facebookIcon.svg";
@@ -11,6 +13,7 @@ import linkdinIcon from "../../assets/images/linkdinIcon.svg";
 import locationIcon from "../../assets/images/locationYicon.svg";
 import watchYIcom from "../../assets/images/watchYicon.svg";
 import blackArrowIcon from "../../assets/images/blackArrowIcon.svg";
+import star from "../../assets/images/star.png";
 
 //components
 import { AppBtn, AppHoloBtn } from "../Buttons";
@@ -77,11 +80,20 @@ export const ServiceCard = ({
   title,
   summery,
 }: serviceCardProps) => {
+  const Navigate = useNavigate();
+
   return (
     <div className="serviceCard">
       <div className="svrCardHeader">
         <img src={icon} />
-        <img className="svrUpArrow" src={UPRightArrow} />
+        <img
+          className="svrUpArrow"
+          src={UPRightArrow}
+          onClick={() => {
+            Navigate("/products");
+            GoTop();
+          }}
+        />
         <p>{title}</p>
       </div>
       <div className="hrLine"></div>
@@ -112,7 +124,7 @@ export const PriceCard = ({
   MostPopular,
 }: PriceCardProps) => {
   return (
-    <div className="priceCard">
+    <div className={MostPopular ? "priceCard priceCardActive" : "priceCard"}>
       <div
         style={{ display: MostPopular ? "flex" : "none" }}
         className="Mpopular"
@@ -197,6 +209,8 @@ export const BlogRowCard = ({
   userName,
   imgUrl,
 }: BlogCardProps) => {
+  const Navigate = useNavigate();
+
   return (
     <div className="blogRowCard">
       <img src={imgUrl} className="blogImg" />
@@ -215,7 +229,14 @@ export const BlogRowCard = ({
 
         <p className="BlogTitle">{title}</p>
         <p className="BlogSummery">{summery}</p>
-        <img src={UPRightArrow} className="UpRArrow" />
+        <img
+          src={UPRightArrow}
+          className="UpRArrow"
+          onClick={() => {
+            Navigate("/blog-details");
+            GoTop();
+          }}
+        />
       </div>
     </div>
   );
@@ -300,6 +321,71 @@ export const JobCard = ({
       </div>
       <p className="jobCardSummary">{summary.slice(0, 102)}...</p>
       <AppHoloBtn btnText="Apply Now" icon={blackArrowIcon} width="60%" />
+    </div>
+  );
+};
+interface productProp {
+  title: string;
+  icon: string;
+  feturePoints: fetures[];
+  priceData: priceProp[];
+}
+interface fetures {
+  title: string;
+  summary?: string;
+}
+interface priceProp {
+  price: string;
+}
+export const ProductCard = ({
+  title,
+  icon,
+  feturePoints,
+  priceData,
+}: productProp) => {
+  const Navigate = useNavigate();
+
+  return (
+    <div className="serviceCard productCard">
+      <div className="svrCardHeader">
+        <img src={icon} />
+        <p>{title}</p>
+      </div>
+      <div className="hrLine"></div>
+      <div className="pcRatingBox">
+        <div className="pcPrict">
+          <span>Price: </span>
+          <p> ₹{priceData[1].price}</p>
+        </div>
+        <div className="pcRating">
+          <p>4.8</p>
+          <div className="ratingBOx">
+            <img src={star} />
+            <img src={star} />
+            <img src={star} />
+            <img src={star} />
+          </div>
+        </div>
+      </div>
+      <div className="pcFeturesBox">
+        {feturePoints?.map((el, i) => (
+          <div key={i} className="checkBox">
+            <img src={greenTik2} alt="" />
+            <p>{el?.title}</p>
+          </div>
+        ))}
+      </div>
+      <div className="pcBtnBox">
+        <AppHoloBtn
+          btnText="Buy now"
+          height="40px"
+          width="100%"
+          onClick={() => {
+            Navigate("/services/product-details");
+            GoTop();
+          }}
+        />
+      </div>
     </div>
   );
 };

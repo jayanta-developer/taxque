@@ -5,7 +5,6 @@
   width: 100%;
   height: 100px;
   position: relative;
-  /* margin-bottom: 50px; */
 }
 .smPageBG {
   position: absolute;
@@ -19,9 +18,8 @@
   padding: 2%;
 }
 .productPage .navigateText {
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 }
-
 .productDetailBox {
   width: 100%;
   display: flex;
@@ -141,9 +139,12 @@
   position: sticky;
   top: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .paraNavSection p {
   cursor: pointer;
+  margin: 0 5px;
 }
 .paraSubSection {
   margin-bottom: 40px;
@@ -236,10 +237,35 @@
 .productViewDifTable .tableSel {
   border: 1px solid rgba(128, 128, 128, 0.26);
 }
-.productViewDifTable
-.tableHeaderText{
-font-size: 18px;
-padding-left: 16px;
+.productViewDifTable .tableHeaderText {
+  font-size: 18px;
+  padding-left: 16px;
+}
+.productFeatures {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.productFeatures .checkBox {
+  margin-bottom: 8px;
+}
+.checkBox span {
+  font-weight: 600;
+}
+.productPage .inputBox {
+  margin-bottom: 11px;
+}
+.pcBRBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.pcBRBox .pcRating {
+  width: 260px;
+  margin-left: 21px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {

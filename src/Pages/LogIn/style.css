@@ -70,7 +70,42 @@
   font-size: 15px;
   font-weight: 600;
 }
-
+.orBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+.grayLine {
+  position: absolute;
+  width: 100%;
+  border-top: 1px solid gray;
+}
+.orBox p {
+  text-align: center;
+  background: #fff;
+  padding: 0 15px;
+  z-index: 1;
+}
+.mailInputBox {
+  width: 100%;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 13px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.mailInputBox input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding-left: 20px;
+}
+.mailInputBox input:focus {
+  outline: none;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .logBox {

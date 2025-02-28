@@ -80,6 +80,16 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   position: relative;
 }
+.priceCardActive {
+}
+.priceCardActive .pcHeroSection {
+  background: #96dd6f47;
+  border: 1px solid #fa8a0582;
+}
+.priceCardActive.priceCard {
+  border: 1px solid #fa8a05;
+  box-shadow: #fa8a0524 0px 7px 29px 0px;
+}
 .pcHeroSection {
   width: 100%;
   min-height: 300px;
@@ -429,10 +439,62 @@
   height: 1px;
   background: #fe8903;
 }
-.jobCardSummary{
+.jobCardSummary {
   font-size: 16px;
-  color: #4D4D4D;
+  color: #4d4d4d;
   margin: 20px 0;
+}
+.productCard {
+  min-width: 290px !important;
+}
+.pcFeturesBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.pcRatingBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.pcPrict {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+}
+.pcPrict p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fa8a05;
+}
+.pcPrict span {
+  margin-right: 8px;
+}
+.pcRating {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+}
+.productCard .checkBox {
+  margin-bottom: 10px;
+}
+.ratingBOx {
+  display: flex;
+  flex-direction: row;
+}
+.ratingBOx img {
+  width: 18px;
+}
+.pcBtnBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {

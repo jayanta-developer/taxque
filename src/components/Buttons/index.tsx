@@ -56,7 +56,7 @@ export const AppHoloBtn: React.FC<btnProps> = ({
       }}
     >
       <p style={{ color: textColor || "#fff" }}>{btnText}</p>
-      {icon ? <img src={icon} alt="" /> : null}
+      {icon ? <img style={{width:"19px"}} src={icon} alt="" /> : null}
     </div>
   );
 };

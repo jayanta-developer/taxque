@@ -57,10 +57,10 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
               </div>
             </div>
 
-            <p className="blogMtitle">
+            <h1 className="blogMtitle">
               GST Registration Fees in India: Charges, Penalties & Payment
               Process
-            </p>
+            </h1>
 
             <p className="blogNText">
               Selecting the right lawyer to draft a shareholder agreement is

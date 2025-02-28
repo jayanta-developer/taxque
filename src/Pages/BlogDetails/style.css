@@ -15,7 +15,10 @@
 }
 .blogMtitle {
   font-size: 26px;
-  font-weight: 500;
+  font-weight: 600;
+}
+.sideServiceBox .blogMtitle {
+  text-align: center;
 }
 .blogNText {
   font-size: 16px;

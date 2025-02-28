@@ -20,7 +20,7 @@ interface NavProps {
 }
 
 export default function ContactUs({ setCurrentNav, currentNav }: NavProps) {
-  setCurrentNav("");
+  setCurrentNav("Contact Us");
   return (
     <>
       <div className="contactPage">

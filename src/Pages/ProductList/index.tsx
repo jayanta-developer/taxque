@@ -1,5 +1,5 @@
 import "./style.css";
-import {useNavigate} from "react-router-dom"
+
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
@@ -12,19 +12,19 @@ import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-import { ServiceCard } from "../../components/Tools";
+import { ProductCard } from "../../components/Tools";
 
 //data
-import { servicesData } from "../../assets/Data";
+import { serviceProduct } from "../../assets/Data";
 
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Services({ setCurrentNav, currentNav }: NavProps) {
-  const Navigete = useNavigate()
+export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Services");
+
   return (
     <>
       <div className="servicesPage">
@@ -34,11 +34,11 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
           <p className="navigateText">
             Home <span>{">"} Services</span>
           </p>
-          <p className="hrMainText">Expert Online Tax Consultant Services</p>
+          <p className="hrMainText">Services Related Products</p>
         </div>
         <div className="serviceMainSection">
-          {servicesData?.map((el, i) => (
-            <ServiceCard {...el} key={i} />
+          {[...Array(9)].map((_, i) => (
+            <ProductCard key={i} {...serviceProduct[0]} />
           ))}
         </div>
         {/* Review section */}
@@ -71,7 +71,7 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
               />
             </div>
           </div>
-        </div>        
+        </div>
         <Footer />
       </div>
     </>
