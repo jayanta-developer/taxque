@@ -1,5 +1,4 @@
 import "./style.css";
-import {useNavigate} from "react-router-dom"
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
@@ -23,7 +22,6 @@ interface NavProps {
 }
 
 export default function Services({ setCurrentNav, currentNav }: NavProps) {
-  const Navigete = useNavigate()
   setCurrentNav("Services");
   return (
     <>
@@ -71,7 +69,7 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
               />
             </div>
           </div>
-        </div>        
+        </div>
         <Footer />
       </div>
     </>

@@ -31,7 +31,6 @@ import {
   benefitData,
   DifferenceTableData,
   servicesData,
-  serviceProduct,
 } from "../../assets/Data";
 
 interface NavProps {
