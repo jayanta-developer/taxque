@@ -9,7 +9,6 @@ import MenuIcon from "../../assets/images/menuIcon.png";
 import homeIcon from "../../assets/images/homeIcon.svg";
 import serviceIcon from "../../assets/images/serviceIcon.png";
 import aboutUsIcon from "../../assets/images/aboutUsIcon.svg";
-import pricIngIcon from "../../assets/images/pricingIcon.png";
 import blogIcon from "../../assets/images/blogIcon.png";
 import contaceUsIcon from "../../assets/images/contact-us.png";
 import backRoundArrow from "../../assets/images/backRoundArrow.png";
