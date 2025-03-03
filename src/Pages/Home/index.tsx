@@ -5,14 +5,7 @@ import homeBg from "../../assets/images/homeBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
 import heroImg from "../../assets/images/heroImg.svg";
 import GRatingImg from "../../assets/images/GRatingImg.svg";
-import Clogo1 from "../../assets/images/CLogo1.svg";
-import Clogo2 from "../../assets/images/CLogo2.svg";
-import Clogo3 from "../../assets/images/CLogo3.svg";
-import Clogo4 from "../../assets/images/CLogo4.svg";
-import Clogo5 from "../../assets/images/CLogo5.svg";
-import Clogo6 from "../../assets/images/CLogo6.svg";
-import Clogo7 from "../../assets/images/CLogo7.svg";
-import Clogo8 from "../../assets/images/CLogo8.svg";
+
 import taxImg from "../../assets/images/taxImg.svg";
 import GreenBg from "../../assets/images/GreenBg.svg";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
@@ -32,6 +25,8 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import MyCarousel from "../../components/Carousel";
 import Subscribe from "../../components/Subscribe";
+import BNCarousel from "../../components/CBannerCarosel";
+import WCTQCarousel from "../../components/WCTQCarosel";
 
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard, TaxQueCard, PriceCard } from "../../components/Tools";
@@ -75,22 +70,16 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         </div>
       </div>
       <div className="ClogoBox">
-        <img src={Clogo1} />
-        <img src={Clogo2} />
-        <img src={Clogo3} />
-        <img src={Clogo4} />
-        <img src={Clogo5} />
-        <img src={Clogo6} />
-        <img src={Clogo7} />
-        <img src={Clogo8} />
+        <BNCarousel />
       </div>
       {/* -Our services section-- */}
       <div className="serviceSection">
         <p className="sectionHeader">Our Services</p>
         <div className="serviceCardBox">
-          {servicesData?.slice(0, 4).map((el, i) => (
+          {/* {servicesData?.slice(0, 4).map((el, i) => (
             <ServiceCard key={i} {...el} />
-          ))}
+          ))} */}
+          <MyCarousel data={servicesData} cardName="ServicesCard" />
         </div>
         <div className="btnBox">
           <AppBtn
@@ -131,10 +120,8 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       <div className="taxQueSection">
         <img src={taxQueImg} className="taxQueImg" />
         <p className="sectionHeader">Why Choose TaxQue?</p>
-        <div className="taxQueCardBox">
-          {TaxQueData?.map((el, i) => (
-            <TaxQueCard {...el} key={i} />
-          ))}
+        <div className="taxQueCardBox">         
+          <WCTQCarousel />
         </div>
       </div>
       {/* -Price plane Box */}
@@ -157,7 +144,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       {/* Blog section */}
       <div className="pricePlaneBox BlogSection">
         <p className="sectionHeader">Our Latest News</p>
-        <MyCarousel data={BlogData} />
+        <MyCarousel data={BlogData} cardName="BlogCard" />
       </div>
       {/* Subscribe section */}
       <Subscribe />

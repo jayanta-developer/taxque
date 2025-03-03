@@ -1,0 +1,7 @@
+.taxQueCardBox .carousel-item-padding-40-px {
+  padding: 0 0px;
+}
+.taxQueCardBox .react-multi-carousel-item {
+  display: flex;
+  justify-content: center;
+}

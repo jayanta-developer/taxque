@@ -2,24 +2,8 @@ import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./style.css";
-import { BlogCard } from "../Tools";
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    slidesToSlide: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    slidesToSlide: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1,
-  },
-};
+import { BlogCard, ServiceCard, MemberCard } from "../Tools";
+
 interface BlogCardProps {
   title: string;
   summery: string;
@@ -27,8 +11,44 @@ interface BlogCardProps {
   userName: string;
   imgUrl: string;
 }
-const MyCarousel = ({ data }: { data: BlogCardProps[] }) => {
+interface serviceCardProps {
+  icon: string;
+  img: string;
+  title: string;
+  summery: string;
+}
+interface MemberCardProps {
+  name: string;
+  possession: string;
+  img: string;
+  summary?: string;
+}
+
+interface MyCarouselProps {
+  data: BlogCardProps[] | serviceCardProps[] | MemberCardProps[];
+  cardName: "BlogCard" | "ServicesCard" | "memberCard";
+}
+
+const MyCarousel: React.FC<MyCarouselProps> = ({ data, cardName }) => {
   const [deviceType, setDeviceType] = useState("desktop");
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: cardName === "memberCard" ? 4 : 3,
+      slidesToSlide: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1,
+    },
+  };
 
   useEffect(() => {
     const updateDeviceType = () => {
@@ -52,7 +72,7 @@ const MyCarousel = ({ data }: { data: BlogCardProps[] }) => {
     <Carousel
       swipeable={true}
       draggable={true}
-      showDots={true}
+      showDots={cardName === "memberCard" ? false : true}
       responsive={responsive}
       ssr={true}
       infinite={true}
@@ -69,9 +89,15 @@ const MyCarousel = ({ data }: { data: BlogCardProps[] }) => {
       itemClass="carousel-item-padding-40-px"
       arrows={true}
     >
-      {data?.map((el, i) => (
-        <BlogCard {...el} key={i} />
-      ))}
+      {data?.map((el, i) =>
+        cardName === "BlogCard" ? (
+          <BlogCard {...(el as BlogCardProps)} key={i} />
+        ) : cardName === "ServicesCard" ? (
+          <ServiceCard {...(el as serviceCardProps)} key={i} />
+        ) : cardName === "memberCard" ? (
+          <MemberCard {...(el as MemberCardProps)} key={i} />
+        ) : null
+      )}
     </Carousel>
   );
 };

@@ -58,11 +58,6 @@ export default function NavBar({ currentNav }: NavProps) {
       icon: aboutUsIcon,
     },
     {
-      title: "Pricing",
-      url: "/pricing",
-      icon: pricIngIcon,
-    },
-    {
       title: "Blog",
       url: "/blog",
       icon: blogIcon,

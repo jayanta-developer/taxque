@@ -12,7 +12,6 @@ import arrow from "../../assets/images/arrow.png";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 import GRatingImg from "../../assets/images/GRatingImg.svg";
-// import GreenBg from "../../assets/images/GreenBg.svg";
 import YellowBg from "../../assets/images/YellowBg.svg";
 
 //components
@@ -21,7 +20,8 @@ import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { TaxQueCard } from "../../components/Tools";
 import AppSlider from "../../components/Slider";
-
+import WCTQCarousel from "../../components/WCTQCarosel";
+import MyCarousel from "../../components/Carousel"
 //data
 import { TaxQueData, memberData } from "../../assets/Data";
 interface NavProps {
@@ -134,15 +134,14 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
           <img src={taxQueImg} className="taxQueImg" />
           <p className="sectionHeader">Why Choose TaxQue?</p>
           <div className="taxQueCardBox">
-            {TaxQueData?.map((el, i) => (
-              <TaxQueCard {...el} key={i} />
-            ))}
+            <WCTQCarousel />
           </div>
         </div>
         <div className="memberSection">
           <img className="grb1" src={YellowBg} />
           <p className="sectionHeader">Leadership & Management</p>
-          <AppSlider data={memberData} cardName="memberCard" />
+          {/* <AppSlider data={memberData} cardName="memberCard" /> */}
+          <MyCarousel data={memberData} cardName="memberCard" />
           <div className="btnBox">
             <AppBtn btnText="Explore" width="200px" height="40px" />
           </div>
