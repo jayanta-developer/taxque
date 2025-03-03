@@ -12,7 +12,11 @@ import rightArrow from "../../assets/images/rightArrow.svg";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { AppBtn } from "../../components/Buttons";
+import { AppBtn,AppHoloBtn } from "../../components/Buttons";
+import {ServiceCard} from "../../components/Tools"
+
+//data
+import {servicesData} from "../../assets/Data"
 
 interface NavProps {
   currentNav: string;
@@ -187,6 +191,14 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
                 <p>I Agree to Terms & Privacy Policy</p>
               </div>
               <AppBtn btnText="Apply Now" icon={rightArrow} />
+            </div>
+
+            <div className="sideServiceBox">
+              <p className="blogMtitle">Our Services</p>
+              {servicesData?.splice(0, 2).map((el, i) => (
+                <ServiceCard {...el} key={i} />
+              ))}
+              <AppHoloBtn btnText="Explore All Services" />
             </div>
           </div>
         </div>

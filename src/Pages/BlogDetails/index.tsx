@@ -57,7 +57,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
               </div>
             </div>
 
-            <h1 className="blogMtitle">
+            <h1 className="blogMtitle blogMainTitle">
               GST Registration Fees in India: Charges, Penalties & Payment
               Process
             </h1>
@@ -133,7 +133,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
         {/* Blog section */}
         <div className="pricePlaneBox BlogSection">
           <p className="sectionHeader">Our Latest News</p>
-          <MyCarousel data={BlogData} />
+          <MyCarousel data={BlogData} cardName="BlogCard" />
         </div>
         {/* email section */}
         <Subscribe />

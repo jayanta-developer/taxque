@@ -140,7 +140,11 @@ export const PriceCard = ({
           ₹ {price} <samp>/month</samp>
         </p>
         <p className="psSummery">{summery}</p>
-        <AppBtn btnText="Get started Now" width="100%" />
+        {MostPopular ? (
+          <AppHoloBtn btnText="Get started Now" width="100%" />
+        ) : (
+          <AppBtn btnText="Get started Now" width="100%" />
+        )}
       </div>
       <div className="pcSummerySection">
         {fetures.map((el: string, i: number) => (
@@ -300,6 +304,8 @@ export const JobCard = ({
   jobType,
   summary,
 }: jobcardProps) => {
+  const Navigate = useNavigate();
+
   return (
     <div className="jobCard">
       <div className="roleBox">
@@ -320,7 +326,15 @@ export const JobCard = ({
         </div>
       </div>
       <p className="jobCardSummary">{summary.slice(0, 102)}...</p>
-      <AppHoloBtn btnText="Apply Now" icon={blackArrowIcon} width="60%" />
+      <AppHoloBtn
+        btnText="Apply Now"
+        icon={blackArrowIcon}
+        width="60%"
+        onClick={() => {
+          Navigate("/career-details");
+          GoTop();
+        }}
+      />
     </div>
   );
 };
@@ -352,11 +366,11 @@ export const ProductCard = ({
         <p>{title}</p>
       </div>
       <div className="hrLine"></div>
+
       <div className="pcRatingBox">
-        <div className="pcPrict">
-          <span>Price: </span>
-          <p> ₹{priceData[1].price}</p>
-        </div>
+        <p className="pcbasPrice">
+          Basic Price: ₹1274 <span></span>
+        </p>
         <div className="pcRating">
           <p>4.8</p>
           <div className="ratingBOx">
@@ -366,6 +380,13 @@ export const ProductCard = ({
             <img src={star} />
           </div>
         </div>
+      </div>
+      <div className="pcPrict">
+        <span>Price: </span>
+        <p>
+          {" "}
+          ₹{priceData[1].price} <samp>/month</samp>
+        </p>
       </div>
       <div className="pcFeturesBox">
         {feturePoints?.map((el, i) => (
@@ -377,9 +398,9 @@ export const ProductCard = ({
       </div>
       <div className="pcBtnBox">
         <AppHoloBtn
-          btnText="Buy now"
+          btnText="Choose Plan"
           height="40px"
-          width="100%"
+          width="30%"
           onClick={() => {
             Navigate("/services/product-details");
             GoTop();
