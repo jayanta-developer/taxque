@@ -2,23 +2,20 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 
 //images
-import smPageBG from "../../assets/images/smPageBG.svg";
 import GSTIcon from "../../assets/images/gstIcon.svg";
 import YellowBg from "../../assets/images/YellowBg.svg";
 import pvtOverver from "../../assets/images/pvtOverver.svg";
 import greenTik2 from "../../assets/images/greenTikV2.svg";
-import BlackRightArrow from "../../assets/images/BlackRightArrow.png";
 import star from "../../assets/images/star.png";
+import homeBg from "../../assets/images/homeBg.svg";
+import appBg from "../../assets/images/appBG.svg";
+import whatsappIcon from "../../assets/images/whatsappIcon.svg";
+import viewIcon from "../../assets/images/viewIcon.png";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import {
-  PriceCard,
-  FeaturesCard,
-  BenefitsCard,
-  ServiceCard,
-} from "../../components/Tools";
+import { PriceCard, FeaturesCard, BenefitsCard } from "../../components/Tools";
 import Subscribe from "../../components/Subscribe";
 import ContactSection from "../../components/ContactSection";
 import { AppHoloBtn } from "../../components/Buttons";
@@ -30,7 +27,6 @@ import {
   keyFeatureData,
   benefitData,
   DifferenceTableData,
-  servicesData,
 } from "../../assets/Data";
 
 interface NavProps {
@@ -58,6 +54,11 @@ export default function ProductDetails({
       window.scrollTo({ top: topPosition, behavior: "smooth" });
     }
     scrollToSection(props?.id);
+  };
+
+  const openWhatsapp = () => {
+    const url = `https://wa.me/9091385148`;
+    window.open(url, "_blank");
   };
 
   useEffect(() => {
@@ -92,17 +93,12 @@ export default function ProductDetails({
   return (
     <>
       <div className="productPage">
-        <div className="SMHeroBox">
+        <div className="productHeroSection">
+          <img src={appBg} className="appBg" alt="" />
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
-          <img src={smPageBG} className="smPageBG" />
-        </div>
+          <img src={homeBg} className="homeBg" alt="" />
 
-        <div className="productPageMainSection">
-          <p className="navigateText">
-            Services <span>{">"}</span> GST{" "}
-            <span>{">"} GST Compliance and Filing</span>
-          </p>
-          <div className="productDetailBox">
+          <div className="productHeroMainSection">
             <div className="productInfoSection">
               <div className="productHeader">
                 <img src={GSTIcon} />
@@ -144,7 +140,8 @@ export default function ProductDetails({
                   btnText="Chat With Us"
                   width="200px"
                   height="40px"
-                  icon={BlackRightArrow}
+                  icon={whatsappIcon}
+                  onClick={openWhatsapp}
                 />
 
                 <div className="pcRating">
@@ -157,62 +154,32 @@ export default function ProductDetails({
                     <img src={star} />
                   </div>
                 </div>
-              </div>
-              <div className="productInfoBox">
-                {/* <img src={GSTImg} className="productBannder" /> */}
-                <p className="productInfoHeader">
-                  GST Registration Fees in India: Charges, Penalties & Payment
-                  Process
-                </p>
-                <p className="piNText">
-                  Stay on top of your GST obligations with our comprehensive
-                  compliance solutions. From timely filing to advisory services,
-                  we handle it all so you can focus on growing your business.
-                </p>
 
-                <p className="piSubTitleText">1. Affordable & Transparent:</p>
-                <p className="piNText">
-                  GST registration in India is free of charge when applied for
-                  through the official GST portal (www.gst.gov.in).{" "}
-                </p>
-
-                <p className="piSubTitleText">2. Comprehensive Compliance:</p>
-                <p className="piNText">
-                  GST registration in India is free of charge when applied for
-                  through the official GST portal (www.gst.gov.in).
-                </p>
-
-                <p className="piSubTitleText">
-                  3. Post-Incorporation Benefits:
-                </p>
-                <p className="piNText">
-                  GST registration in India is free of charge when applied for
-                  through the official GST portal (www.gst.gov.in).
-                </p>
-
-                <p className="piSubTitleText">4. Trusted by Startups:</p>
-                <p className="piNText">
-                  GST registration in India is free of charge when applied for
-                  through the official GST portal (www.gst.gov.in).
+                <p
+                  className="viewPackage"
+                  onClick={() =>
+                    handlePDClick({
+                      title: "price",
+                      id: "priceBox",
+                    })
+                  }
+                >
+                  <img src={viewIcon} alt="" />
+                  View Package
                 </p>
               </div>
             </div>
-            <div className="sideBannerSection">
+            <div className="productContactSection">
               <ContactSection />
-              <div className="sideServiceBox">
-                <p className="blogMtitle">Our Services</p>
-                {servicesData?.splice(0, 2).map((el, i) => (
-                  <ServiceCard {...el} key={i} />
-                ))}
-                <AppHoloBtn btnText="Explore All Services" />
-              </div>
             </div>
           </div>
+        </div>
 
+        <div className="productPageMainSection">
           {/* -Price plane Box */}
           <div className="pricePlaneBox PriceplaneSection">
             <p className="sectionHeader">GST Compliance and Filing</p>
-            <div className="priceCardBox">
+            <div id="priceBox" className="priceCardBox">
               <img src={YellowBg} className="yellowBg" />
               {priceCardData?.map((el, i) => (
                 <PriceCard {...el} key={i} />
