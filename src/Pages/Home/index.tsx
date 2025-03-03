@@ -13,12 +13,7 @@ import YellowBg from "../../assets/images/YellowBg.svg";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //data
-import {
-  servicesData,
-  TaxQueData,
-  priceCardData,
-  BlogData,
-} from "../../assets/Data";
+import { servicesData, priceCardData, BlogData } from "../../assets/Data";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -29,7 +24,7 @@ import BNCarousel from "../../components/CBannerCarosel";
 import WCTQCarousel from "../../components/WCTQCarosel";
 
 import { AppBtn } from "../../components/Buttons";
-import { ServiceCard, TaxQueCard, PriceCard } from "../../components/Tools";
+import { PriceCard } from "../../components/Tools";
 
 interface NavProps {
   currentNav: string;
@@ -120,7 +115,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       <div className="taxQueSection">
         <img src={taxQueImg} className="taxQueImg" />
         <p className="sectionHeader">Why Choose TaxQue?</p>
-        <div className="taxQueCardBox">         
+        <div className="taxQueCardBox">
           <WCTQCarousel />
         </div>
       </div>

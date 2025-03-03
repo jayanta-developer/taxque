@@ -18,12 +18,10 @@ import YellowBg from "../../assets/images/YellowBg.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-import { TaxQueCard } from "../../components/Tools";
-import AppSlider from "../../components/Slider";
 import WCTQCarousel from "../../components/WCTQCarosel";
-import MyCarousel from "../../components/Carousel"
+import MyCarousel from "../../components/Carousel";
 //data
-import { TaxQueData, memberData } from "../../assets/Data";
+import { memberData } from "../../assets/Data";
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
