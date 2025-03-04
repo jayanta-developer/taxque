@@ -1,5 +1,4 @@
 import "./style.css";
-import { useState, useEffect } from "react";
 
 //images
 import homeBg from "../../assets/images/homeBg.svg";
@@ -13,7 +12,7 @@ import taxQueImg from "../../assets/images/TaxQueImg.png";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //data
-import { servicesData, priceCardData, BlogData } from "../../assets/Data";
+import { servicesData, BlogData } from "../../assets/Data";
 
 //components
 import NavBar from "../../components/NavBar";

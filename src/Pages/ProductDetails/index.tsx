@@ -3,7 +3,6 @@ import "./style.css";
 
 //images
 import GSTIcon from "../../assets/images/gstIcon.svg";
-import YellowBg from "../../assets/images/YellowBg.svg";
 import pvtOverver from "../../assets/images/pvtOverver.svg";
 import greenTik2 from "../../assets/images/greenTikV2.svg";
 import star from "../../assets/images/star.png";
