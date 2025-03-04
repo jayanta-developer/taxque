@@ -16,7 +16,7 @@ import blackArrowIcon from "../../assets/images/blackArrowIcon.svg";
 import star from "../../assets/images/star.png";
 
 //components
-import { AppBtn, AppHoloBtn } from "../Buttons";
+import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
 
 interface serviceCardProps {
   icon: string;
@@ -38,6 +38,9 @@ interface PriceCardProps {
   summery: string;
   fetures: string[];
   MostPopular: boolean;
+  priceTabe: Number;
+  index: Number;
+  isMobile: boolean;
 }
 
 interface BlogCardProps {
@@ -122,9 +125,17 @@ export const PriceCard = ({
   summery,
   fetures,
   MostPopular,
+  priceTabe,
+  index,
+  isMobile,
 }: PriceCardProps) => {
   return (
-    <div className={MostPopular ? "priceCard priceCardActive" : "priceCard"}>
+    <div
+      style={{
+        display: isMobile ? (priceTabe === index ? "block" : "none") : "block",
+      }}
+      className={MostPopular ? "priceCard priceCardActive" : "priceCard"}
+    >
       <div
         style={{ display: MostPopular ? "flex" : "none" }}
         className="Mpopular"
@@ -143,7 +154,7 @@ export const PriceCard = ({
         {MostPopular ? (
           <AppHoloBtn btnText="Get started Now" width="100%" />
         ) : (
-          <AppBtn btnText="Get started Now" width="100%" />
+          <AppOrangeBtn btnText="Get started Now" width="100%" />
         )}
       </div>
       <div className="pcSummerySection">

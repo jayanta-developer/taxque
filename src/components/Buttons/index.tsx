@@ -60,3 +60,28 @@ export const AppHoloBtn: React.FC<btnProps> = ({
     </div>
   );
 };
+
+export const AppOrangeBtn: React.FC<btnProps> = ({
+  btnText,
+  bgColor,
+  width,
+  height,
+  textColor,
+  icon,
+  onClick,
+}) => {
+  return (
+    <div
+      onClick={onClick}
+      className="appBtn orangeBtn"
+      style={{
+        width,
+        minHeight: height || "50px",
+        background: bgColor || "#0D203B",
+      }}
+    >
+      <p style={{ color: textColor || "#fff" }}>{btnText}</p>
+      {icon ? <img src={icon} alt="" /> : null}
+    </div>
+  );
+};

@@ -58,6 +58,7 @@
   right: 20px;
 }
 .BlogPage .sectionHeader {
+  display: none;
   position: absolute;
   top: 2%;
   left: 0;
@@ -86,5 +87,8 @@
   }
   .blogCardBottomLine {
     margin: 20px 0;
+  }
+  .BlogPage .sectionHeader {
+    display: block ;
   }
 }

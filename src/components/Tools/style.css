@@ -87,8 +87,6 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   position: relative;
 }
-.priceCardActive {
-}
 .priceCardActive .pcHeroSection {
   background: #96dd6f69;
   border: 1px solid #fa8c05;
@@ -479,12 +477,13 @@
 }
 .pcPrict p {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
   color: #fa8a05;
 }
 .pcPrict span {
   margin-right: 8px;
   font-size: 20px;
+  font-weight: 600;
 }
 .pcPrict p samp {
   color: gray;
@@ -513,11 +512,10 @@
   margin-top: 10px;
 }
 .productCard .pcBtnBox {
-  justify-content: start;
+  justify-content: center;
 }
-.productCard .appBtn{
-  min-width: 125px;
-
+.productCard .appBtn {
+  min-width: 164px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {
@@ -573,6 +571,9 @@
   }
   .featuresCard {
     width: 47%;
+  }
+  .productCard .pcBtnBox {
+    justify-content: start;
   }
 }
 /* Desktop view */

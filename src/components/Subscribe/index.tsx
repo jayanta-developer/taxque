@@ -28,8 +28,8 @@ export default function Subscribe() {
             <AppBtn
               btnText="Subscribe"
               icon={rightArrow}
-              width="166px"
-              height="52px"
+              width="146px"
+              height="100%"
             />
           </div>
         </div>

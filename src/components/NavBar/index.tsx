@@ -29,6 +29,7 @@ export default function NavBar({ currentNav }: NavProps) {
   const [nav, setNav] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const divRef = useRef<HTMLDivElement | null>(null);
+  const [searchTab, setSearchTab] = useState(false);
 
   const closeNav = (e: any) => {
     if (e.target.id === "grayBox") {
@@ -72,6 +73,12 @@ export default function NavBar({ currentNav }: NavProps) {
     navigate(url.toLowerCase());
     setNav(false);
   };
+
+  useEffect(() => {
+    document.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement)?.id !== "searchInput") setSearchTab(false);
+    });
+  }, []);
 
   useEffect(() => {
     if (nav) {
@@ -161,7 +168,11 @@ export default function NavBar({ currentNav }: NavProps) {
               ></samp>
             </p>
           ))}
-          <img src={searchIcon} />
+          <img
+            id="searchInput"
+            src={searchIcon}
+            onClick={() => setSearchTab(!searchTab)}
+          />
           <AppBtn
             btnText="Log In"
             icon={rightArrow}
@@ -177,6 +188,16 @@ export default function NavBar({ currentNav }: NavProps) {
             className="meneIcon"
             onClick={() => setNav(true)}
           />
+
+          {/* searchInput */}
+          <div
+            id="searchInput"
+            className="searchInputBox"
+            style={{ display: searchTab ? "block" : "none" }}
+          >
+            <input id="searchInput" type="text" placeholder="Search..." />
+            <img src={searchIcon} />
+          </div>
         </div>
 
         <img

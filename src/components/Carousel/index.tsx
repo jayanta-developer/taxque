@@ -77,7 +77,7 @@ const MyCarousel: React.FC<MyCarouselProps> = ({ data, cardName }) => {
       ssr={true}
       infinite={true}
       // autoPlay={deviceType !== "mobile"}
-      autoPlay={true}
+      // autoPlay={true}
       autoPlaySpeed={3000}
       keyBoardControl={true}
       customTransition="all .5s"

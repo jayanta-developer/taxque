@@ -1,0 +1,9 @@
+.emailInputBox .appBtn {
+  width: 146px !important;
+  min-height: 100% !important;
+} /* Tabe view */
+@media only screen and (min-width: 768px) {
+}
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+}

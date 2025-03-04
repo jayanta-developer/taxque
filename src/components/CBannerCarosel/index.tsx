@@ -66,7 +66,7 @@ const BNCarousel = () => {
     <Carousel
       swipeable={true}
       draggable={true}
-      showDots={false}
+      showDots={true}
       responsive={responsive}
       ssr={true}
       infinite={true}

@@ -1,4 +1,5 @@
 import "./style.css";
+import { useState, useEffect } from "react";
 
 //images
 import homeBg from "../../assets/images/homeBg.svg";
@@ -9,7 +10,6 @@ import GRatingImg from "../../assets/images/GRatingImg.svg";
 import taxImg from "../../assets/images/taxImg.svg";
 import GreenBg from "../../assets/images/GreenBg.svg";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
-import YellowBg from "../../assets/images/YellowBg.svg";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //data
@@ -22,9 +22,9 @@ import MyCarousel from "../../components/Carousel";
 import Subscribe from "../../components/Subscribe";
 import BNCarousel from "../../components/CBannerCarosel";
 import WCTQCarousel from "../../components/WCTQCarosel";
+import PriceSection from "../../components/PriceSection";
 
 import { AppBtn } from "../../components/Buttons";
-import { PriceCard } from "../../components/Tools";
 
 interface NavProps {
   currentNav: string;
@@ -33,6 +33,7 @@ interface NavProps {
 
 export default function Home({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Home");
+
   return (
     <>
       <div className="heroBox">
@@ -71,9 +72,6 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       <div className="serviceSection">
         <p className="sectionHeader">Our Services</p>
         <div className="serviceCardBox">
-          {/* {servicesData?.slice(0, 4).map((el, i) => (
-            <ServiceCard key={i} {...el} />
-          ))} */}
           <MyCarousel data={servicesData} cardName="ServicesCard" />
         </div>
         <div className="btnBox">
@@ -120,15 +118,8 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         </div>
       </div>
       {/* -Price plane Box */}
-      <div className="pricePlaneBox PriceplaneSection">
-        <p className="sectionHeader">Income Tax Return Filing Pricing Plans</p>
-        <div className="priceCardBox">
-          <img src={YellowBg} className="yellowBg" />
-          {priceCardData?.map((el, i) => (
-            <PriceCard {...el} key={i} />
-          ))}
-        </div>
-      </div>
+      <PriceSection />
+
       {/* Review section */}
       <div className="reviewSection">
         <p className="sectionHeader">Success Stories & Reviews</p>

@@ -1,7 +1,7 @@
 .carBtnBox {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 4px;
   margin-top: 30px;
 }
 .carNavBtn {
@@ -71,9 +71,12 @@
   .careermainSection {
     padding: 5%;
   }
-.carNavBtn {
-padding: 0 20px;
-}
+  .carNavBtn {
+    padding: 0 20px;
+  }
+  .carBtnBox {
+    gap: 20px;
+  }
 }
 
 /* Desktop view */

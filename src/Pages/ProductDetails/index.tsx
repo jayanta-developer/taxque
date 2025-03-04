@@ -15,14 +15,14 @@ import viewIcon from "../../assets/images/viewIcon.png";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { PriceCard, FeaturesCard, BenefitsCard } from "../../components/Tools";
+import { FeaturesCard, BenefitsCard } from "../../components/Tools";
 import Subscribe from "../../components/Subscribe";
 import ContactSection from "../../components/ContactSection";
 import { AppHoloBtn } from "../../components/Buttons";
+import PriceSection from "../../components/PriceSection";
 
 //data
 import {
-  priceCardData,
   ParaSection,
   keyFeatureData,
   benefitData,
@@ -177,32 +177,32 @@ export default function ProductDetails({
 
         <div className="productPageMainSection">
           {/* -Price plane Box */}
-          <div className="pricePlaneBox PriceplaneSection">
-            <p className="sectionHeader">GST Compliance and Filing</p>
-            <div id="priceBox" className="priceCardBox">
-              <img src={YellowBg} className="yellowBg" />
-              {priceCardData?.map((el, i) => (
-                <PriceCard {...el} key={i} />
-              ))}
-            </div>
-          </div>
+          <PriceSection />
 
           {/* PeraSection */}
           <div className="paraSection">
-            <div className="paraNavSection">
-              {ParaSection?.map((el, i) => (
-                <p
-                  className={activeSection === el?.id ? "productNavActive" : ""}
-                  onClick={() => handlePDClick(el)}
-                  key={i}
-                >
-                  {el?.title}
-                </p>
-              ))}
+            <div className="paraNavOuterBox">
+              <div className="paraNavSection">
+                {ParaSection?.map((el, i) => (
+                  <p
+                    className={
+                      activeSection === el?.id ? "productNavActive" : ""
+                    }
+                    onClick={() => handlePDClick(el)}
+                    key={i}
+                  >
+                    {el?.title}
+                  </p>
+                ))}
+              </div>
             </div>
 
             {/* Overview section */}
-            <div id="overview" className="paraSubSection overViewSection">
+            <div
+              id="overview"
+              className="paraSubSection overViewSection privateLC"
+            >
+              <p className="privateSHeader">Overview</p>
               <p>
                 Starting a private limited company in India is a preferred
                 option for entrepreneurs aiming to establish professional and

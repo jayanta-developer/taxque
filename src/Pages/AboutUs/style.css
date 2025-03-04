@@ -25,7 +25,6 @@
 .tpSubHeaderText {
   font-size: 16px;
   color: #4d4d4d;
-  text-align: center;
 }
 .storyLineSection {
   width: 100%;
@@ -37,7 +36,6 @@
 }
 .storyLineSection .oslSubText {
   width: 100%;
-  text-align: center;
 }
 .oslMainBox {
   width: 100%;
@@ -62,9 +60,7 @@
   width: 100%;
   height: 100%;
 }
-.oslTextBox .tpSubHeaderText {
-  text-align: start;
-}
+
 .oslLineBox {
   width: 160px;
   display: none;
@@ -187,6 +183,9 @@
   }
   .memberSection {
     /* padding: 2% %; */
+  }
+  .storyLineSection .oslSubText {
+    text-align: center;
   }
 }
 

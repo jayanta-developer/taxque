@@ -133,12 +133,18 @@
     rgba(184, 255, 146, 1) 0%,
     rgba(253, 255, 200, 1) 59%
   );
-  margin-bottom: 40px;
-  position: sticky;
-  top: 20px;
+  margin-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   flex-wrap: wrap;
   justify-content: center;
+}
+.paraNavOuterBox {
+  display: none;
+  width: 100%;
+  background: #fff;
+  position: sticky;
+  top: 0px;
+  padding-top: 25px;
 }
 .paraNavSection p {
   cursor: pointer;
@@ -165,9 +171,13 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: #000;
 }
 .privateLC .privateSHeader b {
   color: #fa8a05;
+}
+.paraSubSection ul {
+  list-style-type: none;
 }
 .prNText {
   font-size: 18px;
@@ -283,13 +293,13 @@
   flex-direction: column;
   align-items: center;
   padding: 2%;
-  padding-top: 11%;
+  padding-top: 25%;
   gap: 3%;
 }
 .productInfoSection {
   width: 100%;
   margin-bottom: 40px;
-  margin-top: 70px;
+  margin-top: 10px;
 }
 .productContactSection {
   width: 100%;
@@ -341,6 +351,12 @@
   .privateLC .privateSHeader {
     font-size: 30px;
   }
+  .paraSubSection ul {
+    list-style-type: disc;
+  }
+  .productHeroMainSection {
+    padding-top: 16%;
+  }
 }
 
 /* Desktop view */
@@ -366,5 +382,8 @@
     flex-direction: row;
     padding: 0% 9%;
     padding-top: 11%;
+  }
+  .paraNavOuterBox {
+    display: block;
   }
 }

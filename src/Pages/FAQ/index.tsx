@@ -6,7 +6,7 @@ import pageBg from "../../assets/images/otherPageBg.svg";
 import iconBox from "../../assets/images/iconBox.svg";
 import plassIcon from "../../assets/images/plassIcon.svg";
 import mainasIcon from "../../assets/images/mainasIcon.svg";
-import MenuIcon from "../../assets/images/menuIcon.png";
+import MenuIcon from "../../assets/images/menuIconV2.png";
 import backRoundArrow from "../../assets/images/backRoundArrow.png";
 
 //components

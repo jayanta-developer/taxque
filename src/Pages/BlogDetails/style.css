@@ -1,6 +1,5 @@
 .blogCoverImg {
   width: 100%;
-  border-radius: 20px;
   margin-bottom: 30px;
 }
 .blogDetailsPage .productDetailBox {
@@ -56,14 +55,21 @@
 }
 .bdUlPoints {
   padding-left: 3%;
+  list-style-type: none;
 }
-.blogMainTitle{
+.blogMainTitle {
   font-size: 26px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {
-  .blogMainTitle{
+  .blogMainTitle {
     font-size: 34px;
+  }
+  .blogCoverImg {
+    border-radius: 20px;
+  }
+  .bdUlPoints {
+    list-style-type: disc;
   }
 }
 
@@ -74,5 +80,8 @@
   }
   .noticeBox {
     width: 80%;
+  }
+  .blogDetailsPage .navigateText {
+    margin: 30px 0;
   }
 }
