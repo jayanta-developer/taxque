@@ -1,7 +1,6 @@
 .heroBox {
   width: 100%;
   min-height: 820px;
-  height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -19,6 +18,8 @@
   flex-direction: column-reverse;
   gap: 20px;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 20%;
 }
 .heroMainSection .hrSummeryText {
   padding-left: 5%;
@@ -32,12 +33,28 @@
   align-items: center;
 }
 .hrImgBox {
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.hrImgBox img {
-  width: 60%;
+.hrImgBox .carousel-container {
+  position: absolute;
+  width: 80%;
+  min-width: unset;
+}
+
+.hrImgBox .carousel-item-padding-40-px {
+  padding: 0 0px;
+}
+.hrImgBox .react-multi-carousel-item {
+  display: block;
+}
+.hrImgBox .react-multi-carousel-item img {
+  width: 100%;
 }
 .hrMainText {
   width: 80%;
@@ -335,13 +352,13 @@
   color: #fa8a05;
 }
 .refferIconBox {
-  margin-left: 60px;
   cursor: pointer;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .heroMainSection {
     padding: 6% 4%;
+    margin-top: 11%;
   }
   .hrMainText {
     width: unset;
@@ -421,6 +438,12 @@
   .psTabe p {
     font-size: 20px;
   }
+  .hrImgBox {
+    width: 60%;
+  }
+  .refferIconBox {
+    margin-left: 60px;
+  }
 }
 /* Desktop view */
 @media only screen and (min-width: 1000px) {
@@ -429,18 +452,21 @@
     min-height: 455px;
     flex-direction: row;
     gap: 30px;
+    align-items: unset;
+    margin-top: 0%;
   }
   .hrTextBox {
-    width: 60%;
+    width: 68%;
   }
   .hrImgBox {
-    width: 40%;
+    width: 32%;
   }
   .hrMainText {
     font-size: 50px;
   }
   .heroBox {
     min-height: unset;
+    height: 100vh;
   }
   .texSection {
     padding: 0 9%;
@@ -483,9 +509,6 @@
   }
   .emailInputBox {
     width: 50%;
-  }
-  .hrImgBox img {
-    width: unset;
   }
   .taxQueSection {
     height: 500px;

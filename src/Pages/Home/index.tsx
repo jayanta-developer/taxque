@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 //images
 import homeBg from "../../assets/images/homeBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
-import heroImg from "../../assets/images/heroImg.svg";
+import heroImg from "../../assets/images/homeBGframe.svg";
 import GRatingImg from "../../assets/images/GRatingImg.svg";
 import Reffer from "../../assets/images/refferlIcon.png";
 import taxImg from "../../assets/images/taxImg.svg";
@@ -23,6 +23,7 @@ import Subscribe from "../../components/Subscribe";
 import BNCarousel from "../../components/CBannerCarosel";
 import WCTQCarousel from "../../components/WCTQCarosel";
 import PriceSection from "../../components/PriceSection";
+import HomeCarousel from "../../components/HomeCarousel";
 
 import { AppBtn } from "../../components/Buttons";
 import { GoTop } from "../../components/Tools";
@@ -75,7 +76,8 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
           </div>
 
           <div className="hrImgBox">
-            <img src={heroImg} />
+            <img style={{ width: "100%", height: "100%" }} src={heroImg} />
+            <HomeCarousel />
           </div>
         </div>
       </div>
