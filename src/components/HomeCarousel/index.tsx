@@ -58,7 +58,7 @@ const HomeCarousel = () => {
       infinite={true}
       // autoPlay={deviceType !== "mobile"}
       // autoPlay={true}
-      autoPlaySpeed={4000}
+      autoPlaySpeed={3000}
       keyBoardControl={true}
       customTransition="all .5s"
       transitionDuration={500}
