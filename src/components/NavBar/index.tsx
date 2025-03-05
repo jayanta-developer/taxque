@@ -172,6 +172,7 @@ export default function NavBar({ currentNav }: NavProps) {
             id="searchInput"
             src={searchIcon}
             onClick={() => setSearchTab(!searchTab)}
+            style={{ cursor: "pointer" }}
           />
           <AppBtn
             btnText="Log In"

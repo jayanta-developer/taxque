@@ -1,11 +1,12 @@
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 //images
 import homeBg from "../../assets/images/homeBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
 import heroImg from "../../assets/images/heroImg.svg";
 import GRatingImg from "../../assets/images/GRatingImg.svg";
-
+import Reffer from "../../assets/images/refferlIcon.png";
 import taxImg from "../../assets/images/taxImg.svg";
 import GreenBg from "../../assets/images/GreenBg.svg";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
@@ -24,6 +25,7 @@ import WCTQCarousel from "../../components/WCTQCarosel";
 import PriceSection from "../../components/PriceSection";
 
 import { AppBtn } from "../../components/Buttons";
+import { GoTop } from "../../components/Tools";
 
 interface NavProps {
   currentNav: string;
@@ -32,6 +34,7 @@ interface NavProps {
 
 export default function Home({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Home");
+  const Navigate = useNavigate();
 
   return (
     <>
@@ -54,8 +57,20 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
               icon={rightArrow}
               width="254px"
             />
-            <div className="gRatingBox">
-              <img src={GRatingImg} alt="" />
+            <div className="pcBRBox">
+              <div className="gRatingBox">
+                <img src={GRatingImg} alt="" />
+              </div>
+              <p
+                className="viewPackage refferIconBox"
+                onClick={() => {
+                  Navigate("/reffer");
+                  GoTop();
+                }}
+              >
+                <img src={Reffer} alt="" />
+                Refer And Earn
+              </p>
             </div>
           </div>
 

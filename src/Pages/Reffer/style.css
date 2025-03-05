@@ -1,0 +1,141 @@
+.refferMainSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+}
+.refferMainInputBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+}
+.reverInputBox {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.reverShearBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.reverInputBox .tpSubHeaderText {
+  margin: 20px 0;
+}
+.refShearHeader {
+  font-size: 32px;
+  font-weight: 600;
+  color: #fe8903;
+}
+.shareBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 0px 25px 0px #c7cfe380;
+  border-radius: 20px;
+  padding: 15px;
+  gap: 15px;
+}
+.shareBox img {
+  width: 70px;
+}
+.shTextB p {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+}
+.hiwBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0px 0px 25px 0px #c7cfe380;
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}
+.hiwBox1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.hiwBox1 samp {
+  font-size: 18px;
+  color: #121129;
+  font-weight: 500;
+}
+.hiwBox1 p {
+  font-size: 32px;
+  font-weight: 600;
+  color: #fe8903;
+  margin: 10px 0;
+}
+.hiwBox1 span {
+  font-size: 16px;
+  color: #0d203b;
+  text-align: center;
+}
+.vrLine {
+  border-left: 1px solid #5bb15b;
+  margin: 0 20px;
+}
+.hiwHeader {
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+.hiwBox img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 70px;
+  left: 0;
+  object-fit: none;
+}
+.refferPage .sectionHeader {
+  text-align: start;
+  width: 100%;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+  .refferMainSection {
+    padding: 3% 2%;
+  }
+  .hiwBox {
+    width: 100%;
+    flex-direction: row;
+  }
+  .refferMainInputBox {
+    flex-direction: row;
+  }
+  .reverInputBox {
+    width: 55%;
+    margin: 0;
+  }
+  .reverShearBox {
+    width: 45%;
+  }
+  .hiwHeader {
+    margin-top: 70px;
+  }
+  .hiwBox1 {
+    width: 50%;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .refferMainSection {
+    padding: 6% 9%;
+  }
+  .refferMainInputBox {
+    gap: 8%;
+  }
+  .hiwBox {
+    width: 70%;
+  }
+}

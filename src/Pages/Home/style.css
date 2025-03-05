@@ -334,6 +334,10 @@
 .psTabeActive p {
   color: #fa8a05;
 }
+.refferIconBox {
+  margin-left: 60px;
+  cursor: pointer;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .heroMainSection {

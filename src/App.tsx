@@ -20,6 +20,7 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import RefundPolicy from "./Pages/RefundPolicy";
 import ContactUs from "./Pages/ContactUs";
 import TermsOfUse from "./Pages/TermsOfUse";
+import Reffer from "./Pages/Reffer";
 
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
@@ -148,6 +149,12 @@ function App() {
           path="/terms-of-use"
           element={
             <TermsOfUse setCurrentNav={setCurrentNav} currentNav={currentNav} />
+          }
+        />
+        <Route
+          path="/reffer"
+          element={
+            <Reffer setCurrentNav={setCurrentNav} currentNav={currentNav} />
           }
         />
 
