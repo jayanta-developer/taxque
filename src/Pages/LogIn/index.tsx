@@ -14,7 +14,7 @@ import rightArrow from "../../assets/images/rightArrow.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../Util/context/AuthContext";
 
 //service
 import {
@@ -23,7 +23,7 @@ import {
   googleLogin,
   facebookLogin,
   linkedInLogin,
-} from "../../services/authService";
+} from "../../Util/services/authService";
 
 interface NavProps {
   currentNav: string;
@@ -87,7 +87,6 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
   const handleSendOTP = async () => {
     try {
       await sendOTP(inputEmail);
-      alert("OTP sent to your email!");
     } catch (error) {
       alert("Error sending OTP");
     }
@@ -99,7 +98,6 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
       const res = await verifyOTP(inputEmail, OTPstring);
       localStorage.setItem("user", JSON.stringify(res.data.token));
       setUser(res.data.token);
-      alert("Login successful!");
       navigate("/");
     } catch (error) {
       alert("Invalid OTP");
@@ -121,15 +119,24 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
             <p className="LogHeader">Log In To Continue</p>
             <p className="LogSubHeader">Log In with your existing acoount.</p>
             <div className="logBtnBox">
-              <div className="logBtn" onClick={googleLogin}>
+              <div
+                className="logBtn"
+                // onClick={googleLogin}
+              >
                 <img src={GoogleIcon} alt="" />
                 <p>Google</p>
               </div>
-              <div className="logBtn" onClick={facebookLogin}>
+              <div
+                className="logBtn"
+                // onClick={facebookLogin}
+              >
                 <img src={FacbookIcon} alt="" />
                 <p>Facebook</p>
               </div>
-              <div className="logBtn" onClick={linkedInLogin}>
+              <div
+                className="logBtn"
+                // onClick={linkedInLogin}
+              >
                 <img src={LinkdinIcon} alt="" />
                 <p>Linkedin</p>
               </div>

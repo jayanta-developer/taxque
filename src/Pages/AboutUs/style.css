@@ -153,7 +153,9 @@
   display: flex;
   justify-content: center;
 }
-
+.memberSection .btnBox {
+  margin-top: 14%;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .storyLineSection {
@@ -187,6 +189,9 @@
   .storyLineSection .oslSubText {
     text-align: center;
   }
+  .memberSection .btnBox {
+    margin-top: 10%;
+  }
 }
 
 /* Desktop view */
@@ -215,5 +220,8 @@
   .memberSection {
     margin-bottom: 0;
     padding: 2% 9%;
+  }
+  .memberSection .btnBox {
+    margin-top: 6%;
   }
 }

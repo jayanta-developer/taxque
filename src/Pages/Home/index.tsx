@@ -96,6 +96,10 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
             width="200px"
             height="50px"
             icon={rightArrow}
+            onClick={() => {
+              Navigate("/services");
+              GoTop();
+            }}
           />
         </div>
       </div>
@@ -121,7 +125,15 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
             platform covers diverse needs and facilitates tax filing for
             everyone.
           </p>
-          <AppBtn btnText="Know About Us" icon={rightArrow} width="225px" />
+          <AppBtn
+            btnText="Know About Us"
+            icon={rightArrow}
+            width="225px"
+            onClick={() => {
+              Navigate("/about");
+              GoTop();
+            }}
+          />
         </div>
       </div>
 

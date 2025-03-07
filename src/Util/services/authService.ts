@@ -14,7 +14,7 @@ export const verifyOTP = async (email: string, otp: string) => {
 
 // Google Login
 export const googleLogin = async () => {
-  window.location.href = `${BASE_URL}/google`; // Redirect to Google OAuth
+  window.location.href = `${BASE_URL}/google`;
 };
 
 // Facebook Login

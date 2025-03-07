@@ -22,6 +22,9 @@ import ContactUs from "./Pages/ContactUs";
 import TermsOfUse from "./Pages/TermsOfUse";
 import Reffer from "./Pages/Reffer";
 
+//Protect Route
+import ProtectedRoute from "./Util/Tools/ProtectedRoute";
+
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
 
@@ -37,16 +40,20 @@ function App() {
         <Route
           path="/services"
           element={
-            <Services setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <ProtectedRoute>
+              <Services setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/products"
           element={
-            <ProductList
-              setCurrentNav={setCurrentNav}
-              currentNav={currentNav}
-            />
+            <ProtectedRoute>
+              <ProductList
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
@@ -58,40 +65,50 @@ function App() {
         <Route
           path="/services/product-details"
           element={
-            <ProductDetails
-              setCurrentNav={setCurrentNav}
-              currentNav={currentNav}
-            />
+            <ProtectedRoute>
+              <ProductDetails
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/services/product-details/payment"
           element={
-            <ProductPayment
-              setCurrentNav={setCurrentNav}
-              currentNav={currentNav}
-            />
+            <ProtectedRoute>
+              <ProductPayment
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/blog"
           element={
-            <BlogPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <ProtectedRoute>
+              <BlogPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/blog-details"
           element={
-            <BlogDetails
-              setCurrentNav={setCurrentNav}
-              currentNav={currentNav}
-            />
+            <ProtectedRoute>
+              <BlogDetails
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/team"
           element={
-            <Teams setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <ProtectedRoute>
+              <Teams setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
           }
         />
         <Route
@@ -103,22 +120,28 @@ function App() {
         <Route
           path="/careers"
           element={
-            <Career setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <ProtectedRoute>
+              <Career setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/career-details"
           element={
-            <CareerDetails
-              setCurrentNav={setCurrentNav}
-              currentNav={currentNav}
-            />
+            <ProtectedRoute>
+              <CareerDetails
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/f&q"
           element={
-            <FAQ setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <ProtectedRoute>
+              <FAQ setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
           }
         />
         <Route
@@ -133,16 +156,23 @@ function App() {
         <Route
           path="/refund-policy"
           element={
-            <RefundPolicy
-              setCurrentNav={setCurrentNav}
-              currentNav={currentNav}
-            />
+            <ProtectedRoute>
+              <RefundPolicy
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/contact-us"
           element={
-            <ContactUs setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <ProtectedRoute>
+              <ContactUs
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
@@ -154,7 +184,9 @@ function App() {
         <Route
           path="/reffer"
           element={
-            <Reffer setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            <ProtectedRoute>
+              <Reffer setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
           }
         />
 

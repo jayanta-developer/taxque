@@ -135,14 +135,14 @@
 @media only screen and (min-width: 1000px) {
   .logBox {
     flex-direction: row;
+    min-height: 450px;
   }
   .logImgBox {
     width: 45%;
+    height: 40vh;
+    min-height: 450px;
   }
   .logInfoBox {
     width: 55%;
-  }
-  .logImgBox {
-    height: unset;
   }
 }
