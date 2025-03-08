@@ -148,8 +148,7 @@ export const priceCardData = [
     title: "Business Plan",
     basicPrice: "4025",
     price: "2655",
-    summery:
-      "Everything in Business Income plus capital gain income.",
+    summery: "Everything in Business Income plus capital gain income.",
     fetures: [
       "F&O Income/Loss (Non Audit)",
       "Speculative Income",
@@ -462,7 +461,7 @@ export const serviceProduct = [
     productDetails: [
       {
         navText: "Overview",
-        title: "",
+        title: "Overview",
         summary: [
           "Starting a private limited company in India is a preferred option for entrepreneurs aiming to establish professional and recognised businesses. Governed by the Companies Act, 2013, and regulated by the Ministry of Corporate Affairs (MCA), this business structure offers benefits like limited liability, enhanced credibility, and growth opportunities.",
           "The process involves submitting the SPICe+ form, obtaining Digital Signature Certificates (DSC) for directors, and securing Director Identification Numbers (DIN). Once approved by the Registrar of Companies (RoC), your business receives a Certificate of Incorporation, making it a separate legal entity. This allows the company to own assets, sign contracts, and operate independently.",
