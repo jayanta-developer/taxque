@@ -40,20 +40,20 @@ function App() {
         <Route
           path="/services"
           element={
-            <ProtectedRoute>
-              <Services setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Services setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/products"
           element={
-            <ProtectedRoute>
-              <ProductList
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <ProductList
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+            // </ProtectedRoute>
           }
         />
         <Route
@@ -65,50 +65,50 @@ function App() {
         <Route
           path="/services/product-details"
           element={
-            <ProtectedRoute>
-              <ProductDetails
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <ProductDetails
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/services/product-details/payment"
           element={
-            <ProtectedRoute>
-              <ProductPayment
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <ProductPayment
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/blog"
           element={
-            <ProtectedRoute>
-              <BlogPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <BlogPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/blog-details"
           element={
-            <ProtectedRoute>
-              <BlogDetails
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <BlogDetails
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/team"
           element={
-            <ProtectedRoute>
-              <Teams setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Teams setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            // </ProtectedRoute>
           }
         />
         <Route
@@ -120,28 +120,28 @@ function App() {
         <Route
           path="/careers"
           element={
-            <ProtectedRoute>
-              <Career setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Career setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/career-details"
           element={
-            <ProtectedRoute>
-              <CareerDetails
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <CareerDetails
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/f&q"
           element={
-            <ProtectedRoute>
-              <FAQ setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <FAQ setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            // </ProtectedRoute>
           }
         />
         <Route
@@ -156,23 +156,20 @@ function App() {
         <Route
           path="/refund-policy"
           element={
-            <ProtectedRoute>
-              <RefundPolicy
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <RefundPolicy
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+            // </ProtectedRoute>
           }
         />
         <Route
           path="/contact-us"
           element={
-            <ProtectedRoute>
-              <ContactUs
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <ContactUs setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            // </ProtectedRoute>
           }
         />
         <Route
@@ -184,9 +181,9 @@ function App() {
         <Route
           path="/reffer"
           element={
-            <ProtectedRoute>
-              <Reffer setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Reffer setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            // </ProtectedRoute>
           }
         />
 
