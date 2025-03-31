@@ -15,6 +15,7 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { AuthContext } from "../../Util/context/AuthContext";
+import { toast } from "react-toastify";
 
 //service
 import {
@@ -25,14 +26,22 @@ import {
   linkedInLogin,
 } from "../../Util/services/authService";
 
+import { CreateUser, FindUser } from "../../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+import { GoTop } from "../../components/Tools";
+
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function Login({ setCurrentNav, currentNav }: NavProps) {
+  const dispatch = useDispatch<AppDispatch>();
+  // const { data, status } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   setCurrentNav("");
+  const [userName, setUserName] = useState<string>("");
   const [inputEmail, setInputEmail] = useState<string>("");
   const [optInputBox, setOtpInputBox] = useState(false);
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
@@ -54,13 +63,8 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
 
     // If all digits are entered, handle OTP submission
     if (newOtp.join("").length === 6) {
-      handleSubmit(newOtp.join(""));
+      // handleSubmit(newOtp.join(""));
     }
-  };
-
-  const handleSubmit = (otpValue: string) => {
-    console.log("Entered OTP:", otpValue);
-    // Call your API here to verify OTP
   };
 
   const handleKeyDown = (
@@ -73,6 +77,11 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
   };
 
   const handleOtpInputBox = () => {
+    if (!userName.length || !inputEmail.length) {
+      toast.warn("User name and enail id required !");
+      return;
+    }
+
     if (inputEmail?.length) {
       setOtpInputBox(true);
       handleSendOTP();
@@ -96,11 +105,51 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
     const OTPstring = otp.join("");
     try {
       const res = await verifyOTP(inputEmail, OTPstring);
-      localStorage.setItem("user", JSON.stringify(res.data.token));
-      setUser(res.data.token);
-      navigate("/");
+      //check user alredy exist
+      try {
+        const response = await dispatch(
+          FindUser({ email: inputEmail })
+        ).unwrap();
+
+        if (!response) {
+          await handleCreateUser(res.data.token);
+          toast.success("LogIn successfully!");
+          localStorage.setItem("user", JSON.stringify(res.data.token));
+          setUser(res.data.token);
+          setTimeout(() => {
+            navigate("/");
+            GoTop();
+          }, 600);
+        } else {
+          toast.success("LogIn successfully!");
+          localStorage.setItem("user", JSON.stringify(res.data.token));
+          setUser(res.data.token);
+          setTimeout(() => {
+            navigate("/");
+          }, 600);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
-      alert("Invalid OTP");
+      toast.error("Invalid OTP");
+    }
+  };
+
+  //Create user-----------------------------------------------------------------------
+  const handleCreateUser = async (token: any) => {
+    try {
+      const response = await dispatch(
+        CreateUser({
+          name: userName,
+          email: inputEmail,
+          token,
+        })
+      ).unwrap(); // `unwrap()` extracts the fulfilled/rejected value
+
+      console.log("User created successfully:", response);
+    } catch (error: any) {
+      console.error("Error creating user:", error?.error?.code);
     }
   };
 
@@ -147,6 +196,15 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
             </div>
             {!optInputBox ? (
               <>
+                <div className="mailInputBox">
+                  <input
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    type="name"
+                    name="name"
+                    placeholder="Enter full Name"
+                  />
+                </div>
                 <div className="mailInputBox">
                   <input
                     value={inputEmail}

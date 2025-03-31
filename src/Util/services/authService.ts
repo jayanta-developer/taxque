@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/taxque/api";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // Send OTP
 export const sendOTP = async (email: string) => {

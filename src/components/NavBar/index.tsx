@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -13,11 +13,14 @@ import blogIcon from "../../assets/images/blogIcon.png";
 import contaceUsIcon from "../../assets/images/contact-us.png";
 import backRoundArrow from "../../assets/images/backRoundArrow.png";
 import avatarIcon from "../../assets/images/avatarIcon.png";
+import logOutIcon from "../../assets/images/logout.png";
 import searchIcon from "../../assets/images/SearchIcon.svg";
 
 //components
 import { AppBtn } from "../Buttons";
-import { GoTop } from "../Tools";
+import { GoTop, Reloader } from "../Tools";
+import { ToastContainer } from "react-toastify";
+import { AuthContext } from "../../Util/context/AuthContext";
 
 interface NavProps {
   currentNav: string;
@@ -30,6 +33,7 @@ export default function NavBar({ currentNav }: NavProps) {
   const [isVisible, setIsVisible] = useState(false);
   const divRef = useRef<HTMLDivElement | null>(null);
   const [searchTab, setSearchTab] = useState(false);
+  const { user } = useContext(AuthContext)!;
 
   const closeNav = (e: any) => {
     if (e.target.id === "grayBox") {
@@ -74,6 +78,12 @@ export default function NavBar({ currentNav }: NavProps) {
     setNav(false);
   };
 
+  //Log out
+  const handleLogOut = () => {
+    localStorage.removeItem("user");
+    Reloader(500);
+  };
+
   useEffect(() => {
     document.addEventListener("click", (e) => {
       if ((e.target as HTMLElement)?.id !== "searchInput") setSearchTab(false);
@@ -111,6 +121,7 @@ export default function NavBar({ currentNav }: NavProps) {
   return (
     <>
       <div ref={divRef} className="navBar">
+        <ToastContainer />
         <div className="clogoBox">
           <img src={Clogo} onClick={() => navigate("/")} />
         </div>
@@ -174,16 +185,30 @@ export default function NavBar({ currentNav }: NavProps) {
             onClick={() => setSearchTab(!searchTab)}
             style={{ cursor: "pointer" }}
           />
-          <AppBtn
-            btnText="Log In"
-            icon={rightArrow}
-            onClick={() => navigate("/login")}
-          />
-          <img
-            src={avatarIcon}
-            className="LogInIconM"
-            onClick={() => navigate("/login")}
-          />
+          {user ? (
+            <>
+              <AppBtn btnText="LogOut" onClick={handleLogOut} />
+              <img
+                src={logOutIcon}
+                className="LogInIconM"
+                onClick={handleLogOut}
+              />
+            </>
+          ) : (
+            <>
+              <AppBtn
+                btnText="Log In"
+                icon={rightArrow}
+                onClick={() => navigate("/login")}
+              />
+              <img
+                src={avatarIcon}
+                className="LogInIconM"
+                onClick={() => navigate("/login")}
+              />
+            </>
+          )}
+
           <img
             src={MenuIcon}
             className="meneIcon"

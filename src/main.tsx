@@ -3,11 +3,15 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
 import { AuthProvider } from "./Util/context/AuthContext.tsx";
+import { Provider } from "react-redux";
+import { store } from "./store/store.ts";
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </Provider>
 );

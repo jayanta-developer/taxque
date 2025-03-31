@@ -23,7 +23,7 @@ import TermsOfUse from "./Pages/TermsOfUse";
 import Reffer from "./Pages/Reffer";
 
 //Protect Route
-// import ProtectedRoute from "./Util/Tools/ProtectedRoute";
+import ProtectedRoute from "./Util/Tools/ProtectedRoute";
 
 function App() {
   const [currentNav, setCurrentNav] = useState<string>("");
@@ -167,9 +167,12 @@ function App() {
         <Route
           path="/contact-us"
           element={
-            // <ProtectedRoute>
-            <ContactUs setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <ContactUs
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
+            </ProtectedRoute>
           }
         />
         <Route

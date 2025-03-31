@@ -421,3 +421,9 @@ export const ProductCard = ({
     </div>
   );
 };
+
+export const Reloader = (del: number) => {
+  setTimeout(() => {
+    window.location.reload();
+  }, del);
+};
