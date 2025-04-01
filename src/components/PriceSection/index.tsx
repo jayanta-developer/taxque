@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import YellowBg from "../../assets/images/YellowBg.svg";
-import { priceCardData } from "../../assets/Data";
+import "./style.css";
 
 import { PriceCard } from "../Tools";
+import { priceDataProps } from "../../store/productSlice";
 
-export default function PriceSection() {
+export default function PriceSection({ priceData, title }: any) {
+
   const [priceTab, setPriceTab] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -20,30 +22,21 @@ export default function PriceSection() {
   }, []);
   return (
     <div className="pricePlaneBox PriceplaneSection">
-      <p className="sectionHeader">Income Tax Return Filing Pricing Plans</p>
+      <p className="sectionHeader">{title} Pricing Plans</p>
       <div className="priceSelectTab">
-        <div
-          onClick={() => setPriceTab(0)}
-          className={priceTab === 0 ? "psTabe psTabeActive" : "psTabe"}
-        >
-          <p>Standard</p>
-        </div>
-        <div
-          onClick={() => setPriceTab(1)}
-          className={priceTab === 1 ? "psTabe psTabeActive" : "psTabe"}
-        >
-          <p>Business</p>
-        </div>
-        <div
-          onClick={() => setPriceTab(2)}
-          className={priceTab === 2 ? "psTabe psTabeActive" : "psTabe"}
-        >
-          <p>Premium</p>
-        </div>
+        {priceData?.map((val: priceDataProps, i: number) => (
+          <div
+            key={i}
+            onClick={() => setPriceTab(i)}
+            className={priceTab === i ? "psTabe psTabeActive" : "psTabe"}
+          >
+            <p>{val?.title}</p>
+          </div>
+        ))}
       </div>
       <div id="priceBox" className="priceCardBox">
         <img src={YellowBg} className="yellowBg" />
-        {priceCardData?.map((el, i) => (
+        {priceData?.map((el: any, i: number) => (
           <PriceCard
             {...el}
             priceTabe={priceTab}

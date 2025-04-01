@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import "./style.css";
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -13,8 +14,9 @@ import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard } from "../../components/Tools";
 
-//data
-import { servicesData } from "../../assets/Data";
+import { FetchService } from "../../store/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
 
 interface NavProps {
   currentNav: string;
@@ -22,7 +24,17 @@ interface NavProps {
 }
 
 export default function Services({ setCurrentNav, currentNav }: NavProps) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, status } = useSelector((state: RootState) => state.category);
+
   setCurrentNav("Services");
+
+  useEffect(() => {
+    dispatch(FetchService());
+    if (data?.length < 0) {
+      dispatch(FetchService());
+    }
+  }, []);
   return (
     <>
       <div className="servicesPage">
@@ -35,7 +47,7 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
           <p className="hrMainText">Expert Online Tax Consultant Services</p>
         </div>
         <div className="serviceMainSection">
-          {servicesData?.map((el, i) => (
+          {data?.map((el, i) => (
             <ServiceCard {...el} key={i} />
           ))}
         </div>

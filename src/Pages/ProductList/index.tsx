@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import "./style.css";
 
 //images
@@ -14,8 +15,9 @@ import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { ProductCard } from "../../components/Tools";
 
-//data
-import { serviceProduct } from "../../assets/Data";
+import { FetchProdcut, ProductDataType } from "../../store/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
 
 interface NavProps {
   currentNav: string;
@@ -23,7 +25,23 @@ interface NavProps {
 }
 
 export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
+  const selectedCategoryId = localStorage.getItem("selectedCategory");
   setCurrentNav("Services");
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, status } = useSelector((state: RootState) => state.product);
+
+  let Product_list: ProductDataType[] = [];
+
+  if (data.length) {
+    Product_list = data.filter((pr) => pr?.category?.id === selectedCategoryId);
+  }
+
+  useEffect(() => {
+    dispatch(FetchProdcut());
+    if (data?.length < 0) {
+      dispatch(FetchProdcut());
+    }
+  }, []);
 
   return (
     <>
@@ -37,8 +55,10 @@ export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
           <p className="hrMainText">Services Related Products</p>
         </div>
         <div className="serviceMainSection">
-          {[...Array(9)].map((_, i) => (
-            <ProductCard key={i} {...serviceProduct[0]} />
+          {Product_list?.filter(
+            (el): el is ProductDataType => el !== undefined
+          ).map((el, i) => (
+            <ProductCard key={i} {...el} />
           ))}
         </div>
         {/* Review section */}

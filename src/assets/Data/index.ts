@@ -299,10 +299,6 @@ export const ParaSection: paraType[] = [
     id: "MCACompliance",
   },
   {
-    title: "Why Vakilsearch",
-    id: "WhyVakilsearch",
-  },
-  {
     title: "FAQ's",
     id: "FAQ",
   },

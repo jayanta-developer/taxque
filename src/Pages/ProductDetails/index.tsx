@@ -10,11 +10,15 @@ import homeBg from "../../assets/images/homeBg.svg";
 import appBg from "../../assets/images/appBG.svg";
 import whatsappIcon from "../../assets/images/whatsappIcon.svg";
 import viewIcon from "../../assets/images/viewIcon.png";
+import InternalServerErrImg from "../../assets/images/intenalServerErr.jpg";
+import NOData from "../../assets/images/NOData.jpg";
+import plassIcon from "../../assets/images/plassIcon.svg";
+import mainasIcon from "../../assets/images/mainasIcon.svg";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { FeaturesCard, BenefitsCard } from "../../components/Tools";
+import { FeaturesCard, BenefitsCard, Loader } from "../../components/Tools";
 import Subscribe from "../../components/Subscribe";
 import ContactSection from "../../components/ContactSection";
 import { AppHoloBtn } from "../../components/Buttons";
@@ -32,12 +36,23 @@ interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
+import { FetchProdcut, ProductDataType } from "../../store/productSlice";
+
+import { RootState, AppDispatch } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function ProductDetails({
   setCurrentNav,
   currentNav,
 }: NavProps) {
+  const selectedProductId = localStorage.getItem("selectedProduct");
   setCurrentNav("Services");
+  const { data, status } = useSelector((state: RootState) => state.product);
+  const dispatch = useDispatch<AppDispatch>();
   const [activeSection, setActiveSection] = useState<string>("");
+  const [loding, setLoading] = useState(false);
+  const [Product, setProduct] = useState<ProductDataType>();
+  const [questionIndex, setQuestionIndex] = useState<number>(999999);
 
   interface paraType {
     title: string;
@@ -65,7 +80,6 @@ export default function ProductDetails({
       (entries) => {
         entries.forEach((entry) => {
           setActiveSection(entry.target.id);
-          console.log(entry);
         });
       },
       { root: null, rootMargin: "-100px 0px 0px 0px", threshold: 0.6 }
@@ -89,94 +103,102 @@ export default function ProductDetails({
     setActiveSection(id);
   };
 
+  const handleQuestionIndex = (i: number) => {
+    if (i === questionIndex) {
+      setQuestionIndex(999999);
+    } else {
+      setQuestionIndex(i);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(FetchProdcut());
+    if (data?.length < 0) {
+      dispatch(FetchProdcut());
+    }
+  }, []);
+
+  useEffect(() => {
+    setProduct(data.find((pr) => pr._id === selectedProductId));
+  }, [data, Product]);
+
   return (
     <>
       <div className="productPage">
+        {/* Loader */}
+        <Loader loding={loding || status === "loading" ? true : false} />
+
         <div className="productHeroSection">
           <img src={appBg} className="appBg" alt="" />
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={homeBg} className="homeBg" alt="" />
+          {status === "error" ? (
+            <div className="nodataBox inSerErr">
+              <img src={InternalServerErrImg} alt="" />
+            </div>
+          ) : status === "idle" ? (
+            <>
+              <div className="productHeroMainSection">
+                <div className="productInfoSection">
+                  <div className="productHeader">
+                    <p>{Product?.title}</p>
+                  </div>
+                  <div className="productFeatures">
+                    {Product?.feturePoints?.map((fe, i: number) => (
+                      <div key={i} className="checkBox">
+                        <img src={greenTik2} alt="" />
+                        <p>
+                          <span>{fe.title}:</span>
+                          {fe.summary}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="pcBRBox">
+                    <AppHoloBtn
+                      btnText="Chat With Us"
+                      width="200px"
+                      height="40px"
+                      icon={whatsappIcon}
+                      onClick={openWhatsapp}
+                    />
 
-          <div className="productHeroMainSection">
-            <div className="productInfoSection">
-              <div className="productHeader">
-                <img src={GSTIcon} />
-                <p>GST Compliance and Filing</p>
-              </div>
-              <div className="productFeatures">
-                <div className="checkBox">
-                  <img src={greenTik2} alt="" />
-                  <p>
-                    <span>Affordable & Transparent:</span> Registration starting
-                    at ₹999 + Govt Fee with no hidden charges.
-                  </p>
-                </div>
-                <div className="checkBox">
-                  <img src={greenTik2} alt="" />
-                  <p>
-                    <span>Comprehensive Compliance:</span> SPICe-INC-32,
-                    eMoA-INC-33, eAOA-INC-34 filings, DSC, PAN, and TAN—all
-                    handled seamlessly.
-                  </p>
-                </div>
-                <div className="checkBox">
-                  <img src={greenTik2} alt="" />
-                  <p>
-                    <span>Post-Incorporation Benefits:</span> Includes free MSME
-                    registration, GST filing support, and banking setup.
-                  </p>
-                </div>
-                <div className="checkBox">
-                  <img src={greenTik2} alt="" />
-                  <p>
-                    <span>Trusted by Startups:</span> Rated #1 for Pvt Ltd
-                    Registration, with 100% MCA-compliant filings.
-                  </p>
-                </div>
-              </div>
-              <div className="pcBRBox">
-                <AppHoloBtn
-                  btnText="Chat With Us"
-                  width="200px"
-                  height="40px"
-                  icon={whatsappIcon}
-                  onClick={openWhatsapp}
-                />
+                    <div className="pcRating">
+                      <p>Review: </p>
+                      <p>4.8</p>
+                      <div className="ratingBOx">
+                        <img src={star} />
+                        <img src={star} />
+                        <img src={star} />
+                        <img src={star} />
+                      </div>
+                    </div>
 
-                <div className="pcRating">
-                  <p>Review: </p>
-                  <p>4.8</p>
-                  <div className="ratingBOx">
-                    <img src={star} />
-                    <img src={star} />
-                    <img src={star} />
-                    <img src={star} />
+                    <p
+                      className="viewPackage"
+                      onClick={() =>
+                        handlePDClick({
+                          title: "price",
+                          id: "priceBox",
+                        })
+                      }
+                    >
+                      <img src={viewIcon} alt="" />
+                      View Package
+                    </p>
                   </div>
                 </div>
-
-                <p
-                  className="viewPackage"
-                  onClick={() =>
-                    handlePDClick({
-                      title: "price",
-                      id: "priceBox",
-                    })
-                  }
-                >
-                  <img src={viewIcon} alt="" />
-                  View Package
-                </p>
+                <div className="productContactSection">
+                  <ContactSection />
+                </div>
               </div>
-            </div>
-            <div className="productContactSection">
-              <ContactSection />
-            </div>
-          </div>
+            </>
+          ) : null}
         </div>
 
         <div className="productPageMainSection">
-          {/* -Price plane Box */}
-          <PriceSection />
+          {/*Price plane Box*/}
+          <PriceSection priceData={Product?.priceData} title={Product?.title}/>
 
           {/* PeraSection */}
           <div className="paraSection">
@@ -196,81 +218,32 @@ export default function ProductDetails({
               </div>
             </div>
 
-            {/* Overview section */}
+            {/* Overview section--------------------------------------------------- */}
             <div
               id="overview"
               className="paraSubSection overViewSection privateLC"
             >
-              <p className="privateSHeader">Overview</p>
-              <p>
-                Starting a private limited company in India is a preferred
-                option for entrepreneurs aiming to establish professional and
-                recognised businesses. Governed by the Companies Act, 2013, and
-                regulated by the Ministry of Corporate Affairs (MCA), this
-                business structure offers benefits like limited liability,
-                enhanced credibility, and growth opportunities.
-              </p>
-              <p>
-                The process involves submitting the SPICe+ form, obtaining
-                Digital Signature Certificates (DSC) for directors, and securing
-                Director Identification Numbers (DIN). Once approved by the
-                Registrar of Companies (RoC), your business receives a
-                Certificate of Incorporation, making it a separate legal entity.
-                This allows the company to own assets, sign contracts, and
-                operate independently.
-              </p>
-              <p>
-                After incorporation, compliance is vital for smooth operations.
-                This includes registering for GST, applying for PAN and TAN, and
-                filing annual returns and audits. These requirements not only
-                meet statutory obligations but also build trust with investors
-                and stakeholders.
-              </p>
-              <p>
-                A private limited company is the ideal choice for entrepreneurs
-                seeking scalability, structured growth, and funding
-                opportunities. While the process may involve challenges like
-                name approvals or regulatory steps, expert guidance ensures a
-                seamless experience.
-              </p>
-              <p>
-                At Vakilsearch, we handle every step of the registration
-                process, from documentation to compliance, so you can focus on
-                growing your business confidently and efficiently.
-              </p>
+              <p className="privateSHeader">{Product?.overView?.title}</p>
+              {Product?.overView?.summarys?.map((el, i) => (
+                <p key={i}>{el}</p>
+              ))}
             </div>
 
-            {/* PrivateLimitedCompany */}
+            {/* PrivateLimitedCompany----------------------------------------------- */}
             <div
               id="PrivateLimitedCompany"
               className="paraSubSection privateLC"
             >
               <p className="privateSHeader">
-                What Is a <b>Private Limited Company?</b>
+                What Is a <b>{Product?.title}</b>
               </p>
 
-              <p className="prNText">
-                A private limited company (commonly abbreviated as Pvt Ltd) is
-                considered a separate legal entity from its owners, offering a
-                secure framework for operations while safeguarding the personal
-                assets of its members. This business structure, governed by the
-                <b> Companies Act, 2013,</b> is popular among entrepreneurs and
-                small to medium-sized businesses (SMEs) for its combination of
-                <b> limited liability protection, ownership control,</b> and
-                <b> scalability.</b>
-              </p>
-              <p className="prNText">
-                <b>For instance,</b> startups like Swiggy began as private
-                limited companies due to their ability to secure venture capital
-                funding while maintaining limited liability for founders.
-              </p>
-              <p className="prNText">
-                Unlike public companies, a private limited company restricts the
-                transfer of shares and operates with a focused group of
-                stakeholders. This makes it ideal for businesses seeking
-                <b> operational independence, confidentiality,</b> and{" "}
-                <b>long-term growth.</b>
-              </p>
+              {Product?.whatIs?.summarys?.map((sm, i) => (
+                <p className="prNText" key={i}>
+                  {sm}
+                </p>
+              ))}
+
               <div className="cplPVCBox">
                 <img src={pvtOverver} alt="" />
                 <div className="pvcTextBox">
@@ -281,72 +254,39 @@ export default function ProductDetails({
                     Section 2(68) of the <b>Companies Act, 2013,</b> defines a
                     Private Limited Company as an entity that:
                   </p>
-
                   <ul>
-                    <li className="prNText">
-                      <b>Restricts the Transfer of Shares:</b> Shareholders
-                      cannot freely transfer their shares to the public or
-                      external parties. This restriction ensures that ownership
-                      remains within a close group of trusted individuals,
-                      protecting the company’s stability.
-                    </li>
-                    <li className="prNText">
-                      <b>Limits the Number of Members: </b> A private limited
-                      company can have a maximum of 200 members, excluding
-                      current and former employees who hold shares. This limit
-                      ensures the company remains a private entity. (Exception:
-                      A One Person Company (OPC) can have only one member.)
-                    </li>
-                    <li className="prNText">
-                      <b>Prohibits Public Invitations: </b> The company is not
-                      allowed to invite the public to subscribe to its shares,
-                      debentures, or other securities. This makes private
-                      limited companies more focused on raising capital
-                      privately, such as through friends, family, or
-                      institutional investors.
-                    </li>
+                    {Product?.whatIs?.liList?.map((liVal, i) => (
+                      <li className="prNText">
+                        <b>{liVal.title}:</b>
+                        {liVal.summary}
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
 
               <div className="plcNoteSection">
-                <h2 style={{ marginBottom: "10px" }}>Companies Act, 2013</h2>
+                <h2 style={{ marginBottom: "10px" }}>
+                  {Product?.whatIs?.Notice?.noticeTitle}
+                </h2>
                 <p className="prNText">
-                  The Companies Act 2013 (No. 18 of 2013) is the primary source
-                  of Indian company law. It received presidential assent on 29
-                  August 2013 and largely replaced the Companies Act 1956. The
-                  Act was implemented in stages. Section 1 came into force on 30
-                  August 2013. 98 sections became effective on 12 September 2013
-                  with some changes. Another 183 sections were enforced from 1
-                  April 2014.
+                  {Product?.whatIs?.Notice?.noticeSummary}
                 </p>
               </div>
             </div>
 
-            {/* Key Features */}
+            {/* Key Features--------------------------------------------------------- */}
             <div
               id="Keyfeatures"
               className="paraSubSection privateLC keyFeaturesSection"
             >
               <p className="privateSHeader">
-                What Are the <b>Key Features </b>and Benefits of a Private
-                Limited Company?
+                {Product?.keyFeature?.title} <b> Private Limited Company?</b>
               </p>
-              <p className="prNText">
-                A Private Limited Company provides an ideal business structure
-                that combines legal protections, operational flexibility, and
-                growth opportunities, making it a preferred choice for
-                entrepreneurs and small to medium-sized businesses. Here are the
-                10 key features and 7 benefits of a Private Limited Company.
-              </p>
+              <p className="prNText">{Product?.keyFeature?.summarys}</p>
               <div className="keyFeatureCardBox">
-                {keyFeatureData?.map((el, i) => (
-                  <FeaturesCard
-                    icon={el.icon}
-                    title={el.title}
-                    summary={el.summery}
-                    key={i}
-                  />
+                {Product?.keyFeature?.keyFeatureItems?.map((el, i) => (
+                  <FeaturesCard title={el.title} summary={el.summary} key={i} />
                 ))}
               </div>
             </div>
@@ -354,91 +294,201 @@ export default function ProductDetails({
             {/* Benefits section */}
             <div id="Benefits" className="privateLC BenefitsSection">
               <p className="privateSHeader">
-                <b>Benefits</b> of a Private Limited Company
+                <b>Benefits</b> of a {Product?.title}
               </p>
-              <p className="prNText">
-                A Private Limited Company offers a range of advantages, making
-                it a preferred choice for entrepreneurs and growing businesses.
-                From ease of raising capital to legal protections, here’s why
-                businesses opt for this structure:
-              </p>
+              {Product?.benefits?.summarys?.map((sm, i) => (
+                <p className="prNText" key={i}>
+                  {sm}
+                </p>
+              ))}
               <div className="benefiteCardBox">
-                {benefitData?.map((el, i) => (
+                {Product?.benefits?.benefitsItems?.map((el, i) => (
                   <BenefitsCard {...el} index={i} key={i} />
                 ))}
               </div>
             </div>
 
-            {/* Difference section */}
+            {/* Difference section-------------------------------------------- */}
             <div id="Difference" className="privateLC DifferenceSection">
               <p className="privateSHeader">
-                <b>Difference </b> Between Private Limited Company and Other
-                Business Structures
+                <b>Difference </b> Between {Product?.title} and Other Business
+                Structures
               </p>
-              <p className="prNText">
-                The main difference between a Private Limited Company (Pvt Ltd)
-                and other business structures lies in the level of legal
-                protection, ownership flexibility, and compliance requirements
-                they offer. A Pvt Ltd company is often preferred for its ability
-                to limit personal liability, attract investors, and ensure
-                operational continuity. In contrast, structures like Sole
-                Proprietorship, Partnership, and Limited Liability Partnership
-                (LLP) have their own unique features and limitations.
-              </p>
-              <p className="prNText">
-                This table highlights the key differences between Private
-                Limited Companies and other business structures to help you
-                choose the one that fits your business needs best.
-              </p>
+              {Product?.difference?.summarys?.map((sm, i) => (
+                <p className="prNText" key={i}>
+                  {sm}
+                </p>
+              ))}
+
               <div className="tableOuterBox productViewDifTable">
                 <div className="pricePanaleTableBox">
                   <div className="PRow PheaderRow headerRow">
-                    <div className="tableSel" style={{ width: "16%" }}>
+                    <div className="tableSel" style={{ width: "16.6%" }}>
                       <p className="tableHeaderText">Key Feature</p>
                     </div>
-                    <div className="tableSel" style={{ width: "16%" }}>
+                    <div className="tableSel" style={{ width: "16.6%" }}>
                       <p className="tableHeaderText">Private Limited Company</p>
                     </div>
-                    <div className="tableSel" style={{ width: "16%" }}>
+                    <div className="tableSel" style={{ width: "16.6%" }}>
                       <p className="tableHeaderText">Public Limited Company</p>
                     </div>
-                    <div className="tableSel" style={{ width: "16%" }}>
+                    <div className="tableSel" style={{ width: "16.6%" }}>
                       <p className="tableHeaderText">
                         LLP (Limited Liability Partnership)
                       </p>
                     </div>
-                    <div className="tableSel" style={{ width: "16%" }}>
+                    <div className="tableSel" style={{ width: "16.6%" }}>
                       <p className="tableHeaderText">Sole Proprietorship</p>
                     </div>
-                    <div className="tableSel" style={{ width: "16%" }}>
+                    <div className="tableSel" style={{ width: "16.6%" }}>
                       <p className="tableHeaderText">Partnership Firm</p>
                     </div>
                   </div>
 
-                  {DifferenceTableData?.map((el, i) => (
+                  {Product?.difference?.tableData?.map((el, i) => (
                     <div className="PRow NHeaderRow" key={i}>
-                      <div className="tableSel" style={{ width: "16%" }}>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
                         <p className="tableNText">{el.KeyFeature}</p>
                       </div>
-                      <div className="tableSel" style={{ width: "16%" }}>
-                        <p className="tableNText">{el.PrivateLimitedCompany}</p>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableNText">{el.PrivateLC}</p>
                       </div>
-                      <div className="tableSel" style={{ width: "16%" }}>
-                        <p className="tableNText">{el.PublicLimitedCompany}</p>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableNText">{el.PublicLC}</p>
                       </div>
-                      <div className="tableSel" style={{ width: "16%" }}>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
                         <p className="tableNText">{el.LLP}</p>
                       </div>
-                      <div className="tableSel" style={{ width: "16%" }}>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
                         <p className="tableNText">{el.SoleProprietorship}</p>
                       </div>
-                      <div className="tableSel" style={{ width: "16%" }}>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
                         <p className="tableNText">{el.PartnershipFirm}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
+            </div>
+
+            {/* Document upload------------------------------------------------- */}
+            <div id="DocumentsRequired" className="privateLC DifferenceSection">
+              <p className="privateSHeader">
+                <b>What Are the Documents Required for</b>
+                {Product?.title}
+              </p>
+              {Product?.documentsRequired?.summarys?.map((sm, i) => (
+                <p className="prNText" key={i}>
+                  {sm}
+                </p>
+              ))}
+
+              <div className="tableOuterBox productViewDifTable">
+                <div className="pricePanaleTableBox">
+                  <div className="PRow PheaderRow headerRow">
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Category</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Document Type</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Specific Examples</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Purpose</p>
+                    </div>
+                  </div>
+
+                  {Product?.documentsRequired?.tableData?.map((el, i) => (
+                    <div className="PRow NHeaderRow" key={i}>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.category}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.documentType}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.specificExamples}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.Purpose}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* MCA Compliance----------------------------------------------- */}
+            <div id="MCACompliance" className="privateLC DifferenceSection">
+              <p className="privateSHeader">
+                <b>Mandatory MCA Compliance for</b>
+                {Product?.title}
+              </p>
+              {Product?.MCACompliance?.summarys?.map((sm, i) => (
+                <p className="prNText" key={i}>
+                  {sm}
+                </p>
+              ))}
+
+              <div className="tableOuterBox productViewDifTable">
+                <div className="pricePanaleTableBox">
+                  <div className="PRow PheaderRow headerRow">
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Aspect</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Compliance Requirement</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Frequency</p>
+                    </div>
+                    <div className="tableSel" style={{ width: "25%" }}>
+                      <p className="tableHeaderText">Why It’s Important</p>
+                    </div>
+                  </div>
+
+                  {Product?.MCACompliance?.tableData?.map((el, i) => (
+                    <div className="PRow NHeaderRow" key={i}>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.aspect}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.complianceRequirement}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.frequency}</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableNText">{el.WhyImportant}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* FAQ section------------------------------------------ */}
+            <div id="FAQ" className="faqQBox">
+              <p className="faqHeader">Frequently Asks Questions</p>
+              {Product?.FAQ?.map((el, i) => (
+                <div
+                  key={i}
+                  className={
+                    questionIndex === i ? "qaBox qaBoxActive" : "qaBox"
+                  }
+                >
+                  <img
+                    src={questionIndex === i ? mainasIcon : plassIcon}
+                    className="questionColapsIcon"
+                    alt=""
+                    onClick={() => handleQuestionIndex(i)}
+                  />
+                  <p className="faqquestion">{el?.question}</p>
+                  <p className="faqanswer">{el?.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

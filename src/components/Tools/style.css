@@ -517,6 +517,32 @@
 .productCard .appBtn {
   min-width: 164px;
 }
+.loaderBox {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(128, 128, 128, 0.322);
+  z-index: 999;
+}
+.ActiveloaderBox {
+  display: flex;
+}
+.loaderBox img {
+  width: 100px;
+}
+.nodataBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.nodataBox img {
+  width: 30%;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .serviceCard {

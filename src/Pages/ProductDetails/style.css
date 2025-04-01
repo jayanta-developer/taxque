@@ -222,7 +222,6 @@
   flex-direction: column;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: space-between;
   margin-top: 30px;
 }
 .BenefitsSection {
@@ -316,7 +315,19 @@
 .viewPackage img {
   width: 30px;
 }
-
+.inSerErr {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 100px;
+}
+.inSerErr img {
+  width: 80% !important;
+  height: 80%;
+  border-radius: 20px;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .productHeader p {

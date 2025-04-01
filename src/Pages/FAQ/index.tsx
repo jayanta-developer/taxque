@@ -28,7 +28,6 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
   const [faqNav, setFaqNav] = useState("General Questions");
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
 
-  console.log(faqNav);
 
   const handleQuestionIndex = (i: number) => {
     if (i === questionIndex) {

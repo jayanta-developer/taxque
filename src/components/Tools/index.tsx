@@ -1,4 +1,5 @@
 import "./style.css";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 //images
@@ -14,16 +15,15 @@ import locationIcon from "../../assets/images/locationYicon.svg";
 import watchYIcom from "../../assets/images/watchYicon.svg";
 import blackArrowIcon from "../../assets/images/blackArrowIcon.svg";
 import star from "../../assets/images/star.png";
+import ITNIcon from "../../assets/images/ITNIcon.svg";
+import loaderImg from "../../assets/Images/lodingGif.gif";
+import featuresIcon from "../../assets/images/featuresIcon.png";
+
 
 //components
 import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
 
-interface serviceCardProps {
-  icon: string;
-  img: string;
-  title: string;
-  summery: string;
-}
+import { ServiceDataType } from "../../store/categorySlice";
 
 interface TaxQueCardProps {
   icon: string;
@@ -31,11 +31,12 @@ interface TaxQueCardProps {
   summery: string;
 }
 
+import { ProductDataType, priceDataProps } from "../../store/productSlice";
 interface PriceCardProps {
   title: string;
   basicPrice: string;
   price: string;
-  summery: string;
+  summary: string;
   fetures: string[];
   MostPopular: boolean;
   priceTabe: Number;
@@ -60,7 +61,6 @@ interface MemberCardProps {
 interface FeaturesProps {
   title: string;
   summary: string;
-  icon: string;
 }
 interface BenefitsProps {
   title: string;
@@ -78,31 +78,35 @@ interface jobcardProps {
   Skill?: string[];
 }
 export const ServiceCard = ({
-  icon,
-  img,
+  imageUrl,
   title,
-  summery,
-}: serviceCardProps) => {
+  summary,
+  _id,
+}: ServiceDataType) => {
   const Navigate = useNavigate();
+  const categroyId = _id || "noId";
+
+  const handleCategoryClick = () => {
+    localStorage.setItem("selectedCategory", categroyId);
+    Navigate("/products");
+    GoTop();
+  };
 
   return (
     <div className="serviceCard">
       <div className="svrCardHeader">
-        <img src={icon} />
+        <img src={ITNIcon} />
         <img
           className="svrUpArrow"
           src={UPRightArrow}
-          onClick={() => {
-            Navigate("/products");
-            GoTop();
-          }}
+          onClick={handleCategoryClick}
         />
         <p>{title}</p>
       </div>
       <div className="hrLine"></div>
-      <p className="svrCardSummery">{summery.slice(0, 100)}...</p>
+      <p className="svrCardSummery">{summary.slice(0, 100)}...</p>
       <div className="sveCardImgBox">
-        <img src={img} alt="" />
+        <img src={imageUrl} alt="" />
       </div>
     </div>
   );
@@ -122,13 +126,13 @@ export const PriceCard = ({
   title,
   basicPrice,
   price,
-  summery,
+  summary,
   fetures,
   MostPopular,
   priceTabe,
   index,
   isMobile,
-}: PriceCardProps) => {
+}:PriceCardProps) => {
   return (
     <div
       style={{
@@ -150,7 +154,7 @@ export const PriceCard = ({
         <p className="pcPrice">
           ₹ {price} <samp>/month</samp>
         </p>
-        <p className="psSummery">{summery}</p>
+        <p className="psSummery">{summary}</p>
         {MostPopular ? (
           <AppHoloBtn btnText="Get started Now" width="100%" />
         ) : (
@@ -287,10 +291,10 @@ export const TeamCard = ({
   );
 };
 
-export const FeaturesCard = ({ icon, title, summary }: FeaturesProps) => {
+export const FeaturesCard = ({ title, summary }: FeaturesProps) => {
   return (
     <div className="featuresCard">
-      <img src={icon} alt="" />
+      <img src={featuresIcon} alt="" />
       <p className="fecTitle">{title}</p>
       <div className="fcHrLine"></div>
       <p className="fecSummery">{summary}</p>
@@ -364,23 +368,28 @@ interface priceProp {
 }
 export const ProductCard = ({
   title,
-  icon,
   feturePoints,
   priceData,
-}: productProp) => {
+  _id,
+}: ProductDataType) => {
   const Navigate = useNavigate();
+  const ProductStanderPrice = priceData?.length ? priceData[0]?.price : "2999";
+  const ProductBasicPrice = priceData?.length
+    ? priceData[0]?.basicPrice
+    : "4599";
+  const ProductId = _id ? _id : "noId";
 
   return (
     <div className="serviceCard productCard">
       <div className="svrCardHeader">
-        <img src={icon} />
+        <img src={ITNIcon} />
         <p>{title}</p>
       </div>
       <div className="hrLine"></div>
 
       <div className="pcRatingBox">
         <p className="pcbasPrice">
-          Basic Price: ₹1274 <span></span>
+          Basic Price: {ProductBasicPrice} <span></span>
         </p>
         <div className="pcRating">
           <p>4.8</p>
@@ -396,7 +405,7 @@ export const ProductCard = ({
         <span>Price: </span>
         <p>
           {" "}
-          ₹{priceData[1].price} <samp>/month</samp>
+          ₹{ProductStanderPrice} <samp>/month</samp>
         </p>
       </div>
       <div className="pcFeturesBox">
@@ -413,6 +422,7 @@ export const ProductCard = ({
           height="40px"
           width="30%"
           onClick={() => {
+            localStorage.setItem("selectedProduct", ProductId);
             Navigate("/services/product-details");
             GoTop();
           }}
@@ -426,4 +436,27 @@ export const Reloader = (del: number) => {
   setTimeout(() => {
     window.location.reload();
   }, del);
+};
+
+interface loadingProps {
+  loding: boolean;
+}
+export const Loader = ({ loding }: loadingProps) => {
+  useEffect(() => {
+    const element = document.querySelector(".mainBoxActive") as HTMLElement;
+
+    if (element) {
+      if (loding) {
+        element.style.overflow = "hidden";
+      } else {
+        element.style.overflow = "scroll";
+      }
+    }
+  }, [loding]);
+
+  return (
+    <div className={loding ? "loaderBox ActiveloaderBox" : "loaderBox"}>
+      <img src={loaderImg} alt="loader" />
+    </div>
+  );
 };
