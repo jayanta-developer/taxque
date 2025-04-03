@@ -81,6 +81,7 @@ export default function NavBar({ currentNav }: NavProps) {
   //Log out
   const handleLogOut = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("userId");
     Reloader(500);
   };
 

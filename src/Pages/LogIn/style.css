@@ -102,6 +102,7 @@
   height: 100%;
   border: none;
   padding-left: 20px;
+  font-size: 18px;
 }
 .mailInputBox input:focus {
   outline: none;
@@ -109,9 +110,15 @@
 .otpInputBox {
   width: 100%;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
   justify-content: center;
   margin-bottom: 20px;
+  align-items: center;
+}
+.otpTimerText {
+  font-size: 22px;
+  color: #d12d2dde;
+  margin-bottom: 8px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {

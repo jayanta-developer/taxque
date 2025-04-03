@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ import {
 import { CreateUser, FindUser } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
-import { GoTop } from "../../components/Tools";
+import { GoTop, Reloader } from "../../components/Tools";
 
 interface NavProps {
   currentNav: string;
@@ -37,14 +37,20 @@ interface NavProps {
 }
 
 export default function Login({ setCurrentNav, currentNav }: NavProps) {
+  const navigate = useNavigate();
+  const user = localStorage.getItem("user");
+  if (user) {
+    navigate("/");
+  }
   const dispatch = useDispatch<AppDispatch>();
   // const { data, status } = useSelector((state: RootState) => state.user);
-  const navigate = useNavigate();
   setCurrentNav("");
   const [userName, setUserName] = useState<string>("");
   const [inputEmail, setInputEmail] = useState<string>("");
   const [optInputBox, setOtpInputBox] = useState(false);
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
+  const [inputOTP, setInputOTP] = useState<string>();
+  const [otpTimer, setOtpTimer] = useState(60);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { setUser } = useContext(AuthContext)!;
@@ -83,7 +89,9 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
     }
 
     if (inputEmail?.length) {
+      toast.success("A One Time Password has been send to your mail!");
       setOtpInputBox(true);
+      OTPExp();
       handleSendOTP();
     }
   };
@@ -102,10 +110,12 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
   };
 
   const handleVerifyOTP = async () => {
-    const OTPstring = otp.join("");
+    // const OTPstring = otp.join("");
+    if (!inputOTP) {
+      return;
+    }
     try {
-      const res = await verifyOTP(inputEmail, OTPstring);
-      //check user alredy exist
+      const res = await verifyOTP(inputEmail, inputOTP);
       try {
         const response = await dispatch(
           FindUser({ email: inputEmail })
@@ -121,6 +131,9 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
             GoTop();
           }, 600);
         } else {
+          if (response._id) {
+            localStorage.setItem("userId", response._id);
+          }
           toast.success("LogIn successfully!");
           localStorage.setItem("user", JSON.stringify(res.data.token));
           setUser(res.data.token);
@@ -145,12 +158,36 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
           email: inputEmail,
           token,
         })
-      ).unwrap(); // `unwrap()` extracts the fulfilled/rejected value
+      ).unwrap();
 
-      console.log("User created successfully:", response);
+      console.log("User created successfully:", response._id);
+      if (response._id) {
+        localStorage.setItem("userId", response._id);
+      }
     } catch (error: any) {
       console.error("Error creating user:", error?.error?.code);
     }
+  };
+
+  //otp timer
+  const OTPExp = () => {
+    const interval = setInterval(() => {
+      setOtpTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setOtpInputBox(false);
+          Reloader(10);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      setOtpInputBox(false);
+      Reloader(10);
+    };
   };
 
   return (
@@ -194,6 +231,7 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
               <div className="grayLine"></div>
               <p>Or continue with</p>
             </div>
+
             {!optInputBox ? (
               <>
                 <div className="mailInputBox">
@@ -225,7 +263,8 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
             ) : (
               <>
                 <div className="otpInputBox">
-                  {otp.map((digit, index) => (
+                  <p className="otpTimerText">00:{otpTimer}</p>
+                  {/* {otp.map((digit, index) => (
                     <input
                       key={index}
                       ref={(el) => {
@@ -245,7 +284,14 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
                         borderRadius: "5px",
                       }}
                     />
-                  ))}
+                  ))} */}
+                  <div className="mailInputBox">
+                    <input
+                      type="text"
+                      placeholder="Enter your six digit OTP"
+                      onChange={(e) => setInputOTP(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <AppBtn

@@ -1,0 +1,81 @@
+.userBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.sideMenu {
+  min-width: 300px;
+  width: 25%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.userMainSection {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.userNav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.322);
+  gap: 8px;
+}
+.userNav p {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.705);
+}
+.userNav span {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.705);
+}
+.userInfoBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 0;
+  position: relative;
+}
+.userBG {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+
+.ProductList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  overflow-y: scroll;
+}
+.ProductList div {
+  width: 100%;
+  height: 50px;
+  padding-left: 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.192);
+  display: flex;
+  align-items: center;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+.ProductList div:hover {
+  background: rgba(128, 128, 128, 0.13);
+}
+.ProductList div p {
+  font-size: 20px;
+}
+.ProductInfoBox {
+}

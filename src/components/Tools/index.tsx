@@ -19,7 +19,6 @@ import ITNIcon from "../../assets/images/ITNIcon.svg";
 import loaderImg from "../../assets/Images/lodingGif.gif";
 import featuresIcon from "../../assets/images/featuresIcon.png";
 
-
 //components
 import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
 
@@ -104,7 +103,7 @@ export const ServiceCard = ({
         <p>{title}</p>
       </div>
       <div className="hrLine"></div>
-      <p className="svrCardSummery">{summary.slice(0, 100)}...</p>
+      <p className="svrCardSummery">{summary?.slice(0, 100)}...</p>
       <div className="sveCardImgBox">
         <img src={imageUrl} alt="" />
       </div>
@@ -132,7 +131,7 @@ export const PriceCard = ({
   priceTabe,
   index,
   isMobile,
-}:PriceCardProps) => {
+}: PriceCardProps) => {
   return (
     <div
       style={{

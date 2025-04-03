@@ -4,6 +4,8 @@ import "react-multi-carousel/lib/styles.css";
 import "./style.css";
 import { BlogCard, ServiceCard, MemberCard } from "../Tools";
 
+import { ServiceDataType } from "../../store/categorySlice";
+
 interface BlogCardProps {
   title: string;
   summery: string;
@@ -11,12 +13,7 @@ interface BlogCardProps {
   userName: string;
   imgUrl: string;
 }
-interface serviceCardProps {
-  icon: string;
-  img: string;
-  title: string;
-  summery: string;
-}
+
 interface MemberCardProps {
   name: string;
   possession: string;
@@ -25,7 +22,7 @@ interface MemberCardProps {
 }
 
 interface MyCarouselProps {
-  data: BlogCardProps[] | serviceCardProps[] | MemberCardProps[];
+  data: BlogCardProps[] | ServiceDataType[] | MemberCardProps[];
   cardName: "BlogCard" | "ServicesCard" | "memberCard";
 }
 
@@ -93,7 +90,7 @@ const MyCarousel: React.FC<MyCarouselProps> = ({ data, cardName }) => {
         cardName === "BlogCard" ? (
           <BlogCard {...(el as BlogCardProps)} key={i} />
         ) : cardName === "ServicesCard" ? (
-          <ServiceCard {...(el as serviceCardProps)} key={i} />
+          <ServiceCard {...(el as ServiceDataType)} key={i} />
         ) : cardName === "memberCard" ? (
           <MemberCard {...(el as MemberCardProps)} key={i} />
         ) : null

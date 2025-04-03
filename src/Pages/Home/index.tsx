@@ -1,4 +1,5 @@
 import "./style.css";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 //images
@@ -13,7 +14,7 @@ import taxQueImg from "../../assets/images/TaxQueImg.png";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //data
-import { servicesData, BlogData } from "../../assets/Data";
+import { BlogData } from "../../assets/Data";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -28,6 +29,11 @@ import HomeCarousel from "../../components/HomeCarousel";
 import { AppBtn } from "../../components/Buttons";
 import { GoTop } from "../../components/Tools";
 
+import { FetchService } from "../../store/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+import { FetchProdcut } from "../../store/productSlice";
+
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
@@ -36,7 +42,23 @@ interface NavProps {
 export default function Home({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Home");
   const Navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, status } = useSelector((state: RootState) => state.category);
+  const Product = useSelector((state: RootState) => state.product);
+  console.log(Product.data);
 
+  useEffect(() => {
+    dispatch(FetchService());
+    if (data?.length < 0) {
+      dispatch(FetchService());
+    }
+  }, []);
+  useEffect(() => {
+    dispatch(FetchProdcut());
+    if (Product.data?.length < 0) {
+      dispatch(FetchProdcut());
+    }
+  }, []);
   return (
     <>
       <div className="heroBox">
@@ -88,7 +110,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       <div className="serviceSection">
         <p className="sectionHeader">Our Services</p>
         <div className="serviceCardBox">
-          <MyCarousel data={servicesData} cardName="ServicesCard" />
+          <MyCarousel data={data} cardName="ServicesCard" />
         </div>
         <div className="btnBox">
           <AppBtn
@@ -146,7 +168,10 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         </div>
       </div>
       {/* -Price plane Box */}
-      <PriceSection />
+      <PriceSection
+        priceData={Product?.data[0]?.priceData}
+        title={Product?.data[0]?.title}
+      />
 
       {/* Review section */}
       <div className="reviewSection">

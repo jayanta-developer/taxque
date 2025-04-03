@@ -10,10 +10,12 @@
   top: 0;
 }
 .clogoBox {
+  width: 100px;
   display: flex;
   align-items: center;
 }
 .clogoBox img {
+  width: 100%;
   cursor: pointer;
 }
 .navItemBox {
@@ -164,9 +166,15 @@
   .goTopIcon {
     width: 65px;
   }
+  .clogoBox {
+    width: 150px;
+  }
 }
 /* Desktop view */
 @media only screen and (min-width: 1000px) {
+  .clogoBox {
+    width: 200px;
+  }
   .navItemText {
     display: block;
   }

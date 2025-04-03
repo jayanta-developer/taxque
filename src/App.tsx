@@ -21,6 +21,7 @@ import RefundPolicy from "./Pages/RefundPolicy";
 import ContactUs from "./Pages/ContactUs";
 import TermsOfUse from "./Pages/TermsOfUse";
 import Reffer from "./Pages/Reffer";
+import UserPage from "./Pages/UserPage";
 
 //Protect Route
 import ProtectedRoute from "./Util/Tools/ProtectedRoute";
@@ -42,7 +43,7 @@ function App() {
           element={
             // <ProtectedRoute>
             <Services setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            // </ProtectedRoute>
+            //  </ProtectedRoute>
           }
         />
         <Route
@@ -187,6 +188,14 @@ function App() {
             // <ProtectedRoute>
             <Reffer setCurrentNav={setCurrentNav} currentNav={currentNav} />
             // </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user-profile"
+          element={
+            <ProtectedRoute>
+              <UserPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
           }
         />
 

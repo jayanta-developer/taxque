@@ -54,7 +54,7 @@ export const CreateUser = createAsyncThunk<UserDataType, UserDataType>(
       });
       toast.success("User created successfully.");
       Reloader(600);
-      return response.data;
+      return response.data.user;
     } catch (error: any) {
       toast.error("Something went wrong", error.response?.data);
       Reloader(900);
@@ -64,24 +64,23 @@ export const CreateUser = createAsyncThunk<UserDataType, UserDataType>(
 );
 
 //Finde user by email
-export const FindUser = createAsyncThunk<
-  UserDataType,
-  findUserArgeType
->("find user/create", async (data, { rejectWithValue }) => {
-  try {
-    const response = await Axios.post(`${baseURL}/user/get-by-email`, {
-      ...data,
-    });
-    toast.success("User found successfully.");
-    // Reloader(600);
-    const user = response.data.user;
-    return user;
-  } catch (error: any) {
-    toast.error("Something went wrong", error.response?.data);
-    // Reloader(900);
-    return rejectWithValue(error.response?.data || "Something went wrong");
+export const FindUser = createAsyncThunk<UserDataType, findUserArgeType>(
+  "find user/create",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await Axios.post(`${baseURL}/user/get-by-email`, {
+        ...data,
+      });
+      // Reloader(600);
+      const user = response.data.user;
+      return user;
+    } catch (error: any) {
+      toast.error("Something went wrong", error.response?.data);
+      // Reloader(900);
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
   }
-});
+);
 
 const userSlice = createSlice({
   name: "user",
