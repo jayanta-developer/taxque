@@ -2,8 +2,7 @@ import Axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
-
-export const baseURL = import.meta.env.VITE_BASE_URL;
+import { baseURL } from "./store";
 
 export enum STATUSES {
   IDLE = "idle",

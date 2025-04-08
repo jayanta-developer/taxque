@@ -1,6 +1,7 @@
 import "./style.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../../store/store";
 
 //images
 import UPRightArrow from "../../assets/images/right-up.svg";
@@ -23,6 +24,7 @@ import featuresIcon from "../../assets/images/featuresIcon.png";
 import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
 
 import { ServiceDataType } from "../../store/categorySlice";
+import { BlogDataType } from "../../store/blogSlice";
 
 interface TaxQueCardProps {
   icon: string;
@@ -30,7 +32,7 @@ interface TaxQueCardProps {
   summery: string;
 }
 
-import { ProductDataType, priceDataProps } from "../../store/productSlice";
+import { ProductDataType } from "../../store/productSlice";
 interface PriceCardProps {
   title: string;
   basicPrice: string;
@@ -41,14 +43,8 @@ interface PriceCardProps {
   priceTabe: Number;
   index: Number;
   isMobile: boolean;
-}
-
-interface BlogCardProps {
-  title: string;
-  summery: string;
-  date: string;
-  userName: string;
-  imgUrl: string;
+  productName: string;
+  id: string;
 }
 
 interface MemberCardProps {
@@ -131,7 +127,73 @@ export const PriceCard = ({
   priceTabe,
   index,
   isMobile,
+  productName,
+  id,
 }: PriceCardProps) => {
+  const userId = localStorage.getItem("userId");
+  const serviceId = id;
+  const amount = price;
+  const serviceName = productName;
+
+  const handleBuy = async () => {
+    const res = await fetch(baseURL + "/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, serviceId, amount }),
+    });
+    const { order } = await res.json();
+
+    const options: any = {
+      key: "YOUR_RAZORPAY_KEY_ID",
+      amount: order.amount,
+      currency: order.currency,
+      name: "Your App",
+      description: `Buy ${serviceName}`,
+      order_id: order.id,
+      handler: async function (response: any) {
+        const verifyRes = await fetch(baseURL + "/verify-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            userId,
+            serviceId,
+          }),
+        });
+
+        const data = await verifyRes.json();
+        if (data.success) {
+          alert("Payment Successful!");
+          const invoiceRes = await fetch(baseURL + "/api/send-invoice", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId, serviceName, amount }),
+          });
+          const invoiceData = await invoiceRes.json();
+          console.log("Invoice:", invoiceData.invoice);
+        } else {
+          alert("Payment failed!");
+        }
+      },
+      prefill: {
+        name: "User",
+        email: "user@example.com",
+        contact: "9999999999",
+      },
+      method: {
+        upi: true,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+  };
+
   return (
     <div
       style={{
@@ -155,9 +217,17 @@ export const PriceCard = ({
         </p>
         <p className="psSummery">{summary}</p>
         {MostPopular ? (
-          <AppHoloBtn btnText="Get started Now" width="100%" />
+          <AppHoloBtn
+            btnText="Get started Now"
+            width="100%"
+            onClick={handleBuy}
+          />
         ) : (
-          <AppOrangeBtn btnText="Get started Now" width="100%" />
+          <AppOrangeBtn
+            btnText="Get started Now"
+            width="100%"
+            onClick={handleBuy}
+          />
         )}
       </div>
       <div className="pcSummerySection">
@@ -174,20 +244,22 @@ export const PriceCard = ({
 
 export const BlogCard = ({
   title,
-  summery,
   date,
-  userName,
-  imgUrl,
-}: BlogCardProps) => {
+  blogText,
+  imageUrl,
+  _id,
+}: BlogDataType) => {
+  const Navigate = useNavigate();
+
   return (
     <div className="blogCard">
-      <img src={imgUrl} className="blogImg" />
+      <img src={imageUrl} className="blogImg" />
       <div className="BlogTextBox">
         <div className="BlogUserOutBox">
           <div className="BlogUserBox">
             <div className="buABox">
               <img src={avatarIcom} />
-              <p>{userName}</p>
+              <p>Amit</p>
             </div>
             <div className="buABox">
               <img src={watchIcom} />
@@ -196,9 +268,22 @@ export const BlogCard = ({
           </div>
         </div>
         <p className="BlogTitle">{title}</p>
-        <p className="BlogSummery">{summery}</p>
-        <img src={UPRightArrow} className="UpRArrow" />
+        <p className="BlogSummery">
+          {blogText[0]?.summarys[0]?.summary.slice(0, 100)}
+          {blogText[0]?.summarys[0]?.summary?.length > 100 ? "..." : "."}
+        </p>
       </div>
+      <img
+        src={UPRightArrow}
+        className="UpRArrow"
+        onClick={() => {
+          if (_id) {
+            localStorage.setItem("blogId", _id);
+          }
+          Navigate("/blog-details");
+          GoTop();
+        }}
+      />
     </div>
   );
 };
@@ -222,21 +307,21 @@ export const MemberCard = ({ name, possession, img }: MemberCardProps) => {
 
 export const BlogRowCard = ({
   title,
-  summery,
+  blogText,
   date,
-  userName,
-  imgUrl,
-}: BlogCardProps) => {
+  imageUrl,
+  _id,
+}: BlogDataType) => {
   const Navigate = useNavigate();
 
   return (
     <div className="blogRowCard">
-      <img src={imgUrl} className="blogImg" />
+      <img src={imageUrl} className="blogImg" />
       <div className="BlogTextBox">
         <div className="blogBUserInfoBox">
           <div className="buABox">
             <img src={avatarIcom} />
-            <p>{userName}</p>
+            <p>Amit</p>
           </div>
 
           <div className="buABox">
@@ -246,11 +331,17 @@ export const BlogRowCard = ({
         </div>
 
         <p className="BlogTitle">{title}</p>
-        <p className="BlogSummery">{summery}</p>
+        <p className="BlogSummery">
+          {blogText[0]?.summarys[0]?.summary.slice(0, 200)}
+          {blogText[0]?.summarys[0]?.summary?.length > 200 ? "..." : "."}
+        </p>
         <img
           src={UPRightArrow}
           className="UpRArrow"
           onClick={() => {
+            if (_id) {
+              localStorage.setItem("blogId", _id);
+            }
             Navigate("/blog-details");
             GoTop();
           }}

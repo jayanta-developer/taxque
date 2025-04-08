@@ -74,7 +74,7 @@ function App() {
             // </ProtectedRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/services/product-details/payment"
           element={
             // <ProtectedRoute>
@@ -84,7 +84,7 @@ function App() {
             />
             // </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path="/blog"
           element={

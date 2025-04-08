@@ -5,14 +5,7 @@ import "./style.css";
 import { BlogCard, ServiceCard, MemberCard } from "../Tools";
 
 import { ServiceDataType } from "../../store/categorySlice";
-
-interface BlogCardProps {
-  title: string;
-  summery: string;
-  date: string;
-  userName: string;
-  imgUrl: string;
-}
+import { BlogDataType } from "../../store/blogSlice";
 
 interface MemberCardProps {
   name: string;
@@ -22,7 +15,7 @@ interface MemberCardProps {
 }
 
 interface MyCarouselProps {
-  data: BlogCardProps[] | ServiceDataType[] | MemberCardProps[];
+  data: BlogDataType[] | ServiceDataType[] | MemberCardProps[];
   cardName: "BlogCard" | "ServicesCard" | "memberCard";
 }
 
@@ -88,7 +81,7 @@ const MyCarousel: React.FC<MyCarouselProps> = ({ data, cardName }) => {
     >
       {data?.map((el, i) =>
         cardName === "BlogCard" ? (
-          <BlogCard {...(el as BlogCardProps)} key={i} />
+          <BlogCard {...(el as BlogDataType)} key={i} />
         ) : cardName === "ServicesCard" ? (
           <ServiceCard {...(el as ServiceDataType)} key={i} />
         ) : cardName === "memberCard" ? (

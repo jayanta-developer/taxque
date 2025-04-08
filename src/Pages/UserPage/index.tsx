@@ -52,7 +52,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
           <div className="ProductInfoBox"></div>
         </div>
       </div>
-
       <Footer />
     </>
   );

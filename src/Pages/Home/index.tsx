@@ -30,6 +30,7 @@ import { AppBtn } from "../../components/Buttons";
 import { GoTop } from "../../components/Tools";
 
 import { FetchService } from "../../store/categorySlice";
+import { FetchBlog } from "../../store/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 import { FetchProdcut } from "../../store/productSlice";
@@ -44,6 +45,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   const Navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector((state: RootState) => state.category);
+  const blogData = useSelector((state: RootState) => state.blog);
   const Product = useSelector((state: RootState) => state.product);
   console.log(Product.data);
 
@@ -57,6 +59,12 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
     dispatch(FetchProdcut());
     if (Product.data?.length < 0) {
       dispatch(FetchProdcut());
+    }
+  }, []);
+  useEffect(() => {
+    dispatch(FetchBlog());
+    if (blogData?.data?.length < 0) {
+      dispatch(FetchBlog());
     }
   }, []);
   return (
@@ -183,7 +191,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       {/* Blog section */}
       <div className="pricePlaneBox BlogSection">
         <p className="sectionHeader">Our Latest News</p>
-        <MyCarousel data={BlogData} cardName="BlogCard" />
+        <MyCarousel data={blogData?.data} cardName="BlogCard" />
       </div>
       {/* Subscribe section */}
       <Subscribe />

@@ -178,10 +178,13 @@
   width: 100%;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  position: relative;
 }
 .blogImg {
   width: 100%;
   border-radius: 20px;
+  min-height: 230px;
+  max-height: 230px;
 }
 .BlogTitle {
   font-size: 20px;

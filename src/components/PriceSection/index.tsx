@@ -5,7 +5,7 @@ import "./style.css";
 import { PriceCard } from "../Tools";
 import { priceDataProps } from "../../store/productSlice";
 
-export default function PriceSection({ priceData, title }: any) {
+export default function PriceSection({ product }: any) {
 
   const [priceTab, setPriceTab] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -22,9 +22,9 @@ export default function PriceSection({ priceData, title }: any) {
   }, []);
   return (
     <div className="pricePlaneBox PriceplaneSection">
-      <p className="sectionHeader">{title} Pricing Plans</p>
+      <p className="sectionHeader">{product?.title} Pricing Plans</p>
       <div className="priceSelectTab">
-        {priceData?.map((val: priceDataProps, i: number) => (
+        {product?.priceData?.map((val: priceDataProps, i: number) => (
           <div
             key={i}
             onClick={() => setPriceTab(i)}
@@ -36,13 +36,15 @@ export default function PriceSection({ priceData, title }: any) {
       </div>
       <div id="priceBox" className="priceCardBox">
         <img src={YellowBg} className="yellowBg" />
-        {priceData?.map((el: any, i: number) => (
+        {product?.priceData?.map((el: any, i: number) => (
           <PriceCard
             {...el}
             priceTabe={priceTab}
             index={i}
             key={i}
             isMobile={isMobile}
+            id={product?._id}
+            productName={product?.title}
           />
         ))}
       </div>

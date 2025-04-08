@@ -198,7 +198,7 @@ export default function ProductDetails({
 
         <div className="productPageMainSection">
           {/*Price plane Box*/}
-          <PriceSection priceData={Product?.priceData} title={Product?.title}/>
+          <PriceSection product={Product} />
 
           {/* PeraSection */}
           <div className="paraSection">

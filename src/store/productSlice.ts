@@ -2,7 +2,9 @@ import Axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
-import { baseURL, STATUSES } from "./categorySlice";
+import { STATUSES } from "./categorySlice";
+import { baseURL } from "./store";
+
 
 export interface stepDataType {
   title: string;

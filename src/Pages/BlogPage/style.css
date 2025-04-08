@@ -18,8 +18,8 @@
   margin: 10px 0;
 }
 .UpRArrow {
-  bottom: -5px;
-  right: -5px;
+  bottom: 5px;
+  right: 5px;
 }
 .blogCatagoribox {
   width: 100%;
@@ -42,13 +42,18 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   position: relative;
+  cursor: pointer;
 }
 .bcRow p {
   color: #003057;
 }
+.bcRowActive {
+  background: #b7b988;
+}
 .bcHeaderRow {
   background: #003057;
   border-radius: 10px 10px 0 0;
+  cursor: pointer;
 }
 .bcHeaderRow p {
   color: #fff;
@@ -89,6 +94,6 @@
     margin: 20px 0;
   }
   .BlogPage .sectionHeader {
-    display: block ;
+    display: block;
   }
 }
