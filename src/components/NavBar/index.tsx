@@ -15,6 +15,7 @@ import backRoundArrow from "../../assets/images/backRoundArrow.png";
 import avatarIcon from "../../assets/images/avatarIcon.png";
 import logOutIcon from "../../assets/images/logout.png";
 import searchIcon from "../../assets/images/SearchIcon.svg";
+import userIcon from "../../assets/images/UserIcon.png";
 
 //components
 import { AppBtn } from "../Buttons";
@@ -34,6 +35,7 @@ export default function NavBar({ currentNav }: NavProps) {
   const divRef = useRef<HTMLDivElement | null>(null);
   const [searchTab, setSearchTab] = useState(false);
   const { user } = useContext(AuthContext)!;
+  const [userDrop, setUserDrop] = useState(false);
 
   const closeNav = (e: any) => {
     if (e.target.id === "grayBox") {
@@ -187,14 +189,26 @@ export default function NavBar({ currentNav }: NavProps) {
             style={{ cursor: "pointer" }}
           />
           {user ? (
-            <>
-              <AppBtn btnText="LogOut" onClick={handleLogOut} />
-              <img
-                src={logOutIcon}
-                className="LogInIconM"
-                onClick={handleLogOut}
-              />
-            </>
+            <div
+              className="UserProfileTab"
+              onClick={() => setUserDrop(!userDrop)}
+            >
+              <img src={userIcon} alt="" />
+              <div
+                style={{ display: userDrop ? "flex" : "none" }}
+                className="dropBox"
+              >
+                <div
+                  className="dropItem"
+                  onClick={() => navigate("/user-profile")}
+                >
+                  <p>Profile</p>
+                </div>
+                <div className="dropItem" onClick={handleLogOut}>
+                  <p>LogOut</p>
+                </div>
+              </div>
+            </div>
           ) : (
             <>
               <AppBtn

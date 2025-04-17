@@ -6,7 +6,6 @@ import { PriceCard } from "../Tools";
 import { priceDataProps } from "../../store/productSlice";
 
 export default function PriceSection({ product }: any) {
-
   const [priceTab, setPriceTab] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 

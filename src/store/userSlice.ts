@@ -14,6 +14,11 @@ export interface UserDataType {
   name: string;
   email: string;
   token?: string;
+  purchase?: {
+    orderData: string;
+    requireDoc: [];
+    productId: string;
+  }[];
   _id?: string;
 }
 export interface findUserArgeType {
@@ -37,9 +42,9 @@ const initialState: userState = {
 export const FetchUser = createAsyncThunk<UserDataType[]>(
   "service/fetch",
   async () => {
-    const response = await fetch(`${baseURL}/service`);
+    const response = await fetch(`${baseURL}/users`);
     const data = await response.json();
-    return data;
+    return data.user;
   }
 );
 

@@ -257,7 +257,11 @@
   margin-bottom: 30px;
 }
 .productFeatures .checkBox {
-  margin-bottom: 8px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: start;
 }
 .checkBox span {
   font-weight: 600;
@@ -329,6 +333,28 @@
   height: 80%;
   border-radius: 20px;
 }
+
+.tableOuterBox {
+  width: 100%;
+  overflow-x: scroll;
+}
+.PRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.PheaderRow {
+  background: #feffea;
+}
+.tableSel {
+  min-height: 66px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .productHeader p {

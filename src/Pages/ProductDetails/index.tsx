@@ -119,7 +119,7 @@ export default function ProductDetails({
   }, []);
 
   useEffect(() => {
-    setProduct(data.find((pr) => pr._id === selectedProductId));
+    setProduct(data?.find((pr) => pr._id === selectedProductId));
   }, [data, Product]);
 
   return (
@@ -256,7 +256,7 @@ export default function ProductDetails({
                   </p>
                   <ul>
                     {Product?.whatIs?.liList?.map((liVal, i) => (
-                      <li className="prNText">
+                      <li key={i} className="prNText">
                         <b>{liVal.title}:</b>
                         {liVal.summary}
                       </li>
@@ -291,7 +291,7 @@ export default function ProductDetails({
               </div>
             </div>
 
-            {/* Benefits section */}
+            {/* Benefits section ----------------------------------------------------*/}
             <div id="Benefits" className="privateLC BenefitsSection">
               <p className="privateSHeader">
                 <b>Benefits</b> of a {Product?.title}

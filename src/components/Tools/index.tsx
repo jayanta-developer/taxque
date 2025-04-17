@@ -130,68 +130,91 @@ export const PriceCard = ({
   productName,
   id,
 }: PriceCardProps) => {
+  const Navigate = useNavigate();
+
   const userId = localStorage.getItem("userId");
   const serviceId = id;
-  const amount = price;
+  const amount = price.replace(/,/g, "");
   const serviceName = productName;
 
   const handleBuy = async () => {
-    const res = await fetch(baseURL + "/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, serviceId, amount }),
-    });
-    const { order } = await res.json();
+    console.log(amount);
+    try {
+      const res = await fetch(baseURL + "/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, serviceId, amount }),
+      });
 
-    const options: any = {
-      key: "YOUR_RAZORPAY_KEY_ID",
-      amount: order.amount,
-      currency: order.currency,
-      name: "Your App",
-      description: `Buy ${serviceName}`,
-      order_id: order.id,
-      handler: async function (response: any) {
-        const verifyRes = await fetch(baseURL + "/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature,
-            userId,
-            serviceId,
-          }),
-        });
+      const { order } = await res.json();
 
-        const data = await verifyRes.json();
-        if (data.success) {
-          alert("Payment Successful!");
-          const invoiceRes = await fetch(baseURL + "/api/send-invoice", {
+      if (!order || !order.id) {
+        alert("Failed to create payment order.");
+        return;
+      }
+      const options: any = {
+        // key: "rzp_live_r7KwJgrC6rE4Lo",
+        key: "rzp_test_I1KZWb5UEAvCsr",
+        amount: order?.amount,
+        currency: order?.currency,
+        name: "TexQue",
+        description: `Buy ${serviceName}`,
+        order_id: order?.id,
+        handler: async function (response: any) {
+          console.log("Payment Response:", response);
+          console.log("Order ID:", response.razorpay_order_id);
+          console.log("Payment ID:", response.razorpay_payment_id);
+          console.log("Signature from Razorpay:", response.razorpay_signature);
+          console.log("Expected Signature:", response.expectedSignature);
+
+          const verifyRes = await fetch(baseURL + "/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId, serviceName, amount }),
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              userId,
+              serviceId,
+            }),
           });
-          const invoiceData = await invoiceRes.json();
-          console.log("Invoice:", invoiceData.invoice);
-        } else {
-          alert("Payment failed!");
-        }
-      },
-      prefill: {
-        name: "User",
-        email: "user@example.com",
-        contact: "9999999999",
-      },
-      method: {
-        upi: true,
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
 
-    const rzp = new (window as any).Razorpay(options);
-    rzp.open();
+          const data = await verifyRes.json();
+
+          if (data.success) {
+            // alert("Payment Successful!");
+            Navigate("/user-profile");
+            GoTop();
+            const invoiceRes = await fetch(baseURL + "/send-invoice", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ userId, serviceName, amount }),
+            });
+            const invoiceData = await invoiceRes.json();
+            console.log("Invoice:", invoiceData.invoice);
+          } else {
+            alert("Payment failed!");
+          }
+        },
+        prefill: {
+          name: "User",
+          email: "user@example.com",
+          contact: "9999999999",
+        },
+        method: {
+          upi: true,
+        },
+        theme: {
+          color: "#fa8a05",
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Payment failed to initialize:", error);
+      alert("Something went wrong while initiating the payment.");
+    }
   };
 
   return (
