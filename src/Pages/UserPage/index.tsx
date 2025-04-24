@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import "./style.css";
+import axios from "axios";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+import { DropBox } from "../../components/Tools";
+import FileUpload from "../../components/FileUploader";
 
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
 import AvatarIcon from "../../assets/images/AvatarIcon2.png";
 import UserBG from "../../assets/images/userBG2.jpg";
+import AddIcon from "../../assets/images/AddIcon.png";
 
 interface NavProps {
   currentNav: string;
@@ -26,6 +30,25 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const [selectProduct, setSelectProduct] = useState<ProductDataType>();
+  const [docType1, setDocType1] = useState<string>();
+  const [docType2, setDocType2] = useState<string>();
+  const [docType3, setDocType3] = useState<string>();
+  const [fileUrl, setFileUrl] = useState<string>();
+
+  const handleUploadedUrl = (url: string) => {
+    console.log("Cloudinary URL:", url);
+    setFileUrl(url);
+    // Example: save to user data
+    return (
+      <>
+        <a href={url} target="_blank" rel="noopener noreferrer" download>
+          Download File
+        </a>
+      </>
+    );
+  };
+
+  const docType = ["Address proof", "Identity proof	", "Financial proof"];
 
   let curentUser;
   if (user.data) {
@@ -82,10 +105,56 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 {selectProduct?.feturePoints?.map((fp, i) => (
                   <p key={i}>{fp.summary}</p>
                 ))}
+                <h2 style={{ margin: "20px 0" }}>Document require </h2>
+                <div className="docUploadBox">
+                  <div className="docSection">
+                    <DropBox
+                      setDropVal={setDocType1}
+                      defaultVal="Select Doc type"
+                      list={docType}
+                    />
 
-                {selectProduct?.overView?.summarys?.map((fp, i) => (
-                  <span style={{ marginTop: "20px" }} key={i}>{fp}</span>
-                ))}
+                    {/* <label htmlFor="doc1">
+                      <img
+                        src={AddIcon}
+                        alt="Upload"
+                        className="CEImgUploadIcon"
+                      />
+                    </label>
+                    <input id="doc1" type="file" /> */}
+                    <FileUpload onFileUpload={handleUploadedUrl} />
+                  </div>
+                  <div className="docSection">
+                    <DropBox
+                      setDropVal={setDocType2}
+                      defaultVal="Select Doc type"
+                      list={docType}
+                    />
+                    <label htmlFor="doc2">
+                      <img
+                        src={AddIcon}
+                        alt="Upload"
+                        className="CEImgUploadIcon"
+                      />
+                    </label>
+                    <input id="doc2" type="file" />
+                  </div>
+                  <div className="docSection">
+                    <DropBox
+                      setDropVal={setDocType3}
+                      defaultVal="Select Doc type"
+                      list={docType}
+                    />
+                    <label htmlFor="doc3">
+                      <img
+                        src={AddIcon}
+                        alt="Upload"
+                        className="CEImgUploadIcon"
+                      />
+                    </label>
+                    <input id="doc3" type="file" />
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="NoDataBox">

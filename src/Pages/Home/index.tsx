@@ -57,7 +57,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   }, []);
   useEffect(() => {
     dispatch(FetchProdcut());
-    if (Product.data?.length < 0) {
+    if (Product?.data?.length < 0) {
       dispatch(FetchProdcut());
     }
   }, []);
@@ -176,10 +176,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         </div>
       </div>
       {/* -Price plane Box */}
-      <PriceSection
-        priceData={Product?.data[0]?.priceData}
-        title={Product?.data[0]?.title}
-      />
+      <PriceSection product={Product?.data[0]} />
 
       {/* Review section */}
       <div className="reviewSection">

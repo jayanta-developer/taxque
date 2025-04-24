@@ -550,6 +550,19 @@
 .nodataBox img {
   width: 30%;
 }
+.DropBox {  
+  height: 44px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding-left: 20px;
+  padding-right: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  cursor: pointer;
+  background: #ffffffe7;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .serviceCard {

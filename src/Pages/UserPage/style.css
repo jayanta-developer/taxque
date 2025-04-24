@@ -94,3 +94,20 @@
   display: flex;
   flex-direction: column;
 }
+.docUploadBox {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.docSection input{
+  display: none;
+}
+.docSection img{
+  margin-top: 20px;
+  cursor: pointer;
+}
+.docSection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

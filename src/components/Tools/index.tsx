@@ -573,3 +573,24 @@ export const Loader = ({ loding }: loadingProps) => {
     </div>
   );
 };
+
+interface dropProps {
+  setDropVal: any;
+  list?: Number[] | String[];
+  defaultVal: string;
+  width?: string;
+}
+export const DropBox = ({ setDropVal, list, defaultVal, width }: dropProps) => {
+  return (
+    <select
+      style={{ width: width || "100%" }}
+      className="DropBox"
+      onChange={(e) => setDropVal(e.target.value)}
+    >
+      <option>{defaultVal}</option>
+      {list?.map((el, i: number) => (
+        <option key={i}>{String(el)}</option>
+      ))}
+    </select>
+  );
+};
