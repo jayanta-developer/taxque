@@ -1,7 +1,6 @@
 import "./style.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { baseURL } from "../../store/store";
 
 //images
 import UPRightArrow from "../../assets/images/right-up.svg";
@@ -45,6 +44,7 @@ interface PriceCardProps {
   isMobile: boolean;
   productName: string;
   id: string;
+  priceId: string;
 }
 
 interface MemberCardProps {
@@ -129,92 +129,16 @@ export const PriceCard = ({
   isMobile,
   productName,
   id,
+  priceId,
 }: PriceCardProps) => {
   const Navigate = useNavigate();
 
-  const userId = localStorage.getItem("userId");
-  const serviceId = id;
-  const amount = price.replace(/,/g, "");
-  const serviceName = productName;
-
-  const handleBuy = async () => {
-    console.log(amount);
-    try {
-      const res = await fetch(baseURL + "/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, serviceId, amount }),
-      });
-
-      const { order } = await res.json();
-
-      if (!order || !order.id) {
-        alert("Failed to create payment order.");
-        return;
-      }
-      const options: any = {
-        // key: "rzp_live_r7KwJgrC6rE4Lo",
-        key: "rzp_test_I1KZWb5UEAvCsr",
-        amount: order?.amount,
-        currency: order?.currency,
-        name: "TexQue",
-        description: `Buy ${serviceName}`,
-        order_id: order?.id,
-        handler: async function (response: any) {
-          console.log("Payment Response:", response);
-          console.log("Order ID:", response.razorpay_order_id);
-          console.log("Payment ID:", response.razorpay_payment_id);
-          console.log("Signature from Razorpay:", response.razorpay_signature);
-          console.log("Expected Signature:", response.expectedSignature);
-
-          const verifyRes = await fetch(baseURL + "/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              userId,
-              serviceId,
-            }),
-          });
-
-          const data = await verifyRes.json();
-
-          if (data.success) {
-            // alert("Payment Successful!");
-            Navigate("/user-profile");
-            GoTop();
-            const invoiceRes = await fetch(baseURL + "/send-invoice", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ userId, serviceName, amount }),
-            });
-            const invoiceData = await invoiceRes.json();
-            console.log("Invoice:", invoiceData.invoice);
-          } else {
-            alert("Payment failed!");
-          }
-        },
-        prefill: {
-          name: "User",
-          email: "user@example.com",
-          contact: "9999999999",
-        },
-        method: {
-          upi: true,
-        },
-        theme: {
-          color: "#fa8a05",
-        },
-      };
-
-      const rzp = new (window as any).Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.error("Payment failed to initialize:", error);
-      alert("Something went wrong while initiating the payment.");
-    }
+  const handleBuyClick = () => {
+    Navigate("/services/product-details/payment-checkout");
+    GoTop();
+    localStorage.setItem("planServiceId", id);
+    localStorage.setItem("planServiceName", productName);
+    localStorage.setItem("planPriceId", priceId);
   };
 
   return (
@@ -243,13 +167,13 @@ export const PriceCard = ({
           <AppHoloBtn
             btnText="Get started Now"
             width="100%"
-            onClick={handleBuy}
+            onClick={handleBuyClick}
           />
         ) : (
           <AppOrangeBtn
             btnText="Get started Now"
             width="100%"
-            onClick={handleBuy}
+            onClick={handleBuyClick}
           />
         )}
       </div>

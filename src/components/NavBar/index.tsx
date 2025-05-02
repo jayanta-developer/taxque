@@ -124,10 +124,10 @@ export default function NavBar({ currentNav }: NavProps) {
   return (
     <>
       <div ref={divRef} className="navBar">
-        <ToastContainer />
         <div className="clogoBox">
           <img src={Clogo} onClick={() => navigate("/")} />
         </div>
+        <ToastContainer />
 
         {/* Mobile nav */}
         <div

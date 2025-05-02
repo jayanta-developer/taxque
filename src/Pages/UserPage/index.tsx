@@ -1,12 +1,13 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
-import axios from "axios";
+import { upload } from "@vercel/blob/client";
+import { baseURL } from "../../App";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { DropBox } from "../../components/Tools";
-import FileUpload from "../../components/FileUploader";
+// import { uploadFileToFirebase } from "../../Util/services/fileUploader";
 
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
@@ -19,7 +20,7 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 import { FetchProdcut, ProductDataType } from "../../store/productSlice";
-import { FetchUser } from "../../store/userSlice";
+import { GetUser } from "../../store/userSlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,24 +29,47 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   const { data, status } = useSelector((state: RootState) => state.product);
   const user = useSelector((state: RootState) => state.user);
+  
   const dispatch = useDispatch<AppDispatch>();
   const [selectProduct, setSelectProduct] = useState<ProductDataType>();
   const [docType1, setDocType1] = useState<string>();
   const [docType2, setDocType2] = useState<string>();
   const [docType3, setDocType3] = useState<string>();
-  const [fileUrl, setFileUrl] = useState<string>();
 
-  const handleUploadedUrl = (url: string) => {
-    console.log("Cloudinary URL:", url);
-    setFileUrl(url);
-    // Example: save to user data
-    return (
-      <>
-        <a href={url} target="_blank" rel="noopener noreferrer" download>
-          Download File
-        </a>
-      </>
-    );
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
+
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const filename = encodeURIComponent(file.name);
+
+      const res = await fetch(`${baseURL}/blob?filename=${filename}`, {
+        method: "POST",
+        body: await file.arrayBuffer(),
+        headers: {
+          "Content-Type": file.type || "application/octet-stream",
+        },
+      });
+      const { url } = await res.json();
+
+      // const { url } = await upload(file?.name, file, {
+      //   access: "public",
+      //   handleUploadUrl: `${baseURL}/blob`,
+      // });
+
+      setFileUrls((prev) => {
+        const updated = [...prev];
+        updated[index] = url;
+        return updated;
+      });
+    } catch (err) {
+      console.error(`Upload failed for file ${index + 1}:`, err);
+    }
   };
 
   const docType = ["Address proof", "Identity proof	", "Financial proof"];
@@ -64,12 +88,18 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
 
   useEffect(() => {
     dispatch(FetchProdcut());
-    dispatch(FetchUser());
     if (data?.length < 0) {
       dispatch(FetchProdcut());
-      dispatch(FetchUser());
     }
   }, []);
+
+  useEffect(() => {
+    if (!logUserId) return;
+    dispatch(GetUser({ _id: logUserId }));
+    if (user.data?.length < 0) {
+      dispatch(GetUser({ _id: logUserId }));
+    }
+  }, [logUserId]);
 
   return (
     <>
@@ -114,15 +144,23 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                       list={docType}
                     />
 
-                    {/* <label htmlFor="doc1">
+                    <label htmlFor="doc1">
                       <img
                         src={AddIcon}
                         alt="Upload"
                         className="CEImgUploadIcon"
                       />
                     </label>
-                    <input id="doc1" type="file" /> */}
-                    <FileUpload onFileUpload={handleUploadedUrl} />
+                    <input
+                      id="doc1"
+                      type="file"
+                      onChange={(e) => handleFileChange(e, 0)}
+                    />
+                    {fileUrls[0] && (
+                      <a href={fileUrls[0]} target="_blank">
+                        File 1 Link
+                      </a>
+                    )}
                   </div>
                   <div className="docSection">
                     <DropBox
@@ -137,7 +175,16 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                         className="CEImgUploadIcon"
                       />
                     </label>
-                    <input id="doc2" type="file" />
+                    <input
+                      id="doc2"
+                      type="file"
+                      onChange={(e) => handleFileChange(e, 1)}
+                    />
+                    {fileUrls[1] && (
+                      <a href={fileUrls[1]} target="_blank">
+                        File 2 Link
+                      </a>
+                    )}
                   </div>
                   <div className="docSection">
                     <DropBox
@@ -152,7 +199,16 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                         className="CEImgUploadIcon"
                       />
                     </label>
-                    <input id="doc3" type="file" />
+                    <input
+                      id="doc3"
+                      type="file"
+                      onChange={(e) => handleFileChange(e, 2)}
+                    />
+                    {fileUrls[2] && (
+                      <a href={fileUrls[2]} target="_blank">
+                        File 3 Link
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

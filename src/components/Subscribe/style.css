@@ -2,6 +2,10 @@
   width: 146px !important;
   min-height: 100% !important;
 } /* Tabe view */
+
+.subscribeSection .emailInputBox {
+  height: 50px;
+}
 @media only screen and (min-width: 768px) {
 }
 /* Desktop view */

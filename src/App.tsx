@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 
+export const baseURL = import.meta.env.VITE_BASE_URL;
+
 //components
 import GlobalPage from "./Pages/GlobalPage";
 import Home from "./Pages/Home";
@@ -22,6 +24,7 @@ import ContactUs from "./Pages/ContactUs";
 import TermsOfUse from "./Pages/TermsOfUse";
 import Reffer from "./Pages/Reffer";
 import UserPage from "./Pages/UserPage";
+import PaymentCheckOut from "./Pages/PaymentCheckOut";
 
 //Protect Route
 import ProtectedRoute from "./Util/Tools/ProtectedRoute";
@@ -195,6 +198,17 @@ function App() {
           element={
             <ProtectedRoute>
               <UserPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/services/product-details/payment-checkout"
+          element={
+            <ProtectedRoute>
+              <PaymentCheckOut
+                setCurrentNav={setCurrentNav}
+                currentNav={currentNav}
+              />
             </ProtectedRoute>
           }
         />

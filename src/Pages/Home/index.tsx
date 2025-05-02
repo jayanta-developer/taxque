@@ -47,7 +47,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   const { data, status } = useSelector((state: RootState) => state.category);
   const blogData = useSelector((state: RootState) => state.blog);
   const Product = useSelector((state: RootState) => state.product);
-  console.log(Product.data);
+  // console.log(Product.data);
 
   useEffect(() => {
     dispatch(FetchService());

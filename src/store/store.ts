@@ -1,10 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice";
 import categoryReducer from "./categorySlice";
+import userReducer from "./userSlice";
 import productReducer from "./productSlice";
 import blogReducer from "./blogSlice";
-
-export const baseURL = import.meta.env.VITE_BASE_URL;
 
 export const store = configureStore({
   reducer: {

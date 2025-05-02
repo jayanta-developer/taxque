@@ -2,7 +2,7 @@ import Axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
-import { baseURL } from "./store";
+import { baseURL } from "../App";
 
 export enum STATUSES {
   IDLE = "idle",

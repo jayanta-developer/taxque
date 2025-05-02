@@ -44,6 +44,7 @@ export default function PriceSection({ product }: any) {
             isMobile={isMobile}
             id={product?._id}
             productName={product?.title}
+            priceId={el?._id}
           />
         ))}
       </div>

@@ -2,7 +2,7 @@ import Axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
-import { baseURL } from "./store";
+import { baseURL } from "../App";
 
 export enum STATUSES {
   IDLE = "idle",
@@ -40,7 +40,7 @@ const initialState: userState = {
 
 //Fetch user
 export const FetchUser = createAsyncThunk<UserDataType[]>(
-  "service/fetch",
+  "user/fetch",
   async () => {
     const response = await fetch(`${baseURL}/users`);
     const data = await response.json();
@@ -85,6 +85,23 @@ export const FindUser = createAsyncThunk<UserDataType, findUserArgeType>(
     }
   }
 );
+export const GetUser = createAsyncThunk<UserDataType, { _id: string }>(
+  "get user/fetch",
+  async ({ _id }, { rejectWithValue }) => {
+    try {
+      const response = await Axios.get(`${baseURL}/user/get-by-id/${_id}`);
+      // Reloader(600);
+      const user = response.data.user;
+      console.log(response);
+
+      return user;
+    } catch (error: any) {
+      toast.error("Something went wrong", error.response?.data);
+      // Reloader(900);
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -111,14 +128,14 @@ const userSlice = createSlice({
         state.status = STATUSES.IDLE;
       })
 
-      .addCase(FindUser.pending, (state) => {
+      .addCase(GetUser.pending, (state) => {
         state.status = STATUSES.LOADING;
       })
-      .addCase(FindUser.fulfilled, (state, action) => {
+      .addCase(GetUser.fulfilled, (state, action) => {
         state.data = [action.payload]; // Store user in an array to match `UserDataType[]`
         state.status = STATUSES.IDLE;
       })
-      .addCase(FindUser.rejected, (state) => {
+      .addCase(GetUser.rejected, (state) => {
         state.status = STATUSES.ERROR;
       });
   },

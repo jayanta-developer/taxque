@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
     "@types/react-google-login-component": "^0.9.4",
+    "@vercel/blob": "^1.0.0",
     "axios": "^1.8.4",
     "maplibre-gl": "^5.1.1",
     "react": "^19.0.0",

@@ -200,6 +200,7 @@
   position: absolute;
   top: 0%;
   display: none;
+  z-index: -1;
 }
 .BlogSection {
   width: 100%;

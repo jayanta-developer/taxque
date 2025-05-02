@@ -2,9 +2,14 @@ import Axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
-import { STATUSES } from "./categorySlice";
-import { baseURL } from "./store";
+// import { STATUSES } from "./categorySlice";
+import { baseURL } from "../App";
 
+const STATUSES = {
+  IDLE: "idle",
+  LOADING: "loading",
+  ERROR: "error",
+};
 
 export interface stepDataType {
   title: string;
@@ -193,24 +198,10 @@ export interface ProductDataType {
   _id?: string;
 }
 
-// interface UpdateProductType {
-//   title?: string;
-//   imageUrl?: string;
-//   rating?: number;
-//   category?: categoryProps;
-//   feturePoints?: feturePointsProps[];
-//   priceData?: priceDataProps[];
-//   FAQ?: FAQType[];
-// }
-// interface UpdateProductArgs {
-//   id: string;
-//   data: UpdateProductType;
-// }
-
 // Define the initial state type
 interface ProductState {
   data: ProductDataType[];
-  status: STATUSES;
+  status: string;
 }
 // Initial state
 const initialState: ProductState = {
@@ -263,22 +254,6 @@ export const DeleteProduct = createAsyncThunk<void, string>(
     }
   }
 );
-
-//Update Product----------------------------------------------
-// export const UpdateProduct = createAsyncThunk<
-//   UpdateProductType,
-//   UpdateProductArgs
-// >("product/update", async ({ data, id }, { rejectWithValue }) => {
-//   try {
-//     const response = await Axios.post(`${baseURL}/product/update/${id}`, data);
-//     toast.success("Product updated successfully !");
-//     Reloader(1000);
-//     return response.data;
-//   } catch (error: any) {
-//     toast.error("Failed to update product");
-//     return rejectWithValue(error.response?.data || "An error occurred");
-//   }
-// });
 
 //Add FAQ
 export const AddFAQ = createAsyncThunk<FAQType, FAQArgs>(
@@ -393,7 +368,7 @@ export const DeletePricePlan = createAsyncThunk<
   }
 });
 
-// **Service Slice**
+// **Product Slice**
 const productSlice = createSlice({
   name: "product",
   initialState,
