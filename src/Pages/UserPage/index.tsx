@@ -29,7 +29,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   const { data, status } = useSelector((state: RootState) => state.product);
   const user = useSelector((state: RootState) => state.user);
-  
+
   const dispatch = useDispatch<AppDispatch>();
   const [selectProduct, setSelectProduct] = useState<ProductDataType>();
   const [docType1, setDocType1] = useState<string>();
@@ -37,6 +37,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const [docType3, setDocType3] = useState<string>();
 
   const [fileUrls, setFileUrls] = useState<string[]>([]);
+  console.log(fileUrls);
 
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -56,11 +57,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
         },
       });
       const { url } = await res.json();
-
-      // const { url } = await upload(file?.name, file, {
-      //   access: "public",
-      //   handleUploadUrl: `${baseURL}/blob`,
-      // });
 
       setFileUrls((prev) => {
         const updated = [...prev];

@@ -54,6 +54,8 @@ export default function ProductDetails({
   const [Product, setProduct] = useState<ProductDataType>();
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
 
+  console.log(Product);
+
   interface paraType {
     title: string;
     id: string;
@@ -219,277 +221,301 @@ export default function ProductDetails({
             </div>
 
             {/* Overview section--------------------------------------------------- */}
-            <div
-              id="overview"
-              className="paraSubSection overViewSection privateLC"
-            >
-              <p className="privateSHeader">{Product?.overView?.title}</p>
-              {Product?.overView?.summarys?.map((el, i) => (
-                <p key={i}>{el}</p>
-              ))}
-            </div>
-
+            {Product?.overView && (
+              <div
+                id="overview"
+                className="paraSubSection overViewSection privateLC"
+              >
+                <p className="privateSHeader">{Product?.overView?.title}</p>
+                {Product?.overView?.summarys?.map((el, i) => (
+                  <p key={i}>{el}</p>
+                ))}
+              </div>
+            )}
             {/* PrivateLimitedCompany----------------------------------------------- */}
-            <div
-              id="PrivateLimitedCompany"
-              className="paraSubSection privateLC"
-            >
-              <p className="privateSHeader">
-                What Is a <b>{Product?.title}</b>
-              </p>
-
-              {Product?.whatIs?.summarys?.map((sm, i) => (
-                <p className="prNText" key={i}>
-                  {sm}
+            {Product?.whatIs?.summarys?.length && (
+              <div
+                id="PrivateLimitedCompany"
+                className="paraSubSection privateLC"
+              >
+                <p className="privateSHeader">
+                  What Is a <b>{Product?.title}</b>
                 </p>
-              ))}
 
-              <div className="cplPVCBox">
-                <img src={pvtOverver} alt="" />
-                <div className="pvcTextBox">
-                  <p className="prNText">
-                    Definition as per the Companies Act, 2013{" "}
+                {Product?.whatIs?.summarys?.map((sm, i) => (
+                  <p className="prNText" key={i}>
+                    {sm}
                   </p>
+                ))}
+
+                <div className="cplPVCBox">
+                  <img src={pvtOverver} alt="" />
+                  <div className="pvcTextBox">
+                    <p className="prNText">
+                      Definition as per the Companies Act, 2013{" "}
+                    </p>
+                    <p className="prNText">
+                      Section 2(68) of the <b>Companies Act, 2013,</b> defines a
+                      Private Limited Company as an entity that:
+                    </p>
+                    <ul>
+                      {Product?.whatIs?.liList?.map((liVal, i) => (
+                        <li key={i} className="prNText">
+                          <b>{liVal.title}:</b>
+                          {liVal.summary}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="plcNoteSection">
+                  <h2 style={{ marginBottom: "10px" }}>
+                    {Product?.whatIs?.Notice?.noticeTitle}
+                  </h2>
                   <p className="prNText">
-                    Section 2(68) of the <b>Companies Act, 2013,</b> defines a
-                    Private Limited Company as an entity that:
+                    {Product?.whatIs?.Notice?.noticeSummary}
                   </p>
-                  <ul>
-                    {Product?.whatIs?.liList?.map((liVal, i) => (
-                      <li key={i} className="prNText">
-                        <b>{liVal.title}:</b>
-                        {liVal.summary}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
-
-              <div className="plcNoteSection">
-                <h2 style={{ marginBottom: "10px" }}>
-                  {Product?.whatIs?.Notice?.noticeTitle}
-                </h2>
-                <p className="prNText">
-                  {Product?.whatIs?.Notice?.noticeSummary}
-                </p>
-              </div>
-            </div>
-
+            )}
             {/* Key Features--------------------------------------------------------- */}
-            <div
-              id="Keyfeatures"
-              className="paraSubSection privateLC keyFeaturesSection"
-            >
-              <p className="privateSHeader">
-                {Product?.keyFeature?.title} <b> Private Limited Company?</b>
-              </p>
-              <p className="prNText">{Product?.keyFeature?.summarys}</p>
-              <div className="keyFeatureCardBox">
-                {Product?.keyFeature?.keyFeatureItems?.map((el, i) => (
-                  <FeaturesCard title={el.title} summary={el.summary} key={i} />
-                ))}
+            {Product?.keyFeature && (
+              <div
+                id="Keyfeatures"
+                className="paraSubSection privateLC keyFeaturesSection"
+              >
+                <p className="privateSHeader">
+                  {Product?.keyFeature?.title} <b> Private Limited Company?</b>
+                </p>
+                <p className="prNText">{Product?.keyFeature?.summarys}</p>
+                <div className="keyFeatureCardBox">
+                  {Product?.keyFeature?.keyFeatureItems?.map((el, i) => (
+                    <FeaturesCard
+                      title={el.title}
+                      summary={el.summary}
+                      key={i}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-
+            )}
             {/* Benefits section ----------------------------------------------------*/}
-            <div id="Benefits" className="privateLC BenefitsSection">
-              <p className="privateSHeader">
-                <b>Benefits</b> of a {Product?.title}
-              </p>
-              {Product?.benefits?.summarys?.map((sm, i) => (
-                <p className="prNText" key={i}>
-                  {sm}
+            {Product?.benefits && (
+              <div id="Benefits" className="privateLC BenefitsSection">
+                <p className="privateSHeader">
+                  <b>Benefits</b> of a {Product?.title}
                 </p>
-              ))}
-              <div className="benefiteCardBox">
-                {Product?.benefits?.benefitsItems?.map((el, i) => (
-                  <BenefitsCard {...el} index={i} key={i} />
+                {Product?.benefits?.summarys?.map((sm, i) => (
+                  <p className="prNText" key={i}>
+                    {sm}
+                  </p>
+                ))}
+                <div className="benefiteCardBox">
+                  {Product?.benefits?.benefitsItems?.map((el, i) => (
+                    <BenefitsCard {...el} index={i} key={i} />
+                  ))}
+                </div>
+              </div>
+            )}
+            {/* Difference section-------------------------------------------- */}
+            {Product?.difference && (
+              <div id="Difference" className="privateLC DifferenceSection">
+                <p className="privateSHeader">
+                  <b>Difference </b> Between {Product?.title} and Other Business
+                  Structures
+                </p>
+                {Product?.difference?.summarys?.map((sm, i) => (
+                  <p className="prNText" key={i}>
+                    {sm}
+                  </p>
+                ))}
+
+                <div className="tableOuterBox productViewDifTable">
+                  <div className="pricePanaleTableBox">
+                    <div className="PRow PheaderRow headerRow">
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableHeaderText">Key Feature</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableHeaderText">
+                          Private Limited Company
+                        </p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableHeaderText">
+                          Public Limited Company
+                        </p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableHeaderText">
+                          LLP (Limited Liability Partnership)
+                        </p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableHeaderText">Sole Proprietorship</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "16.6%" }}>
+                        <p className="tableHeaderText">Partnership Firm</p>
+                      </div>
+                    </div>
+
+                    {Product?.difference?.tableData?.map((el, i) => (
+                      <div className="PRow NHeaderRow" key={i}>
+                        <div className="tableSel" style={{ width: "16.6%" }}>
+                          <p className="tableNText">{el.KeyFeature}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "16.6%" }}>
+                          <p className="tableNText">{el.PrivateLC}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "16.6%" }}>
+                          <p className="tableNText">{el.PublicLC}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "16.6%" }}>
+                          <p className="tableNText">{el.LLP}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "16.6%" }}>
+                          <p className="tableNText">{el.SoleProprietorship}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "16.6%" }}>
+                          <p className="tableNText">{el.PartnershipFirm}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* Document upload------------------------------------------------- */}
+            {Product?.documentsRequired && (
+              <div
+                id="DocumentsRequired"
+                className="privateLC DifferenceSection"
+              >
+                <p className="privateSHeader">
+                  <b>What Are the Documents Required for</b>
+                  {Product?.title}
+                </p>
+                {Product?.documentsRequired?.summarys?.map((sm, i) => (
+                  <p className="prNText" key={i}>
+                    {sm}
+                  </p>
+                ))}
+
+                <div className="tableOuterBox productViewDifTable">
+                  <div className="pricePanaleTableBox">
+                    <div className="PRow PheaderRow headerRow">
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">Category</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">Document Type</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">Specific Examples</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">Purpose</p>
+                      </div>
+                    </div>
+
+                    {Product?.documentsRequired?.tableData?.map((el, i) => (
+                      <div className="PRow NHeaderRow" key={i}>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">{el.category}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">{el.documentType}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">{el.specificExamples}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">{el.Purpose}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* MCA Compliance----------------------------------------------- */}
+            {Product?.MCACompliance && (
+              <div id="MCACompliance" className="privateLC DifferenceSection">
+                <p className="privateSHeader">
+                  <b>Mandatory MCA Compliance for</b>
+                  {Product?.title}
+                </p>
+                {Product?.MCACompliance?.summarys?.map((sm, i) => (
+                  <p className="prNText" key={i}>
+                    {sm}
+                  </p>
+                ))}
+
+                <div className="tableOuterBox productViewDifTable">
+                  <div className="pricePanaleTableBox">
+                    <div className="PRow PheaderRow headerRow">
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">Aspect</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">
+                          Compliance Requirement
+                        </p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">Frequency</p>
+                      </div>
+                      <div className="tableSel" style={{ width: "25%" }}>
+                        <p className="tableHeaderText">Why It’s Important</p>
+                      </div>
+                    </div>
+
+                    {Product?.MCACompliance?.tableData?.map((el, i) => (
+                      <div className="PRow NHeaderRow" key={i}>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">{el.aspect}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">
+                            {el.complianceRequirement}
+                          </p>
+                        </div>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">{el.frequency}</p>
+                        </div>
+                        <div className="tableSel" style={{ width: "25%" }}>
+                          <p className="tableNText">{el.WhyImportant}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* FAQ section------------------------------------------ */}
+            {Product?.FAQ?.length && (
+              <div id="FAQ" className="faqQBox">
+                <p className="faqHeader">Frequently Asks Questions</p>
+                {Product?.FAQ?.map((el, i) => (
+                  <div
+                    key={i}
+                    className={
+                      questionIndex === i ? "qaBox qaBoxActive" : "qaBox"
+                    }
+                  >
+                    <img
+                      src={questionIndex === i ? mainasIcon : plassIcon}
+                      className="questionColapsIcon"
+                      alt=""
+                      onClick={() => handleQuestionIndex(i)}
+                    />
+                    <p className="faqquestion">{el?.question}</p>
+                    <p className="faqanswer">{el?.answer}</p>
+                  </div>
                 ))}
               </div>
-            </div>
-
-            {/* Difference section-------------------------------------------- */}
-            <div id="Difference" className="privateLC DifferenceSection">
-              <p className="privateSHeader">
-                <b>Difference </b> Between {Product?.title} and Other Business
-                Structures
-              </p>
-              {Product?.difference?.summarys?.map((sm, i) => (
-                <p className="prNText" key={i}>
-                  {sm}
-                </p>
-              ))}
-
-              <div className="tableOuterBox productViewDifTable">
-                <div className="pricePanaleTableBox">
-                  <div className="PRow PheaderRow headerRow">
-                    <div className="tableSel" style={{ width: "16.6%" }}>
-                      <p className="tableHeaderText">Key Feature</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "16.6%" }}>
-                      <p className="tableHeaderText">Private Limited Company</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "16.6%" }}>
-                      <p className="tableHeaderText">Public Limited Company</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "16.6%" }}>
-                      <p className="tableHeaderText">
-                        LLP (Limited Liability Partnership)
-                      </p>
-                    </div>
-                    <div className="tableSel" style={{ width: "16.6%" }}>
-                      <p className="tableHeaderText">Sole Proprietorship</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "16.6%" }}>
-                      <p className="tableHeaderText">Partnership Firm</p>
-                    </div>
-                  </div>
-
-                  {Product?.difference?.tableData?.map((el, i) => (
-                    <div className="PRow NHeaderRow" key={i}>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableNText">{el.KeyFeature}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableNText">{el.PrivateLC}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableNText">{el.PublicLC}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableNText">{el.LLP}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableNText">{el.SoleProprietorship}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableNText">{el.PartnershipFirm}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Document upload------------------------------------------------- */}
-            <div id="DocumentsRequired" className="privateLC DifferenceSection">
-              <p className="privateSHeader">
-                <b>What Are the Documents Required for</b>
-                {Product?.title}
-              </p>
-              {Product?.documentsRequired?.summarys?.map((sm, i) => (
-                <p className="prNText" key={i}>
-                  {sm}
-                </p>
-              ))}
-
-              <div className="tableOuterBox productViewDifTable">
-                <div className="pricePanaleTableBox">
-                  <div className="PRow PheaderRow headerRow">
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Category</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Document Type</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Specific Examples</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Purpose</p>
-                    </div>
-                  </div>
-
-                  {Product?.documentsRequired?.tableData?.map((el, i) => (
-                    <div className="PRow NHeaderRow" key={i}>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.category}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.documentType}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.specificExamples}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.Purpose}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* MCA Compliance----------------------------------------------- */}
-            <div id="MCACompliance" className="privateLC DifferenceSection">
-              <p className="privateSHeader">
-                <b>Mandatory MCA Compliance for</b>
-                {Product?.title}
-              </p>
-              {Product?.MCACompliance?.summarys?.map((sm, i) => (
-                <p className="prNText" key={i}>
-                  {sm}
-                </p>
-              ))}
-
-              <div className="tableOuterBox productViewDifTable">
-                <div className="pricePanaleTableBox">
-                  <div className="PRow PheaderRow headerRow">
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Aspect</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Compliance Requirement</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Frequency</p>
-                    </div>
-                    <div className="tableSel" style={{ width: "25%" }}>
-                      <p className="tableHeaderText">Why It’s Important</p>
-                    </div>
-                  </div>
-
-                  {Product?.MCACompliance?.tableData?.map((el, i) => (
-                    <div className="PRow NHeaderRow" key={i}>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.aspect}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.complianceRequirement}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.frequency}</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableNText">{el.WhyImportant}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ section------------------------------------------ */}
-            <div id="FAQ" className="faqQBox">
-              <p className="faqHeader">Frequently Asks Questions</p>
-              {Product?.FAQ?.map((el, i) => (
-                <div
-                  key={i}
-                  className={
-                    questionIndex === i ? "qaBox qaBoxActive" : "qaBox"
-                  }
-                >
-                  <img
-                    src={questionIndex === i ? mainasIcon : plassIcon}
-                    className="questionColapsIcon"
-                    alt=""
-                    onClick={() => handleQuestionIndex(i)}
-                  />
-                  <p className="faqquestion">{el?.question}</p>
-                  <p className="faqanswer">{el?.answer}</p>
-                </div>
-              ))}
-            </div>
+            )}
           </div>
         </div>
         {/* subscribe section */}
