@@ -16,42 +16,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-}
-.userNav {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.322);
-  gap: 8px;
-}
-.userNav p {
-  font-size: 18px;
-  color: rgba(0, 0, 0, 0.705);
-}
-.userNav span {
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.705);
-}
-.userInfoBox {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 40px 0;
-  position: relative;
-}
-.userBG {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: -1;
+  padding: 20px;
 }
 
 .ProductList {
@@ -61,25 +26,39 @@
   padding: 20px 0;
   overflow-y: scroll;
 }
-.ProductList div {
+.sideProductItem {
   width: 100%;
-  min-height: 50px;
+  min-height: 55px;
   padding-left: 10px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.192);
   display: flex;
   align-items: center;
+  flex-direction: row;
   transition: all 0.4s;
   cursor: pointer;
   padding: 8px;
+  border-radius: 8px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
-.ProductList div:hover {
-  background: rgba(128, 128, 128, 0.13);
+.sideProductItemActive {
+  background: #5ab15b;
+  box-shadow: 0px 10px 30px 0px #5ab15b66;
 }
-.ProductList div p {
+.sideProductItemActive:hover {
+  background: #5ab15b !important;
+}
+.sideProductItemActive p {
+  color: #fff;
+}
+.sideProductItem:hover {
+  box-shadow: 0px 10px 30px 0px #afafaf66;
+  background: #c0c0c0;
+}
+.sideProductItem p {
   font-size: 20px;
 }
-.ProductInfoBox {
-}
+
 .NoDataBox {
   width: 100%;
   height: 30vh;
@@ -87,27 +66,146 @@
   justify-content: center;
   align-items: center;
 }
-.productBox {
+
+.userInfoTopBox {
   width: 100%;
-  min-height: 30vh;
-  padding: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+.userInfoBox {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.userIngBox {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+}
+.userIngBox img {
+  width: 100%;
+  height: 100%;
+}
+.user_Box {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 10px;
+}
+.user_InfoBox {
   display: flex;
   flex-direction: column;
+}
+.user_InfoBox p {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.udBTN {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #cfdcd0;
+  background: #5ab15b29;
+  border-radius: 10px;
+  gap: 10px;
+  cursor: pointer;
+}
+.udBTN p {
+  color: #494e53;
+}
+.userTopBtnBox {
+  width: 30%;
+}
+.serviceDetailsBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-bottom: 20px;
+}
+.usFeatureBox {
+  margin-bottom: 7px;
+}
+.usFeatureBox h4 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+.usFeatureBox p {
+  font-size: 14px;
+  color: #757578;
+}
+.docRequerBox {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 .docUploadBox {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
-.docSection input{
-  display: none;
-}
-.docSection img{
-  margin-top: 20px;
-  cursor: pointer;
-}
-.docSection{
+.docBox {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.docBox input {
+  display: none;
+}
+.docLable {
+  padding: 0 12px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(128, 128, 128, 0.199);
+  border-radius: 10px;
+}
+.docLable p {
+  font-size: 14px;
+  color: #44465a;
+}
+.docUploadIcon,
+.docBox iframe {
+  width: 65px;
+  height: 65px;
+  margin-top: 10px;
+}
+.docStatusText {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+.successDocState {
+  color: #6fac50;
+}
+.pandingDocState {
+  color: #f2c617;
+}
+.rejectDocState {
+  color: #e92c2c;
+}
+.userInfoBox
+.btnBox{
+  justify-content: end;
 }

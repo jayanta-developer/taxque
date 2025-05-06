@@ -16,7 +16,14 @@ export interface UserDataType {
   token?: string;
   purchase?: {
     orderData: string;
-    requireDoc: [];
+    requireDoc: [
+      {
+        docTitle: String;
+        docUrl: String;
+        status: String;
+        rejectMessage: String;
+      }
+    ];
     productId: string;
   }[];
   _id?: string;
@@ -24,6 +31,27 @@ export interface UserDataType {
 export interface findUserArgeType {
   email: string;
 }
+export interface UserUpdateDataType {
+  purchase?: {
+    orderData?: string;
+    requireDoc?: [
+      {
+        docTitle: String;
+        docUrl: String;
+        status: String;
+        rejectMessage: String;
+      }
+    ];
+    productId?: string;
+  }[];
+  _id?: string;
+}
+
+interface UpdateUserArgs {
+  id: string;
+  data: UserUpdateDataType;
+}
+
 export interface FindUserResponseType {
   user: UserDataType;
 }
@@ -92,13 +120,26 @@ export const GetUser = createAsyncThunk<UserDataType, { _id: string }>(
       const response = await Axios.get(`${baseURL}/user/get-by-id/${_id}`);
       // Reloader(600);
       const user = response.data.user;
-      console.log(response);
-
       return user;
     } catch (error: any) {
       toast.error("Something went wrong", error.response?.data);
       // Reloader(900);
       return rejectWithValue(error.response?.data || "Something went wrong");
+    }
+  }
+);
+
+export const UpdateDoc = createAsyncThunk<UserUpdateDataType, UpdateUserArgs>(
+  "user/update",
+  async ({ data, id }, { rejectWithValue }) => {
+    try {
+      const response = await Axios.post(`${baseURL}/user/update/${id}`, data);
+      toast.success("Document updated successfully !");
+      Reloader(1000);
+      return response.data;
+    } catch (error: any) {
+      toast.error("Failed to update document");
+      return rejectWithValue(error.response?.data || "An error occurred");
     }
   }
 );

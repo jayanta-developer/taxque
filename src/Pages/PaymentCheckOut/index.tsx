@@ -34,6 +34,7 @@ export default function PaymentCheckOut({
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector((state: RootState) => state.product);
   const user = useSelector((state: RootState) => state.user);
+  // console.log(user?.data[0]?.purchase?.includes((val)=>val.product._id));
 
   // console.log(data, status);
   const [featureView, setFeatureView] = useState(false);
@@ -227,11 +228,24 @@ export default function PaymentCheckOut({
                 Annual plans function the same as monthly plans with a 25%
                 discount applied.
               </p>
-              <AppBtn
-                btnText="Go For Final Payment"
-                width="232px"
-                onClick={handleBuy}
-              />
+              {user?.data[0]?.purchase?.some(
+                (item) => item.productId === serviceId
+              ) ? (
+                <AppBtn
+                  btnText="Go To Your Dashboard"
+                  width="255px"
+                  onClick={() => {
+                    Navigate("/user-profile");
+                    GoTop();
+                  }}
+                />
+              ) : (
+                <AppBtn
+                  btnText="Go For Final Payment"
+                  width="232px"
+                  onClick={handleBuy}
+                />
+              )}
             </div>
           </div>
         </div>
