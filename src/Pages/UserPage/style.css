@@ -205,7 +205,11 @@
 .rejectDocState {
   color: #e92c2c;
 }
-.userInfoBox
-.btnBox{
+.userInfoBox .btnBox {
   justify-content: end;
+}
+.docSelectText {
+  width: 100%;
+  color: #d35d5d;
+  text-align: end;
 }

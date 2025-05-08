@@ -16,7 +16,7 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 import { FetchProdcut, ProductDataType } from "../../store/productSlice";
-import { GetUser,UpdateDoc } from "../../store/userSlice";
+import { GetUser, UpdateDoc } from "../../store/userSlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { AppBtn } from "../../components/Buttons";
@@ -27,10 +27,14 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   const { data, status } = useSelector((state: RootState) => state.product);
   const user = useSelector((state: RootState) => state.user);
+
   const dispatch = useDispatch<AppDispatch>();
   const [selectProduct, setSelectProduct] = useState<ProductDataType>();
+
   const [fileUrls, setFileUrls] = useState<string[]>([]);
   console.log(fileUrls);
+
+  const docList = ["Address Proof", "Identity Proof", " Financial Proof"];
 
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -75,29 +79,55 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
 
   const docType = ["Address proof", "Identity proof	", "Financial proof"];
 
-  let curentUser;
-  if (user.data) {
-    curentUser = user?.data?.find((val) => val?._id === logUserId);
-  }
   let productList: any = [];
-  if (data.length && curentUser?.purchase?.length) {
-    const idList = curentUser?.purchase.map((item) => item?.productId);
+  if (data.length && user.data[0]?.purchase?.length) {
+    const idList = user.data[0]?.purchase.map((item) => item?.productId);
     productList = data?.filter(
       (product) => product._id && idList.includes(product._id)
     );
   }
 
   const docUpload = () => {
+    if (!user?.data[0]?._id) {
+      toast.warn("User id not found!");
+      return;
+    }
+
+    const purchases = user?.data?.[0]?.purchase;
+    const index = Number(productIndex) ?? 0;
+
+    if (!purchases?.[index]?._id) {
+      toast.warn("Product id not found!");
+      return;
+    }
+
+    console.log(user?.data[0]?._id);
+    console.log(purchases?.[index]?._id);
+
+    interface docDataType {
+      docTitle: string;
+      docUrl: string;
+      status: string;
+      rejectMessage?: String;
+    }
+    const docData: docDataType[] = [];
+
+    docType?.map((val, i) => {
+      docData.push({
+        docTitle: val,
+        docUrl: fileUrls[i],
+        status: "Panding",
+      });
+    });
+    console.log(docData);
+
     dispatch(
       UpdateDoc({
-        data:{
-          purchase:[
-            
-          ]
-        },
-        id:""
+        data: docData,
+        userId: user?.data[0]?._id,
+        productId: purchases?.[index]?._id,
       })
-    )
+    );
   };
 
   useEffect(() => {
@@ -158,10 +188,10 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 <img src={Image.AvatarIcon} alt="" />
               </div>
               <div className="user_InfoBox">
-                <h2>{curentUser?.name}</h2>
+                <h2>{user.data[0]?.name}</h2>
                 <p>
                   {" "}
-                  <img src={Image.MailIcon} alt="" /> {curentUser?.email}
+                  <img src={Image.MailIcon} alt="" /> {user.data[0]?.email}
                 </p>
               </div>
             </div>
@@ -196,17 +226,49 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
 
           <div className="userInfoBox docRequerBox">
             <h2>Documents Required</h2>
-
             <div className="docUploadBox">
-              <div className="docBox">
-                <div className="docLable">
-                  <p>Address Proof</p>
-                </div>
+              {docList?.map((doc, i) => (
+                <div key={i} className="docBox">
+                  <div className="docLable">
+                    <p>{doc}</p>
+                  </div>
 
-                <label htmlFor="doc1">
-                  {fileUrls[0] ? (
+                  <label htmlFor={`doc${i}`}>
+                    {fileUrls[i] ? (
+                      <iframe
+                        src={fileUrls[i]}
+                        width="100%"
+                        height="600px"
+                        title="PDF Viewer"
+                      />
+                    ) : (
+                      <img
+                        className="docUploadIcon"
+                        src={Image.docUploadIcon}
+                        alt=""
+                      />
+                    )}
+                  </label>
+                  <input
+                    id={`doc${i}`}
+                    type="file"
+                    onChange={(e) => handleFileChange(e, i)}
+                  />
+
+                  <p className="docStatusText successDocState">
+                    <img src={Image.docSuccessIcon} alt="" /> Success
+                  </p>
+                </div>
+              ))}
+
+              {/* <div className="docBox">
+                <div className="docLable">
+                  <p>Identity Proof</p>
+                </div>
+                <label htmlFor="doc2">
+                  {fileUrls[1] ? (
                     <iframe
-                      src={fileUrls[0]}
+                      src={fileUrls[1]}
                       width="100%"
                       height="600px"
                       title="PDF Viewer"
@@ -218,27 +280,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                       alt=""
                     />
                   )}
-                </label>
-                <input
-                  id="doc1"
-                  type="file"
-                  onChange={(e) => handleFileChange(e, 0)}
-                />
-
-                <p className="docStatusText successDocState">
-                  <img src={Image.docSuccessIcon} alt="" /> Success
-                </p>
-              </div>
-              <div className="docBox">
-                <div className="docLable">
-                  <p>Identity Proof</p>
-                </div>
-                <label htmlFor="doc2">
-                  <img
-                    className="docUploadIcon"
-                    src={Image.docUploadIcon}
-                    alt=""
-                  />
                 </label>
                 <input
                   id="doc2"
@@ -254,11 +295,20 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                   <p> Financial Proof</p>
                 </div>
                 <label htmlFor="doc3">
-                  <img
-                    className="docUploadIcon"
-                    src={Image.docUploadIcon}
-                    alt=""
-                  />
+                  {fileUrls[2] ? (
+                    <iframe
+                      src={fileUrls[2]}
+                      width="100%"
+                      height="600px"
+                      title="PDF Viewer"
+                    />
+                  ) : (
+                    <img
+                      className="docUploadIcon"
+                      src={Image.docUploadIcon}
+                      alt=""
+                    />
+                  )}
                 </label>
                 <input
                   id="doc3"
@@ -268,11 +318,15 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 <p className="docStatusText rejectDocState">
                   <img src={Image.docErrorIcon} alt="" /> Reject
                 </p>
+              </div> */}
+            </div>
+            {fileUrls.length >= 3 ? (
+              <div className="btnBox">
+                <AppBtn btnText="Upload" onClick={docUpload} />
               </div>
-            </div>
-            <div className="btnBox">
-              <AppBtn btnText="Upload" onClick={docUpload} />
-            </div>
+            ) : (
+              <p className="docSelectText">Select all your Documents !</p>
+            )}
           </div>
 
           {/* <div className="userNav">
