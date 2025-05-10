@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 
 //images
-import GSTIcon from "../../assets/images/gstIcon.svg";
 import pvtOverver from "../../assets/images/pvtOverver.svg";
 import greenTik2 from "../../assets/images/greenTikV2.svg";
 import star from "../../assets/images/star.png";
@@ -25,12 +24,7 @@ import { AppHoloBtn } from "../../components/Buttons";
 import PriceSection from "../../components/PriceSection";
 
 //data
-import {
-  ParaSection,
-  keyFeatureData,
-  benefitData,
-  DifferenceTableData,
-} from "../../assets/Data";
+import { ParaSection } from "../../assets/Data";
 
 interface NavProps {
   currentNav: string;
@@ -50,16 +44,27 @@ export default function ProductDetails({
   const { data, status } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch<AppDispatch>();
   const [activeSection, setActiveSection] = useState<string>("");
+  console.log(activeSection);
+
   const [loding, setLoading] = useState(false);
   const [Product, setProduct] = useState<ProductDataType>();
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
-
-  console.log(Product);
 
   interface paraType {
     title: string;
     id: string;
   }
+
+  //  const scrollToSection = (id: string): void => {
+  //     const section = document.getElementById(id);
+  //     if (section) {
+  //       const offset = 100;
+  //       const topPosition =
+  //         section.getBoundingClientRect().top + window.scrollY - offset;
+  //       window.scrollTo({ top: topPosition, behavior: "smooth" });
+  //     }
+  //     setActiveSection(id);
+  //   };
 
   const handlePDClick = (props: paraType) => {
     const section = document.getElementById(props.id);
@@ -69,7 +74,8 @@ export default function ProductDetails({
         section.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: topPosition, behavior: "smooth" });
     }
-    scrollToSection(props?.id);
+    // scrollToSection(props?.id);
+    setActiveSection(props?.id);
   };
 
   const openWhatsapp = () => {
@@ -78,32 +84,25 @@ export default function ProductDetails({
   };
 
   useEffect(() => {
+    if (!ParaSection || ParaSection.length === 0) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setActiveSection(entry.target.id);
+          if (entry.isIntersecting) {
+            // console.log(entry.target.id);
+            setActiveSection(entry.target.id);
+          }
         });
       },
       { root: null, rootMargin: "-100px 0px 0px 0px", threshold: 0.6 }
     );
-
-    ParaSection.forEach((el) => {
+    ParaSection?.forEach((el) => {
       const section = document.getElementById(el?.id);
       if (section) observer.observe(section);
     });
-    return () => observer.disconnect();
-  }, []);
 
-  const scrollToSection = (id: string): void => {
-    const section = document.getElementById(id);
-    if (section) {
-      const offset = 100;
-      const topPosition =
-        section.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top: topPosition, behavior: "smooth" });
-    }
-    setActiveSection(id);
-  };
+    return () => observer.disconnect();
+  }, [ParaSection]);
 
   const handleQuestionIndex = (i: number) => {
     if (i === questionIndex) {

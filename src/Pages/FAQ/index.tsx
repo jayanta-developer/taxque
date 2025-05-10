@@ -15,7 +15,7 @@ import Footer from "../../components/Footer";
 import Subscribe from "../../components/Subscribe";
 
 //data
-import { servicesData, faqData } from "../../assets/Data";
+import { servicesData } from "../../assets/Data";
 
 interface NavProps {
   currentNav: string;
@@ -27,7 +27,6 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
   const [faqSideNav, setFaqSideNav] = useState(false);
   const [faqNav, setFaqNav] = useState("General Questions");
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
-
 
   const handleQuestionIndex = (i: number) => {
     if (i === questionIndex) {
@@ -107,7 +106,7 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
             />
 
             {/* General Questions */}
-            {faqNav === "General Questions" && (
+            {/* {faqNav === "General Questions" && (
               <div className="faqQBox">
                 <p className="faqHeader">Frequently Asks Questions</p>
                 {faqData?.map((el, i) => (
@@ -128,7 +127,7 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
                   </div>
                 ))}
               </div>
-            )}
+            )} */}
           </div>
         </div>
         <Subscribe />

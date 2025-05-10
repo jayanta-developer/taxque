@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
+import { toast } from "react-toastify";
+
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
 import paymentBg from "../../assets/images/paymentBg.svg";
 import GreenTik from "../../assets/images/GreenTik.svg";
+import rightArrow from "../../assets/images/rightArrow.svg";
 import { baseURL } from "../../App";
+//data
+import { CityList, cityPin } from "../../assets/Data";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-import PriceSection from "../../components/PriceSection";
+import MyCarousel from "../../components/Carousel";
 import Subscribe from "../../components/Subscribe";
 import { useNavigate } from "react-router-dom";
-import { GoTop } from "../../components/Tools";
+import { DropBox, GoTop } from "../../components/Tools";
 
-import { GetUser } from "../../store/userSlice";
-import { FetchProdcut, ProductDataType } from "../../store/productSlice";
+import { GetUser, CreateContactUser } from "../../store/userSlice";
+import {
+  FetchProdcut,
+  ProductDataType,
+  priceDataProps,
+} from "../../store/productSlice";
+import { FetchService } from "../../store/categorySlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,21 +40,31 @@ export default function PaymentCheckOut({
 }: NavProps) {
   const Navigate = useNavigate();
   const selectedProductId = localStorage.getItem("selectedProduct");
+  const checkoutProduct = localStorage.getItem("checkoutProduct");
   const PriceId = localStorage.getItem("planPriceId");
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector((state: RootState) => state.product);
+  const categoryDB = useSelector((state: RootState) => state.category);
   const user = useSelector((state: RootState) => state.user);
-  // console.log(user?.data[0]?.purchase?.includes((val)=>val.product._id));
-
-  // console.log(data, status);
+  const [currentPriceData, setCurrentPriceData] = useState<priceDataProps>();
   const [featureView, setFeatureView] = useState(false);
-
   const [Product, setProduct] = useState<ProductDataType>();
-  const PriceData = Product?.priceData?.find((pd) => pd._id === PriceId);
+  //user state
+  const [contactUser, setContactUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    pincode: "",
+  });
+  const [cityDrop, setCityDrop] = useState<string>("");
+  const [policyCheck, setPolicyCheck] = useState<boolean>();
+  const [planDrop, setPlanDrop] = useState<string>();
+
+  const planArray = Product?.priceData?.map((val) => val.title) || [];
 
   const userId = localStorage.getItem("userId");
   const serviceId = localStorage.getItem("planServiceId");
-  const amount = PriceData?.price?.replace(/,/g, "") ?? "0";
+  const amount = currentPriceData?.price?.replace(/,/g, "") ?? "0";
   const serviceName = localStorage.getItem("planServiceName");
 
   const handleBuy = async () => {
@@ -70,12 +90,6 @@ export default function PaymentCheckOut({
         description: `Buy ${serviceName}`,
         order_id: order?.id,
         handler: async function (response: any) {
-          // console.log("Payment Response:", response);
-          // console.log("Order ID:", response.razorpay_order_id);
-          // console.log("Payment ID:", response.razorpay_payment_id);
-          // console.log("Signature from Razorpay:", response.razorpay_signature);
-          // console.log("Expected Signature:", response.expectedSignature);
-
           const verifyRes = await fetch(baseURL + "/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -126,12 +140,70 @@ export default function PaymentCheckOut({
     }
   };
 
-  useEffect(() => {
-    dispatch(FetchProdcut());
-    if (data?.length < 0) {
-      dispatch(FetchProdcut());
+  // create contact user
+  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setContactUser((prv) => ({
+      ...prv,
+      [name]: value,
+    }));
+  };
+  const PostContactUser = () => {
+    if (!policyCheck) {
+      toast.warn("Please check the Terms and Policy box!");
+      return;
     }
-  }, []);
+    if (
+      !contactUser?.name ||
+      !contactUser.email ||
+      !contactUser.phone ||
+      !contactUser.pincode ||
+      !cityDrop
+    ) {
+      toast.warn("Please fill all the fields !");
+      return;
+    }
+
+    dispatch(
+      CreateContactUser({
+        name: contactUser?.name,
+        email: contactUser?.email,
+        phone: contactUser?.phone,
+        city: cityDrop,
+        pincode: contactUser?.pincode,
+        date: new Date().toLocaleDateString("en-GB").slice(0, 8),
+      })
+    );
+  };
+
+  //Handel change plan------------------------
+  useEffect(() => {
+    if (!Product?.priceData?.length) return;
+    const initialData = Product.priceData.find((pd) => pd._id === PriceId);
+    if (!initialData) {
+      return;
+    }
+    setCurrentPriceData(initialData);
+  }, [Product?.priceData, PriceId]);
+
+  useEffect(() => {
+    if (!Product?.priceData?.length) return;
+    const updatedData = Product.priceData.find((pd) => pd.title === planDrop);
+    if (!updatedData) {
+      return;
+    }
+    setCurrentPriceData(updatedData);
+  }, [planDrop, Product?.priceData]);
+
+  //pincode----------------
+  useEffect(() => {
+    const selectedPin = cityPin.find((val) => val.city === cityDrop);
+    setContactUser((prv) => ({
+      ...prv,
+      ["pincode"]: selectedPin?.pincode || "",
+    }));
+  }, [cityDrop]);
+  //find current product-------
   useEffect(() => {
     setProduct(data?.find((pr) => pr?._id === selectedProductId));
   }, [data, Product]);
@@ -143,6 +215,20 @@ export default function PaymentCheckOut({
       dispatch(GetUser({ _id: userId }));
     }
   }, [userId]);
+
+  useEffect(() => {
+    dispatch(FetchProdcut());
+    if (data?.length < 0) {
+      dispatch(FetchProdcut());
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(FetchService());
+    if (categoryDB?.data?.length < 0) {
+      dispatch(FetchService());
+    }
+  }, []);
   return (
     <>
       <div className="SMHeroBox">
@@ -156,46 +242,87 @@ export default function PaymentCheckOut({
             <h2>Your Information</h2>
             <div className="inputBox">
               <p className="inputLabel">Full Name *</p>
-              <input type="text" />
+              <input
+                name="name"
+                type="text"
+                value={contactUser.name}
+                onChange={handleUserChange}
+              />
             </div>
             <div className="inputBox">
               <p className="inputLabel">Phone</p>
-              <input type="text" />
+              <input
+                type="text"
+                name="phone"
+                value={contactUser.phone}
+                onChange={handleUserChange}
+              />
             </div>
             <div className="inputBox">
               <p className="inputLabel">Email Address</p>
-              <input type="text" />
-            </div>
-            <div className="inputBox">
-              <p className="inputLabel">Pincode</p>
-              <input type="text" />
+              <input
+                type="text"
+                name="email"
+                value={contactUser.email}
+                onChange={handleUserChange}
+              />
             </div>
             <div className="inputBox">
               <p className="inputLabel">City</p>
-              <input type="text" />
+              <DropBox
+                list={CityList}
+                setDropVal={setCityDrop}
+                defaultVal="Select city"
+              />
+            </div>
+            <div className="inputBox">
+              <p className="inputLabel">Pincode</p>
+              <input
+                type="text"
+                name="pincode"
+                value={contactUser.pincode}
+                onChange={handleUserChange}
+              />
             </div>
 
             <div className="tikBox">
-              <input type="checkBox" />
+              <input
+                type="checkBox"
+                onChange={(e) => setPolicyCheck(e.target.checked)}
+              />
               <p>I Agree to Terms & Conditions and Privacy Policy</p>
             </div>
 
-            <AppBtn btnText="Submit Now" />
+            {policyCheck ? (
+              <AppBtn btnText="Submit Now" onClick={PostContactUser} />
+            ) : (
+              <div className="desibalBtn">
+                <p>Submit Now</p>
+              </div>
+            )}
           </div>
 
           <div className="paymentBox">
-            <h2>Your Current Plan</h2>
+            <div className="planTopBox">
+              <h3>Your Current Plan</h3>
+              <DropBox
+                width="200px"
+                list={planArray}
+                setDropVal={setPlanDrop}
+                defaultVal={currentPriceData?.title || "Choose Price Plan"}
+              />
+            </div>
             <p className="serviceTitle">ECA Assisted -Standard</p>
             <p className="pcbasPrice">
-              Basic Price: {PriceData?.basicPrice} <span></span>
+              Basic Price: {currentPriceData?.basicPrice} <span></span>
             </p>
             <p className="pcPrice">
-              ₹ {PriceData?.price} <samp>/month</samp>
+              ₹ {currentPriceData?.price} <samp>/month</samp>
             </p>
             <div className="pcSummerySection">
               {featureView ? (
                 <>
-                  {PriceData?.fetures?.map((ft, i) => (
+                  {currentPriceData?.fetures?.map((ft, i) => (
                     <div key={i} className="pcFeturesPera">
                       <img src={GreenTik} />
                       <p>{ft}</p>
@@ -204,7 +331,7 @@ export default function PaymentCheckOut({
                 </>
               ) : (
                 <>
-                  {PriceData?.fetures?.slice(0, 2)?.map((ft, i) => (
+                  {currentPriceData?.fetures?.slice(0, 2)?.map((ft, i) => (
                     <div key={i} className="pcFeturesPera">
                       <img src={GreenTik} />
                       <p>{ft}</p>
@@ -222,7 +349,7 @@ export default function PaymentCheckOut({
             <div className="finalPriceBox">
               <div className="fppBox">
                 <p>Today's Total</p>
-                <span>₹ {PriceData?.price} </span>
+                <span>₹ {currentPriceData?.price} </span>
               </div>
               <p className="tpsummaryText">
                 Annual plans function the same as monthly plans with a 25%
@@ -239,20 +366,44 @@ export default function PaymentCheckOut({
                     GoTop();
                   }}
                 />
-              ) : (
+              ) : checkoutProduct === selectedProductId ? (
                 <AppBtn
                   btnText="Go For Final Payment"
                   width="232px"
                   onClick={handleBuy}
                 />
+              ) : (
+                <div className="desibalBtn">
+                  <p>Go For Final Payment</p>
+                </div>
               )}
             </div>
           </div>
         </div>
 
-        <div className="productPageMainSection">
-          {/*Price plane Box*/}
+        {/*Price plane Box*/}
+        {/* <div className="productPageMainSection">
           <PriceSection product={Product} />
+        </div> */}
+
+        {/* -Our services section-- */}
+        <div className="serviceSection">
+          <p className="sectionHeader">Our Services</p>
+          <div className="serviceCardBox">
+            <MyCarousel data={categoryDB?.data} cardName="ServicesCard" />
+          </div>
+          <div className="btnBox">
+            <AppBtn
+              btnText="More Services"
+              width="200px"
+              height="50px"
+              icon={rightArrow}
+              onClick={() => {
+                Navigate("/services");
+                GoTop();
+              }}
+            />
+          </div>
         </div>
 
         {/* subscribe section */}

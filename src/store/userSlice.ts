@@ -55,6 +55,14 @@ interface UpdateUserArgs {
   _id?: string;
 }
 
+export interface contactUserType {
+  name: string;
+  email: string;
+  phone: string;
+  pincode: string;
+  city: string;
+  date: string
+}
 export interface FindUserResponseType {
   user: UserDataType;
 }
@@ -146,6 +154,33 @@ export const UpdateDoc = createAsyncThunk<UserUpdateDataType, UpdateUserArgs>(
     }
   }
 );
+
+
+//create contact user 
+export const CreateContactUser = createAsyncThunk<contactUserType, contactUserType>(
+  "contact_user/create",
+  async (data, { rejectWithValue }) => {
+    const selectedProductId = localStorage.getItem("selectedProduct");
+
+    try {
+      const response = await Axios.post(`${baseURL}/contact-user/create`, {
+        ...data,
+      });
+      toast.success("Your information submited successfully.");
+      if (selectedProductId) {
+        localStorage.setItem("checkoutProduct", selectedProductId)
+      }
+      Reloader(600);
+      return response.data.user;
+    } catch (error: any) {
+      toast.error("Something went wrong", error.response?.data);
+      Reloader(900);
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
+  }
+);
+
+
 
 const userSlice = createSlice({
   name: "user",
