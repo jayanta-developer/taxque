@@ -10,7 +10,6 @@ import appBg from "../../assets/images/appBG.svg";
 import whatsappIcon from "../../assets/images/whatsappIcon.svg";
 import viewIcon from "../../assets/images/viewIcon.png";
 import InternalServerErrImg from "../../assets/images/intenalServerErr.jpg";
-import NOData from "../../assets/images/NOData.jpg";
 import plassIcon from "../../assets/images/plassIcon.svg";
 import mainasIcon from "../../assets/images/mainasIcon.svg";
 
@@ -67,6 +66,7 @@ export default function ProductDetails({
   //   };
 
   const handlePDClick = (props: paraType) => {
+    setLoading(false)
     const section = document.getElementById(props.id);
     if (section) {
       const offset = 100;

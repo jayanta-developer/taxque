@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -25,7 +25,7 @@ interface NavProps {
 
 export default function Services({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.category);
+  const { data} = useSelector((state: RootState) => state.category);
 
   setCurrentNav("Services");
 

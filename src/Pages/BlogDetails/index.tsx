@@ -17,7 +17,7 @@ import Subscribe from "../../components/Subscribe";
 import { ServiceCard, GoTop } from "../../components/Tools";
 
 //data
-import { BlogData, ChipData } from "../../assets/Data";
+import { ChipData } from "../../assets/Data";
 
 import { FetchBlog } from "../../store/blogSlice";
 import { FetchService } from "../../store/categorySlice";
@@ -36,6 +36,8 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
   const categoryData = useSelector((state: RootState) => state.category);
   const selectedBlogId = localStorage.getItem("blogId");
   const blogData = data.find((val) => val._id === selectedBlogId);
+  console.log(status);
+  
 
   useEffect(() => {
     dispatch(FetchBlog());

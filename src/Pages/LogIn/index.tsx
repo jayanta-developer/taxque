@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -21,14 +21,14 @@ import { toast } from "react-toastify";
 import {
   sendOTP,
   verifyOTP,
-  googleLogin,
-  facebookLogin,
-  linkedInLogin,
+  // googleLogin,
+  // facebookLogin,
+  // linkedInLogin,
 } from "../../Util/services/authService";
 
 import { CreateUser, FindUser } from "../../store/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
 import { GoTop, Reloader } from "../../components/Tools";
 
 interface NavProps {
@@ -48,39 +48,39 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
   const [userName, setUserName] = useState<string>("");
   const [inputEmail, setInputEmail] = useState<string>("");
   const [optInputBox, setOtpInputBox] = useState(false);
-  const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
+  // const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
   const [inputOTP, setInputOTP] = useState<string>();
   const [otpTimer, setOtpTimer] = useState(60);
 
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { setUser } = useContext(AuthContext)!;
 
-  const handleChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return; // Only allow numbers
+  // const handleChange = (index: number, value: string) => {
+  //   if (!/^\d*$/.test(value)) return; // Only allow numbers
 
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
+  //   const newOtp = [...otp];
+  //   newOtp[index] = value;
+  //   setOtp(newOtp);
 
-    // Move focus to the next input field
-    if (value && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    }
+  //   // Move focus to the next input field
+  //   if (value && index < 5) {
+  //     inputRefs.current[index + 1]?.focus();
+  //   }
 
-    // If all digits are entered, handle OTP submission
-    if (newOtp.join("").length === 6) {
-      // handleSubmit(newOtp.join(""));
-    }
-  };
+  //   // If all digits are entered, handle OTP submission
+  //   if (newOtp.join("").length === 6) {
+  //     // handleSubmit(newOtp.join(""));
+  //   }
+  // };
 
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
+  // const handleKeyDown = (
+  //   index: number,
+  //   e: React.KeyboardEvent<HTMLInputElement>
+  // ) => {
+  //   if (e.key === "Backspace" && !otp[index] && index > 0) {
+  //     inputRefs.current[index - 1]?.focus();
+  //   }
+  // };
 
   const handleOtpInputBox = () => {
     if (!userName.length || !inputEmail.length) {

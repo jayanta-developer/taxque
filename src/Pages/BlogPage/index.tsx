@@ -3,7 +3,7 @@ import "./style.css";
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
-import downArrow from "../../assets/images/down-arrow.svg";
+// import downArrow from "../../assets/images/down-arrow.svg";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -26,6 +26,7 @@ export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector((state: RootState) => state.blog);
   const [blogType, setBlogType] = useState<string>();
+console.log(status);
 
   interface BlogMenuType {
     title: string;

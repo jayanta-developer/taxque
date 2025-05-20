@@ -43,7 +43,7 @@ export default function PaymentCheckOut({
   const checkoutProduct = localStorage.getItem("checkoutProduct");
   const PriceId = localStorage.getItem("planPriceId");
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.product);
+  const { data } = useSelector((state: RootState) => state.product);
   const categoryDB = useSelector((state: RootState) => state.category);
   const user = useSelector((state: RootState) => state.user);
   const [currentPriceData, setCurrentPriceData] = useState<priceDataProps>();

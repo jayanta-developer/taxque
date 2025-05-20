@@ -13,7 +13,6 @@ import blogIcon from "../../assets/images/blogIcon.png";
 import contaceUsIcon from "../../assets/images/contact-us.png";
 import backRoundArrow from "../../assets/images/backRoundArrow.png";
 import avatarIcon from "../../assets/images/avatarIcon.png";
-import logOutIcon from "../../assets/images/logout.png";
 import searchIcon from "../../assets/images/SearchIcon.svg";
 import userIcon from "../../assets/images/UserIcon.png";
 

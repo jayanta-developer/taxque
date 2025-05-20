@@ -4,8 +4,8 @@ import "./style.css";
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
 import iconBox from "../../assets/images/iconBox.svg";
-import plassIcon from "../../assets/images/plassIcon.svg";
-import mainasIcon from "../../assets/images/mainasIcon.svg";
+// import plassIcon from "../../assets/images/plassIcon.svg";
+// import mainasIcon from "../../assets/images/mainasIcon.svg";
 import MenuIcon from "../../assets/images/menuIconV2.png";
 import backRoundArrow from "../../assets/images/backRoundArrow.png";
 
@@ -28,13 +28,13 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
   const [faqNav, setFaqNav] = useState("General Questions");
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
 
-  const handleQuestionIndex = (i: number) => {
-    if (i === questionIndex) {
-      setQuestionIndex(999999);
-    } else {
-      setQuestionIndex(i);
-    }
-  };
+  // const handleQuestionIndex = (i: number) => {
+  //   if (i === questionIndex) {
+  //     setQuestionIndex(999999);
+  //   } else {
+  //     setQuestionIndex(i);
+  //   }
+  // };
   return (
     <>
       <div className="BlogPage teamPage">

@@ -27,13 +27,12 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const logUserId = localStorage.getItem("userId");
   const productIndex = localStorage.getItem("productIndex");
   setCurrentNav("");
-  const { data, status } = useSelector((state: RootState) => state.product);
+  const { data } = useSelector((state: RootState) => state.product);
   const user = useSelector((state: RootState) => state.user);
   const service = useSelector((state: RootState) => state.category);
   const dispatch = useDispatch<AppDispatch>();
   const [fileUrls, setFileUrls] = useState<string[]>([]);
   const [selectProduct, setSelectProduct] = useState<ProductDataType>();
-  const docList = ["Address Proof", "Identity Proof", " Financial Proof"];
 
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,

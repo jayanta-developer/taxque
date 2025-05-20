@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 
 //images
@@ -28,7 +28,7 @@ export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
   const selectedCategoryId = localStorage.getItem("selectedCategory");
   setCurrentNav("Services");
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.product);
+  const { data } = useSelector((state: RootState) => state.product);
 
   let Product_list: ProductDataType[] = [];
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 
 //Images
@@ -12,19 +12,31 @@ import rightArrow from "../../assets/images/rightArrow.svg";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { AppBtn,AppHoloBtn } from "../../components/Buttons";
-import {ServiceCard} from "../../components/Tools"
+import { AppBtn, AppHoloBtn } from "../../components/Buttons";
+import { ServiceCard } from "../../components/Tools";
 
 //data
-import {servicesData} from "../../assets/Data"
+import { FetchService } from "../../store/categorySlice";
 
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
+import { RootState, AppDispatch } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
+  const dispatch = useDispatch<AppDispatch>();
+  const { data } = useSelector((state: RootState) => state.category);
+
+  useEffect(() => {
+    dispatch(FetchService());
+    if (data?.length < 0) {
+      dispatch(FetchService());
+    }
+  }, []);
+
   return (
     <>
       <div className="SMHeroBox">
@@ -195,7 +207,7 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
 
             <div className="sideServiceBox">
               <p className="blogMtitle">Our Services</p>
-              {servicesData?.splice(0, 2).map((el, i) => (
+              {data?.splice(0, 2).map((el, i) => (
                 <ServiceCard {...el} key={i} />
               ))}
               <AppHoloBtn btnText="Explore All Services" />

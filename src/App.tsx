@@ -10,7 +10,7 @@ import Services from "./Pages/Services";
 import ProductList from "./Pages/ProductList";
 import AboutUs from "./Pages/AboutUs";
 import ProductDetails from "./Pages/ProductDetails";
-import ProductPayment from "./Pages/ProductPayment";
+// import ProductPayment from "./Pages/ProductPayment";
 import BlogPage from "./Pages/BlogPage";
 import BlogDetails from "./Pages/BlogDetails";
 import Teams from "./Pages/Teams";

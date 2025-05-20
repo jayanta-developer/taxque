@@ -13,9 +13,6 @@ import GreenBg from "../../assets/images/GreenBg.svg";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
 import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
-//data
-import { BlogData } from "../../assets/Data";
-
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
@@ -44,7 +41,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Home");
   const Navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.category);
+  const { data } = useSelector((state: RootState) => state.category);
   const blogData = useSelector((state: RootState) => state.blog);
   const Product = useSelector((state: RootState) => state.product);
   // console.log(Product.data);
