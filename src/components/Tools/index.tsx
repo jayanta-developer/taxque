@@ -16,7 +16,7 @@ import watchYIcom from "../../assets/images/watchYicon.svg";
 import blackArrowIcon from "../../assets/images/blackArrowIcon.svg";
 import star from "../../assets/images/star.png";
 import ITNIcon from "../../assets/images/ITNIcon.svg";
-import loaderImg from "../../assets/Images/lodingGif.gif";
+// import loaderImg from "../../assets/Images/lodingGif.gif";
 import featuresIcon from "../../assets/images/featuresIcon.png";
 
 //components
