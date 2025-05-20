@@ -396,13 +396,13 @@ export const JobCard = ({
 //   feturePoints: fetures[];
 //   priceData: priceProp[];
 // }
-interface fetures {
-  title: string;
-  summary?: string;
-}
-interface priceProp {
-  price: string;
-}
+// interface fetures {
+//   title: string;
+//   summary?: string;
+// }
+// interface priceProp {
+//   price: string;
+// }
 export const ProductCard = ({
   title,
   feturePoints,

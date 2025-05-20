@@ -26,7 +26,7 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   const [faqSideNav, setFaqSideNav] = useState(false);
   const [faqNav, setFaqNav] = useState("General Questions");
-  const [questionIndex, setQuestionIndex] = useState<number>(999999);
+  // const [questionIndex, setQuestionIndex] = useState<number>(999999);
 
   // const handleQuestionIndex = (i: number) => {
   //   if (i === questionIndex) {
