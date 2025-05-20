@@ -35,16 +35,15 @@ export interface findUserArgeType {
 export interface UserUpdateDataType {
   requireDoc?: {
     docTitle: String;
-    docUrl: String;
+    docUrl: String[];
     status: String;
     rejectMessage: String;
-
   }
   _id?: string;
 }
-interface docType {
+export interface docType {
   docTitle?: String;
-  docUrl?: String;
+  docUrl?: String[];
   status?: String;
   rejectMessage?: String;
 }
@@ -114,12 +113,11 @@ export const FindUser = createAsyncThunk<UserDataType, findUserArgeType>(
       const response = await Axios.post(`${baseURL}/user/get-by-email`, {
         ...data,
       });
-      // Reloader(600);
       const user = response.data.user;
       return user;
     } catch (error: any) {
       toast.error("Something went wrong", error.response?.data);
-      // Reloader(900);
+      Reloader(900);
       return rejectWithValue(error.response?.data || "Something went wrong");
     }
   }
@@ -129,12 +127,11 @@ export const GetUser = createAsyncThunk<UserDataType, { _id: string }>(
   async ({ _id }, { rejectWithValue }) => {
     try {
       const response = await Axios.get(`${baseURL}/user/get-by-id/${_id}`);
-      // Reloader(600);
       const user = response.data.user;
       return user;
     } catch (error: any) {
       toast.error("Something went wrong", error.response?.data);
-      // Reloader(900);
+      Reloader(900);
       return rejectWithValue(error.response?.data || "Something went wrong");
     }
   }
@@ -146,7 +143,7 @@ export const UpdateDoc = createAsyncThunk<UserUpdateDataType, UpdateUserArgs>(
     try {
       const response = await Axios.post(`${baseURL}/user/update_doc/${userId}/${productId}`, data);
       toast.success("Document updated successfully !");
-      // Reloader(1000);
+      Reloader(1000);
       return response.data;
     } catch (error: any) {
       toast.error("Failed to update document");

@@ -160,13 +160,13 @@
 }
 .docUploadBox {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 20px;
 }
 .docBox {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
 }
 .docBox input {
   display: none;
@@ -212,4 +212,11 @@
   width: 100%;
   color: #d35d5d;
   text-align: end;
+}
+.userServiceSection .serviceCard{
+  width: 29%;
+}
+.usHeader{
+  text-align: center;
+  margin-top: 20px;
 }

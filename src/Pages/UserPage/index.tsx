@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+import { ServiceCard } from "../../components/Tools";
 
 //images
 import { Image } from "../../assets/images";
@@ -15,8 +16,9 @@ interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
+import { FetchService } from "../../store/categorySlice";
 import { FetchProdcut, ProductDataType } from "../../store/productSlice";
-import { GetUser, UpdateDoc } from "../../store/userSlice";
+import { GetUser, UpdateDoc, docType } from "../../store/userSlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { AppBtn } from "../../components/Buttons";
@@ -27,13 +29,10 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   const { data, status } = useSelector((state: RootState) => state.product);
   const user = useSelector((state: RootState) => state.user);
-
+  const service = useSelector((state: RootState) => state.category);
   const dispatch = useDispatch<AppDispatch>();
-  const [selectProduct, setSelectProduct] = useState<ProductDataType>();
-
   const [fileUrls, setFileUrls] = useState<string[]>([]);
-  console.log(fileUrls);
-
+  const [selectProduct, setSelectProduct] = useState<ProductDataType>();
   const docList = ["Address Proof", "Identity Proof", " Financial Proof"];
 
   const handleFileChange = async (
@@ -77,8 +76,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     }
   };
 
-  const docType = ["Address proof", "Identity proof	", "Financial proof"];
-
   let productList: any = [];
   if (data.length && user.data[0]?.purchase?.length) {
     const idList = user.data[0]?.purchase.map((item) => item?.productId);
@@ -104,18 +101,12 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     console.log(user?.data[0]?._id);
     console.log(purchases?.[index]?._id);
 
-    interface docDataType {
-      docTitle: string;
-      docUrl: string;
-      status: string;
-      rejectMessage?: String;
-    }
-    const docData: docDataType[] = [];
+    const docData: docType[] = [];
 
-    docType?.map((val, i) => {
+    selectProduct?.documentsRequired?.tableData?.map((val, i) => {
       docData.push({
-        docTitle: val,
-        docUrl: fileUrls[i],
+        docTitle: val.documentType,
+        docUrl: [fileUrls[i]],
         status: "Panding",
       });
     });
@@ -138,12 +129,29 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   }, []);
 
   useEffect(() => {
+    dispatch(FetchService());
+    if (service?.data?.length < 0) {
+      dispatch(FetchService());
+    }
+  }, []);
+
+  useEffect(() => {
     if (!logUserId) return;
     dispatch(GetUser({ _id: logUserId }));
     if (user.data?.length < 0) {
       dispatch(GetUser({ _id: logUserId }));
     }
   }, [logUserId]);
+
+  const purchases = user?.data?.[0]?.purchase;
+  const index = Number(productIndex) ?? 0;
+
+  if (!purchases?.[index]?._id) {
+    toast.warn("Product id not found!");
+    return;
+  }
+
+  console.log(purchases?.[index]?.requireDoc);
 
   return (
     <>
@@ -227,98 +235,88 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
           <div className="userInfoBox docRequerBox">
             <h2>Documents Required</h2>
             <div className="docUploadBox">
-              {docList?.map((doc, i) => (
-                <div key={i} className="docBox">
-                  <div className="docLable">
-                    <p>{doc}</p>
-                  </div>
+              {purchases?.[index]?.requireDoc.length > 0 ? (
+                <>
+                  {purchases?.[index]?.requireDoc?.map((val, i) => (
+                    <div key={i} className="docBox">
+                      <h4>{val?.docTitle}</h4>
 
-                  <label htmlFor={`doc${i}`}>
-                    {fileUrls[i] ? (
-                      <iframe
-                        src={fileUrls[i]}
-                        width="100%"
-                        height="600px"
-                        title="PDF Viewer"
+                      <label htmlFor={`doc${i}`}>
+                        {fileUrls[i] ? (
+                          <iframe
+                            src={fileUrls[i]}
+                            width="100%"
+                            height="600px"
+                            title="PDF Viewer"
+                          />
+                        ) : (
+                          <img
+                            className="docUploadIcon"
+                            src={val?.docUrl[0]}
+                            alt=""
+                          />
+                        )}
+                      </label>
+                      <input
+                        id={`doc${i}`}
+                        type="file"
+                        onChange={(e) => handleFileChange(e, i)}
                       />
-                    ) : (
-                      <img
-                        className="docUploadIcon"
-                        src={Image.docUploadIcon}
-                        alt=""
-                      />
-                    )}
-                  </label>
-                  <input
-                    id={`doc${i}`}
-                    type="file"
-                    onChange={(e) => handleFileChange(e, i)}
-                  />
 
-                  <p className="docStatusText successDocState">
-                    <img src={Image.docSuccessIcon} alt="" /> Success
-                  </p>
-                </div>
-              ))}
+                      <p
+                        className={
+                          val.status === "Panding"
+                            ? "docStatusText pandingDocState"
+                            : val.status === "Success"
+                            ? "docStatusText successDocState"
+                            : val.status === "Reject"
+                            ? "docStatusText rejectDocState"
+                            : "docStatusText"
+                        }
+                      >
+                        {/* <img src={Image.docSuccessIcon} alt="" /> */}
+                        {val.status}
+                      </p>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {selectProduct?.documentsRequired?.tableData?.map(
+                    (doc, i) => (
+                      <div key={i} className="docBox">
+                        <h4>{doc?.documentType}</h4>
 
-              {/* <div className="docBox">
-                <div className="docLable">
-                  <p>Identity Proof</p>
-                </div>
-                <label htmlFor="doc2">
-                  {fileUrls[1] ? (
-                    <iframe
-                      src={fileUrls[1]}
-                      width="100%"
-                      height="600px"
-                      title="PDF Viewer"
-                    />
-                  ) : (
-                    <img
-                      className="docUploadIcon"
-                      src={Image.docUploadIcon}
-                      alt=""
-                    />
+                        <label htmlFor={`doc${i}`}>
+                          {fileUrls[i] ? (
+                            <iframe
+                              src={fileUrls[i]}
+                              width="100%"
+                              height="600px"
+                              title="PDF Viewer"
+                            />
+                          ) : (
+                            <img
+                              className="docUploadIcon"
+                              src={Image.docUploadIcon}
+                              alt=""
+                            />
+                          )}
+                        </label>
+                        <input
+                          id={`doc${i}`}
+                          type="file"
+                          onChange={(e) => handleFileChange(e, i)}
+                        />
+
+                        <p className="docStatusText successDocState">
+                          <img src={Image.docSuccessIcon} alt="" /> Success
+                        </p>
+                      </div>
+                    )
                   )}
-                </label>
-                <input
-                  id="doc2"
-                  type="file"
-                  onChange={(e) => handleFileChange(e, 1)}
-                />
-                <p className="docStatusText pandingDocState">
-                  <img src={Image.docPandingIcon} alt="" /> Panding
-                </p>
-              </div>
-              <div className="docBox">
-                <div className="docLable">
-                  <p> Financial Proof</p>
-                </div>
-                <label htmlFor="doc3">
-                  {fileUrls[2] ? (
-                    <iframe
-                      src={fileUrls[2]}
-                      width="100%"
-                      height="600px"
-                      title="PDF Viewer"
-                    />
-                  ) : (
-                    <img
-                      className="docUploadIcon"
-                      src={Image.docUploadIcon}
-                      alt=""
-                    />
-                  )}
-                </label>
-                <input
-                  id="doc3"
-                  type="file"
-                  onChange={(e) => handleFileChange(e, 2)}
-                />
-                <p className="docStatusText rejectDocState">
-                  <img src={Image.docErrorIcon} alt="" /> Reject
-                </p>
-              </div> */}
+                </>
+              )}
             </div>
             {fileUrls.length >= 3 ? (
               <div className="btnBox">
@@ -329,105 +327,12 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
             )}
           </div>
 
-          {/* <div className="userNav">
-            <p>My Account</p>/<span>Profile</span>
+          <h1 className="usHeader">All Relative Services</h1>
+          <div className="serviceMainSection userServiceSection">
+            {service?.data?.map((el, i) => (
+              <ServiceCard {...el} key={i} />
+            ))}
           </div>
-          <div className="userInfoBox">
-            <img src={UserBG} className="userBG" alt="" />
-            <img src={AvatarIcon} />
-            <h3>{curentUser?.name}</h3>
-            <p>{curentUser?.email}</p>
-          </div>
-          <div className="ProductInfoBox">
-            {selectProduct ? (
-              <div className="productBox">
-                <h2 style={{ marginBottom: "20px" }}>{selectProduct.title}</h2>
-                {selectProduct?.feturePoints?.map((fp, i) => (
-                  <p key={i}>{fp.summary}</p>
-                ))}
-                <h2 style={{ margin: "20px 0" }}>Document require </h2>
-                <div className="docUploadBox">
-                  <div className="docSection">
-                    <DropBox
-                      setDropVal={setDocType1}
-                      defaultVal="Select Doc type"
-                      list={docType}
-                    />
-
-                    <label htmlFor="doc1">
-                      <img
-                        src={AddIcon}
-                        alt="Upload"
-                        className="CEImgUploadIcon"
-                      />
-                    </label>
-                    <input
-                      id="doc1"
-                      type="file"
-                      onChange={(e) => handleFileChange(e, 0)}
-                    />
-                    {fileUrls[0] && (
-                      <a href={fileUrls[0]} target="_blank">
-                        File 1 Link
-                      </a>
-                    )}
-                  </div>
-                  <div className="docSection">
-                    <DropBox
-                      setDropVal={setDocType2}
-                      defaultVal="Select Doc type"
-                      list={docType}
-                    />
-                    <label htmlFor="doc2">
-                      <img
-                        src={AddIcon}
-                        alt="Upload"
-                        className="CEImgUploadIcon"
-                      />
-                    </label>
-                    <input
-                      id="doc2"
-                      type="file"
-                      onChange={(e) => handleFileChange(e, 1)}
-                    />
-                    {fileUrls[1] && (
-                      <a href={fileUrls[1]} target="_blank">
-                        File 2 Link
-                      </a>
-                    )}
-                  </div>
-                  <div className="docSection">
-                    <DropBox
-                      setDropVal={setDocType3}
-                      defaultVal="Select Doc type"
-                      list={docType}
-                    />
-                    <label htmlFor="doc3">
-                      <img
-                        src={AddIcon}
-                        alt="Upload"
-                        className="CEImgUploadIcon"
-                      />
-                    </label>
-                    <input
-                      id="doc3"
-                      type="file"
-                      onChange={(e) => handleFileChange(e, 2)}
-                    />
-                    {fileUrls[2] && (
-                      <a href={fileUrls[2]} target="_blank">
-                        File 3 Link
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="NoDataBox">
-                <h1>Select a service !</h1>
-              </div>
-            )}
-          </div> */}
         </div>
       </div>
       <Footer />
