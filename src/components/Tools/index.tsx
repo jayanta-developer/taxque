@@ -493,7 +493,7 @@ export const Loader = ({ loding }: loadingProps) => {
 
   return (
     <div className={loding ? "loaderBox ActiveloaderBox" : "loaderBox"}>
-      <img src={loaderImg} alt="loader" />
+      <img src={loaderImg || watchYIcom} alt="loader" />
     </div>
   );
 };
