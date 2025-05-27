@@ -122,6 +122,8 @@ export const FindUser = createAsyncThunk<UserDataType, findUserArgeType>(
     }
   }
 );
+
+
 export const GetUser = createAsyncThunk<UserDataType, { _id: string }>(
   "get user/fetch",
   async ({ _id }, { rejectWithValue }) => {
@@ -151,7 +153,6 @@ export const UpdateDoc = createAsyncThunk<UserUpdateDataType, UpdateUserArgs>(
     }
   }
 );
-
 
 //create contact user 
 export const CreateContactUser = createAsyncThunk<contactUserType, contactUserType>(
