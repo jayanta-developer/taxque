@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { toast } from "react-toastify";
+const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID;
 
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
@@ -83,7 +84,7 @@ export default function PaymentCheckOut({
       }
       const options: any = {
         // key: "rzp_live_r7KwJgrC6rE4Lo",
-        key: "rzp_test_I1KZWb5UEAvCsr",
+        key: RAZORPAY_KEY,
         amount: order?.amount,
         currency: order?.currency,
         name: "TexQue",
