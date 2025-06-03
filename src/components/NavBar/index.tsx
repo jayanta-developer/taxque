@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext, use } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,6 @@ export default function NavBar({ currentNav }: NavProps) {
   const [nav, setNav] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const divRef = useRef<HTMLDivElement | null>(null);
-  const [searchTab, setSearchTab] = useState(false);
   const { user } = useContext(AuthContext)!;
   const [userDrop, setUserDrop] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -100,12 +99,6 @@ export default function NavBar({ currentNav }: NavProps) {
     })
   })
 
-
-  useEffect(() => {
-    document.addEventListener("click", (e) => {
-      if ((e.target as HTMLElement)?.id !== "searchInput") setSearchTab(false);
-    });
-  }, []);
 
   useEffect(() => {
     if (nav) {
