@@ -109,9 +109,9 @@ export default function Footer() {
       <div className="mediaBox">
         <img src={hrLine1} className="hrLine" />
         <div className="mediaIcomBox">
-          <img src={facebookIcom} />
-          <img src={xIcom} />
-          <img src={Instagram} />
+          <a href="https://www.facebook.com/taxque.in/" target="_blank"><img src={facebookIcom} /></a>
+          <a href="https://twitter.com/taxque_in/" target="_blank"><img src={xIcom} /></a>
+          <a href="https://www.instagram.com/taxque.in/" target="_blank"><img src={Instagram} /></a>
         </div>
       </div>
       <p className="copyRithText">

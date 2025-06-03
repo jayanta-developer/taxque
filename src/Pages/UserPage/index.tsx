@@ -18,7 +18,7 @@ interface NavProps {
 }
 import { FetchService } from "../../store/categorySlice";
 import { FetchProdcut, ProductDataType } from "../../store/productSlice";
-import { GetUser, UpdateDoc, docType } from "../../store/userSlice";
+import { GetUser, UpdateDoc, docType, UpdateDocUrl } from "../../store/userSlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { AppBtn } from "../../components/Buttons";
@@ -33,11 +33,14 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [fileUrls, setFileUrls] = useState<string[]>([]);
   const [selectProduct, setSelectProduct] = useState<ProductDataType>();
+  const [selectProductId, setSelectProductId] = useState<string>();
+  const [selectProductIndex, setSelectProductIndex] = useState<number>();
 
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
+    setSelectProductIndex(index)
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -83,22 +86,22 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     );
   }
 
-  const docUpload = () => {
+  const docUpload = async () => {
     if (!user?.data[0]?._id) {
       toast.warn("User id not found!");
       return;
     }
 
     const purchases = user?.data?.[0]?.purchase;
-    const index = Number(productIndex) ?? 0;
+    const index = await Number(productIndex) ?? 0;
 
     if (!purchases?.[index]?._id) {
       toast.warn("Product id not found!");
       return;
     }
 
-    console.log(user?.data[0]?._id);
-    console.log(purchases?.[index]?._id);
+    // console.log(user?.data[0]?._id);
+    // console.log(purchases?.[index]?._id);
 
     const docData: docType[] = [];
 
@@ -109,7 +112,11 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
         status: "Panding",
       });
     });
-    console.log(docData);
+    // console.log({
+    //   data: docData,
+    //   userId: user?.data[0]?._id,
+    //   productId: purchases?.[index]?._id,
+    // });
 
     dispatch(
       UpdateDoc({
@@ -145,12 +152,25 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const purchases = user?.data?.[0]?.purchase;
   const index = Number(productIndex) ?? 0;
 
-  if (!purchases?.[index]?._id) {
-    toast.warn("Product id not found!");
-    return;
+
+  const handleDocUpload = (id: string | undefined) => {
+    if (!selectProductIndex || !id || !logUserId) {
+      return;
+    }
+
+    dispatch(UpdateDocUrl({
+      data: {
+        userId: logUserId,
+        productId: selectProductId || productList[0]?._id,
+        docId: id,
+        newMessage: "",
+        status: "Panding",
+        docUrl: fileUrls[selectProductIndex]
+      }
+    }))
   }
 
-  console.log(purchases?.[index]?.requireDoc);
+
 
   return (
     <>
@@ -172,6 +192,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 key={i}
                 onClick={() => {
                   setSelectProduct(productList[i]);
+                  setSelectProductId(el?._id)
                   localStorage.setItem("productIndex", i.toString());
                 }}
               >
@@ -234,7 +255,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
           <div className="userInfoBox docRequerBox">
             <h2>Documents Required</h2>
             <div className="docUploadBox">
-              {purchases?.[index]?.requireDoc.length > 0 ? (
+              {purchases?.[index]?.requireDoc?.length !== undefined ? (
                 <>
                   {purchases?.[index]?.requireDoc?.map((val, i) => (
                     <div key={i} className="docBox">
@@ -247,15 +268,22 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                             width="100%"
                             height="600px"
                             title="PDF Viewer"
+                            className="DocIframe"
                           />
                         ) : (
                           <img
-                            className="docUploadIcon"
+                            className={
+                              val.status === "Approve" ? "docUploadIcon docA" :
+                                val.status === "Panding" ? "docUploadIcon docP" :
+                                  val.status === "Reject" ? "docUploadIcon docR" : "docUploadIcon"
+
+                            }
                             src={val?.docUrl[0]}
                             alt=""
                           />
                         )}
                       </label>
+                      <img style={{ display: selectProductIndex === i ? "block" : "none" }} src={Image.uploadIcon} alt="" className="DocuploadIcon" onClick={() => handleDocUpload(val?._id)} />
                       <input
                         id={`doc${i}`}
                         type="file"
@@ -266,15 +294,14 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                         className={
                           val.status === "Panding"
                             ? "docStatusText pandingDocState"
-                            : val.status === "Success"
-                            ? "docStatusText successDocState"
-                            : val.status === "Reject"
-                            ? "docStatusText rejectDocState"
-                            : "docStatusText"
+                            : val.status === "Approve"
+                              ? "docStatusText successDocState"
+                              : val.status === "Reject"
+                                ? "docStatusText rejectDocState"
+                                : "docStatusText"
                         }
                       >
-                        {/* <img src={Image.docSuccessIcon} alt="" /> */}
-                        {val.status}
+                        {val.rejectMessage}
                       </p>
                     </div>
                   ))}

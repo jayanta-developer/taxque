@@ -1,20 +1,9 @@
-import { useEffect, useState, useRef, useContext } from "react";
+import { useEffect, useState, useRef, useContext, use } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
 //images
-import Clogo from "../../assets/images/logo.svg";
-import rightArrow from "../../assets/images/rightArrow.svg";
-import MenuIcon from "../../assets/images/menuIcon.png";
-import homeIcon from "../../assets/images/homeIcon.svg";
-import serviceIcon from "../../assets/images/serviceIcon.png";
-import aboutUsIcon from "../../assets/images/aboutUsIcon.svg";
-import blogIcon from "../../assets/images/blogIcon.png";
-import contaceUsIcon from "../../assets/images/contact-us.png";
-import backRoundArrow from "../../assets/images/backRoundArrow.png";
-import avatarIcon from "../../assets/images/avatarIcon.png";
-import searchIcon from "../../assets/images/SearchIcon.svg";
-import userIcon from "../../assets/images/UserIcon.png";
+import { Image } from "../../assets/images";
 
 //components
 import { AppBtn } from "../Buttons";
@@ -27,15 +16,23 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
+import { FetchProdcut } from "../../store/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+
+
 export default function NavBar({ currentNav }: NavProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { data } = useSelector((state: RootState) => state.product);
+
   const [nav, setNav] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const divRef = useRef<HTMLDivElement | null>(null);
   const [searchTab, setSearchTab] = useState(false);
   const { user } = useContext(AuthContext)!;
   const [userDrop, setUserDrop] = useState(false);
-
+  const [searchTerm, setSearchTerm] = useState("");
   const closeNav = (e: any) => {
     if (e.target.id === "grayBox") {
       setNav(false);
@@ -50,27 +47,27 @@ export default function NavBar({ currentNav }: NavProps) {
     {
       title: "Home",
       url: "/",
-      icon: homeIcon,
+      icon: Image.homeIcon,
     },
     {
       title: "Services",
       url: "/services",
-      icon: serviceIcon,
+      icon: Image.serviceIcon,
     },
     {
       title: "About Us",
       url: "/about",
-      icon: aboutUsIcon,
+      icon: Image.aboutUsIcon,
     },
     {
-      title: "Blog",
-      url: "/blog",
-      icon: blogIcon,
+      title: "Guide",
+      url: "/learn",
+      icon: Image.blogIcon,
     },
     {
       title: "Contact Us",
       url: "/contact-us",
-      icon: contaceUsIcon,
+      icon: Image.contaceUsIcon,
     },
   ];
 
@@ -85,6 +82,24 @@ export default function NavBar({ currentNav }: NavProps) {
     localStorage.removeItem("userId");
     Reloader(500);
   };
+
+  //Search function 
+  const filteredProducts = data?.filter((product) => {
+    const lowerCaseTitle = product?.title?.toLowerCase();
+    const lowerCaseInput = searchTerm?.toLowerCase();
+    if (searchTerm === "") return false;
+    if (lowerCaseTitle === lowerCaseInput) return true;
+    return lowerCaseTitle.includes(lowerCaseInput);
+  });
+
+  useEffect(() => {
+    document.addEventListener("click", (e: any) => {
+      if (e.target.id !== "sBox") {
+        setSearchTerm("")
+      }
+    })
+  })
+
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -120,11 +135,19 @@ export default function NavBar({ currentNav }: NavProps) {
       }
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(FetchProdcut());
+    if (data?.length < 0) {
+      dispatch(FetchProdcut());
+    }
+  }, []);
+
   return (
     <>
       <div ref={divRef} className="navBar">
         <div className="clogoBox">
-          <img src={Clogo} onClick={() => navigate("/")} />
+          <img src={Image.Clogo} onClick={() => navigate("/")} />
         </div>
         <ToastContainer />
 
@@ -147,7 +170,7 @@ export default function NavBar({ currentNav }: NavProps) {
               </div>
             ))}
             <img
-              src={backRoundArrow}
+              src={Image.backRoundArrow}
               className="mobileNavBackBtn"
               onClick={() => setNav(false)}
             />
@@ -181,18 +204,31 @@ export default function NavBar({ currentNav }: NavProps) {
               ></samp>
             </p>
           ))}
-          <img
-            id="searchInput"
-            src={searchIcon}
-            onClick={() => setSearchTab(!searchTab)}
-            style={{ cursor: "pointer" }}
-          />
+          <div id="sBox" className="NavSearchInputBox">
+            <input id="sBox" value={searchTerm} type="text" placeholder="Search..." onChange={(e) => setSearchTerm(e.target.value)} />
+            <img id="sBox" src={Image.searchIcon} alt="" />
+            {filteredProducts.length > 0 &&
+              <div id="sBox" className="dispalySearchProducts">
+                {filteredProducts.map((product, i: number) => (
+                  <div id="sBox" onClick={() => {
+                    navigate("/services/product-details");
+                    product?._id ? localStorage.setItem("selectedProduct", product?._id) : null
+                    Reloader(100)
+                  }} className="sProductItem" key={i}>
+                    <p id="sBox">{product.title}</p>
+                    <span id="sBox">{product?.category?.title}</span>
+                  </div>
+                ))}
+              </div>
+            }
+          </div>
+
           {user ? (
             <div
               className="UserProfileTab"
               onClick={() => setUserDrop(!userDrop)}
             >
-              <img src={userIcon} alt="" />
+              <img src={Image.userIcon} alt="" />
               <div
                 style={{ display: userDrop ? "flex" : "none" }}
                 className="dropBox"
@@ -212,11 +248,11 @@ export default function NavBar({ currentNav }: NavProps) {
             <>
               <AppBtn
                 btnText="Log In"
-                icon={rightArrow}
+                icon={Image.rightArrow}
                 onClick={() => navigate("/login")}
               />
               <img
-                src={avatarIcon}
+                src={Image.avatarIcon}
                 className="LogInIconM"
                 onClick={() => navigate("/login")}
               />
@@ -224,20 +260,10 @@ export default function NavBar({ currentNav }: NavProps) {
           )}
 
           <img
-            src={MenuIcon}
+            src={Image.MenuIcon}
             className="meneIcon"
             onClick={() => setNav(true)}
           />
-
-          {/* searchInput */}
-          <div
-            id="searchInput"
-            className="searchInputBox"
-            style={{ display: searchTab ? "block" : "none" }}
-          >
-            <input id="searchInput" type="text" placeholder="Search..." />
-            <img src={searchIcon} />
-          </div>
         </div>
 
         <img

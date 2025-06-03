@@ -83,7 +83,6 @@ export default function PaymentCheckOut({
         return;
       }
       const options: any = {
-        // key: "rzp_live_r7KwJgrC6rE4Lo",
         key: RAZORPAY_KEY,
         amount: order?.amount,
         currency: order?.currency,

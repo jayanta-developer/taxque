@@ -8,7 +8,7 @@ import pageBg from "../../assets/images/otherPageBg.svg";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { BlogRowCard } from "../../components/Tools";
+import { BlogRowCard, GoTop } from "../../components/Tools";
 
 import { FetchBlog } from "../../store/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,9 +24,8 @@ interface NavProps {
 export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Blog");
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.blog);
+  const { data } = useSelector((state: RootState) => state.blog);
   const [blogType, setBlogType] = useState<string>();
-console.log(status);
 
   interface BlogMenuType {
     title: string;
@@ -82,7 +81,10 @@ console.log(status);
             <div className="blogCatagoribox">
               <div
                 className="bcRow bcHeaderRow"
-                onClick={() => setBlogType(undefined)}
+                onClick={() => {
+                  setBlogType(undefined)
+                  GoTop()
+                }}
               >
                 <p>All Blog Catagoris</p>
               </div>
@@ -93,6 +95,7 @@ console.log(status);
                   }
                   onClick={() => {
                     setBlogType(el?.title);
+                    GoTop()
                   }}
                   key={i}
                 >

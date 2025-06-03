@@ -89,7 +89,7 @@ function App() {
           }
         /> */}
         <Route
-          path="/blog"
+          path="/learn"
           element={
             // <ProtectedRoute>
             <BlogPage setCurrentNav={setCurrentNav} currentNav={currentNav} />
