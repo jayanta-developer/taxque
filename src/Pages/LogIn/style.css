@@ -120,6 +120,9 @@
   color: #d12d2dde;
   margin-bottom: 8px;
 }
+.LogSubHeader{
+  color: rgba(128, 128, 128, 0.795);
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .logBox {

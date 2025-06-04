@@ -390,19 +390,7 @@ export const JobCard = ({
     </div>
   );
 };
-// interface productProp {
-//   title: string;
-//   icon: string;
-//   feturePoints: fetures[];
-//   priceData: priceProp[];
-// }
-// interface fetures {
-//   title: string;
-//   summary?: string;
-// }
-// interface priceProp {
-//   price: string;
-// }
+
 export const ProductCard = ({
   title,
   feturePoints,

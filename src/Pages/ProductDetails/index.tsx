@@ -49,6 +49,7 @@ export default function ProductDetails({
   const [Product, setProduct] = useState<ProductDataType>();
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
 
+
   interface paraType {
     title: string;
     id: string;
@@ -232,7 +233,7 @@ export default function ProductDetails({
               </div>
             )}
             {/* PrivateLimitedCompany----------------------------------------------- */}
-            {Product?.whatIs?.summarys?.length && (
+            {Product?.whatIs?.summarys?.length !== undefined && Product?.whatIs?.summarys?.length > 0 && (
               <div
                 id="PrivateLimitedCompany"
                 className="paraSubSection privateLC"

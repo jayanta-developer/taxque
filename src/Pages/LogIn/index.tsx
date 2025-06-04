@@ -203,8 +203,8 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
           </div>
           <div className="logInfoBox">
             <p className="LogHeader">Log In To Continue</p>
-            <p className="LogSubHeader">Log In with your existing acoount.</p>
-            <div className="logBtnBox">
+            <p style={{margin:"20px 0px"}} className="LogSubHeader">Log In with your existing acoount.</p>
+            <div style={{display:"none"}} className="logBtnBox">
               <div
                 className="logBtn"
                 // onClick={googleLogin}
@@ -227,10 +227,10 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
                 <p>Linkedin</p>
               </div>
             </div>
-            <div className="orBox">
+            {/* <div className="orBox">
               <div className="grayLine"></div>
               <p>Or continue with</p>
-            </div>
+            </div> */}
 
             {!optInputBox ? (
               <>
@@ -249,7 +249,7 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
                     onChange={(e) => setInputEmail(e.target.value)}
                     type="email"
                     name="email"
-                    placeholder="Enter your Email"
+                    placeholder="Email Address"
                   />
                 </div>
                 <AppBtn
