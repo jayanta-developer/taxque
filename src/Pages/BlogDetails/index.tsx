@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
+import parse from 'html-react-parser';
+
 
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
@@ -37,7 +39,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
   const selectedBlogId = localStorage.getItem("blogId");
   const blogData = data.find((val) => val._id === selectedBlogId);
   console.log(status);
-  
+
 
   useEffect(() => {
     dispatch(FetchBlog());
@@ -91,7 +93,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
                 <h1 className="blogMtitle">{el.title}</h1>
                 {el?.summarys?.map((sm, ind: number) => (
                   <p className="blogNText" key={ind}>
-                    {sm?.summary}
+                    {parse(sm?.summary)}
                   </p>
                 ))}
               </div>

@@ -1,6 +1,8 @@
 import "./style.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import parse from 'html-react-parser';
+import truncate from 'truncate-html';
 
 //images
 import UPRightArrow from "../../assets/images/right-up.svg";
@@ -86,6 +88,7 @@ export const ServiceCard = ({
     Navigate("/products");
     GoTop();
   };
+  const truncatedHTML = truncate(summary, 100, { byWords: false });
 
   return (
     <div className="serviceCard">
@@ -99,7 +102,9 @@ export const ServiceCard = ({
         <p>{title}</p>
       </div>
       <div className="hrLine"></div>
-      <p className="svrCardSummery">{summary?.slice(0, 100)}...</p>
+      <p className="svrCardSummery">
+        {parse(truncatedHTML)}
+      </p>
       <div className="sveCardImgBox">
         <img src={imageUrl} alt="" />
       </div>
@@ -260,6 +265,7 @@ export const BlogRowCard = ({
   _id,
 }: BlogDataType) => {
   const Navigate = useNavigate();
+  const truncatedHTML = truncate(blogText[0]?.summarys[0]?.summary, 200, { byWords: false });
 
   return (
     <div className="blogRowCard">
@@ -268,7 +274,7 @@ export const BlogRowCard = ({
         <div className="blogBUserInfoBox">
           <div className="buABox">
             <img src={avatarIcom} />
-            <p>Amit</p>
+            {/* <p>Amit</p> */}
           </div>
 
           <div className="buABox">
@@ -279,8 +285,8 @@ export const BlogRowCard = ({
 
         <p className="BlogTitle">{title}</p>
         <p className="BlogSummery">
-          {blogText[0]?.summarys[0]?.summary.slice(0, 200)}
-          {blogText[0]?.summarys[0]?.summary?.length > 200 ? "..." : "."}
+          {parse(truncatedHTML)}
+          {/* {blogText[0]?.summarys[0]?.summary?.length > 200 ? "..." : "."} */}
         </p>
         <img
           src={UPRightArrow}
