@@ -18,9 +18,6 @@ import MyCarousel from "../../components/Carousel";
 import Subscribe from "../../components/Subscribe";
 import { ServiceCard, GoTop } from "../../components/Tools";
 
-//data
-import { ChipData } from "../../assets/Data";
-
 import { FetchBlog } from "../../store/blogSlice";
 import { FetchService } from "../../store/categorySlice";
 
@@ -34,11 +31,10 @@ interface NavProps {
 export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
   const Navigate = useNavigate();
+  const selectedBlogId = localStorage.getItem("blogId");
   const { data, status } = useSelector((state: RootState) => state.blog);
   const categoryData = useSelector((state: RootState) => state.category);
-  const selectedBlogId = localStorage.getItem("blogId");
   const blogData = data.find((val) => val._id === selectedBlogId);
-  console.log(status);
 
 
   useEffect(() => {
@@ -62,13 +58,16 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
         </div>
 
         <div className="productPageMainSection">
-          <p className="navigateText">
-            <a onClick={() => Navigate("/")}>Home</a> <span>{">"}</span>{" "}
-            <a onClick={() => Navigate("/blog")}>Blog</a>{" "}
-            <span>
-              {">"} {blogData?.title}{" "}
-            </span>
-          </p>
+
+
+          <div className="navigateText">
+            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
+            {">"}
+            <p onClick={() => Navigate("/learn")} className="navPageT">{blogData?.category}</p>
+            {">"}
+            <p className="navSubPageT">{blogData?.title}</p>
+          </div>
+
         </div>
         <div className="productDetailBox">
           <div className="productInfoSection">
@@ -132,9 +131,15 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
           <div className="PopulariNSection">
             <p className="sectionHeader">Popular Services</p>
             <div className="ChipBox">
-              {ChipData?.map((el, i) => (
-                <div key={i} className="chip">
-                  <p>{el}</p>
+              {categoryData?.data?.slice(0, 20).map((el, i) => (
+                <div
+                  onClick={() => {
+                    localStorage.setItem("selectedCategory", el?._id || "noId");
+                    Navigate("/products");
+                    GoTop();
+                  }}
+                  key={i} className="chip">
+                  <p>{el?.title}</p>
                 </div>
               ))}
             </div>

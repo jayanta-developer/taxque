@@ -1,5 +1,5 @@
 import "./style.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //images
@@ -44,6 +44,29 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   const { data } = useSelector((state: RootState) => state.category);
   const blogData = useSelector((state: RootState) => state.blog);
   const Product = useSelector((state: RootState) => state.product);
+  const [currentDisplayPrice, setCurrentDisplayPrice] = useState<string>()
+
+
+
+  //Get Display Price Plane
+  const displyaPricePlane = Product.data.find((val) => val.display === currentDisplayPrice)
+  useEffect(() => {
+    const currentDate = new Date()
+    if (Product.data.length) {
+      const dateListObject = Product.data
+        .filter(pd => pd?.display)
+        .map(pd => new Date(pd.display as string));
+      const pastDates = dateListObject.filter(olddate => olddate <= currentDate);
+
+      const latestDate = pastDates.reduce((latest, dt) => {
+        return dt > latest ? dt : latest;
+      }, new Date(0));
+
+      setCurrentDisplayPrice(latestDate.toISOString());
+    }
+  })
+
+
 
   useEffect(() => {
     dispatch(FetchService());
@@ -172,7 +195,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         </div>
       </div>
       {/* -Price plane Box */}
-      <PriceSection product={Product?.data[0]} />
+      <PriceSection product={displyaPricePlane} />
 
       {/* Review section */}
       <div className="reviewSection">

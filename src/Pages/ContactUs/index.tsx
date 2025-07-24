@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 //images
@@ -21,15 +22,21 @@ interface NavProps {
 
 export default function ContactUs({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Contact Us");
+  const Navigate = useNavigate();
+
   return (
     <>
       <div className="contactPage">
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
-          <p className="navigateText">
-            Home <span>{">"} Contact Us</span>
-          </p>
+
+          <div className="navigateText">
+            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
+            {">"}
+            <p className="navPageT">Contact Us</p>
+          </div>
+
           <p className="hrMainText">Feel Free To Get In Touch</p>
         </div>
         <div className="contactMainSection">

@@ -217,26 +217,6 @@ export const BlogData = [
   },
 ];
 
-export const ChipData = [
-  "Partnership",
-  "Income Certificate",
-  "Form 61A",
-  "Form 16",
-  "Aadhar",
-  "Limited Liability Partnership",
-  "ESI Rate",
-  "Trademark Status",
-  "Experience Certificate",
-  "Police Clearance Certificate",
-  "Income Tax Return",
-  "PAN Card Download",
-  "Unified Portal",
-  "Partnership",
-  "Copyright Registration",
-  "Trade License",
-  "Rent Receipt",
-  "PAN Card Correction",
-];
 
 export const memberData = [
   {

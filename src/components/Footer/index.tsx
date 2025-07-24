@@ -64,7 +64,7 @@ export default function Footer() {
           <p className="footerHeaderText">Resources</p>
           <p
             className="footerSubText"
-            onClick={() => handleNavigation("/blog")}
+            onClick={() => handleNavigation("/learn")}
           >
             Blog
           </p>

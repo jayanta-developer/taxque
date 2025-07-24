@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./style.css";
 
 //images
@@ -22,10 +24,12 @@ interface NavProps {
 }
 
 export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   setCurrentNav("Blog");
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.blog);
   const [blogType, setBlogType] = useState<string>();
+  console.log(blogType);
 
   interface BlogMenuType {
     title: string;
@@ -68,9 +72,15 @@ export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
-          <p className="navigateText">
-            Home <span>{">"} Blog</span>
-          </p>
+
+
+          <div className="navigateText">
+            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
+            {">"}
+            <p className="navPageT">{blogType === undefined ? "All Catagoris" : blogType}</p>
+          </div>
+
+
           <p className="hrMainText">News & Press Releases</p>
         </div>
         <div className="blogMainSection">

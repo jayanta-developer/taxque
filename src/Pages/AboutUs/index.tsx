@@ -1,4 +1,6 @@
 import "./style.css";
+import { useNavigate } from "react-router-dom";
+
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -29,6 +31,8 @@ interface NavProps {
 
 export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("About Us");
+  const Navigate = useNavigate();
+
 
   return (
     <>
@@ -37,9 +41,13 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
 
-          <p className="navigateText">
-            Home <span>{">"} About Us</span>
-          </p>
+
+          <div className="navigateText">
+            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
+            {">"}
+            <p className="navPageT">About Us</p>
+          </div>
+
           <p className="hrMainText">Our Journey to Simplify Taxes For You</p>
         </div>
         {/* trust patnar */}

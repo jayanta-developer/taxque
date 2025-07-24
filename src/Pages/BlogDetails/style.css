@@ -6,15 +6,14 @@
   width: 100%;
   padding: 0 2%;
 }
-.blogDetailsPage .navigateText {
-  margin-bottom: 2px;
-}
+
 .buABox p {
   color: #fe8903;
 }
 .blogMtitle {
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 .sideServiceBox .blogMtitle {
   text-align: center;
@@ -61,6 +60,13 @@
   font-size: 26px;
   margin-bottom: 30px;
 }
+.blogDetailsPage .navigateText {
+  justify-content: start;
+  margin: 10px 0;
+}
+.blogDetailsPage .blogMainTitle {
+  font-size: 24px;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .blogMainTitle {
@@ -72,6 +78,12 @@
   .bdUlPoints {
     list-style-type: disc;
   }
+  .blogDetailsPage .blogMainTitle {
+    font-size: 36px;
+  }
+  .blogMtitle {
+  font-size: 26px;
+  }
 }
 
 /* Desktop view */
@@ -82,7 +94,7 @@
   .noticeBox {
     width: 80%;
   }
-  .blogDetailsPage .navigateText {
-    margin: 30px 0;
+  .blogDetailsPage .blogMainTitle {
+    font-size: 45px;
   }
 }

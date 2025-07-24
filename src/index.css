@@ -39,3 +39,55 @@
   scrollbar-width: thin; /* Thin scrollbar */
   scrollbar-color: gray #f1f1f1; /* Thumb color (gray) and track color (light gray) */
 }
+
+.navigateText {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+}
+.navigateText .navHomeT {
+  font-size: 12px;
+  color: #fe8903;
+  cursor: pointer;
+}
+.navigateText .navPageT {
+  font-size: 12px;
+  color: #000000;
+  cursor: pointer;
+}
+.navigateText .navSubPageT {
+  font-size: 12px;
+  color: #fe8903;
+  cursor: pointer;
+}
+/* Tabe view */
+@media only screen and (min-width: 768px) {
+.navigateText {
+font-size: 20px;
+}
+  .navigateText .navHomeT {
+    font-size: 16px;
+  }
+  .navigateText .navPageT {
+    font-size: 16px;
+  }
+  .navigateText .navSubPageT {
+    font-size: 16px;
+  }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1000px) {
+  .navigateText .navHomeT {
+    font-size: 20px;
+  }
+  .navigateText .navPageT {
+    font-size: 20px;
+  }
+  .navigateText .navSubPageT {
+    font-size: 20px;
+  }
+}

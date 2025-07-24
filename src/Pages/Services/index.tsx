@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./style.css";
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -24,8 +26,9 @@ interface NavProps {
 }
 
 export default function Services({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { data} = useSelector((state: RootState) => state.category);
+  const { data } = useSelector((state: RootState) => state.category);
 
   setCurrentNav("Services");
 
@@ -41,9 +44,13 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
-          <p className="navigateText">
-            Home <span>{">"} Services</span>
-          </p>
+
+          <div className="navigateText">
+            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
+            {">"}
+            <p className="navPageT">Services</p>
+          </div>
+
           <p className="hrMainText">Expert Online Tax Consultant Services</p>
         </div>
         <div className="serviceMainSection">

@@ -195,6 +195,7 @@ export interface ProductDataType {
   Steps?: stepDataType[];
   FAQ?: FAQType[];
   priceData?: priceDataProps[];
+  display?: string;
   _id?: string;
 }
 

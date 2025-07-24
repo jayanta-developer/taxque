@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 //images
@@ -25,16 +26,20 @@ interface NavProps {
 }
 
 export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   const selectedCategoryId = localStorage.getItem("selectedCategory");
   setCurrentNav("Services");
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.product);
+
 
   let Product_list: ProductDataType[] = [];
 
   if (data.length) {
     Product_list = data.filter((pr) => pr?.category?.id === selectedCategoryId);
   }
+  console.log(Product_list);
+
 
   useEffect(() => {
     dispatch(FetchProdcut());
@@ -49,9 +54,15 @@ export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
-          <p className="navigateText">
-            Home <span>{">"} Services</span>
-          </p>
+
+          <div className="navigateText">
+            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
+            {">"}
+            <p onClick={() => Navigate("/services")} className="navPageT">{Product_list[0]?.category?.title}</p>
+          </div>
+
+
+
           <p className="hrMainText">Services Related Products</p>
         </div>
         <div className="serviceMainSection">

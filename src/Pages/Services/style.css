@@ -11,14 +11,8 @@
   justify-content: end;
   padding-bottom: 40px;
 }
-.navigateText {
-  font-size: 12px;
-  color: #fe8903;
-  cursor: pointer;
-}
-.navigateText span {
-  color: #000;
-}
+
+
 .serviceMainSection {
   width: 100%;
   display: flex;
@@ -49,9 +43,6 @@
   }
   .servicesPage .serviceCard {
     width: 25%;
-  }
-  .navigateText {
-    font-size: 18px;
   }
   .subPageHeroSection {
     height: 350px;

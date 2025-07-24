@@ -99,7 +99,9 @@ export const ServiceCard = ({
           src={UPRightArrow}
           onClick={handleCategoryClick}
         />
-        <p>{title}</p>
+        <p
+          onClick={handleCategoryClick}
+        >{title}</p>
       </div>
       <div className="hrLine"></div>
       <p className="svrCardSummery">
@@ -283,7 +285,15 @@ export const BlogRowCard = ({
           </div>
         </div>
 
-        <p className="BlogTitle">{title}</p>
+        <p
+          onClick={() => {
+            if (_id) {
+              localStorage.setItem("blogId", _id);
+            }
+            Navigate("/blog-details");
+            GoTop();
+          }}
+          className="BlogTitle">{title}</p>
         <p className="BlogSummery">
           {parse(truncatedHTML)}
           {/* {blogText[0]?.summarys[0]?.summary?.length > 200 ? "..." : "."} */}
@@ -410,11 +420,19 @@ export const ProductCard = ({
     : "4599";
   const ProductId = _id ? _id : "noId";
 
+  const handleClickProductCard = () => {
+    localStorage.setItem("selectedProduct", ProductId);
+    Navigate("/services/product-details");
+    GoTop();
+  }
+
   return (
     <div className="serviceCard productCard">
       <div className="svrCardHeader">
         <img src={ITNIcon} />
-        <p>{title}</p>
+        <p
+          onClick={handleClickProductCard}
+        >{title}</p>
       </div>
       <div className="hrLine"></div>
 
@@ -452,11 +470,7 @@ export const ProductCard = ({
           btnText="Choose Plan"
           height="40px"
           width="30%"
-          onClick={() => {
-            localStorage.setItem("selectedProduct", ProductId);
-            Navigate("/services/product-details");
-            GoTop();
-          }}
+          onClick={handleClickProductCard}
         />
       </div>
     </div>
