@@ -45,11 +45,11 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
 
-          <div className="navigateText">
-            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
-            {">"}
-            <p className="navPageT">Services</p>
-          </div>
+          <p className="navigateText">
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">Services</span>
+          </p>
 
           <p className="hrMainText">Expert Online Tax Consultant Services</p>
         </div>

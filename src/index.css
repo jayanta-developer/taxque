@@ -42,9 +42,8 @@
 
 .navigateText {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   gap: 8px;
   font-size: 16px;
 }
@@ -63,11 +62,15 @@
   color: #fe8903;
   cursor: pointer;
 }
+.navSeparator {
+  color: #999;
+  user-select: none;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
-.navigateText {
-font-size: 20px;
-}
+  .navigateText {
+    font-size: 20px;
+  }
   .navigateText .navHomeT {
     font-size: 16px;
   }

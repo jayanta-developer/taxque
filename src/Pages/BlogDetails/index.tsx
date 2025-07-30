@@ -60,13 +60,13 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
         <div className="productPageMainSection">
 
 
-          <div className="navigateText">
-            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
-            {">"}
-            <p onClick={() => Navigate("/learn")} className="navPageT">{blogData?.category}</p>
-            {">"}
-            <p className="navSubPageT">{blogData?.title}</p>
-          </div>
+          <p className="navigateText">
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span onClick={() => Navigate("/learn")} className="navPageT">{blogData?.category}</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navSubPageT">{blogData?.title}</span>
+          </p>
 
         </div>
         <div className="productDetailBox">

@@ -55,11 +55,11 @@ export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
 
-          <div className="navigateText">
-            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
-            {">"}
-            <p onClick={() => Navigate("/services")} className="navPageT">{Product_list[0]?.category?.title}</p>
-          </div>
+          <p className="navigateText">
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span onClick={() => Navigate("/services")} className="navPageT">{Product_list[0]?.category?.title}</span>
+          </p>
 
 
 

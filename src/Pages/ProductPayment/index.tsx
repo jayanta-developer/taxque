@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
+
 
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
@@ -25,6 +27,10 @@ export default function ProductPayment({
   setCurrentNav,
   currentNav,
 }: NavProps) {
+  const Navigate = useNavigate();
+
+
+
   return (
     <>
       <div className="productPage productPaymentPage">
@@ -34,10 +40,16 @@ export default function ProductPayment({
         </div>
 
         <div className="productPageMainSection">
+
           <p className="navigateText">
-            Home <span>{">"}</span> Pricing{" "}
-            <span>{">"} GST Compliance and Filing</span>
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">Pricing</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navSubPageT">GST Compliance and Filing</span>
           </p>
+
+
           <div className="productDetailBox">
             <div className="productInfoSection">
               <div className="productHeader">

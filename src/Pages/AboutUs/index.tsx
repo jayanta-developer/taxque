@@ -42,11 +42,11 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
           <img src={pageBg} className="pageBg" />
 
 
-          <div className="navigateText">
+          <p className="navigateText">
             <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
-            {">"}
-            <p className="navPageT">About Us</p>
-          </div>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">About Us</span>
+          </p>
 
           <p className="hrMainText">Our Journey to Simplify Taxes For You</p>
         </div>

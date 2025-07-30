@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
+
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -23,6 +25,7 @@ interface NavProps {
 }
 
 export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   setCurrentNav("");
   const [faqSideNav, setFaqSideNav] = useState(false);
   const [faqNav, setFaqNav] = useState("General Questions");
@@ -44,8 +47,11 @@ export default function FAQ({ setCurrentNav, currentNav }: NavProps) {
             <img src={pageBg} className="pageBg" />
           </div>
           <p className="navigateText">
-            Home <span>{">"} F&Q</span>
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">F&Q</span>
           </p>
+
           <p className="hrMainText">Frequently Asked Tax Questions</p>
         </div>
         <div className="faqMainsection">

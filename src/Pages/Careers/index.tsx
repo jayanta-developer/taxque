@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
+
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -22,6 +24,7 @@ interface NavProps {
 }
 
 export default function Careers({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   setCurrentNav("");
   return (
     <>
@@ -29,9 +32,15 @@ export default function Careers({ setCurrentNav, currentNav }: NavProps) {
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
+
           <p className="navigateText">
-            Home <span>{">"} Careers</span>
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">Careers</span>
           </p>
+
+
+
           <p className="hrMainText">DO YOU HAVE IT IN YOU?</p>
         </div>
         <div className="careersMainSection">
@@ -48,7 +57,7 @@ export default function Careers({ setCurrentNav, currentNav }: NavProps) {
                 expert insights, bold ideas and intellectual courage. You will
                 find your place in an environment built on strong relationships
                 where every associate is empowered to make an impact and is
-                valued for their contributions. We invite you to apply at 
+                valued for their contributions. We invite you to apply at
                 <span> hr@Taxque.com</span> or choose the opportunities that
                 suit you best from the given list of open positions.
               </p>
@@ -67,7 +76,7 @@ export default function Careers({ setCurrentNav, currentNav }: NavProps) {
             </div>
           </div>
         </div>
-        <Subscribe/>
+        <Subscribe />
       </div>
       <Footer />
     </>

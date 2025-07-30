@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
+
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -20,6 +22,7 @@ interface NavProps {
 }
 
 export default function Teams({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   setCurrentNav("Home");
   return (
     <>
@@ -27,9 +30,13 @@ export default function Teams({ setCurrentNav, currentNav }: NavProps) {
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
+
           <p className="navigateText">
-            Home <span>{">"} Team</span>
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span onClick={() => Navigate("/learn")} className="navPageT">Team</span>
           </p>
+
           <p className="hrMainText">Meet Taxque's Dynamic Team</p>
         </div>
         <div className="TeamMainSection">

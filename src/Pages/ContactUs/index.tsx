@@ -31,11 +31,13 @@ export default function ContactUs({ setCurrentNav, currentNav }: NavProps) {
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
 
-          <div className="navigateText">
-            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
-            {">"}
-            <p className="navPageT">Contact Us</p>
-          </div>
+          <p className="navigateText">
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">Contact Us</span>
+          </p>
+
+
 
           <p className="hrMainText">Feel Free To Get In Touch</p>
         </div>

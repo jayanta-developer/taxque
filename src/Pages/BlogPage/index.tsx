@@ -74,11 +74,11 @@ export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
           <img src={pageBg} className="pageBg" />
 
 
-          <div className="navigateText">
-            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
-            {">"}
-            <p className="navPageT">{blogType === undefined ? "All Catagoris" : blogType}</p>
-          </div>
+          <p className="navigateText">
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">{blogType === undefined ? "All Catagoris" : blogType}</span>
+          </p>
 
 
           <p className="hrMainText">News & Press Releases</p>

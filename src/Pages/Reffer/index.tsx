@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
+
 
 //image
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -18,6 +20,7 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 export default function Reffer({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   setCurrentNav("");
   return (
     <>
@@ -25,9 +28,13 @@ export default function Reffer({ setCurrentNav, currentNav }: NavProps) {
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
+
           <p className="navigateText">
-            Home <span>{">"} Reffer</span>
+            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span className="navSeparator"> &gt; </span>
+            <span className="navPageT">Reffer</span>
           </p>
+
           <p className="hrMainText">Refer a Friend & Get Rewarded</p>
         </div>
         <div className="refferMainSection">

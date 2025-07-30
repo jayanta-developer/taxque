@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
+
 
 //Images
 import smPageBG from "../../assets/images/smPageBG.svg";
@@ -26,6 +28,7 @@ import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
+  const Navigate = useNavigate();
   setCurrentNav("");
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.category);
@@ -45,8 +48,11 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
       </div>
       <div className="productPageMainSection careermainSection">
         <p className="navigateText">
-          Home <span>{">"}</span> Careers{" "}
-          <span>{">"} Accounting and Taxation Analyst</span>
+          <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+          <span className="navSeparator"> &gt; </span>
+          <span className="navPageT">Careers</span>
+          <span className="navSeparator"> &gt; </span>
+          <span className="navSubPageT">Accounting and Taxation Analyst</span>
         </p>
         <div className="productDetailBox">
           <div className="productInfoSection">
