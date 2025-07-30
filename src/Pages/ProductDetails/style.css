@@ -72,44 +72,7 @@
   font-size: 20px;
   font-weight: 600;
 }
-/* contact box */
-.contactBox {
-  width: 100%;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  padding: 20px;
-  border-radius: 20px;
-  border: 1px solid rgba(128, 128, 128, 0.192);
-  background: #fff;
-}
-.contactHeader {
-  font-size: 22px;
-  font-weight: 600;
-  color: #121129;
-}
-.inputBox {
-  width: 100%;
-  margin-bottom: 20px;
-}
-.inputLabel {
-  font-size: 16px;
-  color: #979797;
-}
-.inputBox input {
-  width: 100%;
-  border: none;
-  border-bottom: gray 1px solid;
-}
-.inputBox input:focus {
-  outline: none;
-}
-.inputBox textarea {
-  width: 100%;
-  border: none;
-  border-bottom: gray 1px solid;
-}
-.inputBox textarea:focus {
-  outline: none;
-}
+
 .paraSection {
   width: 100%;
   display: flex;
@@ -351,7 +314,13 @@
   justify-content: center;
   align-items: center;
 }
-
+.productContactSection .contactBox {
+  background: linear-gradient(
+    165deg,
+    rgba(184, 255, 146, 0.418) 0%,
+    rgb(253, 255, 200) 59%
+  );
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .productHeader p {

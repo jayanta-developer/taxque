@@ -58,10 +58,9 @@
 }
 .hrMainText {
   width: 80%;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 2.813rem;
+  font-weight: 800;
   color: #000;
-  font-family: poppinsBold;
   text-align: center;
 }
 .hrSummeryText {
@@ -363,7 +362,6 @@
   .hrMainText {
     width: unset;
     text-align: start;
-    font-size: 35px;
   }
   .heroBox {
     min-height: 1000px;
@@ -460,9 +458,6 @@
   }
   .hrImgBox {
     width: 32%;
-  }
-  .hrMainText {
-    font-size: 50px;
   }
   .heroBox {
     min-height: unset;

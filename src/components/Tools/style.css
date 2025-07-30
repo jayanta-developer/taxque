@@ -15,6 +15,9 @@
   );
   border: 1px solid #90ed006e;
 }
+.serviceCard .appBtn {
+  margin-bottom: 15px;
+}
 .svrCardHeader {
   width: 100%;
   display: flex;
@@ -52,6 +55,7 @@
   height: 48%;
   border-radius: 23px;
   overflow: hidden;
+  margin-bottom: 16px;
 }
 .sveCardImgBox img {
   width: 100%;
@@ -551,7 +555,7 @@
 .nodataBox img {
   width: 30%;
 }
-.DropBox {  
+.DropBox {
   height: 44px;
   border: 1px solid gray;
   border-radius: 5px;
@@ -562,7 +566,16 @@
   flex-direction: row;
   position: relative;
   cursor: pointer;
-  background: #ffffffe7;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  appearance: none; /* Removes default arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none;
+  background-image: url("https://img.icons8.com/material-rounded/24/expand-arrow--v1.png");
+  background-repeat: no-repeat;
+  background-position: right 15px center; /* <-- change this to adjust arrow */
+  background-size: 25px;
+  font-size: 1rem;
+  color: #4d4d4d;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {

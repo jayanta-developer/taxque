@@ -7,6 +7,7 @@ interface btnProps {
   width?: string;
   height?: string;
   textColor?: string;
+  textweight?: string;
   icon?: string;
   onClick?: () => void;
 }
@@ -17,6 +18,7 @@ export const AppBtn: React.FC<btnProps> = ({
   width,
   height,
   textColor,
+  textweight,
   icon,
   onClick,
 }) => {
@@ -30,7 +32,7 @@ export const AppBtn: React.FC<btnProps> = ({
         background: bgColor || "#0D203B",
       }}
     >
-      <p style={{ color: textColor || "#fff" }}>{btnText}</p>
+      <p style={{ color: textColor || "#fff", fontWeight: textweight || 500 }}>{btnText}</p>
       {icon ? <img src={icon} alt="" /> : null}
     </div>
   );
@@ -56,7 +58,7 @@ export const AppHoloBtn: React.FC<btnProps> = ({
       }}
     >
       <p style={{ color: textColor || "#fff" }}>{btnText}</p>
-      {icon ? <img style={{width:"19px"}} src={icon} alt="" /> : null}
+      {icon ? <img style={{ width: "19px" }} src={icon} alt="" /> : null}
     </div>
   );
 };

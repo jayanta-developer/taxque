@@ -58,8 +58,6 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
         </div>
 
         <div className="productPageMainSection">
-
-
           <p className="navigateText">
             <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
             <span className="navSeparator"> &gt; </span>
@@ -99,7 +97,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
             ))}
           </div>
           <div className="sideBannerSection">
-            <ContactSection />
+            <ContactSection subjectList={categoryData.data} />
 
             {categoryData?.data?.length && (
               <div className="sideServiceBox">

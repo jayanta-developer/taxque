@@ -84,9 +84,7 @@
   width: 100%;
   overflow-x: scroll;
 }
-.contactBox {
-  min-width: 345px;
-}
+
 /* Tabe view */
 @media only screen and (min-width: 768px) {
 }

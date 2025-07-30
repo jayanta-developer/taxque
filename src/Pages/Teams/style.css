@@ -10,7 +10,14 @@
   gap: 30px;
   margin-bottom: 50px;
 }
-
+.teamSectionTitle{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: -115px;
+  font-size: 1.50rem;
+  font-weight: 700;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .TeamMainSection {

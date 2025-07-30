@@ -40,7 +40,7 @@ export default function Teams({ setCurrentNav, currentNav }: NavProps) {
           <p className="hrMainText">Meet Taxque's Dynamic Team</p>
         </div>
         <div className="TeamMainSection">
-          <p className="sectionHeader">Behind the scenes, Meet Our Team</p>
+          <p className="teamSectionTitle">Behind The Scenes, Meet Our Team</p>
           {memberData?.map((el, i) => (
             <TeamCard {...el} key={i} />
           ))}

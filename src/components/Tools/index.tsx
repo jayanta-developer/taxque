@@ -5,24 +5,11 @@ import parse from 'html-react-parser';
 import truncate from 'truncate-html';
 
 //images
-import UPRightArrow from "../../assets/images/right-up.svg";
-import GreenTik from "../../assets/images/GreenTik.svg";
-import greenTik2 from "../../assets/images/greenTikV2.svg";
-import avatarIcom from "../../assets/images/Avatar.svg";
-import watchIcom from "../../assets/images/timeIcon.svg";
-import facebookIcon from "../../assets/images/facebookIcon.svg";
-import twittercon from "../../assets/images/twitterIcon.svg";
-import linkdinIcon from "../../assets/images/linkdinIcon.svg";
-import locationIcon from "../../assets/images/locationYicon.svg";
-import watchYIcom from "../../assets/images/watchYicon.svg";
-import blackArrowIcon from "../../assets/images/blackArrowIcon.svg";
-import star from "../../assets/images/star.png";
-import ITNIcon from "../../assets/images/ITNIcon.svg";
-// import loaderImg from "../../assets/Images/lodingGif.gif";
-import featuresIcon from "../../assets/images/featuresIcon.png";
+import { Image } from "../../assets/images";
+
 
 //components
-import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
+import { AppOrangeBtn, AppHoloBtn, AppBtn } from "../Buttons";
 
 import { ServiceDataType } from "../../store/categorySlice";
 import { BlogDataType } from "../../store/blogSlice";
@@ -74,6 +61,8 @@ interface jobcardProps {
   responsibilities?: string[];
   Skill?: string[];
 }
+
+
 export const ServiceCard = ({
   imageUrl,
   title,
@@ -93,12 +82,7 @@ export const ServiceCard = ({
   return (
     <div className="serviceCard">
       <div className="svrCardHeader">
-        <img src={ITNIcon} />
-        <img
-          className="svrUpArrow"
-          src={UPRightArrow}
-          onClick={handleCategoryClick}
-        />
+        <img src={Image.ITNIcon} />
         <p
           onClick={handleCategoryClick}
         >{title}</p>
@@ -107,6 +91,7 @@ export const ServiceCard = ({
       <p className="svrCardSummery">
         {parse(truncatedHTML)}
       </p>
+      <AppHoloBtn onClick={handleCategoryClick} btnText="Red More" height="30px" width="130px" />
       <div className="sveCardImgBox">
         <img src={imageUrl} alt="" />
       </div>
@@ -187,7 +172,7 @@ export const PriceCard = ({
       <div className="pcSummerySection">
         {fetures.map((el: string, i: number) => (
           <div key={i} className="pcFeturesPera">
-            <img src={GreenTik} />
+            <img src={Image.GreenTik} />
             <p key={i}>{el}</p>
           </div>
         ))}
@@ -212,11 +197,11 @@ export const BlogCard = ({
         <div className="BlogUserOutBox">
           <div className="BlogUserBox">
             <div className="buABox">
-              <img src={avatarIcom} />
+              <img src={Image.avatarIcom} />
               <p>Amit</p>
             </div>
             <div className="buABox">
-              <img src={watchIcom} />
+              <img src={Image.watchIcom} />
               <p>{date}</p>
             </div>
           </div>
@@ -228,7 +213,7 @@ export const BlogCard = ({
         </p>
       </div>
       <img
-        src={UPRightArrow}
+        src={Image.UPRightArrow}
         className="UpRArrow"
         onClick={() => {
           if (_id) {
@@ -250,9 +235,9 @@ export const MemberCard = ({ name, possession, img }: MemberCardProps) => {
         <p className="mbName">{name}</p>
         <p className="mbpos">{possession}</p>
         <div className="mbIconBox">
-          <img src={facebookIcon} />
-          <img src={twittercon} />
-          <img src={linkdinIcon} />
+          <img src={Image.facebookIcon} />
+          <img src={Image.twittercon} />
+          <img src={Image.linkdinIcon} />
         </div>
       </div>
     </div>
@@ -275,12 +260,12 @@ export const BlogRowCard = ({
       <div className="BlogTextBox">
         <div className="blogBUserInfoBox">
           <div className="buABox">
-            <img src={avatarIcom} />
+            <img src={Image.avatarIcom} />
             {/* <p>Amit</p> */}
           </div>
 
           <div className="buABox">
-            <img src={watchIcom} />
+            <img src={Image.watchIcom} />
             <p>{date}</p>
           </div>
         </div>
@@ -299,7 +284,7 @@ export const BlogRowCard = ({
           {/* {blogText[0]?.summarys[0]?.summary?.length > 200 ? "..." : "."} */}
         </p>
         <img
-          src={UPRightArrow}
+          src={Image.UPRightArrow}
           className="UpRArrow"
           onClick={() => {
             if (_id) {
@@ -329,9 +314,9 @@ export const TeamCard = ({
         <img src={img} className="ucAvatarImg" />
         <div className="mbCardInfo">
           <div className="mbIconBox">
-            <img src={facebookIcon} />
-            <img src={twittercon} />
-            <img src={linkdinIcon} />
+            <img src={Image.facebookIcon} />
+            <img src={Image.twittercon} />
+            <img src={Image.linkdinIcon} />
           </div>
         </div>
       </div>
@@ -347,7 +332,7 @@ export const TeamCard = ({
 export const FeaturesCard = ({ title, summary }: FeaturesProps) => {
   return (
     <div className="featuresCard">
-      <img src={featuresIcon} alt="" />
+      <img src={Image.featuresIcon} alt="" />
       <p className="fecTitle">{title}</p>
       <div className="fcHrLine"></div>
       <p className="fecSummery">{summary}</p>
@@ -385,18 +370,18 @@ export const JobCard = ({
       <p className="jobCardTitle">{title}</p>
       <div className="jcInfobox">
         <div className="buABox">
-          <img src={locationIcon} />
+          <img src={Image.locationIcon} />
           <p>{location}</p>
         </div>
         <div className="buABox">
-          <img src={watchYIcom} />
+          <img src={Image.watchYIcom} />
           <p>{jobType}</p>
         </div>
       </div>
       <p className="jobCardSummary">{summary.slice(0, 102)}...</p>
       <AppHoloBtn
         btnText="Apply Now"
-        icon={blackArrowIcon}
+        icon={Image.blackArrowIcon}
         width="60%"
         onClick={() => {
           Navigate("/career-details");
@@ -429,7 +414,7 @@ export const ProductCard = ({
   return (
     <div className="serviceCard productCard">
       <div className="svrCardHeader">
-        <img src={ITNIcon} />
+        <img src={Image.ITNIcon} />
         <p
           onClick={handleClickProductCard}
         >{title}</p>
@@ -443,10 +428,10 @@ export const ProductCard = ({
         <div className="pcRating">
           <p>4.8</p>
           <div className="ratingBOx">
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
+            <img src={Image.star} />
+            <img src={Image.star} />
+            <img src={Image.star} />
+            <img src={Image.star} />
           </div>
         </div>
       </div>
@@ -460,7 +445,7 @@ export const ProductCard = ({
       <div className="pcFeturesBox">
         {feturePoints?.map((el, i) => (
           <div key={i} className="checkBox">
-            <img src={greenTik2} alt="" />
+            <img src={Image.greenTik2} alt="" />
             <p>{el?.title}</p>
           </div>
         ))}

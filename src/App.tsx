@@ -171,12 +171,12 @@ function App() {
         <Route
           path="/contact-us"
           element={
-            <ProtectedRoute>
-              <ContactUs
-                setCurrentNav={setCurrentNav}
-                currentNav={currentNav}
-              />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <ContactUs
+              setCurrentNav={setCurrentNav}
+              currentNav={currentNav}
+            />
+            // </ProtectedRoute>
           }
         />
         <Route

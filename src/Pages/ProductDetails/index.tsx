@@ -30,6 +30,7 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 import { FetchProdcut, ProductDataType } from "../../store/productSlice";
+import { FetchService } from "../../store/categorySlice"
 
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,6 +42,7 @@ export default function ProductDetails({
   const selectedProductId = localStorage.getItem("selectedProduct");
   setCurrentNav("Services");
   const { data, status } = useSelector((state: RootState) => state.product);
+  const Service = useSelector((state: RootState) => state.category)
   const dispatch = useDispatch<AppDispatch>();
   const [activeSection, setActiveSection] = useState<string>("");
   console.log(activeSection);
@@ -115,8 +117,12 @@ export default function ProductDetails({
 
   useEffect(() => {
     dispatch(FetchProdcut());
+    dispatch(FetchService());
     if (data?.length < 0) {
       dispatch(FetchProdcut());
+    }
+    if (Service.data?.length < 0) {
+      dispatch(FetchService());
     }
   }, []);
 
@@ -191,7 +197,7 @@ export default function ProductDetails({
                   </div>
                 </div>
                 <div className="productContactSection">
-                  <ContactSection />
+                  <ContactSection subjectList={Service.data} />
                 </div>
               </div>
             </>

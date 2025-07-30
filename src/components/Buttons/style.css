@@ -10,7 +10,6 @@
 }
 .appBtn p {
   font-size: 18px !important;
-  font-weight: 700 !important;
 }
 .appBtn:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
