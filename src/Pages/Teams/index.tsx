@@ -34,7 +34,7 @@ export default function Teams({ setCurrentNav, currentNav }: NavProps) {
           <p className="navigateText">
             <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
             <span className="navSeparator"> &gt; </span>
-            <span onClick={() => Navigate("/learn")} className="navPageT">Team</span>
+            <span className="navPageT">Team</span>
           </p>
 
           <p className="hrMainText">Meet Taxque's Dynamic Team</p>
