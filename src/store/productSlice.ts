@@ -2,14 +2,9 @@ import Axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
-// import { STATUSES } from "./categorySlice";
 import { baseURL } from "../App";
+import { STATUSES } from "./statusTypes";
 
-const STATUSES = {
-  IDLE: "idle",
-  LOADING: "loading",
-  ERROR: "error",
-};
 
 export interface stepDataType {
   title: string;

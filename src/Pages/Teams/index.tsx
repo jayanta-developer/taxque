@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
@@ -13,17 +13,31 @@ import Footer from "../../components/Footer";
 import { TeamCard } from "../../components/Tools";
 import { AppBtn } from "../../components/Buttons";
 
-//data
-import { memberData } from "../../assets/Data";
-
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+import { FetchTeam } from "../../store/teamSlice"
+
 export default function Teams({ setCurrentNav, currentNav }: NavProps) {
   const Navigate = useNavigate();
   setCurrentNav("Home");
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, status } = useSelector((state: RootState) => state.team);
+
+
+
+
+  useEffect(() => {
+    dispatch(FetchTeam());
+    if (data?.length < 0) {
+      dispatch(FetchTeam());
+    }
+  }, []);
   return (
     <>
       <div className="BlogPage teamPage">
@@ -41,7 +55,7 @@ export default function Teams({ setCurrentNav, currentNav }: NavProps) {
         </div>
         <div className="TeamMainSection">
           <p className="teamSectionTitle">Behind The Scenes, Meet Our Team</p>
-          {memberData?.map((el, i) => (
+          {data?.map((el, i) => (
             <TeamCard {...el} key={i} />
           ))}
         </div>

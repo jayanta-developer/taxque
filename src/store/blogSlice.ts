@@ -3,12 +3,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
 import { baseURL } from "../App";
+import { STATUSES } from "./statusTypes";
 
-export enum STATUSES {
-  IDLE = "idle",
-  ERROR = "error",
-  LOADING = "loading",
-}
 export interface blogTextType {
   title: string;
   summarys: { summary: string }[];

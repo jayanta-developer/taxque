@@ -21,6 +21,7 @@ interface TaxQueCardProps {
 }
 
 import { ProductDataType } from "../../store/productSlice";
+import { TeamDataType } from "../../store/teamSlice"
 interface PriceCardProps {
   title: string;
   basicPrice: string;
@@ -227,17 +228,29 @@ export const BlogCard = ({
   );
 };
 
-export const MemberCard = ({ name, possession, img }: MemberCardProps) => {
+export const MemberCard = ({ imgUrl, name, role, media }: TeamDataType) => {
   return (
     <div className="userCard">
-      <img src={img} className="ucAvatarImg" />
+      <img src={imgUrl} className="ucAvatarImg" />
       <div className="mbCardInfo">
         <p className="mbName">{name}</p>
-        <p className="mbpos">{possession}</p>
+        <p className="mbpos">{role}</p>
         <div className="mbIconBox">
-          <img src={Image.facebookIcon} />
-          <img src={Image.twittercon} />
-          <img src={Image.linkdinIcon} />
+          {media?.facebook && media.facebook.trim() && (
+            <a href={media.facebook} target="_blank" rel="noopener noreferrer">
+              <img src={Image.facebookIcon} alt="Facebook" />
+            </a>
+          )}
+          {media?.twitter && media.twitter.trim() && (
+            <a href={media.twitter} target="_blank" rel="noopener noreferrer">
+              <img src={Image.twittercon} alt="Twitter" />
+            </a>
+          )}
+          {media?.linkedin && media.linkedin.trim() && (
+            <a href={media.linkedin} target="_blank" rel="noopener noreferrer">
+              <img src={Image.linkdinIcon} alt="LinkedIn" />
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -304,26 +317,40 @@ export const GoTop = () => {
 
 export const TeamCard = ({
   name,
-  possession,
-  img,
+  imgUrl,
+  role,
   summary,
-}: MemberCardProps) => {
+  media
+}: TeamDataType) => {
   return (
     <div className="teamCard">
       <div className="userCard">
-        <img src={img} className="ucAvatarImg" />
+        <img src={imgUrl} className="ucAvatarImg" />
         <div className="mbCardInfo">
           <div className="mbIconBox">
-            <img src={Image.facebookIcon} />
-            <img src={Image.twittercon} />
-            <img src={Image.linkdinIcon} />
+            {media?.facebook && media.facebook.trim() && (
+              <a href={media.facebook} target="_blank" rel="noopener noreferrer">
+                <img src={Image.facebookIcon} alt="Facebook" />
+              </a>
+            )}
+            {media?.twitter && media.twitter.trim() && (
+              <a href={media.twitter} target="_blank" rel="noopener noreferrer">
+                <img src={Image.twittercon} alt="Twitter" />
+              </a>
+            )}
+            {media?.linkedin && media.linkedin.trim() && (
+              <a href={media.linkedin} target="_blank" rel="noopener noreferrer">
+                <img src={Image.linkdinIcon} alt="LinkedIn" />
+              </a>
+            )}
           </div>
         </div>
       </div>
       <div className="teamNote">
         <p className="mbName">{name}</p>
-        <p className="mbpos">{possession}</p>
-        <p className="mbposSummary">{summary}</p>
+        <p className="mbpos">{role}</p>
+        {/* <p className="mbposSummary">{parse(summary || "")}</p> */}
+        <div className="mbposSummary">{parse(summary || "")}</div>
       </div>
     </div>
   );

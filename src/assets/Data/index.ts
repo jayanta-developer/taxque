@@ -218,37 +218,6 @@ export const BlogData = [
 ];
 
 
-export const memberData = [
-  {
-    name: "Bhavna Ahuja",
-    possession: "Managing Partner/CEO",
-    img: user1,
-    summary:
-      "Bhavna Ahuja is a Harvard Business School graduate who worked at senior levels in the Indian Revenue Service for 13 years before resigning as Joint Commissioner at age 35.",
-  },
-  {
-    name: "Saimon Jhonson",
-    possession: "Tax Consultant",
-    img: user2,
-    summary:
-      "Samir jayaswal is Starting as a Finance Associate to a Product Manager, followed by Taxation Manager and finally as Head of Operations, CA Brij's self-motivation led him to excel in every position.",
-  },
-  {
-    name: "Samir Jayaswal",
-    possession: "ROC Compliance Expert",
-    img: user3,
-    summary:
-      "As the Founder of Fint, Srinivas Reddyhas dedicated his career to providing the Los Angeles County community with a higher standard of tax consulting services. Over the years.",
-  },
-  {
-    name: "Kevin Pitersen",
-    possession: "GST Specialist",
-    img: user4,
-    summary:
-      "Saimon jhonson is the force that powers the development of SSBA. He holds a Masters in Computer Science and has over two decades of rich professional experience across Asia.",
-  },
-];
-
 export const ParaSection: paraType[] = [
   {
     title: "Overview",

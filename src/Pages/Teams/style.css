@@ -10,12 +10,12 @@
   gap: 30px;
   margin-bottom: 50px;
 }
-.teamSectionTitle{
+.teamSectionTitle {
   position: absolute;
   width: 100%;
   text-align: center;
   top: -115px;
-  font-size: 1.50rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 /* Tabe view */

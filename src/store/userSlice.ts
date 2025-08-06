@@ -3,12 +3,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
 import { baseURL } from "../App";
+import { STATUSES } from "./statusTypes";
 
-export enum STATUSES {
-  IDLE = "idle",
-  ERROR = "error",
-  LOADING = "loading",
-}
 
 export interface UserDataType {
   name: string;
@@ -22,7 +18,7 @@ export interface UserDataType {
         docUrl: String;
         status: String;
         rejectMessage: String;
-         _id?: string;
+        _id?: string;
       }
     ];
     productId: string;
@@ -47,7 +43,7 @@ export interface docType {
   docUrl?: String[];
   status?: String;
   rejectMessage?: String;
-   _id?: string;
+  _id?: string;
 }
 interface UpdateUserArgs {
   productId: string;
@@ -75,7 +71,7 @@ interface UpdateDocArgs {
     docId: string;
     newMessage: string;
     status: string;
-    docUrl:string;
+    docUrl: string;
     _id?: string;
   }
 }

@@ -1,6 +1,6 @@
-import "./style.css";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./style.css";
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -22,18 +22,34 @@ import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import WCTQCarousel from "../../components/WCTQCarosel";
 import MyCarousel from "../../components/Carousel";
+
 //data
-import { memberData } from "../../assets/Data";
+// import { memberData } from "../../assets/Data";
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+import { FetchTeam } from "../../store/teamSlice"
+
+
+
 export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("About Us");
   const Navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, status } = useSelector((state: RootState) => state.team);
 
 
+
+  useEffect(() => {
+    dispatch(FetchTeam());
+    if (data?.length < 0) {
+      dispatch(FetchTeam());
+    }
+  }, []);
   return (
     <>
       <div className="servicesPage aboutPage">
@@ -147,7 +163,7 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
           <img className="grb1" src={YellowBg} />
           <p className="sectionHeader">Leadership & Management</p>
           {/* <AppSlider data={memberData} cardName="memberCard" /> */}
-          <MyCarousel data={memberData} cardName="memberCard" />
+          <MyCarousel data={data} cardName="memberCard" />
           <div className="btnBox">
             <AppBtn btnText="Explore" width="200px" height="40px" />
           </div>
