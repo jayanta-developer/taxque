@@ -57,6 +57,37 @@ export default function ProductDetails({
     id: string;
   }
 
+
+  // const SectionList = [
+  //   {
+  //     overview: {
+  //       title: "OverView ",
+  //     }
+  //   },
+  //   {
+  //     Steps: [],
+  //   },
+  //   {
+  //     FAQ: [],
+  //   },
+  //   {
+  //     documentsRequired: {
+  //       title: "What Are the Documents Required for Private Limited Company Registration?",
+  //       summarys: [
+  //         "Registering a Private Limited Company in India involves submitting key documents that verify the identity and address of the people and entities involved. These documents are required to meet the regulations set by the Ministry of Corporate Affairs (MCA) and ensure the company complies with all legal standards.\n",
+  //         "The type of documents you’ll need depends on your role—whether you’re an Indian director, a foreign director, or a corporate shareholder. In addition to personal identification and address proofs, documents like a registered office address, Digital Signature Certificate (DSC), and Director Identification Number (DIN) are mandatory for the company’s incorporation.",
+  //         "To make it easier, the table below lists all the documents required for Private Limited Company registration, organized by category for quick reference."
+  //       ],
+  //     }
+  //   },
+  //   {
+  //     difference:{}
+  //   }
+  // ]
+
+
+
+
   //  const scrollToSection = (id: string): void => {
   //     const section = document.getElementById(id);
   //     if (section) {
@@ -87,25 +118,30 @@ export default function ProductDetails({
   };
 
   useEffect(() => {
-    if (!ParaSection || ParaSection.length === 0) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // console.log(entry.target.id);
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { root: null, rootMargin: "-100px 0px 0px 0px", threshold: 0.6 }
-    );
-    ParaSection?.forEach((el) => {
-      const section = document.getElementById(el?.id);
-      if (section) observer.observe(section);
-    });
+    const timeout = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(entry.target.id);
+            }
+          });
+        },
+        { root: null, rootMargin: "-100px 0px 0px 0px", threshold: 0.6 }
+      );
 
-    return () => observer.disconnect();
-  }, [ParaSection]);
+      ParaSection.forEach((el) => {
+        const section = document.getElementById(el?.id);
+        if (section) observer.observe(section);
+      });
+
+      return () => observer.disconnect();
+    }, 500); // give time for DOM to render
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+
 
   const handleQuestionIndex = (i: number) => {
     if (i === questionIndex) {
@@ -210,6 +246,8 @@ export default function ProductDetails({
 
           {/* PeraSection */}
           <div className="paraSection">
+
+            {/* Product Nav Bar */}
             <div className="paraNavOuterBox">
               <div className="paraNavSection">
                 {ParaSection?.map((el, i) => (
