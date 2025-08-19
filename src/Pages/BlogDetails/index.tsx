@@ -87,7 +87,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
 
             {blogData?.blogText?.map((el, i) => (
               <div key={i}>
-                <h1 className="blogMtitle">{el.title}</h1>
+                <h2 className="blogMtitle">{el.title}</h2>
                 {el?.summarys?.map((sm, ind: number) => (
                   <p className="blogNText" key={ind}>
                     {parse(sm?.summary)}

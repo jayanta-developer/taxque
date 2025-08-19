@@ -26,6 +26,7 @@ interface PriceCardProps {
   title: string;
   basicPrice: string;
   price: string;
+  plan: string;
   summary: string;
   fetures: string[];
   MostPopular: boolean;
@@ -94,7 +95,7 @@ export const ServiceCard = ({
       </p>
       <AppHoloBtn onClick={handleCategoryClick} btnText="Red More" height="30px" width="130px" />
       <div className="sveCardImgBox">
-        <img src={imageUrl} alt="" />
+        <img onClick={handleCategoryClick} src={imageUrl} alt="" />
       </div>
     </div>
   );
@@ -114,6 +115,7 @@ export const PriceCard = ({
   title,
   basicPrice,
   price,
+  plan,
   summary,
   fetures,
   MostPopular,
@@ -150,10 +152,10 @@ export const PriceCard = ({
       <div className="pcHeroSection">
         <p className="pcTitle">{title}</p>
         <p className="pcbasPrice">
-          Basic Price: ₹{basicPrice} <span></span>
+          Market Price : ₹{basicPrice} <span></span>
         </p>
         <p className="pcPrice">
-          ₹ {price} <samp>/month</samp>
+          ₹ {price} <samp>/{plan}</samp>
         </p>
         <p className="psSummery">{summary}</p>
         {MostPopular ? (

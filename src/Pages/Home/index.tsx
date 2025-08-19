@@ -65,6 +65,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       setCurrentDisplayPrice(latestDate.toISOString());
     }
   })
+  console.log(displyaPricePlane);
 
 
 
@@ -95,12 +96,11 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         <div className="heroMainSection">
           <div className="hrTextBox">
             <p className="hrMainText">
-              Simplifying Your Tax and Compliance Journey.
+              Welcome to TaxQue
+              Simplifying Taxes for You!
             </p>
             <p className="hrSummeryText">
-              Our expertise spans across crucial areas like GST, Income Tax, ROC
-              Compliance, and Business Registrations, ensuring a seamless
-              financial experience for you.
+              Simplifying finances since 2019, TaxQue is the trusted choice for businesses and individuals in need of expert taxation and compliance services. Our mission is to deliver solutions that are accurate, timely, and hassle-free.
             </p>
             <AppBtn
               btnText="Get An Appointment"
@@ -160,19 +160,13 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         </div>
         <div className="taxTextBox">
           <p className="taxTitle">
-            Your Trusted Partner for Expert Income Tax Return Verification
+            Our Commitment
           </p>
           <p className="taxSummery">
-            Are you a business owner or salaried professional looking for tax
-            guidance? Taxbuddy is here to offer the best tax filing service in
-            India. With experts guiding you for better tax planning, assisted
-            ITR filing, Resolving Income tax notices, and filing Tax appeals,
-            you cannot go wrong with Taxbuddy. As an Indian taxpayer, you know
-            the complexities of tax filing and the consequences of the smallest
-            error in your returns. We make sure that you never miss a deadline,
-            make a calculation error, or omit an item from your returns. Our
-            platform covers diverse needs and facilitates tax filing for
-            everyone.
+            Your success is our priority. At TaxQue by ARB Fintech LLP, we are committed to building lasting relationships by delivering exceptional service with integrity and professionalism. We aim to make your experience effortless and rewarding, whether you’re filing taxes, registering a business, or seeking financial advice.
+          </p>
+          <p className="taxSummery">
+            We take pride in simplifying complex processes, allowing you to focus on growing your business and achieving your dreams with confidence.
           </p>
           <AppBtn
             btnText="Know About Us"

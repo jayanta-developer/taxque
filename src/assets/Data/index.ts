@@ -27,13 +27,6 @@ import BlogImg1 from "../../assets/images/BlogImg1.png";
 import BlogImg2 from "../../assets/images/BlogImg2.png";
 import BlogImg3 from "../../assets/images/BlogImg3.png";
 
-import user1 from "../../assets/images/user1.png";
-import user2 from "../../assets/images/user2.png";
-import user3 from "../../assets/images/user3.png";
-import user4 from "../../assets/images/user4.png";
-
-// import featuresIcon from "../images/featuresIcon.png";
-
 interface paraType {
   title: string;
   id: string;
@@ -106,26 +99,32 @@ export const servicesData = [
 export const TaxQueData = [
   {
     icon: expertIcon,
-    title: "Expert Professionals",
+    title: "Unmatched Expertise",
     summery:
-      "Our team consists of experienced tax consultants and chartered accountants.",
+      "Our team of seasoned professionals delivers deep knowledge in accounting, taxation, and legal services",
   },
   {
     icon: tailoredIcon,
-    title: "Tailored Solutions",
+    title: "Customer-Centric Approach",
     summery:
-      "We understand that every business is unique. Our solutions are customized to fit your specific needs.",
+      "We prioritize your needs with personalized support and prompt responses.",
   },
   {
     icon: timelyIcom,
-    title: "Timely Service",
-    summery: "We prioritize deadlines and ensure compliance without delays.",
+    title: "Nationwide Reach",
+    summery: "Serving clients across India, we understand both local and national compliance requirements",
   },
   {
     icon: securityIcon,
-    title: "Data Security",
+    title: "Technology-Driven",
     summery:
-      "Your financial data is handled with the utmost care and confidentiality.",
+      "Our secure, user-friendly platform ensures seamless and efficient service delivery.",
+  },
+  {
+    icon: expertIcon,
+    title: "Affordable & Transparent",
+    summery:
+      "We provide high-value services at competitive prices with no hidden costs",
   },
 ];
 

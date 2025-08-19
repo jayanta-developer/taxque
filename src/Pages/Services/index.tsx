@@ -51,7 +51,7 @@ export default function Services({ setCurrentNav, currentNav }: NavProps) {
             <span className="navPageT">Services</span>
           </p>
 
-          <p className="hrMainText">Our Service</p>
+          <p className="hrMainText">Our Comprehensive Services</p>
         </div>
         <div className="serviceMainSection">
           {data?.map((el, i) => (
