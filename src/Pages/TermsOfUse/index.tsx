@@ -8,6 +8,8 @@ import policyPointIcon from "../../assets/images/policyPointIcon.svg";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+import { openMail } from "../../components/Tools"
+
 
 interface NavProps {
   currentNav: string;
@@ -116,7 +118,7 @@ export default function TermsOfUse({ setCurrentNav, currentNav }: NavProps) {
             </li>
             <li>Ensure all activities under your account are authorized.</li>
             <li>
-              Notify TaxQue immediately at info@taxque.in of any unauthorized
+              Notify TaxQue immediately at <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a> of any unauthorized
               access, security breach, or suspicious activity.
             </li>
             <li>
@@ -198,7 +200,7 @@ export default function TermsOfUse({ setCurrentNav, currentNav }: NavProps) {
 
           <ul>
             <li>
-              Cancellation requests must be submitted in writing to info@taxque.in before service processing begins
+              Cancellation requests must be submitted in writing to <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a> before service processing begins
             </li>
             <li>
               A cancellation fee of 20% of the service fee (excluding government fees and taxes) will be deducted.
@@ -331,7 +333,7 @@ export default function TermsOfUse({ setCurrentNav, currentNav }: NavProps) {
             </li>
             <li>Provide false, misleading, or fraudulent information.
             </li>
-            <li> <b>Termination by User :</b>You may terminate your account by contacting info@taxque.in. Termination does not relieve you of obligations to pay outstanding fees or comply with these Terms.
+            <li> <b>Termination by User :</b>You may terminate your account by contacting <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a>. Termination does not relieve you of obligations to pay outstanding fees or comply with these Terms.
             </li>
             <li> <b>Effect of Termination: </b>Upon termination</li>
             <li>Your access to the platform and services ceases immediately.
@@ -374,7 +376,7 @@ export default function TermsOfUse({ setCurrentNav, currentNav }: NavProps) {
             <li> For queries, feedback, grievances, or support, please contact</li>
             <li> <b>TaxQue by ARB FinTech LLP</b></li>
             <li> <b>Contact Person :</b> Md Afzal</li>
-            <li> <b>Email :</b> info@taxque.in</li>
+            <li> <b>Email :</b> <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a></li>
             <li> <b>Address :</b> Surbhi Vihar, Mithapur, Patna, Bihar 800001, India</li>
             <li> <b>Grievance Redressal :</b> Grievances will be addressed within 7-14 business days. Escalated issues may be referred to our compliance team</li>
           </ul>
@@ -393,7 +395,7 @@ export default function TermsOfUse({ setCurrentNav, currentNav }: NavProps) {
             </li>
             <li> <b>Assignment :</b> You may not assign your rights or obligations under these Terms without TaxQue’s prior written consent. TaxQue may assign its rights or obligations to affiliates or successors without notice.
             </li>
-            <li> <b>Notices :</b> All notices from TaxQue will be sent via email, platform notifications, or the Site. Notices from you must be sent to info@taxque.in.
+            <li> <b>Notices :</b> All notices from TaxQue will be sent via email, platform notifications, or the Site. Notices from you must be sent to <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a>.
             </li>
             <li> <b>Third-Party Services :</b>  The platform may integrate with third-party services (e.g., payment gateways, government portals). TaxQue is not responsible for the performance, availability, or terms of such services.
             </li>

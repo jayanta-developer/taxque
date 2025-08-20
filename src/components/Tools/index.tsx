@@ -541,3 +541,18 @@ export const DropBox = ({ setDropVal, list, defaultVal, width }: dropProps) => {
     </select>
   );
 };
+
+
+export const openMail = (email: string, subject?: string, body?: string) => {
+  let mailtoLink = `mailto:${email}`;
+
+  const params = [];
+  if (subject) params.push(`subject=${encodeURIComponent(subject)}`);
+  if (body) params.push(`body=${encodeURIComponent(body)}`);
+
+  if (params.length > 0) {
+    mailtoLink += `?${params.join("&")}`;
+  }
+
+  window.location.href = mailtoLink;
+};
