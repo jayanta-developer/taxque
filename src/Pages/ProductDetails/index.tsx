@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import parse from 'html-react-parser';
 import "./style.css";
 
 //images
@@ -45,71 +47,23 @@ export default function ProductDetails({
   const Service = useSelector((state: RootState) => state.category)
   const dispatch = useDispatch<AppDispatch>();
   const [activeSection, setActiveSection] = useState<string>("");
-  console.log(activeSection);
 
   const [loding, setLoading] = useState(false);
   const [Product, setProduct] = useState<ProductDataType>();
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
+  const [navItems, setNavItems] = useState<string[]>([]);
 
 
-  interface paraType {
-    title: string;
-    id: string;
-  }
-
-
-  // const SectionList = [
-  //   {
-  //     overview: {
-  //       title: "OverView ",
-  //     }
-  //   },
-  //   {
-  //     Steps: [],
-  //   },
-  //   {
-  //     FAQ: [],
-  //   },
-  //   {
-  //     documentsRequired: {
-  //       title: "What Are the Documents Required for Private Limited Company Registration?",
-  //       summarys: [
-  //         "Registering a Private Limited Company in India involves submitting key documents that verify the identity and address of the people and entities involved. These documents are required to meet the regulations set by the Ministry of Corporate Affairs (MCA) and ensure the company complies with all legal standards.\n",
-  //         "The type of documents you’ll need depends on your role—whether you’re an Indian director, a foreign director, or a corporate shareholder. In addition to personal identification and address proofs, documents like a registered office address, Digital Signature Certificate (DSC), and Director Identification Number (DIN) are mandatory for the company’s incorporation.",
-  //         "To make it easier, the table below lists all the documents required for Private Limited Company registration, organized by category for quick reference."
-  //       ],
-  //     }
-  //   },
-  //   {
-  //     difference:{}
-  //   }
-  // ]
-
-
-
-
-  //  const scrollToSection = (id: string): void => {
-  //     const section = document.getElementById(id);
-  //     if (section) {
-  //       const offset = 100;
-  //       const topPosition =
-  //         section.getBoundingClientRect().top + window.scrollY - offset;
-  //       window.scrollTo({ top: topPosition, behavior: "smooth" });
-  //     }
-  //     setActiveSection(id);
-  //   };
-
-  const handlePDClick = (props: paraType) => {
+  const handlePDClick = (props: string) => {
     setLoading(false)
-    const section = document.getElementById(props.id);
+    const section = document.getElementById(props);
     if (section) {
       const offset = 100;
-      const topPosition =
-        section.getBoundingClientRect().top + window.scrollY - offset;
+      const topPosition = section.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: topPosition, behavior: "smooth" });
     }
     // scrollToSection(props?.id);
-    setActiveSection(props?.id);
+    setActiveSection(props);
   };
 
   const openWhatsapp = () => {
@@ -117,29 +71,61 @@ export default function ProductDetails({
     window.open(url, "_blank");
   };
 
+
+
+  // section Observe function 
+  // useEffect(() => {
+  //   if (!ParaSection || ParaSection.length === 0) return;
+
+  //   let observer: IntersectionObserver | null = null;
+  //   observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           console.log("Intersecting:", entry.target.id);
+  //           setActiveSection(entry.target.id);
+  //         }
+  //       });
+  //     },
+  //     { root: null, threshold: 0.2 }
+  //   );
+
+  //   ParaSection.forEach((el) => {
+  //     const section = document.getElementById(el?.id);
+  //     if (section) {
+  //       console.log("Observing:", el?.id);
+  //       observer.observe(section);
+  //     }
+  //   });
+
+  //   return () => {
+  //     if (observer) observer.disconnect();
+  //   };
+  // }, [ParaSection, navItems]);
+
+
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(entry.target.id);
-            }
-          });
-        },
-        { root: null, rootMargin: "-100px 0px 0px 0px", threshold: 0.6 }
-      );
+    if (!navItems.length) return; // wait until navItems exist
 
-      ParaSection.forEach((el) => {
-        const section = document.getElementById(el?.id);
-        if (section) observer.observe(section);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log("Visible section:", entry?.target?.id);
+          setActiveSection(entry.target.id);
+
+        }
       });
+    }, { threshold: 0.5 });
 
-      return () => observer.disconnect();
-    }, 500); // give time for DOM to render
+    navItems.forEach((item) => {
+      const el = document.getElementById(item.toUpperCase());
+      console.log(el);
 
-    return () => clearTimeout(timeout);
-  }, []);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [navItems, Product]);
 
 
 
@@ -150,6 +136,54 @@ export default function ProductDetails({
       setQuestionIndex(i);
     }
   };
+
+
+
+  //Create Product Section array
+
+  const sectionConfig: { key: string; label: string }[] = [
+    { key: "overView", label: "Overview" },
+    { key: "whatIs", label: "What is" },
+    { key: "keyFeature", label: "Key Features" },
+    { key: "benefits", label: "Benefits" },
+    { key: "difference", label: "Difference" },
+    { key: "documentsRequired", label: "Documents Required" },
+    { key: "MCACompliance", label: "MCA Compliance" },
+    { key: "Eligibility", label: "Eligibility" },
+    { key: "DueDate", label: "Due Date" },
+    { key: "Steps", label: "Steps" },
+    { key: "ThresholdLimits", label: "Threshold Limits" },
+    { key: "FAQ", label: "FAQ" },
+
+  ];
+
+
+  useEffect(() => {
+    if (!Product) return;
+
+    const newNavItems = sectionConfig
+      .filter(({ key }) => {
+        const value = (Product as Record<string, any>)[key];
+        if (!value) return false;
+
+        if (Array.isArray(value)) return value.length > 0;
+        if (typeof value === "object") {
+          return Object.values(value).some(v => {
+            if (Array.isArray(v)) return v.length > 0;
+            if (typeof v === "string") return v.trim().length > 0;
+            if (typeof v === "object" && v !== null) return Object.keys(v).length > 0;
+            return false;
+          });
+        }
+        if (typeof value === "string") return value.trim().length > 0;
+
+        return false;
+      })
+      .map(({ label }) => label);
+
+    setNavItems(newNavItems);
+  }, [Product]);
+
 
   useEffect(() => {
     dispatch(FetchProdcut());
@@ -169,6 +203,12 @@ export default function ProductDetails({
   return (
     <>
       <div className="productPage">
+        <Helmet>
+          <title>{Product?.metaTitle || Product?.title}</title>
+          <meta name="description" content={Product?.metaDescription || 'Default description'} />
+        </Helmet>
+
+
         {/* Loader */}
         <Loader loding={loding || status === "loading" ? true : false} />
 
@@ -192,7 +232,7 @@ export default function ProductDetails({
                       <div key={i} className="checkBox">
                         <img src={greenTik2} alt="" />
                         <p>
-                          <span>{fe.title}:</span>
+                          <span>{fe.title} : </span>
                           {fe.summary}
                         </p>
                       </div>
@@ -220,12 +260,12 @@ export default function ProductDetails({
 
                     <p
                       className="viewPackage"
-                      onClick={() =>
-                        handlePDClick({
-                          title: "price",
-                          id: "priceBox",
-                        })
-                      }
+                    // onClick={() =>
+                    //   handlePDClick({
+                    //     title: "price",
+                    //     id: "priceBox",
+                    //   })
+                    // }
                     >
                       <img src={viewIcon} alt="" />
                       View Package
@@ -246,28 +286,27 @@ export default function ProductDetails({
 
           {/* PeraSection */}
           <div className="paraSection">
-
             {/* Product Nav Bar */}
             <div className="paraNavOuterBox">
               <div className="paraNavSection">
-                {ParaSection?.map((el, i) => (
+                {navItems?.map((el, i) => (
                   <p
                     className={
-                      activeSection === el?.id ? "productNavActive" : ""
-                    }
-                    onClick={() => handlePDClick(el)}
-                    key={i}
-                  >
-                    {el?.title}
+                      activeSection === el.toUpperCase().replace(/\s+/g, "") ? "productNavActive" : ""}
+                    onClick={() => handlePDClick(el.toUpperCase().replace(/\s+/g, ""))}
+                    key={i}>
+                    {el === "What is" ? `What is ${Product?.displayName || Product?.title}` : el}
                   </p>
                 ))}
               </div>
             </div>
 
+
+
             {/* Overview section--------------------------------------------------- */}
-            {Product?.overView && (
+            {navItems.includes("Overview") ? (
               <div
-                id="overview"
+                id="OVERVIEW"
                 className="paraSubSection overViewSection privateLC"
               >
                 <p className="privateSHeader">{Product?.overView?.title}</p>
@@ -275,11 +314,13 @@ export default function ProductDetails({
                   <p key={i}>{el}</p>
                 ))}
               </div>
-            )}
-            {/* PrivateLimitedCompany----------------------------------------------- */}
-            {Product?.whatIs?.summarys?.length !== undefined && Product?.whatIs?.summarys?.length > 0 && (
+            ) : null}
+
+
+            {/* what Is----------------------------------------------- */}
+            {navItems.includes("What is") ? (
               <div
-                id="PrivateLimitedCompany"
+                id="WHATIS"
                 className="paraSubSection privateLC"
               >
                 <p className="privateSHeader">
@@ -322,11 +363,12 @@ export default function ProductDetails({
                   </p>
                 </div>
               </div>
-            )}
+            ) : null}
+
             {/* Key Features--------------------------------------------------------- */}
-            {Product?.keyFeature && (
+            {navItems.includes("Key Features") ? (
               <div
-                id="Keyfeatures"
+                id="KEYFEATURES"
                 className="paraSubSection privateLC keyFeaturesSection"
               >
                 <p className="privateSHeader">
@@ -343,10 +385,10 @@ export default function ProductDetails({
                   ))}
                 </div>
               </div>
-            )}
+            ) : null}
             {/* Benefits section ----------------------------------------------------*/}
-            {Product?.benefits && (
-              <div id="Benefits" className="privateLC BenefitsSection">
+            {navItems.includes("Benefits") ? (
+              <div id="BENEFITS" className="privateLC BenefitsSection">
                 <p className="privateSHeader">
                   <b>Benefits</b> of a {Product?.title}
                 </p>
@@ -361,10 +403,10 @@ export default function ProductDetails({
                   ))}
                 </div>
               </div>
-            )}
+            ) : null}
             {/* Difference section-------------------------------------------- */}
-            {Product?.difference && (
-              <div id="Difference" className="privateLC DifferenceSection">
+            {navItems.includes("Difference") ? (
+              <div id="DIFFERENCE" className="privateLC DifferenceSection">
                 <p className="privateSHeader">
                   <b>Difference </b> Between {Product?.title} and Other Business
                   Structures
@@ -377,67 +419,37 @@ export default function ProductDetails({
 
                 <div className="tableOuterBox productViewDifTable">
                   <div className="pricePanaleTableBox">
+                    {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableHeaderText">Key Feature</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableHeaderText">
-                          Private Limited Company
-                        </p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableHeaderText">
-                          Public Limited Company
-                        </p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableHeaderText">
-                          LLP (Limited Liability Partnership)
-                        </p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableHeaderText">Sole Proprietorship</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "16.6%" }}>
-                        <p className="tableHeaderText">Partnership Firm</p>
-                      </div>
+                      {Product?.difference?.tableData?.headers?.map((val: string, i: number) => (
+                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
+                          <p className="tableHeaderText">{val}</p>
+                        </div>
+                      ))}
                     </div>
 
-                    {Product?.difference?.tableData?.map((el, i) => (
+                    {/* Data Rows */}
+                    {Product?.difference?.tableData?.rows?.map((row: any, i: number) => (
                       <div className="PRow NHeaderRow" key={i}>
-                        <div className="tableSel" style={{ width: "16.6%" }}>
-                          <p className="tableNText">{el.KeyFeature}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "16.6%" }}>
-                          <p className="tableNText">{el.PrivateLC}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "16.6%" }}>
-                          <p className="tableNText">{el.PublicLC}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "16.6%" }}>
-                          <p className="tableNText">{el.LLP}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "16.6%" }}>
-                          <p className="tableNText">{el.SoleProprietorship}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "16.6%" }}>
-                          <p className="tableNText">{el.PartnershipFirm}</p>
-                        </div>
+                        {Product?.difference?.tableData?.headers?.map((header: string, j: number) => (
+                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
+                            <p className="tableNText">{row[header]}</p>
+                          </div>
+                        ))}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-            )}
+            ) : null}
             {/* Document upload------------------------------------------------- */}
-            {Product?.documentsRequired && (
+            {navItems.includes("Documents Required") ? (
               <div
-                id="DocumentsRequired"
+                id="DOCUMENTSREQUIRED"
                 className="privateLC DifferenceSection"
               >
                 <p className="privateSHeader">
-                  <b>What Are the Documents Required for</b>
+                  <b>What Are the Documents Required for </b>
                   {Product?.title}
                 </p>
                 {Product?.documentsRequired?.summarys?.map((sm, i) => (
@@ -448,46 +460,35 @@ export default function ProductDetails({
 
                 <div className="tableOuterBox productViewDifTable">
                   <div className="pricePanaleTableBox">
+                    {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">Category</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">Document Type</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">Specific Examples</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">Purpose</p>
-                      </div>
+                      {Product?.documentsRequired?.tableData?.headers?.map((val: string, i: number) => (
+                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
+                          <p className="tableHeaderText">{val}</p>
+                        </div>
+                      ))}
                     </div>
 
-                    {Product?.documentsRequired?.tableData?.map((el, i) => (
+                    {/* Data Rows */}
+                    {Product?.documentsRequired?.tableData?.rows?.map((row: any, i: number) => (
                       <div className="PRow NHeaderRow" key={i}>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">{el.category}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">{el.documentType}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">{el.specificExamples}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">{el.Purpose}</p>
-                        </div>
+                        {Product?.documentsRequired?.tableData?.headers?.map((header: string, j: number) => (
+                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
+                            <p className="tableNText">{row[header]}</p>
+                          </div>
+                        ))}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-            )}
+            ) : null}
+
             {/* MCA Compliance----------------------------------------------- */}
-            {Product?.MCACompliance && (
-              <div id="MCACompliance" className="privateLC DifferenceSection">
+            {navItems.includes("MCA Compliance") ? (
+              <div id="MCACOMPLIANCE" className="privateLC DifferenceSection">
                 <p className="privateSHeader">
-                  <b>Mandatory MCA Compliance for</b>
+                  <b>Mandatory MCA Compliance for </b>
                   {Product?.title}
                 </p>
                 {Product?.MCACompliance?.summarys?.map((sm, i) => (
@@ -498,47 +499,110 @@ export default function ProductDetails({
 
                 <div className="tableOuterBox productViewDifTable">
                   <div className="pricePanaleTableBox">
+                    {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">Aspect</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">
-                          Compliance Requirement
-                        </p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">Frequency</p>
-                      </div>
-                      <div className="tableSel" style={{ width: "25%" }}>
-                        <p className="tableHeaderText">Why It’s Important</p>
-                      </div>
+                      {Product?.MCACompliance?.tableData?.headers?.map((val: string, i: number) => (
+                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
+                          <p className="tableHeaderText">{val}</p>
+                        </div>
+                      ))}
                     </div>
 
-                    {Product?.MCACompliance?.tableData?.map((el, i) => (
+                    {/* Data Rows */}
+                    {Product?.MCACompliance?.tableData?.rows?.map((row: any, i: number) => (
                       <div className="PRow NHeaderRow" key={i}>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">{el.aspect}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">
-                            {el.complianceRequirement}
-                          </p>
-                        </div>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">{el.frequency}</p>
-                        </div>
-                        <div className="tableSel" style={{ width: "25%" }}>
-                          <p className="tableNText">{el.WhyImportant}</p>
-                        </div>
+                        {Product?.MCACompliance?.tableData?.headers?.map((header: string, j: number) => (
+                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
+                            <p className="tableNText">{row[header]}</p>
+                          </div>
+                        ))}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-            )}
+            ) : null}
+
+            {/* Due Date */}
+            {navItems.includes("Due Date") ? (
+              <div id="DUEDATE" className="privateLC DifferenceSection">
+                <p className="privateSHeader">
+                  <b>Due Date for </b>   {Product?.displayName}
+                </p>
+                {Product?.DueDate?.summarys?.map((sm, i) => (
+                  <p className="prNText" key={i}>
+                    {sm}
+                  </p>
+                ))}
+
+                <div className="tableOuterBox productViewDifTable">
+                  <div className="pricePanaleTableBox">
+                    {/* Header Row */}
+                    <div className="PRow PheaderRow headerRow">
+                      {Product?.DueDate?.tableData?.headers?.map((val: string, i: number) => (
+                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
+                          <p className="tableHeaderText">{val}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Data Rows */}
+                    {Product?.DueDate?.tableData?.rows?.map((row: any, i: number) => (
+                      <div className="PRow NHeaderRow" key={i}>
+                        {Product?.DueDate?.tableData?.headers?.map((header: string, j: number) => (
+                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
+                            <p className="tableNText">{row[header]}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
+
+            {/* Step */}
+            {navItems.includes("Steps") ? (
+              <div id="STEPS" className="privateLC DifferenceSection">
+                <p className="privateSHeader"><b>Steps</b></p>
+                {Product?.Steps?.map((stp, i) => (
+                  <div key={i} className="stepSectionBox">
+                    <p className="privateSHeader"><b></b>{stp.title}</p>
+                    {
+                      stp?.summary?.map((stpSum, j) => (
+                        <p key={j} className="stepSummary">{stpSum?.summary}</p>
+                      ))
+                    }
+                    <ul className="stepUlSection">
+                      {
+                        stp?.steps?.map((sstp, k) => (
+                          <li key={k}>Step{k + 1} :  {sstp?.step}</li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                ))
+                }
+              </div>
+            ) : null}
+
+            {/* ThresholdLimits---------- */}
+            {navItems.includes("Threshold Limits") ? (
+              <div id="THRESHOLDLIMITS" className="privateLC DifferenceSection">
+                <p className="privateSHeader"><b>Threshold Limits</b></p>
+                <p className="privateSHeader">{Product?.ThresholdLimits?.title}</p>
+                {
+                  Product?.ThresholdLimits?.summarys?.map((stpSum, j) => (
+                    <p key={j} className="stepSummary">{stpSum}</p>
+                  ))
+                }
+              </div>
+            ) : null}
+
+
             {/* FAQ section------------------------------------------ */}
-            {Product?.FAQ?.length && (
+            {navItems.includes("FAQ") ? (
               <div id="FAQ" className="faqQBox">
                 <p className="faqHeader">Frequently Asks Questions</p>
                 {Product?.FAQ?.map((el, i) => (
@@ -555,11 +619,11 @@ export default function ProductDetails({
                       onClick={() => handleQuestionIndex(i)}
                     />
                     <p className="faqquestion">{el?.question}</p>
-                    <p className="faqanswer">{el?.answer}</p>
+                    <p className="faqanswer">{parse(el?.answer)}</p>
                   </div>
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
         </div>
         {/* subscribe section */}

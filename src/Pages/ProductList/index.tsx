@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./style.css";
+
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
@@ -19,6 +21,8 @@ import { ProductCard } from "../../components/Tools";
 import { FetchProdcut, ProductDataType } from "../../store/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
+import { FetchService } from "../../store/categorySlice";
+
 
 interface NavProps {
   currentNav: string;
@@ -31,6 +35,10 @@ export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("Services");
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.product);
+  const category = useSelector((state: RootState) => state.category);
+
+
+  const currentCategory = category?.data.find((val) => val._id === selectedCategoryId);
 
 
   let Product_list: ProductDataType[] = [];
@@ -43,14 +51,23 @@ export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
 
   useEffect(() => {
     dispatch(FetchProdcut());
+    dispatch(FetchService());
     if (data?.length < 0) {
       dispatch(FetchProdcut());
+    }
+    if (category?.data?.length < 0) {
+      dispatch(FetchService());
     }
   }, []);
 
   return (
     <>
       <div className="servicesPage">
+        <Helmet>
+          <title>{currentCategory?.metaTitle || currentCategory?.title}</title>
+          <meta name="description" content={currentCategory?.metaDescription || 'Default description'} />
+        </Helmet>
+
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />

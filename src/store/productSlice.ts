@@ -6,6 +6,11 @@ import { baseURL } from "../App";
 import { STATUSES } from "./statusTypes";
 
 
+export interface TableState {
+  headers: string[];
+  rows: Array<Record<string, string>>;
+};
+
 export interface stepDataType {
   title: string;
   summary: { summary: string }[];
@@ -22,26 +27,7 @@ export interface ELGBTBulletType {
     bullet: string;
   }[];
 }
-export interface MCATableType {
-  aspect: string;
-  complianceRequirement: string;
-  frequency: string;
-  WhyImportant: string;
-}
-export interface docRTableType {
-  category: string;
-  documentType: string;
-  specificExamples: string;
-  Purpose: string;
-}
-export interface differencTableType {
-  KeyFeature: string;
-  PrivateLC: string;
-  PublicLC: string;
-  LLP: string;
-  SoleProprietorship: string;
-  PartnershipFirm: string;
-}
+
 export interface featureDataType {
   title: string;
   summary: string;
@@ -110,6 +96,7 @@ export interface ProductInfoValType {
 }
 export interface ProductDataType {
   title: string;
+  displayName: string;
   metaTitle: string;
   metaDescription: string;
   category: {
@@ -151,24 +138,17 @@ export interface ProductDataType {
   difference?: {
     title: string;
     summarys: string[];
-    tableData: {
-      KeyFeature: string;
-      PrivateLC: string;
-      PublicLC: string;
-      LLP: string;
-      SoleProprietorship: string;
-      PartnershipFirm: string;
-    }[];
+    tableData: TableState;
   };
   documentsRequired?: {
     title: string;
     summarys: string[];
-    tableData: docRTableType[];
+    tableData: TableState;
   };
   MCACompliance?: {
     title: string;
     summarys: string[];
-    tableData: MCATableType[];
+    tableData: TableState;
   };
   ThresholdLimits?: {
     title: string;
@@ -185,7 +165,7 @@ export interface ProductDataType {
   DueDate?: {
     title: string;
     summarys: string[];
-    tableData: DueDateableType[];
+    tableData: TableState;
   };
   Steps?: stepDataType[];
   FAQ?: FAQType[];
