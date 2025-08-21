@@ -17,6 +17,7 @@ interface NavProps {
 }
 
 import { FetchProdcut } from "../../store/productSlice";
+import { FetchService } from "../../store/categorySlice"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
@@ -25,6 +26,7 @@ export default function NavBar({ currentNav }: NavProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.product);
+  const category = useSelector((state: RootState) => state.category);
 
   const [nav, setNav] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -32,6 +34,8 @@ export default function NavBar({ currentNav }: NavProps) {
   const { user } = useContext(AuthContext)!;
   const [userDrop, setUserDrop] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [categoryPop, setCategoryPop] = useState<boolean>(false);
+
   const closeNav = (e: any) => {
     if (e.target.id === "grayBox") {
       setNav(false);
@@ -129,10 +133,24 @@ export default function NavBar({ currentNav }: NavProps) {
     };
   }, []);
 
+
+
+  //handle go Category page
+  const handleCategoryClick = (categroyId: string) => {
+    console.log(categroyId);
+    localStorage.setItem("selectedCategory", categroyId);
+    navigate("/products");
+    GoTop();
+  };
+
   useEffect(() => {
     dispatch(FetchProdcut());
+    dispatch(FetchService());
     if (data?.length < 0) {
       dispatch(FetchProdcut());
+    }
+    if (category?.data?.length < 0) {
+      dispatch(FetchService());
     }
   }, []);
 
@@ -172,31 +190,80 @@ export default function NavBar({ currentNav }: NavProps) {
 
         <div className="navItemBox">
           {/* Desktop nav*/}
-          {NavItem?.map((el, i) => (
-            <p
-              className={
-                currentNav === el.title
-                  ? "navItemText navItemTextActive"
-                  : "navItemText"
+
+          <p className={currentNav === "Home" ? "navItemText navItemTextActive" : "navItemText"}
+            onClick={() => navigatePage("/")}>
+            Home
+            <samp className="nl1"></samp>
+            <samp className="nl2"></samp>
+          </p>
+
+          <p
+            id="ServicesItem"
+            className={currentNav === "Services" ? "navItemText navItemTextActive" : "navItemText"}
+            onMouseOver={(e) => {
+              if (e.currentTarget.id === "ServicesItem") {
+                setCategoryPop(true);
               }
-              onClick={() => navigatePage(el?.url)}
-              key={i}
+            }}
+            onMouseOut={(e) => {
+              if (e.currentTarget.id === "ServicesItem") {
+                setCategoryPop(false);
+              }
+            }}
+            onClick={() => navigatePage("/services")}>
+            Services
+            <samp className="nl1"></samp>
+            <samp className="nl2"></samp>
+            <div
+              id="ServicesPop"
+              style={{ display: categoryPop ? "flex" : "none" }}
+              className="navManHoverBox"
+              onMouseOver={(e) => {
+                if (e.currentTarget.id === "ServicesPop") {
+                  setCategoryPop(true);
+                }
+              }}
+              onMouseOut={(e) => {
+                if (e.currentTarget.id === "ServicesPop") {
+                  setCategoryPop(false);
+                }
+              }}
             >
-              {el?.title}
-              <samp
-                style={{
-                  display: currentNav === el.title ? "block" : "none",
-                }}
-                className="nl1"
-              ></samp>
-              <samp
-                style={{
-                  display: currentNav === el.title ? "block" : "none",
-                }}
-                className="nl2"
-              ></samp>
-            </p>
-          ))}
+              {
+                category.data?.map((subM, i) => (
+                  <div onClick={() => handleCategoryClick(subM?._id || "")} className="categoryItemBox" key={i}>
+                    <p>{subM?.title}</p>
+                    <img src={Image.rightArrowV2} alt="" />
+                  </div>
+
+                ))
+              }
+
+            </div>
+          </p>
+
+          <p className={currentNav === "About Us" ? "navItemText navItemTextActive" : "navItemText"}
+            onClick={() => navigatePage("/about")}  >
+            About Us
+            <samp className="nl1"></samp>
+            <samp className="nl2"></samp>
+          </p>
+
+          <p className={currentNav === "Guide" ? "navItemText navItemTextActive" : "navItemText"}
+            onClick={() => navigatePage("/learn")} >
+            Guide
+            <samp className="nl1"></samp>
+            <samp className="nl2"></samp>
+          </p>
+          <p className={currentNav === "Contact Us" ? "navItemText navItemTextActive" : "navItemText"}
+            onClick={() => navigatePage("/contact-us")}>
+            Contact Us
+            <samp className="nl1"></samp>
+            <samp className="nl2"></samp>
+          </p>
+
+
           <div id="sBox" className="NavSearchInputBox">
             <input id="sBox" value={searchTerm} type="text" placeholder="Search..." onChange={(e) => setSearchTerm(e.target.value)} />
             <img id="sBox" src={Image.searchIcon} alt="" />

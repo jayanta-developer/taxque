@@ -39,6 +39,7 @@ import blackArrowIcon from "../images/blackArrowIcon.svg";
 import star from "../images/star.png";
 import ITNIcon from "../images/ITNIcon.svg";
 import featuresIcon from "../images/featuresIcon.png";
+import rightArrowV2 from "../images/rightArrowV2.png"
 
 export const Image = {
   ProductActiveIcon,
@@ -81,5 +82,6 @@ export const Image = {
   star,
   ITNIcon,
   featuresIcon,
- inputPhoneIcon
+  inputPhoneIcon,
+  rightArrowV2
 };

@@ -14,7 +14,6 @@ import Footer from "../../components/Footer";
 import { JobCard } from "../../components/Tools";
 
 //data
-import { jobData } from "../../assets/Data";
 import { AppBtn } from "../../components/Buttons";
 import Subscribe from "../../components/Subscribe";
 
@@ -34,13 +33,6 @@ export default function Careers({ setCurrentNav, currentNav }: NavProps) {
 
   const Navigate = useNavigate();
   setCurrentNav("");
-
-  console.log(data);
-
-
-
-
-
 
 
 
