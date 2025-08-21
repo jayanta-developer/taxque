@@ -260,12 +260,9 @@ export default function ProductDetails({
 
                     <p
                       className="viewPackage"
-                    // onClick={() =>
-                    //   handlePDClick({
-                    //     title: "price",
-                    //     id: "priceBox",
-                    //   })
-                    // }
+                      onClick={() =>
+                        handlePDClick("priceBox")
+                      }
                     >
                       <img src={viewIcon} alt="" />
                       View Package

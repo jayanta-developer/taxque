@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
@@ -23,9 +23,34 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
+//Redux
+import { FetchJob } from "../../store/jobSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
+
 export default function Careers({ setCurrentNav, currentNav }: NavProps) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, status } = useSelector((state: RootState) => state.job);
+
   const Navigate = useNavigate();
   setCurrentNav("");
+
+  console.log(data);
+
+
+
+
+
+
+
+
+
+  useEffect(() => {
+    dispatch(FetchJob());
+    if (data?.length < 0) {
+      dispatch(FetchJob());
+    }
+  }, []);
   return (
     <>
       <div className="teamPage careerPage">
@@ -67,7 +92,7 @@ export default function Careers({ setCurrentNav, currentNav }: NavProps) {
           <div className="careerCardMainBox">
             <p className="sectionHeader">Career opportunities</p>
             <div className="careerCardBox">
-              {jobData?.map((el, i) => (
+              {data?.map((el, i) => (
                 <JobCard {...el} key={i} />
               ))}
             </div>

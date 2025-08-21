@@ -1,6 +1,7 @@
 import "./style.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import GoogleReviewsWidget from "google-reviews-widget"
 
 //images
 import homeBg from "../../assets/images/homeBg.svg";
@@ -123,6 +124,9 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
               </p>
             </div>
           </div>
+
+          {/* <GoogleReviewsWidget instanceId="WS9xqXio4p5JMvdWAftD" /> */}
+
 
           <div className="hrImgBox">
             <img style={{ width: "100%", height: "100%" }} src={heroImg} />

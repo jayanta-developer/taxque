@@ -11,6 +11,7 @@ import { Image } from "../../assets/images";
 //components
 import { AppOrangeBtn, AppHoloBtn, AppBtn } from "../Buttons";
 
+
 import { ServiceDataType } from "../../store/categorySlice";
 import { BlogDataType } from "../../store/blogSlice";
 
@@ -22,6 +23,7 @@ interface TaxQueCardProps {
 
 import { ProductDataType } from "../../store/productSlice";
 import { TeamDataType } from "../../store/teamSlice"
+import { JobDataType } from "../../store/jobSlice"
 interface PriceCardProps {
   title: string;
   basicPrice: string;
@@ -381,18 +383,19 @@ export const BenefitsCard = ({ title, summary, index }: BenefitsProps) => {
 };
 export const JobCard = ({
   title,
-  role,
+  jobLocation,
   location,
-  jobType,
-  summary,
-}: jobcardProps) => {
+  type,
+  description
+
+}: JobDataType) => {
   const Navigate = useNavigate();
 
   return (
     <div className="jobCard">
       <div className="roleBox">
         <div className="roleLabel">
-          <p>{role}</p>
+          <p>{jobLocation}</p>
         </div>
         <div className="hrYline"></div>
       </div>
@@ -404,10 +407,10 @@ export const JobCard = ({
         </div>
         <div className="buABox">
           <img src={Image.watchYIcom} />
-          <p>{jobType}</p>
+          <p>{type}</p>
         </div>
       </div>
-      <p className="jobCardSummary">{summary.slice(0, 102)}...</p>
+      <p className="jobCardSummary">{parse(description)} </p>
       <AppHoloBtn
         btnText="Apply Now"
         icon={Image.blackArrowIcon}

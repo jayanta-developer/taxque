@@ -3,7 +3,8 @@ import categoryReducer from "./categorySlice";
 import userReducer from "./userSlice";
 import productReducer from "./productSlice";
 import blogReducer from "./blogSlice";
-import teamReducer from "./teamSlice"
+import teamReducer from "./teamSlice";
+import jobReducer from "./jobSlice"
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     category: categoryReducer,
     product: productReducer,
     blog: blogReducer,
-    team: teamReducer
+    team: teamReducer,
+    job: jobReducer
   },
 });
 
