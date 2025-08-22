@@ -5,7 +5,6 @@ import "./style.css";
 
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
-// import downArrow from "../../assets/images/down-arrow.svg";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -16,8 +15,6 @@ import { FetchBlog } from "../../store/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
-//data
-import { BlogData } from "../../assets/Data";
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
@@ -119,7 +116,7 @@ export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
             {filterBlogData?.map((el, i) => (
               <React.Fragment key={i}>
                 <BlogRowCard {...el} />
-                {i !== BlogData.length - 1 && (
+                {i !== data.length - 1 && (
                   <div
                     style={{ display: "block" }}
                     className="blogCardBottomLine"

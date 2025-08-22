@@ -138,9 +138,9 @@ export default function NavBar({ currentNav }: NavProps) {
   //handle go Category page
   const handleCategoryClick = (categroyId: string) => {
     console.log(categroyId);
-    localStorage.setItem("selectedCategory", categroyId);
+    // localStorage.setItem("selectedCategory", categroyId);
     navigate("/products");
-    GoTop();
+    // GoTop();
   };
 
   useEffect(() => {
@@ -211,7 +211,13 @@ export default function NavBar({ currentNav }: NavProps) {
                 setCategoryPop(false);
               }
             }}
-            onClick={() => navigatePage("/services")}>
+            onClick={(e) => {
+              const target = e.target as HTMLElement;
+              if (target.id === "ServicesItem") {
+                navigatePage("/services");
+              }
+            }}
+          >
             Services
             <samp className="nl1"></samp>
             <samp className="nl2"></samp>

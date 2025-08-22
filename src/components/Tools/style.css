@@ -409,6 +409,7 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 10px;
 }
 .roleBox {
@@ -559,7 +560,7 @@
   width: 30%;
 }
 .DropBox {
-  height: 44px;
+  min-height: 44px;
   border: 1px solid gray;
   border-radius: 5px;
   padding-left: 20px;

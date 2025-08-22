@@ -9,7 +9,7 @@ import { Image } from "../../assets/images";
 
 
 //components
-import { AppOrangeBtn, AppHoloBtn, AppBtn } from "../Buttons";
+import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
 
 
 import { ServiceDataType } from "../../store/categorySlice";
@@ -39,13 +39,6 @@ interface PriceCardProps {
   id: string;
   priceId: string;
 }
-
-interface MemberCardProps {
-  name: string;
-  possession: string;
-  img: string;
-  summary?: string;
-}
 interface FeaturesProps {
   title: string;
   summary: string;
@@ -55,17 +48,6 @@ interface BenefitsProps {
   summary: string;
   index: number;
 }
-interface jobcardProps {
-  title: string;
-  role: string;
-  location: string;
-  jobType: string;
-  summary: string;
-  requirements?: string[];
-  responsibilities?: string[];
-  Skill?: string[];
-}
-
 
 export const ServiceCard = ({
   imageUrl,
@@ -386,7 +368,8 @@ export const JobCard = ({
   jobLocation,
   location,
   type,
-  description
+  description,
+  _id
 
 }: JobDataType) => {
   const Navigate = useNavigate();
@@ -417,6 +400,7 @@ export const JobCard = ({
         width="60%"
         onClick={() => {
           Navigate("/career-details");
+          _id ? localStorage.setItem("selectedJodId", _id) : null
           GoTop();
         }}
       />

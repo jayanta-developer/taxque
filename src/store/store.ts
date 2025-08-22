@@ -4,7 +4,8 @@ import userReducer from "./userSlice";
 import productReducer from "./productSlice";
 import blogReducer from "./blogSlice";
 import teamReducer from "./teamSlice";
-import jobReducer from "./jobSlice"
+import jobReducer from "./jobSlice";
+import applicationReducer from "./Application"
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     product: productReducer,
     blog: blogReducer,
     team: teamReducer,
-    job: jobReducer
+    job: jobReducer,
+    application: applicationReducer
   },
 });
 
