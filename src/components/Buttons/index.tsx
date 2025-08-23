@@ -9,6 +9,7 @@ interface btnProps {
   textColor?: string;
   textweight?: string;
   icon?: string;
+  disable?: boolean;
   onClick?: () => void;
 }
 
@@ -20,12 +21,13 @@ export const AppBtn: React.FC<btnProps> = ({
   textColor,
   textweight,
   icon,
+  disable,
   onClick,
 }) => {
   return (
     <div
       onClick={onClick}
-      className="appBtn"
+      className={disable ? "appBtn disableBtn" : "appBtn "}
       style={{
         width,
         minHeight: height || "50px",

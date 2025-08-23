@@ -308,8 +308,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 </>
               ) : (
                 <>
-                  {selectProduct?.documentsRequired?.tableData?.map(
-                    (doc, i) => (
+                  {selectProduct?.documentsRequired?.tableData?.map((doc:any, i:number) => (
                       <div key={i} className="docBox">
                         <h4>{doc?.documentType}</h4>
 

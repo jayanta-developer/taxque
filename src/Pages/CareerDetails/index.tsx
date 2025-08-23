@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import parse from 'html-react-parser';
 import { toast } from "react-toastify";
+import { baseURL } from "../../App";
+
 
 
 import "./style.css";
@@ -59,6 +61,9 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
     currentJobTitle: "",
     expectedSalary: "",
   })
+  const [fileUrls, setFileUrls] = useState<string>("");
+  console.log(fileUrls);
+
 
 
   //variables
@@ -83,6 +88,45 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
       setApplyPop(false);
     }
   };
+  let UploadFileName: string = "";
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    UploadFileName = file?.name;
+
+
+    try {
+      const filename = encodeURIComponent(file.name);
+
+      const res = await fetch(`${baseURL}/blob?filename=${filename}`, {
+        method: "POST",
+        body: await file.arrayBuffer(),
+        headers: {
+          "Content-Type": file.type || "application/octet-stream",
+        },
+      });
+      const { url } = await res.json();
+
+      if (!res.ok) {
+        let errorDetail = `Upload failed with status ${res.status}`;
+        try {
+          const errorData = await res.json();
+          errorDetail = errorData?.detail || errorData?.error || errorDetail;
+        } catch {
+          // Non-JSON response
+        }
+        toast.error(`Upload failed for some error! ${errorDetail}`);
+        throw new Error(errorDetail);
+      }
+
+      setFileUrls(url);
+    } catch (err) {
+      console.error(`Upload failed for file`, err);
+    }
+  };
+
 
 
   //Create application
@@ -104,7 +148,7 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
       currentJobTitle: applicationLocVal.currentJobTitle,
       expectedSalary: applicationLocVal.expectedSalary,
       noticePeriod: noticePeriod,
-      resume: "https://resume/link"
+      resume: fileUrls,
     }))
   }
 
@@ -132,7 +176,7 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
   return (
     <>
       <div className="SMHeroBox">
-        {/* pop */}
+        {/* Apply Job pop-------------------------- */}
         <div
           id="grayBox"
           style={{ width: applyPop ? "100%" : "0%" }}
@@ -177,17 +221,21 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
               <label htmlFor="attachFile">
                 <div className="atachBtn">
                   <img src={atatchIcon} />
-                  <p>Attach Your Resume</p>
-                  <input id="attachFile" type="file" />
+                  <p>{UploadFileName.length ? UploadFileName.slice(0, 15) : "Attach Your Resume"}</p>
+                  <input
+                    id={`attachFile`}
+                    type="file"
+                    onChange={(e) => handleFileChange(e)}
+                  />
                 </div>
               </label>
 
               <div className="checkBox">
-                <input type="checkBox" onChange={(e) => setPolicyCheck(e.target.checked)
+                <input style={{cursor:"pointer"}} type="checkBox" onChange={(e) => setPolicyCheck(e.target.checked)
                 } />
                 <p>I Agree to Terms & Privacy Policy</p>
               </div>
-              <AppBtn btnText="Apply Now" icon={rightArrow} onClick={postApplication} />
+              <AppBtn disable={policyCheck ? false : true} btnText="Apply Now" icon={rightArrow} onClick={postApplication} />
             </div>
           </div>
 
