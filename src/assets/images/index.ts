@@ -40,6 +40,9 @@ import star from "../images/star.png";
 import ITNIcon from "../images/ITNIcon.svg";
 import featuresIcon from "../images/featuresIcon.png";
 import rightArrowV2 from "../images/rightArrowV2.png"
+import downArrow from "../images/down-arrow.svg"
+import MenuArrow from "./MenuArrow.png"
+import MenuArrow_A from "./MenuArrow_A.png"
 
 export const Image = {
   ProductActiveIcon,
@@ -83,5 +86,8 @@ export const Image = {
   ITNIcon,
   featuresIcon,
   inputPhoneIcon,
-  rightArrowV2
+  rightArrowV2,
+  downArrow,
+  MenuArrow,
+  MenuArrow_A
 };

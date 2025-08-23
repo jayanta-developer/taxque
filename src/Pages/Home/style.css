@@ -353,6 +353,12 @@
 .refferIconBox {
   cursor: pointer;
 }
+.hHText1 {
+  color: #fe8903;
+}
+.hHText2 {
+  color: #76d541;
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .heroMainSection {

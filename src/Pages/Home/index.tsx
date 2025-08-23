@@ -97,7 +97,12 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
         <div className="heroMainSection">
           <div className="hrTextBox">
             <p className="hrMainText">
-              Welcome to TaxQue
+              <span>Welcome to 
+                <samp className="hHText1">
+                  <span className="hHText2"> T</span>
+                  ax<span className="hHText2">Q</span>ue</samp>
+
+              </span><br />
               Simplifying Taxes for You!
             </p>
             <p className="hrSummeryText">
@@ -125,7 +130,6 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
             </div>
           </div>
 
-          {/* <GoogleReviewsWidget instanceId="WS9xqXio4p5JMvdWAftD" /> */}
 
 
           <div className="hrImgBox">
@@ -198,8 +202,10 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       {/* Review section */}
       <div className="reviewSection">
         <p className="sectionHeader">Success Stories & Reviews</p>
-        <img src={GRatingImg} className="grating" />
-        <img src={reviewTemImg} className="gratingTemImg" />
+        {/* <img src={GRatingImg} className="grating" />
+        <img src={reviewTemImg} className="gratingTemImg" /> */}
+        <GoogleReviewsWidget instanceId="ifBALHbY33CFXCUyhXns" />
+
       </div>
 
       {/* Blog section */}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./style.css";
 import { baseURL } from "../../App";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { ServiceCard } from "../../components/Tools";
+import { AppBtn } from "../../components/Buttons";
 
 //images
 import { Image } from "../../assets/images";
@@ -16,14 +17,23 @@ interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
+
+
+//Redux
 import { FetchService } from "../../store/categorySlice";
 import { FetchProdcut, ProductDataType } from "../../store/productSlice";
-import { GetUser, UpdateDoc, docType, UpdateDocUrl } from "../../store/userSlice";
+import {
+  GetUser,
+  UpdateDoc,
+  docType,
+  UpdateDocUrl,
+} from "../../store/userSlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { AppBtn } from "../../components/Buttons";
+
 
 export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
+  const ActivePage = localStorage.getItem("ActivePage");
   const logUserId = localStorage.getItem("userId");
   const productIndex = localStorage.getItem("productIndex");
   setCurrentNav("");
@@ -36,11 +46,112 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const [selectProductId, setSelectProductId] = useState<string>();
   const [selectProductIndex, setSelectProductIndex] = useState<number>();
 
+  const [activePage, setActivePage] = useState<string>("Product");
+  const [activeMenu, setActiveMenu] = useState<string>();
+  const subMenuRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Side menu function
+  if (!ActivePage) {
+    localStorage.setItem("ActivePage", "Category");
+    setActivePage("Category");
+  }
+
+  const handleMenuClick = (title: string) => {
+    const newActive = activeMenu === title ? "" : title;
+    setActiveMenu(newActive);
+    localStorage.setItem("activeMenu", newActive);
+  };
+
+  const HandleActivePage = (page: string) => {
+    localStorage.setItem("ActivePage", page);
+    setActivePage(page);
+  };
+
+  useEffect(() => {
+    const index = sideMenuList.findIndex((item) => item.title === activeMenu);
+
+    subMenuRefs.current.forEach((submenu, i) => {
+      if (submenu) {
+        submenu.style.transition = "height 0.3s ease";
+        submenu.style.height = "0px";
+        submenu.style.padding = "0px";
+      }
+    });
+
+    if (index !== -1 && activeMenu) {
+      const el = subMenuRefs.current[index];
+
+      if (el) {
+        el.style.height = "auto";
+        const fullHeight = el.scrollHeight;
+        el.style.height = "0px";
+
+        requestAnimationFrame(() => {
+          el.style.transition = "height 0.3s ease";
+          el.style.height = fullHeight + 20 + "px";
+          el.style.padding = "10px";
+        });
+      }
+    }
+  }, [activeMenu]);
+
+  //side menu list
+  interface sideMenuType {
+    title: string;
+    subTitle?: {
+      title: string;
+    }[];
+  }
+  const sideMenuList: sideMenuType[] = [
+    {
+      title: "My order",
+      subTitle: [
+        {
+          title: "Order",
+        },
+        {
+          title: "Plan upgrade",
+        },
+        {
+          title: "Payment method",
+        },
+        {
+          title: "cancel order",
+        },
+      ],
+    },
+
+    {
+      title: "Category",
+      subTitle: [
+        {
+          title: "All Category",
+        },
+      ],
+    },
+    {
+      title: "refar",
+      subTitle: [
+        {
+          title: "Refer And Earn",
+        },
+      ],
+    },
+    {
+      title: "Suport",
+      subTitle: [
+        {
+          title: "Get Customer Support",
+        },
+      ],
+    },
+  ];
+
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    setSelectProductIndex(index)
+    setSelectProductIndex(index);
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -78,7 +189,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     }
   };
 
-  let productList: any = [];
+  let productList: ProductDataType[] = [];
   if (data.length && user.data[0]?.purchase?.length) {
     const idList = user.data[0]?.purchase.map((item) => item?.productId);
     productList = data?.filter(
@@ -93,7 +204,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     }
 
     const purchases = user?.data?.[0]?.purchase;
-    const index = await Number(productIndex) ?? 0;
+    const index = (await Number(productIndex)) ?? 0;
 
     if (!purchases?.[index]?._id) {
       toast.warn("Product id not found!");
@@ -152,25 +263,24 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const purchases = user?.data?.[0]?.purchase;
   const index = Number(productIndex) ?? 0;
 
-
   const handleDocUpload = (id: string | undefined) => {
     if (!selectProductIndex || !id || !logUserId) {
       return;
     }
 
-    dispatch(UpdateDocUrl({
-      data: {
-        userId: logUserId,
-        productId: selectProductId || productList[0]?._id,
-        docId: id,
-        newMessage: "",
-        status: "Panding",
-        docUrl: fileUrls[selectProductIndex]
-      }
-    }))
-  }
-
-
+    dispatch(
+      UpdateDocUrl({
+        data: {
+          userId: logUserId,
+          productId: selectProductId || productList[0]?._id,
+          docId: id,
+          newMessage: "",
+          status: "Panding",
+          docUrl: fileUrls[selectProductIndex],
+        },
+      })
+    );
+  };
 
   return (
     <>
@@ -180,8 +290,57 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
       </div>
       <div className="userBox">
         <div className="sideMenu">
-          <h2>Products</h2>
-          <div className="ProductList">
+          <div className="sideMenuItem_Box">
+            {sideMenuList?.map((sm, i) => (
+              <div key={i} className="sideMenuItemMainBox">
+                <div
+                  className={
+                    activeMenu === sm.title
+                      ? "sideMenuItem ActiveSideMenuItem"
+                      : "sideMenuItem"
+                  }
+                  onClick={() => handleMenuClick(sm.title)}
+                >
+                  <p>{sm.title}</p>
+                  <img
+                    style={{
+                      rotate: activeMenu === sm.title ? "180deg" : "0deg",
+                    }}
+                    src={
+                      activeMenu === sm.title
+                        ? Image.MenuArrow_A
+                        : Image.MenuArrow
+                    }
+                    alt=""
+                  />
+                </div>
+
+                <div
+                  style={{ height: "0px" }}
+                  ref={(el) => {
+                    subMenuRefs.current[i] = el;
+                  }}
+                  className="subMenuItemBox"
+                >
+                  {sm?.subTitle?.map((sb, j: number) => (
+                    <div
+                      className={
+                        ActivePage === sb.title
+                          ? "subMenuItemActive subMenuItem"
+                          : "subMenuItem"
+                      }
+                      key={j}
+                      onClick={() => HandleActivePage(sb.title)}
+                    >
+                      <p>{sb?.title}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}{" "}
+          </div>
+
+          {/* <div className="ProductList">
             {productList?.map((el: ProductDataType, i: number) => (
               <div
                 className={
@@ -192,7 +351,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 key={i}
                 onClick={() => {
                   setSelectProduct(productList[i]);
-                  setSelectProductId(el?._id)
+                  setSelectProductId(el?._id);
                   localStorage.setItem("productIndex", i.toString());
                 }}
               >
@@ -207,7 +366,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 <p>{el?.title}</p>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
         <div className="userMainSection">
           <div className="userInfoTopBox">
@@ -235,10 +394,29 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
               </div>
             </div>
           </div>
+
+          {/* contanat section */}
+          {/* Service Listing */}
+          <div className={ActivePage === "Order" ? "userDMainSectin userDMainActiveSectin" : "userDMainSectin"}>
+            <h2>Your Service List</h2>
+
+            <div className="serviceList">
+              {
+                productList?.map((val, i) => (
+                  <div onClick={() => val?._id ? localStorage.setItem("udCategoryId", val?._id) : null} key={i} className="udServiceCard">
+                    <h4>{val?.title}</h4>
+                    <p> <b>Category :</b> {val?.category?.title}</p>
+                  </div>
+                ))
+              }
+            </div>
+
+          </div>
+
+
+
           <div className="serviceDetailsBox userInfoBox">
-            <h2 style={{ marginBottom: "20px" }}>
-              {selectProduct ? selectProduct?.title : productList[0]?.title}
-            </h2>
+            <h2 style={{ marginBottom: "20px" }}>Product Features</h2>
 
             {(selectProduct?.feturePoints ?? productList[0]?.feturePoints)?.map(
               (fp: { title: string; summary: string }, i: number) => (
@@ -273,17 +451,28 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                         ) : (
                           <img
                             className={
-                              val.status === "Approve" ? "docUploadIcon docA" :
-                                val.status === "Panding" ? "docUploadIcon docP" :
-                                  val.status === "Reject" ? "docUploadIcon docR" : "docUploadIcon"
-
+                              val.status === "Approve"
+                                ? "docUploadIcon docA"
+                                : val.status === "Panding"
+                                  ? "docUploadIcon docP"
+                                  : val.status === "Reject"
+                                    ? "docUploadIcon docR"
+                                    : "docUploadIcon"
                             }
                             src={val?.docUrl[0]}
                             alt=""
                           />
                         )}
                       </label>
-                      <img style={{ display: selectProductIndex === i ? "block" : "none" }} src={Image.uploadIcon} alt="" className="DocuploadIcon" onClick={() => handleDocUpload(val?._id)} />
+                      <img
+                        style={{
+                          display: selectProductIndex === i ? "block" : "none",
+                        }}
+                        src={Image.uploadIcon}
+                        alt=""
+                        className="DocuploadIcon"
+                        onClick={() => handleDocUpload(val?._id)}
+                      />
                       <input
                         id={`doc${i}`}
                         type="file"
@@ -308,7 +497,8 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
                 </>
               ) : (
                 <>
-                  {selectProduct?.documentsRequired?.tableData?.map((doc:any, i:number) => (
+                  {selectProduct?.documentsRequired?.tableData?.map(
+                    (doc: any, i: number) => (
                       <div key={i} className="docBox">
                         <h4>{doc?.documentType}</h4>
 
@@ -359,7 +549,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
             ))}
           </div>
         </div>
-      </div>
+      </div >
       <Footer />
     </>
   );

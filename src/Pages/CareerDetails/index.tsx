@@ -3,17 +3,16 @@ import { useNavigate } from "react-router-dom";
 import parse from 'html-react-parser';
 import { toast } from "react-toastify";
 import { baseURL } from "../../App";
-
-
-
 import "./style.css";
+
+
+
 
 
 //Images
 import smPageBG from "../../assets/images/smPageBG.svg";
 import locationIcon from "../../assets/images/locationYicon.svg";
 import timeIcon from "../../assets/images/timeYicon.svg";
-import managerIcon from "../../assets/images/directorYicon.svg";
 import atatchIcon from "../../assets/images/atatchIcon.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
 

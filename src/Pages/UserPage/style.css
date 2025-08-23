@@ -6,13 +6,104 @@
 }
 .sideMenu {
   min-width: 300px;
-  width: 25%;
-  padding: 20px;
+  max-width: 300px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background: rgb(255, 255, 255);
+  transition: all 0.7s cubic-bezier(0.13, 1.01, 0.97, 0.79);
+  padding-top: 20px;
+  position: relative;
+}
+.sideMenuItem_Box {
+  width: 100%;
+  height: 90%;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  padding: 0 20px;
+  margin-top: 40px;
+  position: relative;
+  height: -webkit-fill-available;
+  overflow-y: scroll;
+  padding-bottom: 90px;
+}
+.sideMenuItemMainBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+}
+.sideMenuItem {
+  width: 100%;
+  min-height: 55px;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+.sideMenuItem img {
+  width: 20px;
+  position: absolute;
+  right: 20px;
+  transition: all 0.7s;
+}
+.sideMenuItem:hover {
+  background: #5ab15b;
+}
+.sideMenuItem:hover p {
+  color: #fff;
+}
+.ActiveSideMenuItem {
+  background: #5ab15b;
+  box-shadow: 0px 10px 30px 0px #5ab15b66;
+}
+
+.sideMenuItem p {
+  font-size: 18px;
+  color: #44465a;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.ActiveSideMenuItem p {
+  color: #ffffff;
+}
+
+.subMenuItemActive {
+  background: #5ab15b;
+}
+.subMenuItemActive p {
+  color: #fff !important;
+}
+
+.subMenuItemBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #00b30029;
+  border-radius: 8px;
+  transition: all 0.6s;
+  transform-origin: top;
+  overflow: hidden;
+}
+.subMenuItem {
+  cursor: pointer;
+  transition: all 0.5s;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.subMenuItem:hover {
+  background: #5ab15b;
 }
 .userMainSection {
-  width: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -160,7 +251,7 @@
 }
 .docUploadBox {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
 }
 .docBox {
@@ -238,4 +329,28 @@
   position: relative;
   bottom: 0px;
   cursor: pointer;
+}
+
+.userDMainSectin {
+  display: none;
+  width: 100%;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+.userDMainActiveSectin {
+  display: flex;
+}
+.udServiceCard {
+  width: 40%;
+  background: #d6f3d6;
+  padding: 20px;
+  border-radius: 17px;
+  color: #000;
+}
+.udServiceCardActive {
+  background: #5ab15b;
 }
