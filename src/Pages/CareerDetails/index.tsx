@@ -33,7 +33,7 @@ interface NavProps {
 //Redux
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { FetchService } from "../../store/categorySlice";
+import { FetchCategory } from "../../store/categorySlice";
 import { FetchJob } from "../../store/jobSlice"
 import { CreateApplication } from "../../store/Application"
 
@@ -72,6 +72,7 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
     "60 Days",
     "90 Days"
   ]
+
 
   //handle function
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -162,10 +163,10 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
   }, [applyPop]);
 
   useEffect(() => {
-    dispatch(FetchService());
+    dispatch(FetchCategory());
     dispatch(FetchJob());
     if (Category?.data?.length < 0) {
-      dispatch(FetchService());
+      dispatch(FetchCategory());
     }
     if (data?.length < 0) {
       dispatch(FetchJob());
@@ -230,7 +231,7 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
               </label>
 
               <div className="checkBox">
-                <input style={{cursor:"pointer"}} type="checkBox" onChange={(e) => setPolicyCheck(e.target.checked)
+                <input style={{ cursor: "pointer" }} type="checkBox" onChange={(e) => setPolicyCheck(e.target.checked)
                 } />
                 <p>I Agree to Terms & Privacy Policy</p>
               </div>

@@ -6,21 +6,23 @@ import { baseURL } from "../App";
 import { STATUSES } from "./statusTypes";
 
 
-//service Type
-export interface ServiceDataType {
+//Category Type
+export interface CategoryDataType {
   title: string;
   summary: string;
   imageUrl: string;
   category?: string;
   imgAltTag?: string;
+  Slug?:string;
   metaTitle?: string;
   metaDescription?: string;
   _id?: string;
 }
 
-//Service Update type
-export interface UpdatedServiceValType {
+//Category Update type
+export interface UpdatedCategoryValType {
   title?: string;
+  Slug?:string;
   summary?: string;
   imageUrl?: string;
   imgAltTag?: string;
@@ -28,41 +30,41 @@ export interface UpdatedServiceValType {
   metaDescription?: string;
   category?: string;
 }
-interface UpdateServiceArgs {
+interface UpdateCategoryArgs {
   id: string;
-  data: UpdatedServiceValType;
+  data: UpdatedCategoryValType;
 }
 
 // Define the initial state type
-interface ServiceState {
-  data: ServiceDataType[];
+interface CategoryState {
+  data: CategoryDataType[];
   status: STATUSES;
 }
 
 // Initial state
-const initialState: ServiceState = {
+const initialState: CategoryState = {
   data: [],
   status: STATUSES.LOADING,
 };
 
-// **Fetch Services - Async Thunk**
-export const FetchService = createAsyncThunk<ServiceDataType[]>(
-  "service/fetch",
+// **Fetch Category - Async Thunk**
+export const FetchCategory = createAsyncThunk<CategoryDataType[]>(
+  "Category/fetch",
   async () => {
-    const response = await fetch(`${baseURL}/service`);
+    const response = await fetch(`${baseURL}/category`);
     const data = await response.json();
     return data;
   }
 );
 
-export const CreateService = createAsyncThunk<ServiceDataType, ServiceDataType>(
-  "service/create",
+export const CreateCategory = createAsyncThunk<CategoryDataType, CategoryDataType>(
+  "Category/create",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await Axios.post(`${baseURL}/service/create`, {
+      const response = await Axios.post(`${baseURL}/category/create`, {
         ...data,
       });
-      toast.success("Service created successfully.");
+      toast.success("category created successfully.");
       Reloader(600);
       return response.data;
     } catch (error: any) {
@@ -73,12 +75,12 @@ export const CreateService = createAsyncThunk<ServiceDataType, ServiceDataType>(
   }
 );
 
-// **Delete service - Async Thunk**
-export const DeleteService = createAsyncThunk<void, string>(
-  "service/delete",
+// **Delete Category - Async Thunk**
+export const DeleteCategory = createAsyncThunk<void, string>(
+  "Category/delete",
   async (id) => {
     try {
-      await Axios.post(`${baseURL}/service/delete/${id}`).then(() => {
+      await Axios.post(`${baseURL}/category/delete/${id}`).then(() => {
         toast.info("Service deleted successfully !");
         Reloader(1000);
       });
@@ -89,46 +91,46 @@ export const DeleteService = createAsyncThunk<void, string>(
   }
 );
 
-//Update service
+//Update Category
 
-export const UpdateService = createAsyncThunk<
-  UpdatedServiceValType,
-  UpdateServiceArgs
->("service/update", async ({ data, id }, { rejectWithValue }) => {
+export const UpdateCategory = createAsyncThunk<
+  UpdatedCategoryValType,
+  UpdateCategoryArgs
+>("Category/update", async ({ data, id }, { rejectWithValue }) => {
   try {
-    const response = await Axios.post(`${baseURL}/service/update/${id}`, data);
-    toast.success("Service updated successfully !");
+    const response = await Axios.post(`${baseURL}/category/update/${id}`, data);
+    toast.success("Category updated successfully !");
     Reloader(1000);
     return response.data;
   } catch (error: any) {
-    toast.error("Failed to update service");
+    toast.error("Failed to update Category");
     return rejectWithValue(error.response?.data || "An error occurred");
   }
 });
 
-// **Service Slice**
-const serviceSlice = createSlice({
+// **Category Slice**
+const categorySlice = createSlice({
   name: "service",
   initialState,
   reducers: {
-    get: (state, action: PayloadAction<ServiceDataType[]>) => {
+    get: (state, action: PayloadAction<CategoryDataType[]>) => {
       state.data = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(FetchService.pending, (state) => {
+      .addCase(FetchCategory.pending, (state) => {
         state.status = STATUSES.LOADING;
       })
-      .addCase(FetchService.fulfilled, (state, action) => {
+      .addCase(FetchCategory.fulfilled, (state, action) => {
         state.data = action.payload;
         state.status = STATUSES.IDLE;
       })
-      .addCase(FetchService.rejected, (state) => {
+      .addCase(FetchCategory.rejected, (state) => {
         state.status = STATUSES.ERROR;
       });
   },
 });
 
-export const { get } = serviceSlice.actions;
-export default serviceSlice.reducer;
+export const { get } = categorySlice.actions;
+export default categorySlice.reducer;

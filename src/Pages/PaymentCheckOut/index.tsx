@@ -23,11 +23,11 @@ import { DropBox, GoTop } from "../../components/Tools";
 
 import { GetUser, CreateContactUser } from "../../store/userSlice";
 import {
-  FetchProdcut,
-  ProductDataType,
+  FetchService,
+  ServiceDataType,
   priceDataProps,
-} from "../../store/productSlice";
-import { FetchService } from "../../store/categorySlice";
+} from "../../store/serviceSlice";
+import { FetchCategory } from "../../store/categorySlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -44,12 +44,12 @@ export default function PaymentCheckOut({
   const checkoutProduct = localStorage.getItem("checkoutProduct");
   const PriceId = localStorage.getItem("planPriceId");
   const dispatch = useDispatch<AppDispatch>();
-  const { data } = useSelector((state: RootState) => state.product);
+  const { data } = useSelector((state: RootState) => state.service);
   const categoryDB = useSelector((state: RootState) => state.category);
   const user = useSelector((state: RootState) => state.user);
   const [currentPriceData, setCurrentPriceData] = useState<priceDataProps>();
   const [featureView, setFeatureView] = useState(false);
-  const [Product, setProduct] = useState<ProductDataType>();
+  const [Product, setProduct] = useState<ServiceDataType>();
   //user state
   const [contactUser, setContactUser] = useState({
     name: "",
@@ -217,9 +217,9 @@ export default function PaymentCheckOut({
   }, [userId]);
 
   useEffect(() => {
-    dispatch(FetchProdcut());
+    dispatch(FetchService());
     if (data?.length < 0) {
-      dispatch(FetchProdcut());
+      dispatch(FetchService());
     }
   }, []);
 

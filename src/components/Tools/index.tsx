@@ -12,7 +12,7 @@ import { Image } from "../../assets/images";
 import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
 
 
-import { ServiceDataType } from "../../store/categorySlice";
+import { CategoryDataType } from "../../store/categorySlice";
 import { BlogDataType } from "../../store/blogSlice";
 
 interface TaxQueCardProps {
@@ -21,7 +21,7 @@ interface TaxQueCardProps {
   summery: string;
 }
 
-import { ProductDataType } from "../../store/productSlice";
+import { ServiceDataType } from "../../store/serviceSlice";
 import { TeamDataType } from "../../store/teamSlice"
 import { JobDataType } from "../../store/jobSlice"
 interface PriceCardProps {
@@ -53,14 +53,15 @@ export const ServiceCard = ({
   imageUrl,
   title,
   summary,
+  Slug,
   _id,
-}: ServiceDataType) => {
+}: CategoryDataType) => {
   const Navigate = useNavigate();
   const categroyId = _id || "noId";
-
+  const slug = Slug?.toLowerCase().replace(/\s+/g, "-");
   const handleCategoryClick = () => {
     localStorage.setItem("selectedCategory", categroyId);
-    Navigate("/products");
+    Navigate(`/category/${_id}/${slug}`);
     GoTop();
   };
   const truncatedHTML = truncate(summary, 100, { byWords: false });
@@ -412,9 +413,11 @@ export const ProductCard = ({
   title,
   feturePoints,
   priceData,
+  Slug,
   _id,
-}: ProductDataType) => {
+}: ServiceDataType) => {
   const Navigate = useNavigate();
+  const slug = Slug?.toLowerCase().replace(/\s+/g, "-");
   const ProductStanderPrice = priceData?.length ? priceData[0]?.price : "2999";
   const ProductBasicPrice = priceData?.length
     ? priceData[0]?.basicPrice
@@ -422,8 +425,8 @@ export const ProductCard = ({
   const ProductId = _id ? _id : "noId";
 
   const handleClickProductCard = () => {
+    Navigate(`/services/service-details/${_id}/${slug}`);
     localStorage.setItem("selectedProduct", ProductId);
-    Navigate("/services/product-details");
     GoTop();
   }
 
@@ -462,7 +465,7 @@ export const ProductCard = ({
         {feturePoints?.map((el, i) => (
           <div key={i} className="checkBox">
             <img src={Image.greenTik2} alt="" />
-            <p>{el?.title}</p>
+            <p>{el?.summary}</p>
           </div>
         ))}
       </div>

@@ -32,17 +32,13 @@ interface NavProps {
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
-import { FetchTeam } from "../../store/teamSlice"
-
-
+import { FetchTeam } from "../../store/teamSlice";
 
 export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("About Us");
   const Navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector((state: RootState) => state.team);
-
-
 
   useEffect(() => {
     dispatch(FetchTeam());
@@ -57,34 +53,37 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
 
-
           <p className="navigateText">
-            <p onClick={() => Navigate("/")} className="navHomeT">Home</p>
+            <p onClick={() => Navigate("/")} className="navHomeT">
+              Home
+            </p>
             <span className="navSeparator"> &gt; </span>
             <span className="navPageT">About Us</span>
           </p>
 
-          <p className="hrMainText">Our Journey to Simplify Taxes For You</p>
+          <p style={{ textAlign: "center" }} className="hrMainText">
+            Welcome to TaxQue – India’s Largest
+            <br /> Business Services Platform
+          </p>
         </div>
         {/* trust patnar */}
         <div className="trustPatnarSection">
           <div className="tpTextBox">
             <p className="tpHeaderText">
-              Your Trusted Partner for Expert Income Tax Return Verification
+              India’s Largest Business Services Platform
             </p>
             <p className="tpSubHeaderText">
-              Are you a business owner or salaried professional looking for tax
-              guidance? Taxbuddy is here to offer the best tax filing service in
-              India. With experts guiding you for better tax planning, assisted
-              ITR filing, Resolving Income tax notices, and filing Tax appeals,
-              you cannot go wrong with Taxbuddy. As an Indian taxpayer, you know
-              the complexities of tax filing and the consequences of the
-              smallest error in your returns. We make sure that you never miss a
-              deadline, make a calculation error, or omit an item from your
-              returns. Our platform covers diverse needs and facilitates tax
-              filing for everyone. A One Person Company is an ideal choice for
-              sole entrepreneurs who want to enjoy the benefits of limited
-              liability while maintaining full control over their business.{" "}
+              At TaxQue by ARB Fintech LLP, we are dedicated to empowering
+              businesses and individuals with seamless, reliable, and innovative
+              solutions for their accounting, tax, and compliance needs. Founded
+              in 2019 by Md Afzal, TaxQue has grown from a humble proprietorship
+              into a trusted name, serving clients across India. With our
+              corporate office in Patna, we manage all business activities from
+              this vibrant hub, while ARB Fintech LLP, which fully owns the
+              TaxQue brand, maintains its registered office in Vaishali, Bihar.
+              TaxQue is a registered trademark fully owned by ARB Fintech LLP,
+              reflecting our evolution into a leading business services
+              platform.
             </p>
           </div>
           <div className="tpImgBox">
@@ -93,11 +92,34 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
         </div>
         <div className="storyLineSection">
           <p className="sectionHeader">Our Story Line</p>
-          <p className="tpSubHeaderText oslSubText">
-            We not just take care of our client's taxation needs but are
-            committed to our mission of educating the masses about taxes to end
-            their fear associated with taxes to make a winning experience for
-            all.
+          <p className="aboutSummary">
+            TaxQue began in 2019 as a proprietorship, driven by Md Afzal’s
+            vision to simplify the complexities of taxation, compliance, and
+            business management for entrepreneurs and professionals across
+            India. Starting with a small but ambitious team, we quickly gained
+            traction by addressing the challenges of navigating regulatory
+            landscapes. In 2021, we took a significant step forward by
+            incorporating as TaxQue LLP, a legal entity registered in Jalandhar,
+            Punjab, solidifying our foundation and expanding our capabilities.
+          </p>
+          <p className="aboutSummary">
+            In 2022, we applied for trademarks under the ownership of ARB
+            Fintech LLP, which has its registered office in Vaishali, Bihar. By
+            2023, the TaxQue brand became fully owned by ARB Fintech LLP,
+            operating as TaxQue by ARB Fintech LLP. This transition strengthened
+            our position, enabling us to leverage advanced resources and
+            technology to better serve our clients. To streamline operations and
+            enhance accessibility, we established our corporate office in Patna,
+            where all TaxQue business activities are now managed, serving
+            clients nationwide with efficiency and dedication.
+          </p>
+          <p className="aboutSummary">
+            From our origins in Jalandhar to our current base in Patna, TaxQue
+            by ARB Fintech LLP has evolved into India’s largest business
+            services platform, supporting thousands of clients with unparalleled
+            expertise. Whether you’re a startup, a small business, or an
+            established enterprise, we are here to simplify your journey and
+            fuel your success.
           </p>
           <div className="oslMainBox">
             <div className="oslBox oslB1">
@@ -106,16 +128,50 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
               </div>
               <div className="oslTextBox">
                 <p className="tpSubHeaderText">
-                  A Private Limited Company offers limited liability to its
-                  shareholders and is one of the most common and trusted
-                  business structures in India. We provide a seamless
-                  registration process, handling everything from name approval,
-                  document preparation, filing of forms, and obtaining the
-                  certificate of incorporation. Our experts ensure that your
-                  company is compliant with all legal requirements, including
-                  the issuance of PAN and TAN.An LLP combines the benefits of a
-                  partnership and a private limited company, providing
-                  flexibility while limiting the liabilities of its partners.
+                  Our mission is to provide comprehensive, accessible, and
+                  high-quality accounting, tax, and legal solutions that empower
+                  our clients to thrive in a dynamic business environment. We
+                  are committed to:
+                  <ul style={{ marginTop: "10px" }}>
+                    <li>
+                      <b>Simplifying Complexity:</b> Streamlining intricate
+                      processes like tax filing, compliance, and business
+                      registration through intuitive technology and expert
+                      guidance.
+                    </li>
+                    <li>
+                      <b>Empowering Clients:</b> Equipping businesses and
+                      individuals with tailored solutions and actionable
+                      insights to make informed financial decisions.
+                    </li>
+                    <li>
+                      <b>Ensuring Accessibility:</b> Offering 24/7 online
+                      services that eliminate the need for physical visits,
+                      making professional support available to clients across
+                      India, from bustling cities to remote towns.
+                    </li>
+                    <li>
+                      <b>Delivering Excellence:</b> Maintaining the highest
+                      standards of professionalism, integrity, and accuracy in
+                      every service we provide.
+                    </li>
+                    <li>
+                      <b>Driving Innovation:</b> Continuously enhancing our
+                      platform with cutting-edge tools and personalized support
+                      to meet the evolving needs of our clients
+                    </li>
+                    <li>
+                      <b>Building Trust:</b> Cultivating long-term relationships
+                      by prioritizing transparency, affordability, and customer
+                      satisfaction in all our interactions.
+                    </li>
+                    <p className="aboutSummary">
+                      Through these principles, we strive to be the go-to
+                      partner for businesses and individuals, helping them
+                      navigate challenges and seize opportunities with
+                      confidence.
+                    </p>
+                  </ul>
                 </p>
               </div>
             </div>
@@ -133,16 +189,17 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
             <div className="oslBox oslB2">
               <div className="oslTextBox">
                 <p className="tpSubHeaderText">
-                  GST registration is mandatory for businesses with a turnover
-                  above the prescribed threshold. At TaxQue, we help you
-                  navigate the GST registration process, ensuring that you meet
-                  all the legal requirements and are able to collect and remit
-                  GST effectively. We also provide guidance on GST filing,
-                  return submission, and maintaining proper records.If you plan
-                  to engage in international trade, obtaining an IEC is
-                  mandatory. Our team helps you secure the IEC from the
-                  Directorate General of Foreign Trade (DGFT), allowing you to
-                  legally export and import goods and services across borders.
+                  To become India’s most trusted and forward-thinking business
+                  services platform, revolutionizing the way businesses and
+                  individuals manage their financial, tax, and compliance
+                  obligations. We envision a future where every entrepreneur,
+                  small business owner, and professional can access world-class
+                  services effortlessly, leveraging technology to eliminate
+                  barriers of complexity, cost, and geography. By fostering
+                  innovation, transparency, and excellence, we aim to empower
+                  our clients to achieve sustainable growth and financial
+                  success, setting a benchmark for reliability and customer
+                  satisfaction in the industry.
                 </p>
               </div>
               <div className="oslImgBox">
@@ -159,6 +216,32 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
             <WCTQCarousel />
           </div>
         </div>
+
+        <div className="storyLineSection">
+          <p className="sectionHeader">Our Commitment</p>
+          <p className="aboutSummary">
+            Your success is our priority. At TaxQue by ARB Fintech LLP, we are
+            committed to building lasting relationships by delivering
+            exceptional service with integrity and professionalism. We aim to
+            make your experience effortless and rewarding, whether you’re filing
+            taxes, registering a business, or seeking financial advice.
+          </p>
+          <p className="aboutSummary">
+            We take pride in simplifying complex processes, allowing you to
+            focus on growing your business and achieving your dreams with
+            confidence.
+          </p>
+
+          <p className="aboutSummary">
+            <b>Get in Touch :</b>
+            <br />
+            We are excited to be part of your journey and are committed to
+            serving you with the passion and excellence that define TaxQue by
+            ARB Fintech LLP. Have questions or need assistance? Visit
+            www.taxque.in or contact us today to request a quote.
+          </p>
+        </div>
+
         <div className="memberSection">
           <img className="grb1" src={YellowBg} />
           <p className="sectionHeader">Leadership & Management</p>

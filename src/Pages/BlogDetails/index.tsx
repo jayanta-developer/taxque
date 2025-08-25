@@ -19,7 +19,7 @@ import Subscribe from "../../components/Subscribe";
 import { ServiceCard, GoTop } from "../../components/Tools";
 
 import { FetchBlog } from "../../store/blogSlice";
-import { FetchService } from "../../store/categorySlice";
+import { FetchCategory } from "../../store/categorySlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
@@ -44,9 +44,9 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
     }
   }, []);
   useEffect(() => {
-    dispatch(FetchService());
+    dispatch(FetchCategory());
     if (categoryData?.data?.length < 0) {
-      dispatch(FetchService());
+      dispatch(FetchCategory());
     }
   }, []);
   return (
@@ -108,7 +108,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
                 <AppHoloBtn
                   btnText="Explore All Services"
                   onClick={() => {
-                    Navigate("/services");
+                    Navigate("/Categorys");
                     GoTop();
                   }}
                 />
@@ -132,8 +132,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
               {categoryData?.data?.slice(0, 20).map((el, i) => (
                 <div
                   onClick={() => {
-                    localStorage.setItem("selectedCategory", el?._id || "noId");
-                    Navigate("/products");
+                    Navigate(`/category/${el?._id}/${el?.Slug?.toLowerCase().replace(/\s+/g, "-")}`);
                     GoTop();
                   }}
                   key={i} className="chip">

@@ -6,10 +6,10 @@ export const baseURL = import.meta.env.VITE_BASE_URL;
 //components
 import GlobalPage from "./Pages/GlobalPage";
 import Home from "./Pages/Home";
-import Services from "./Pages/Services";
-import ProductList from "./Pages/ProductList";
+import Category from "./Pages/Category";
+import ServiceList from "./Pages/ServiceList";
 import AboutUs from "./Pages/AboutUs";
-import ProductDetails from "./Pages/ProductDetails";
+import ServiceDetails from "./Pages/ServiceDetails";
 // import ProductPayment from "./Pages/ProductPayment";
 import BlogPage from "./Pages/BlogPage";
 import BlogDetails from "./Pages/BlogDetails";
@@ -42,22 +42,18 @@ function App() {
           }
         />
         <Route
-          path="/services"
+          path="/categorys"
           element={
-            // <ProtectedRoute>
-            <Services setCurrentNav={setCurrentNav} currentNav={currentNav} />
-            //  </ProtectedRoute>
+            <Category setCurrentNav={setCurrentNav} currentNav={currentNav} />
           }
         />
         <Route
-          path="/products"
+          path="/category/:id/:slug"
           element={
-            // <ProtectedRoute>
-            <ProductList
+            <ServiceList
               setCurrentNav={setCurrentNav}
               currentNav={currentNav}
             />
-            // </ProtectedRoute>
           }
         />
         <Route
@@ -67,14 +63,12 @@ function App() {
           }
         />
         <Route
-          path="/services/product-details"
+          path="/services/service-details/:id/:slug"
           element={
-            // <ProtectedRoute>
-            <ProductDetails
+            <ServiceDetails
               setCurrentNav={setCurrentNav}
               currentNav={currentNav}
             />
-            // </ProtectedRoute>
           }
         />
         {/* <Route

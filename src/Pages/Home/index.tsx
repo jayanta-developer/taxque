@@ -2,6 +2,7 @@ import "./style.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GoogleReviewsWidget from "google-reviews-widget"
+import { TypeAnimation } from 'react-type-animation';
 
 //images
 import homeBg from "../../assets/images/homeBg.svg";
@@ -27,11 +28,13 @@ import HomeCarousel from "../../components/HomeCarousel";
 import { AppBtn } from "../../components/Buttons";
 import { GoTop } from "../../components/Tools";
 
-import { FetchService } from "../../store/categorySlice";
+import { FetchCategory } from "../../store/categorySlice";
 import { FetchBlog } from "../../store/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
-import { FetchProdcut } from "../../store/productSlice";
+import { FetchService } from "../../store/serviceSlice";
+import { toggleLabel, setLabel } from "../../store/stateSlice";
+
 
 interface NavProps {
   currentNav: string;
@@ -44,17 +47,32 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.category);
   const blogData = useSelector((state: RootState) => state.blog);
-  const Product = useSelector((state: RootState) => state.product);
+  const Service = useSelector((state: RootState) => state.service);
   const [currentDisplayPrice, setCurrentDisplayPrice] = useState<string>()
+
+  const label = useSelector((state: RootState) => state.label.value);
+  //state
+  const [searchTerm, setSearchTerm] = useState("");
+
+
+
+  //Search function 
+  const filteredProducts = Service.data?.filter((product) => {
+    const lowerCaseTitle = product?.title?.toLowerCase();
+    const lowerCaseInput = searchTerm?.toLowerCase();
+    if (searchTerm === "") return false;
+    if (lowerCaseTitle === lowerCaseInput) return true;
+    return lowerCaseTitle.includes(lowerCaseInput);
+  });
 
 
 
   //Get Display Price Plane
-  const displyaPricePlane = Product.data.find((val) => val.display === currentDisplayPrice)
+  const displyaPricePlane = Service.data.find((val) => val.display === currentDisplayPrice)
   useEffect(() => {
     const currentDate = new Date()
-    if (Product.data.length) {
-      const dateListObject = Product.data
+    if (Service.data.length) {
+      const dateListObject = Service.data
         .filter(pd => pd?.display)
         .map(pd => new Date(pd.display as string));
       const pastDates = dateListObject.filter(olddate => olddate <= currentDate);
@@ -66,7 +84,35 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
       setCurrentDisplayPrice(latestDate.toISOString());
     }
   })
-  console.log(displyaPricePlane);
+
+
+
+
+  function HeroHeader() {
+    return (
+      <div className="text-center mt-10">
+        {/* <h1 className="text-4xl font-bold">
+          Welcome to <span className="text-green-500">Tax</span>
+          <span className="text-orange-500">Que</span>
+        </h1> */}
+
+        <TypeAnimation
+          sequence={[
+            'Welcome to', // First text
+            2000,                         // Wait 2s
+            'TaxQue', // Second text
+            2000,
+            'Simplifying Taxes for You!',  // Third text
+            2000,
+          ]}
+          wrapper="h1"
+          cursor={true}
+          repeat={Infinity}
+          className="text-2xl font-semibold mt-3 text-gray-800"
+        />
+      </div>
+    );
+  }
 
 
 
@@ -77,9 +123,9 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
     }
   }, []);
   useEffect(() => {
-    dispatch(FetchProdcut());
-    if (Product?.data?.length < 0) {
-      dispatch(FetchProdcut());
+    dispatch(FetchService());
+    if (Service?.data?.length < 0) {
+      dispatch(FetchService());
     }
   }, []);
   useEffect(() => {
@@ -92,19 +138,66 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
     <>
       <div className="heroBox">
         <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
+        {/*Search pop */}
+        <div
+          id="searchGrayBox"
+          style={{ width: label ? "100%" : "0%" }}
+          className="grayBox"
+          onClick={(e) => {
+            const target = e.target as HTMLElement;
+            if (target.id === "searchGrayBox") {
+              dispatch(setLabel(false));
+            }
+          }}
+        >
+          <div className="searchBox">
+            <h2>Search Service</h2>
+            <div className="search_InputBox">
+              <input type="text" placeholder="Search Categorys..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            </div>
+            <div className="SPcategoryListBox">
+
+              {
+                filteredProducts?.map((val, i: number) => (
+                  <div onClick={() => {
+                    Navigate(`/services/service-details/${val?._id}/${val?.Slug.toLowerCase().replace(/\s+/g, "-")}`)
+                    dispatch(setLabel(false));
+                  }} key={i} className="spCategoryItemBox">
+                    <p>{val.title}</p>
+                    <span >{val?.category?.title}</span>
+                  </div>
+                ))
+              }
+
+
+
+
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+
+
         <img src={homeBg} className="homeBg" alt="" />
         {/*-Hero section --  */}
         <div className="heroMainSection">
           <div className="hrTextBox">
-            <p className="hrMainText">
-              <span>Welcome to 
+            {/* <p className="hrMainText">
+              <span>Welcome to
                 <samp className="hHText1">
                   <span className="hHText2"> T</span>
                   ax<span className="hHText2">Q</span>ue</samp>
 
               </span><br />
               Simplifying Taxes for You!
-            </p>
+            </p> */}
+
+            <HeroHeader />
+
             <p className="hrSummeryText">
               Simplifying finances since 2019, TaxQue is the trusted choice for businesses and individuals in need of expert taxation and compliance services. Our mission is to deliver solutions that are accurate, timely, and hassle-free.
             </p>
@@ -154,7 +247,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
             height="50px"
             icon={rightArrow}
             onClick={() => {
-              Navigate("/services");
+              Navigate("/categorys");
               GoTop();
             }}
           />

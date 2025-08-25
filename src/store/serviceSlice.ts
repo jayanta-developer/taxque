@@ -89,13 +89,14 @@ interface priceUpdateArgs {
   priceItemId: string;
   data: priceDataUpdateProps;
 }
-export interface ProductInfoValType {
+export interface ServiceInfoValType {
   title: string;
   metaTitle: string;
   metaDescription: string;
 }
-export interface ProductDataType {
+export interface ServiceDataType {
   title: string;
+  Slug: string;
   displayName: string;
   metaTitle: string;
   metaDescription: string;
@@ -175,31 +176,42 @@ export interface ProductDataType {
 }
 
 // Define the initial state type
-interface ProductState {
-  data: ProductDataType[];
+interface ServiceState {
+  data: ServiceDataType[];        // all products
+  Service: ServiceDataType | null; // single product
   status: string;
 }
-// Initial state
-const initialState: ProductState = {
+
+const initialState: ServiceState = {
   data: [],
+  Service: null,
   status: STATUSES.LOADING,
 };
 
 // **Fetch Services - Async Thunk**
-export const FetchProdcut = createAsyncThunk<ProductDataType[]>(
+export const FetchService = createAsyncThunk<ServiceDataType[]>(
   "product/fetch",
   async () => {
-    const response = await fetch(`${baseURL}/products`);
+    const response = await fetch(`${baseURL}/service`);
+    const data = await response.json();
+    return data;
+  }
+);
+//get service by id
+export const FetchServiceById = createAsyncThunk<ServiceDataType, { id: string }>(
+  "ServiceById/fetch",
+  async ({ id }) => {
+    const response = await fetch(`${baseURL}/service/${id}`);
     const data = await response.json();
     return data;
   }
 );
 
-export const CreateProduct = createAsyncThunk<ProductDataType, ProductDataType>(
-  "product/create",
+export const CreateService = createAsyncThunk<ServiceDataType, ServiceDataType>(
+  "Service/create",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await Axios.post(`${baseURL}/product/create`, {
+      const response = await Axios.post(`${baseURL}/service/create`, {
         ...data,
       });
       toast.success("Product created successfully.");
@@ -214,17 +226,17 @@ export const CreateProduct = createAsyncThunk<ProductDataType, ProductDataType>(
   }
 );
 
-//Delete product
-export const DeleteProduct = createAsyncThunk<void, string>(
-  "product/delete",
+//Delete Service
+export const DeleteService = createAsyncThunk<void, string>(
+  "Service/delete",
   async (id) => {
     try {
-      await Axios.post(`${baseURL}/product/delete/${id}`).then(() => {
-        toast.info("Product deleted successfully !");
+      await Axios.post(`${baseURL}/service/delete/${id}`).then(() => {
+        toast.info("Service deleted successfully !");
         Reloader(1000);
       });
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error("Error deleting Service:", error);
       toast.error("Internal server error!");
       Reloader(600);
     }
@@ -233,11 +245,11 @@ export const DeleteProduct = createAsyncThunk<void, string>(
 
 //Add FAQ
 export const AddFAQ = createAsyncThunk<FAQType, FAQArgs>(
-  "product/FAQ/update",
+  "Service/FAQ/update",
   async ({ data, id }, { rejectWithValue }) => {
     try {
       const response = await Axios.post(
-        `${baseURL}/product/faq/add/${id}`,
+        `${baseURL}/service/faq/add/${id}`,
         data
       );
       toast.success("FAQ updated successfully !");
@@ -256,7 +268,7 @@ export const UpdateFAQ = createAsyncThunk<FAQUpdatTeype, FAQUpdatTeypeArgs>(
   "faq/update",
   async ({ data }, { rejectWithValue }) => {
     try {
-      const response = await Axios.post(`${baseURL}/product/faq/update`, data);
+      const response = await Axios.post(`${baseURL}/service/faq/update`, data);
       toast.success("FAQ updated successfully !");
       Reloader(1000);
       return response.data;
@@ -273,7 +285,7 @@ export const DeleteFAQ = createAsyncThunk<void, object>(
   "faq/delete",
   async (ids) => {
     try {
-      await Axios.post(`${baseURL}/product/faq/delete`, ids).then(() => {
+      await Axios.post(`${baseURL}/service/faq/delete`, ids).then(() => {
         toast.info("FAQ deleted successfully !");
         Reloader(1000);
       });
@@ -291,7 +303,7 @@ export const AddPrice = createAsyncThunk<priceDataProps, priceArgs>(
   async ({ data, id }, { rejectWithValue }) => {
     try {
       const response = await Axios.post(
-        `${baseURL}/product/price/add/${id}`,
+        `${baseURL}/service/price/add/${id}`,
         data
       );
       toast.success("Add price plan successfully!");
@@ -312,7 +324,7 @@ export const UpdatePlan = createAsyncThunk<
 >("price/update", async ({ data, id, priceItemId }, { rejectWithValue }) => {
   try {
     const response = await Axios.post(
-      `${baseURL}/product/price/update/${id}/${priceItemId}`,
+      `${baseURL}/service/price/update/${id}/${priceItemId}`,
       data
     );
     toast.success("Price plan updated successfully !");
@@ -332,7 +344,7 @@ export const DeletePricePlan = createAsyncThunk<
 >("pricePlan/delete", async ({ id, priceItemId }) => {
   try {
     await Axios.post(
-      `${baseURL}/product/price/delete/${id}/${priceItemId}`
+      `${baseURL}/service/price/delete/${id}/${priceItemId}`
     ).then(() => {
       toast.info("Plan deleted successfully !");
       Reloader(1000);
@@ -344,30 +356,160 @@ export const DeletePricePlan = createAsyncThunk<
   }
 });
 
-// **Product Slice**
-const productSlice = createSlice({
+// **Service Slice**
+const serviceSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    get: (state, action: PayloadAction<ProductDataType[]>) => {
+    get: (state, action: PayloadAction<ServiceDataType[]>) => {
       state.data = action.payload;
     },
   },
 
   extraReducers: (builder) => {
+    // Fetch all Service
     builder
-      .addCase(FetchProdcut.pending, (state) => {
+      .addCase(FetchService.pending, (state) => {
         state.status = STATUSES.LOADING;
       })
-      .addCase(FetchProdcut.fulfilled, (state, action) => {
+      .addCase(FetchService.fulfilled, (state, action) => {
         state.data = action.payload;
         state.status = STATUSES.IDLE;
       })
-      .addCase(FetchProdcut.rejected, (state) => {
+      .addCase(FetchService.rejected, (state) => {
         state.status = STATUSES.ERROR;
       });
-  },
+
+    // Fetch product by ID
+    builder
+      .addCase(FetchServiceById.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(FetchServiceById.fulfilled, (state, action) => {
+        state.Service = action.payload; // 👈 store single product separately
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(FetchServiceById.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    // Create Product
+    builder
+      .addCase(CreateService.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(CreateService.fulfilled, (state, action) => {
+        state.data.push(action.payload);
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(CreateService.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    // Delete Service
+    builder
+      .addCase(DeleteService.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(DeleteService.fulfilled, (state, action) => {
+        state.data = state.data.filter((p) => p._id !== action.meta.arg);
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(DeleteService.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    // Add FAQ
+    builder
+      .addCase(AddFAQ.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(AddFAQ.fulfilled, (state, action) => {
+        const { id } = action.meta.arg;
+        const product = state.data.find((p) => p._id === id);
+        if (product) {
+          product.FAQ = [...(product.FAQ || []), action.payload];
+        }
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(AddFAQ.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    // Delete FAQ
+    builder
+      .addCase(DeleteFAQ.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(DeleteFAQ.fulfilled, (state, action) => {
+        const { productId, faqId } = action.meta.arg as any;
+        const product = state.data.find((p) => p._id === productId);
+        if (product?.FAQ) {
+          product.FAQ = product.FAQ.filter((faq) => faq._id !== faqId);
+        }
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(DeleteFAQ.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    // Add Price
+    builder
+      .addCase(AddPrice.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(AddPrice.fulfilled, (state, action) => {
+        const { id } = action.meta.arg;
+        const product = state.data.find((p) => p._id === id);
+        if (product) {
+          product.priceData = [...(product.priceData || []), action.payload];
+        }
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(AddPrice.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    // Update Price Plan
+    builder
+      .addCase(UpdatePlan.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(UpdatePlan.fulfilled, (state, action) => {
+        const { id, priceItemId } = action.meta.arg;
+        const product = state.data.find((p) => p._id === id);
+        if (product?.priceData) {
+          product.priceData = product.priceData.map((plan) =>
+            plan._id === priceItemId ? { ...plan, ...action.payload } : plan
+          );
+        }
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(UpdatePlan.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    // Delete Price Plan
+    builder
+      .addCase(DeletePricePlan.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(DeletePricePlan.fulfilled, (state, action) => {
+        const { id, priceItemId } = action.meta.arg;
+        const product = state.data.find((p) => p._id === id);
+        if (product?.priceData) {
+          product.priceData = product.priceData.filter(
+            (plan) => plan._id !== priceItemId
+          );
+        }
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(DeletePricePlan.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+  }
+
 });
 
-export const { get } = productSlice.actions;
-export default productSlice.reducer;
+export const { get } = serviceSlice.actions;
+export default serviceSlice.reducer;

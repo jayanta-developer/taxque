@@ -16,16 +16,17 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
-import { FetchProdcut } from "../../store/productSlice";
-import { FetchService } from "../../store/categorySlice"
+import { FetchService } from "../../store/serviceSlice";
+import { FetchCategory } from "../../store/categorySlice"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
+import { setLabel } from "../../store/stateSlice";
 
 
 export default function NavBar({ currentNav }: NavProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { data } = useSelector((state: RootState) => state.product);
+  const { data } = useSelector((state: RootState) => state.service);
   const category = useSelector((state: RootState) => state.category);
 
   const [nav, setNav] = useState(false);
@@ -33,7 +34,6 @@ export default function NavBar({ currentNav }: NavProps) {
   const divRef = useRef<HTMLDivElement | null>(null);
   const { user } = useContext(AuthContext)!;
   const [userDrop, setUserDrop] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [categoryPop, setCategoryPop] = useState<boolean>(false);
 
   const closeNav = (e: any) => {
@@ -86,22 +86,6 @@ export default function NavBar({ currentNav }: NavProps) {
     Reloader(500);
   };
 
-  //Search function 
-  const filteredProducts = data?.filter((product) => {
-    const lowerCaseTitle = product?.title?.toLowerCase();
-    const lowerCaseInput = searchTerm?.toLowerCase();
-    if (searchTerm === "") return false;
-    if (lowerCaseTitle === lowerCaseInput) return true;
-    return lowerCaseTitle.includes(lowerCaseInput);
-  });
-
-  useEffect(() => {
-    document.addEventListener("click", (e: any) => {
-      if (e.target.id !== "sBox") {
-        setSearchTerm("")
-      }
-    })
-  })
 
 
   useEffect(() => {
@@ -136,21 +120,20 @@ export default function NavBar({ currentNav }: NavProps) {
 
 
   //handle go Category page
-  const handleCategoryClick = (categroyId: string) => {
+  const handleCategoryClick = (categroyId: string, slug: string) => {
     console.log(categroyId);
-    // localStorage.setItem("selectedCategory", categroyId);
-    navigate("/products");
-    // GoTop();
+    navigate(`/category/${categroyId}/${slug.toLowerCase().replace(/\s+/g, "-")}`)
+    GoTop();
   };
 
   useEffect(() => {
-    dispatch(FetchProdcut());
     dispatch(FetchService());
+    dispatch(FetchCategory());
     if (data?.length < 0) {
-      dispatch(FetchProdcut());
+      dispatch(FetchService());
     }
     if (category?.data?.length < 0) {
-      dispatch(FetchService());
+      dispatch(FetchCategory());
     }
   }, []);
 
@@ -214,11 +197,11 @@ export default function NavBar({ currentNav }: NavProps) {
             onClick={(e) => {
               const target = e.target as HTMLElement;
               if (target.id === "ServicesItem") {
-                navigatePage("/services");
+                navigatePage("/categorys");
               }
             }}
           >
-            Services
+            Category
             <samp className="nl1"></samp>
             <samp className="nl2"></samp>
             <div
@@ -238,7 +221,7 @@ export default function NavBar({ currentNav }: NavProps) {
             >
               {
                 category.data?.map((subM, i) => (
-                  <div onClick={() => handleCategoryClick(subM?._id || "")} className="categoryItemBox" key={i}>
+                  <div onClick={() => handleCategoryClick(subM?._id || "", subM?.Slug || "")} className="categoryItemBox" key={i}>
                     <p>{subM?.title}</p>
                     <img src={Image.rightArrowV2} alt="" />
                   </div>
@@ -269,25 +252,7 @@ export default function NavBar({ currentNav }: NavProps) {
             <samp className="nl2"></samp>
           </p>
 
-
-          <div id="sBox" className="NavSearchInputBox">
-            <input id="sBox" value={searchTerm} type="text" placeholder="Search..." onChange={(e) => setSearchTerm(e.target.value)} />
-            <img id="sBox" src={Image.searchIcon} alt="" />
-            {filteredProducts.length > 0 &&
-              <div id="sBox" className="dispalySearchProducts">
-                {filteredProducts.map((product, i: number) => (
-                  <div id="sBox" onClick={() => {
-                    navigate("/services/product-details");
-                    product?._id ? localStorage.setItem("selectedProduct", product?._id) : null
-                    Reloader(100)
-                  }} className="sProductItem" key={i}>
-                    <p id="sBox">{product.title}</p>
-                    <span id="sBox">{product?.category?.title}</span>
-                  </div>
-                ))}
-              </div>
-            }
-          </div>
+          <img onClick={() => dispatch(setLabel(true))} className="navSearchBtn" src={Image.searchIcon} alt="" />
 
           {user ? (
             <div

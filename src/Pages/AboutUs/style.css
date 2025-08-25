@@ -156,6 +156,13 @@
 .memberSection .btnBox {
   margin-top: 14%;
 }
+.aboutSummary {
+  width: 100%;
+  font-size: 1rem;
+  text-align: start;
+  color: #4d4d4d;
+  margin: 10px
+}
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .storyLineSection {

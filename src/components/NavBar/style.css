@@ -91,7 +91,7 @@
   padding: 5px 10px;
   border-radius: 8px;
 }
-.categoryItemBox img{
+.categoryItemBox img {
   width: 14px;
 }
 .categoryItemBox:hover {
@@ -275,6 +275,10 @@
   font-size: 13px;
   color: rgba(128, 128, 128, 0.822);
 }
+.navSearchBtn {
+  cursor: pointer;
+}
+
 /* Tabe view */
 @media only screen and (min-width: 768px) {
   .meneIcon {

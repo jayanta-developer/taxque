@@ -3,7 +3,7 @@ import YellowBg from "../../assets/images/YellowBg.svg";
 import "./style.css";
 
 import { PriceCard } from "../Tools";
-import { priceDataProps } from "../../store/productSlice";
+import { priceDataProps } from "../../store/serviceSlice";
 
 export default function PriceSection({ product }: any) {
   const [priceTab, setPriceTab] = useState(0);

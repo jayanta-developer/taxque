@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+
 import "./style.css";
-
-
 //images
 import pageBg from "../../assets/images/otherPageBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
@@ -16,58 +14,33 @@ import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
-import { ProductCard } from "../../components/Tools";
+import { ServiceCard } from "../../components/Tools";
 
-import { FetchProdcut, ProductDataType } from "../../store/productSlice";
+import { FetchCategory } from "../../store/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
-import { FetchService } from "../../store/categorySlice";
-
 
 interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
+export default function Category({ setCurrentNav, currentNav }: NavProps) {
   const Navigate = useNavigate();
-  const selectedCategoryId = localStorage.getItem("selectedCategory");
-  setCurrentNav("Services");
   const dispatch = useDispatch<AppDispatch>();
-  const { data } = useSelector((state: RootState) => state.product);
-  const category = useSelector((state: RootState) => state.category);
+  const { data } = useSelector((state: RootState) => state.category);
 
-
-  const currentCategory = category?.data.find((val) => val._id === selectedCategoryId);
-
-
-  let Product_list: ProductDataType[] = [];
-
-  if (data.length) {
-    Product_list = data.filter((pr) => pr?.category?.id === selectedCategoryId);
-  }
-  console.log(Product_list);
-
+  setCurrentNav("Services");
 
   useEffect(() => {
-    dispatch(FetchProdcut());
-    dispatch(FetchService());
+    dispatch(FetchCategory());
     if (data?.length < 0) {
-      dispatch(FetchProdcut());
-    }
-    if (category?.data?.length < 0) {
-      dispatch(FetchService());
+      dispatch(FetchCategory());
     }
   }, []);
-
   return (
     <>
       <div className="servicesPage">
-        <Helmet>
-          <title>{currentCategory?.metaTitle || currentCategory?.title}</title>
-          <meta name="description" content={currentCategory?.metaDescription || 'Default description'} />
-        </Helmet>
-
         <div className="subPageHeroSection">
           <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
           <img src={pageBg} className="pageBg" />
@@ -75,18 +48,14 @@ export default function ProductList({ setCurrentNav, currentNav }: NavProps) {
           <p className="navigateText">
             <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
             <span className="navSeparator"> &gt; </span>
-            <span onClick={() => Navigate("/services")} className="navPageT">{Product_list[0]?.category?.title}</span>
+            <span className="navPageT">Services</span>
           </p>
 
-
-
-          <p className="hrMainText">Services Related Products</p>
+          <p className="hrMainText">Our Comprehensive Services</p>
         </div>
         <div className="serviceMainSection">
-          {Product_list?.filter(
-            (el): el is ProductDataType => el !== undefined
-          ).map((el, i) => (
-            <ProductCard key={i} {...el} />
+          {data?.map((el, i) => (
+            <ServiceCard {...el} key={i} />
           ))}
         </div>
         {/* Review section */}

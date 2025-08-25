@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import parse from 'html-react-parser';
+import { useParams } from "react-router-dom";
 import "./style.css";
 
 //images
@@ -31,25 +32,28 @@ interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
-import { FetchProdcut, ProductDataType } from "../../store/productSlice";
-import { FetchService } from "../../store/categorySlice"
+import { FetchService, ServiceDataType, FetchServiceById } from "../../store/serviceSlice";
+import { FetchCategory } from "../../store/categorySlice"
 
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function ProductDetails({
+export default function ServiceDetails({
   setCurrentNav,
   currentNav,
 }: NavProps) {
   const selectedProductId = localStorage.getItem("selectedProduct");
   setCurrentNav("Services");
-  const { data, status } = useSelector((state: RootState) => state.product);
-  const Service = useSelector((state: RootState) => state.category)
+  const { id } = useParams();
+
+  const { Service, status } = useSelector((state: RootState) => state.service);
+  console.log(Service, status);
+
+  const Category = useSelector((state: RootState) => state.category)
   const dispatch = useDispatch<AppDispatch>();
   const [activeSection, setActiveSection] = useState<string>("");
 
   const [loding, setLoading] = useState(false);
-  const [Product, setProduct] = useState<ProductDataType>();
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
   const [navItems, setNavItems] = useState<string[]>([]);
 
@@ -74,34 +78,34 @@ export default function ProductDetails({
 
 
   // section Observe function 
-  // useEffect(() => {
-  //   if (!ParaSection || ParaSection.length === 0) return;
+  useEffect(() => {
+    if (!ParaSection || ParaSection.length === 0) return;
 
-  //   let observer: IntersectionObserver | null = null;
-  //   observer = new IntersectionObserver(
-  //     (entries) => {
-  //       entries.forEach((entry) => {
-  //         if (entry.isIntersecting) {
-  //           console.log("Intersecting:", entry.target.id);
-  //           setActiveSection(entry.target.id);
-  //         }
-  //       });
-  //     },
-  //     { root: null, threshold: 0.2 }
-  //   );
+    let observer: IntersectionObserver | null = null;
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log("Intersecting:", entry.target.id);
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { root: null, threshold: 0.2 }
+    );
 
-  //   ParaSection.forEach((el) => {
-  //     const section = document.getElementById(el?.id);
-  //     if (section) {
-  //       console.log("Observing:", el?.id);
-  //       observer.observe(section);
-  //     }
-  //   });
+    ParaSection.forEach((el) => {
+      const section = document.getElementById(el?.id);
+      if (section) {
+        console.log("Observing:", el?.id);
+        observer.observe(section);
+      }
+    });
 
-  //   return () => {
-  //     if (observer) observer.disconnect();
-  //   };
-  // }, [ParaSection, navItems]);
+    return () => {
+      if (observer) observer.disconnect();
+    };
+  }, [ParaSection, navItems]);
 
 
   useEffect(() => {
@@ -110,7 +114,7 @@ export default function ProductDetails({
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("Visible section:", entry?.target?.id);
+          // console.log("Visible section:", entry?.target?.id);
           setActiveSection(entry.target.id);
 
         }
@@ -119,13 +123,13 @@ export default function ProductDetails({
 
     navItems.forEach((item) => {
       const el = document.getElementById(item.toUpperCase());
-      console.log(el);
+      // console.log(el);
 
       if (el) observer.observe(el);
     });
 
     return () => observer.disconnect();
-  }, [navItems, Product]);
+  }, [navItems, Service]);
 
 
 
@@ -139,7 +143,7 @@ export default function ProductDetails({
 
 
 
-  //Create Product Section array
+  //Create Service Section array
 
   const sectionConfig: { key: string; label: string }[] = [
     { key: "overView", label: "Overview" },
@@ -159,11 +163,11 @@ export default function ProductDetails({
 
 
   useEffect(() => {
-    if (!Product) return;
+    if (!Service) return;
 
     const newNavItems = sectionConfig
       .filter(({ key }) => {
-        const value = (Product as Record<string, any>)[key];
+        const value = (Service as Record<string, any>)[key];
         if (!value) return false;
 
         if (Array.isArray(value)) return value.length > 0;
@@ -182,30 +186,28 @@ export default function ProductDetails({
       .map(({ label }) => label);
 
     setNavItems(newNavItems);
-  }, [Product]);
-
-
-  useEffect(() => {
-    dispatch(FetchProdcut());
-    dispatch(FetchService());
-    if (data?.length < 0) {
-      dispatch(FetchProdcut());
-    }
-    if (Service.data?.length < 0) {
-      dispatch(FetchService());
-    }
-  }, []);
+  }, [Service]);
 
   useEffect(() => {
-    setProduct(data?.find((pr) => pr._id === selectedProductId));
-  }, [data, Product]);
+    if (!id) return;
+    dispatch(FetchServiceById({
+      id: id
+    }));
+    if (Service) {
+      dispatch(FetchServiceById({
+        id: id
+      }));
+    }
+
+  }, [id])
+
 
   return (
     <>
       <div className="productPage">
         <Helmet>
-          <title>{Product?.metaTitle || Product?.title}</title>
-          <meta name="description" content={Product?.metaDescription || 'Default description'} />
+          <title>{Service?.metaTitle || Service?.title}</title>
+          <meta name="description" content={Service?.metaDescription || 'Default description'} />
         </Helmet>
 
 
@@ -225,10 +227,10 @@ export default function ProductDetails({
               <div className="productHeroMainSection">
                 <div className="productInfoSection">
                   <div className="productHeader">
-                    <p>{Product?.title}</p>
+                    <p>{Service?.title}</p>
                   </div>
                   <div className="productFeatures">
-                    {Product?.feturePoints?.map((fe, i: number) => (
+                    {Service?.feturePoints?.map((fe, i: number) => (
                       <div key={i} className="checkBox">
                         <img src={greenTik2} alt="" />
                         <p>
@@ -270,7 +272,7 @@ export default function ProductDetails({
                   </div>
                 </div>
                 <div className="productContactSection">
-                  <ContactSection subjectList={Service.data} />
+                  <ContactSection subjectList={Category.data} />
                 </div>
               </div>
             </>
@@ -279,7 +281,7 @@ export default function ProductDetails({
 
         <div className="productPageMainSection">
           {/*Price plane Box*/}
-          <PriceSection product={Product} />
+          <PriceSection product={Service} />
 
           {/* PeraSection */}
           <div className="paraSection">
@@ -292,7 +294,7 @@ export default function ProductDetails({
                       activeSection === el.toUpperCase().replace(/\s+/g, "") ? "productNavActive" : ""}
                     onClick={() => handlePDClick(el.toUpperCase().replace(/\s+/g, ""))}
                     key={i}>
-                    {el === "What is" ? `What is ${Product?.displayName || Product?.title}` : el}
+                    {el === "What is" ? `What is ${Service?.displayName || Service?.title}` : el}
                   </p>
                 ))}
               </div>
@@ -306,8 +308,8 @@ export default function ProductDetails({
                 id="OVERVIEW"
                 className="paraSubSection overViewSection privateLC"
               >
-                <p className="privateSHeader">{Product?.overView?.title}</p>
-                {Product?.overView?.summarys?.map((el, i) => (
+                <p className="privateSHeader">{Service?.overView?.title}</p>
+                {Service?.overView?.summarys?.map((el, i) => (
                   <p key={i}>{el}</p>
                 ))}
               </div>
@@ -321,10 +323,10 @@ export default function ProductDetails({
                 className="paraSubSection privateLC"
               >
                 <p className="privateSHeader">
-                  What Is a <b>{Product?.title}</b>
+                  What Is a <b>{Service?.title}</b>
                 </p>
 
-                {Product?.whatIs?.summarys?.map((sm, i) => (
+                {Service?.whatIs?.summarys?.map((sm, i) => (
                   <p className="prNText" key={i}>
                     {sm}
                   </p>
@@ -341,7 +343,7 @@ export default function ProductDetails({
                       Private Limited Company as an entity that:
                     </p>
                     <ul>
-                      {Product?.whatIs?.liList?.map((liVal, i) => (
+                      {Service?.whatIs?.liList?.map((liVal, i) => (
                         <li key={i} className="prNText">
                           <b>{liVal.title}:</b>
                           {liVal.summary}
@@ -353,10 +355,10 @@ export default function ProductDetails({
 
                 <div className="plcNoteSection">
                   <h2 style={{ marginBottom: "10px" }}>
-                    {Product?.whatIs?.Notice?.noticeTitle}
+                    {Service?.whatIs?.Notice?.noticeTitle}
                   </h2>
                   <p className="prNText">
-                    {Product?.whatIs?.Notice?.noticeSummary}
+                    {Service?.whatIs?.Notice?.noticeSummary}
                   </p>
                 </div>
               </div>
@@ -369,11 +371,11 @@ export default function ProductDetails({
                 className="paraSubSection privateLC keyFeaturesSection"
               >
                 <p className="privateSHeader">
-                  {Product?.keyFeature?.title} <b> Private Limited Company?</b>
+                  {Service?.keyFeature?.title} <b> Private Limited Company?</b>
                 </p>
-                <p className="prNText">{Product?.keyFeature?.summarys}</p>
+                <p className="prNText">{Service?.keyFeature?.summarys}</p>
                 <div className="keyFeatureCardBox">
-                  {Product?.keyFeature?.keyFeatureItems?.map((el, i) => (
+                  {Service?.keyFeature?.keyFeatureItems?.map((el, i) => (
                     <FeaturesCard
                       title={el.title}
                       summary={el.summary}
@@ -387,15 +389,15 @@ export default function ProductDetails({
             {navItems.includes("Benefits") ? (
               <div id="BENEFITS" className="privateLC BenefitsSection">
                 <p className="privateSHeader">
-                  <b>Benefits</b> of a {Product?.title}
+                  <b>Benefits</b> of a {Service?.title}
                 </p>
-                {Product?.benefits?.summarys?.map((sm, i) => (
+                {Service?.benefits?.summarys?.map((sm, i) => (
                   <p className="prNText" key={i}>
                     {sm}
                   </p>
                 ))}
                 <div className="benefiteCardBox">
-                  {Product?.benefits?.benefitsItems?.map((el, i) => (
+                  {Service?.benefits?.benefitsItems?.map((el, i) => (
                     <BenefitsCard {...el} index={i} key={i} />
                   ))}
                 </div>
@@ -405,10 +407,10 @@ export default function ProductDetails({
             {navItems.includes("Difference") ? (
               <div id="DIFFERENCE" className="privateLC DifferenceSection">
                 <p className="privateSHeader">
-                  <b>Difference </b> Between {Product?.title} and Other Business
+                  <b>Difference </b> Between {Service?.title} and Other Business
                   Structures
                 </p>
-                {Product?.difference?.summarys?.map((sm, i) => (
+                {Service?.difference?.summarys?.map((sm, i) => (
                   <p className="prNText" key={i}>
                     {sm}
                   </p>
@@ -418,7 +420,7 @@ export default function ProductDetails({
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Product?.difference?.tableData?.headers?.map((val: string, i: number) => (
+                      {Service?.difference?.tableData?.headers?.map((val: string, i: number) => (
                         <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
                           <p className="tableHeaderText">{val}</p>
                         </div>
@@ -426,9 +428,9 @@ export default function ProductDetails({
                     </div>
 
                     {/* Data Rows */}
-                    {Product?.difference?.tableData?.rows?.map((row: any, i: number) => (
+                    {Service?.difference?.tableData?.rows?.map((row: any, i: number) => (
                       <div className="PRow NHeaderRow" key={i}>
-                        {Product?.difference?.tableData?.headers?.map((header: string, j: number) => (
+                        {Service?.difference?.tableData?.headers?.map((header: string, j: number) => (
                           <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
                             <p className="tableNText">{row[header]}</p>
                           </div>
@@ -447,9 +449,9 @@ export default function ProductDetails({
               >
                 <p className="privateSHeader">
                   <b>What Are the Documents Required for </b>
-                  {Product?.title}
+                  {Service?.title}
                 </p>
-                {Product?.documentsRequired?.summarys?.map((sm, i) => (
+                {Service?.documentsRequired?.summarys?.map((sm, i) => (
                   <p className="prNText" key={i}>
                     {sm}
                   </p>
@@ -459,7 +461,7 @@ export default function ProductDetails({
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Product?.documentsRequired?.tableData?.headers?.map((val: string, i: number) => (
+                      {Service?.documentsRequired?.tableData?.headers?.map((val: string, i: number) => (
                         <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
                           <p className="tableHeaderText">{val}</p>
                         </div>
@@ -467,9 +469,9 @@ export default function ProductDetails({
                     </div>
 
                     {/* Data Rows */}
-                    {Product?.documentsRequired?.tableData?.rows?.map((row: any, i: number) => (
+                    {Service?.documentsRequired?.tableData?.rows?.map((row: any, i: number) => (
                       <div className="PRow NHeaderRow" key={i}>
-                        {Product?.documentsRequired?.tableData?.headers?.map((header: string, j: number) => (
+                        {Service?.documentsRequired?.tableData?.headers?.map((header: string, j: number) => (
                           <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
                             <p className="tableNText">{row[header]}</p>
                           </div>
@@ -486,9 +488,9 @@ export default function ProductDetails({
               <div id="MCACOMPLIANCE" className="privateLC DifferenceSection">
                 <p className="privateSHeader">
                   <b>Mandatory MCA Compliance for </b>
-                  {Product?.title}
+                  {Service?.title}
                 </p>
-                {Product?.MCACompliance?.summarys?.map((sm, i) => (
+                {Service?.MCACompliance?.summarys?.map((sm, i) => (
                   <p className="prNText" key={i}>
                     {sm}
                   </p>
@@ -498,7 +500,7 @@ export default function ProductDetails({
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Product?.MCACompliance?.tableData?.headers?.map((val: string, i: number) => (
+                      {Service?.MCACompliance?.tableData?.headers?.map((val: string, i: number) => (
                         <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
                           <p className="tableHeaderText">{val}</p>
                         </div>
@@ -506,9 +508,9 @@ export default function ProductDetails({
                     </div>
 
                     {/* Data Rows */}
-                    {Product?.MCACompliance?.tableData?.rows?.map((row: any, i: number) => (
+                    {Service?.MCACompliance?.tableData?.rows?.map((row: any, i: number) => (
                       <div className="PRow NHeaderRow" key={i}>
-                        {Product?.MCACompliance?.tableData?.headers?.map((header: string, j: number) => (
+                        {Service?.MCACompliance?.tableData?.headers?.map((header: string, j: number) => (
                           <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
                             <p className="tableNText">{row[header]}</p>
                           </div>
@@ -524,9 +526,9 @@ export default function ProductDetails({
             {navItems.includes("Due Date") ? (
               <div id="DUEDATE" className="privateLC DifferenceSection">
                 <p className="privateSHeader">
-                  <b>Due Date for </b>   {Product?.displayName}
+                  <b>Due Date for </b>   {Service?.displayName}
                 </p>
-                {Product?.DueDate?.summarys?.map((sm, i) => (
+                {Service?.DueDate?.summarys?.map((sm, i) => (
                   <p className="prNText" key={i}>
                     {sm}
                   </p>
@@ -536,7 +538,7 @@ export default function ProductDetails({
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Product?.DueDate?.tableData?.headers?.map((val: string, i: number) => (
+                      {Service?.DueDate?.tableData?.headers?.map((val: string, i: number) => (
                         <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
                           <p className="tableHeaderText">{val}</p>
                         </div>
@@ -544,9 +546,9 @@ export default function ProductDetails({
                     </div>
 
                     {/* Data Rows */}
-                    {Product?.DueDate?.tableData?.rows?.map((row: any, i: number) => (
+                    {Service?.DueDate?.tableData?.rows?.map((row: any, i: number) => (
                       <div className="PRow NHeaderRow" key={i}>
-                        {Product?.DueDate?.tableData?.headers?.map((header: string, j: number) => (
+                        {Service?.DueDate?.tableData?.headers?.map((header: string, j: number) => (
                           <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
                             <p className="tableNText">{row[header]}</p>
                           </div>
@@ -563,7 +565,7 @@ export default function ProductDetails({
             {navItems.includes("Steps") ? (
               <div id="STEPS" className="privateLC DifferenceSection">
                 <p className="privateSHeader"><b>Steps</b></p>
-                {Product?.Steps?.map((stp, i) => (
+                {Service?.Steps?.map((stp, i) => (
                   <div key={i} className="stepSectionBox">
                     <p className="privateSHeader"><b></b>{stp.title}</p>
                     {
@@ -588,9 +590,9 @@ export default function ProductDetails({
             {navItems.includes("Threshold Limits") ? (
               <div id="THRESHOLDLIMITS" className="privateLC DifferenceSection">
                 <p className="privateSHeader"><b>Threshold Limits</b></p>
-                <p className="privateSHeader">{Product?.ThresholdLimits?.title}</p>
+                <p className="privateSHeader">{Service?.ThresholdLimits?.title}</p>
                 {
-                  Product?.ThresholdLimits?.summarys?.map((stpSum, j) => (
+                  Service?.ThresholdLimits?.summarys?.map((stpSum, j) => (
                     <p key={j} className="stepSummary">{stpSum}</p>
                   ))
                 }
@@ -602,7 +604,7 @@ export default function ProductDetails({
             {navItems.includes("FAQ") ? (
               <div id="FAQ" className="faqQBox">
                 <p className="faqHeader">Frequently Asks Questions</p>
-                {Product?.FAQ?.map((el, i) => (
+                {Service?.FAQ?.map((el, i) => (
                   <div
                     key={i}
                     className={

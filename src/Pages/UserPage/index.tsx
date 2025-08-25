@@ -20,8 +20,8 @@ interface NavProps {
 
 
 //Redux
-import { FetchService } from "../../store/categorySlice";
-import { FetchProdcut, ProductDataType } from "../../store/productSlice";
+import { FetchCategory } from "../../store/categorySlice";
+import { FetchService, ServiceDataType } from "../../store/serviceSlice";
 import {
   GetUser,
   UpdateDoc,
@@ -37,12 +37,12 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const logUserId = localStorage.getItem("userId");
   const productIndex = localStorage.getItem("productIndex");
   setCurrentNav("");
-  const { data } = useSelector((state: RootState) => state.product);
+  const { data, status } = useSelector((state: RootState) => state.service);
   const user = useSelector((state: RootState) => state.user);
-  const service = useSelector((state: RootState) => state.category);
+  const Category = useSelector((state: RootState) => state.category);
   const dispatch = useDispatch<AppDispatch>();
   const [fileUrls, setFileUrls] = useState<string[]>([]);
-  const [selectProduct, setSelectProduct] = useState<ProductDataType>();
+  const [selectProduct, setSelectProduct] = useState<ServiceDataType>();
   const [selectProductId, setSelectProductId] = useState<string>();
   const [selectProductIndex, setSelectProductIndex] = useState<number>();
 
@@ -189,7 +189,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     }
   };
 
-  let productList: ProductDataType[] = [];
+  let productList: ServiceDataType[] = [];
   if (data.length && user.data[0]?.purchase?.length) {
     const idList = user.data[0]?.purchase.map((item) => item?.productId);
     productList = data?.filter(
@@ -216,7 +216,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
 
     const docData: docType[] = [];
 
-    selectProduct?.documentsRequired?.tableData?.map((val, i) => {
+    selectProduct?.documentsRequired?.tableData?.map((val: any, i: number) => {
       docData.push({
         docTitle: val.documentType,
         docUrl: [fileUrls[i]],
@@ -239,16 +239,16 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   };
 
   useEffect(() => {
-    dispatch(FetchProdcut());
+    dispatch(FetchService());
     if (data?.length < 0) {
-      dispatch(FetchProdcut());
+      dispatch(FetchService());
     }
   }, []);
 
   useEffect(() => {
-    dispatch(FetchService());
-    if (service?.data?.length < 0) {
-      dispatch(FetchService());
+    dispatch(FetchCategory());
+    if (Category?.data?.length < 0) {
+      dispatch(FetchCategory());
     }
   }, []);
 
@@ -544,7 +544,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
 
           <h1 className="usHeader">All Relative Services</h1>
           <div className="serviceMainSection userServiceSection">
-            {service?.data?.map((el, i) => (
+            {Category?.data?.map((el, i) => (
               <ServiceCard {...el} key={i} />
             ))}
           </div>
