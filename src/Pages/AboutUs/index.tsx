@@ -62,8 +62,7 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
           </p>
 
           <p style={{ textAlign: "center" }} className="hrMainText">
-            Welcome to TaxQue – India’s Largest
-            <br /> Business Services Platform
+            Welcome to TaxQue
           </p>
         </div>
         {/* trust patnar */}

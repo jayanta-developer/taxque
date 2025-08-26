@@ -132,7 +132,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
               {categoryData?.data?.slice(0, 20).map((el, i) => (
                 <div
                   onClick={() => {
-                    Navigate(`/category/${el?._id}/${el?.Slug?.toLowerCase().replace(/\s+/g, "-")}`);
+                    Navigate(`/category/${el?._id}/${el?.Slug}`);
                     GoTop();
                   }}
                   key={i} className="chip">

@@ -58,10 +58,9 @@ export const ServiceCard = ({
 }: CategoryDataType) => {
   const Navigate = useNavigate();
   const categroyId = _id || "noId";
-  const slug = Slug?.toLowerCase().replace(/\s+/g, "-");
   const handleCategoryClick = () => {
     localStorage.setItem("selectedCategory", categroyId);
-    Navigate(`/category/${_id}/${slug}`);
+    Navigate(`/category/${Slug}`);
     GoTop();
   };
   const truncatedHTML = truncate(summary, 100, { byWords: false });
@@ -414,19 +413,15 @@ export const ProductCard = ({
   feturePoints,
   priceData,
   Slug,
-  _id,
 }: ServiceDataType) => {
   const Navigate = useNavigate();
-  const slug = Slug?.toLowerCase().replace(/\s+/g, "-");
   const ProductStanderPrice = priceData?.length ? priceData[0]?.price : "2999";
   const ProductBasicPrice = priceData?.length
     ? priceData[0]?.basicPrice
     : "4599";
-  const ProductId = _id ? _id : "noId";
 
   const handleClickProductCard = () => {
-    Navigate(`/services/service-details/${_id}/${slug}`);
-    localStorage.setItem("selectedProduct", ProductId);
+    Navigate(`/services/service-details/${Slug}`);
     GoTop();
   }
 

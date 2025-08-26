@@ -122,7 +122,7 @@ export default function NavBar({ currentNav }: NavProps) {
   //handle go Category page
   const handleCategoryClick = (categroyId: string, slug: string) => {
     console.log(categroyId);
-    navigate(`/category/${categroyId}/${slug.toLowerCase().replace(/\s+/g, "-")}`)
+    navigate(`/category/${slug}`)
     GoTop();
   };
 

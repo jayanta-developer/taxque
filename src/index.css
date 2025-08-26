@@ -7,11 +7,23 @@
   font-family: "poppinsBold";
   src: url("../public/assets/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Josefin_Sans";
+  src: url("../public/assets/fonts/Josefin_Sansvv/JosefinSans-Italic-VariableFont_wght.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Chonburi";
+  src: url("../public/assets/fonts/Chonburi/Chonburi-Regular.ttf")
+    format("truetype");
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: poppins;
+  font-family: "poppins";
 }
 
 /* WebKit Browsers (Chrome, Edge, Safari) */

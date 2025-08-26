@@ -198,10 +198,10 @@ export const FetchService = createAsyncThunk<ServiceDataType[]>(
   }
 );
 //get service by id
-export const FetchServiceById = createAsyncThunk<ServiceDataType, { id: string }>(
+export const FetchServiceById = createAsyncThunk<ServiceDataType, { slug: string }>(
   "ServiceById/fetch",
-  async ({ id }) => {
-    const response = await fetch(`${baseURL}/service/${id}`);
+  async ({ slug }) => {
+    const response = await fetch(`${baseURL}/service/${slug}`);
     const data = await response.json();
     return data;
   }

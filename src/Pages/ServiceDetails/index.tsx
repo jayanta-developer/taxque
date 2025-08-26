@@ -32,9 +32,7 @@ interface NavProps {
   currentNav: string;
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
-import { FetchService, ServiceDataType, FetchServiceById } from "../../store/serviceSlice";
-import { FetchCategory } from "../../store/categorySlice"
-
+import { FetchServiceById } from "../../store/serviceSlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -42,9 +40,8 @@ export default function ServiceDetails({
   setCurrentNav,
   currentNav,
 }: NavProps) {
-  const selectedProductId = localStorage.getItem("selectedProduct");
   setCurrentNav("Services");
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const { Service, status } = useSelector((state: RootState) => state.service);
   console.log(Service, status);
@@ -189,17 +186,12 @@ export default function ServiceDetails({
   }, [Service]);
 
   useEffect(() => {
-    if (!id) return;
-    dispatch(FetchServiceById({
-      id: id
-    }));
+    if (!slug) return;
+    dispatch(FetchServiceById({ slug }));
     if (Service) {
-      dispatch(FetchServiceById({
-        id: id
-      }));
+      dispatch(FetchServiceById({ slug }));
     }
-
-  }, [id])
+  }, [slug])
 
 
   return (

@@ -48,7 +48,7 @@ function App() {
           }
         />
         <Route
-          path="/category/:id/:slug"
+          path="/category/:slug"
           element={
             <ServiceList
               setCurrentNav={setCurrentNav}
@@ -63,7 +63,7 @@ function App() {
           }
         />
         <Route
-          path="/services/service-details/:id/:slug"
+          path="/services/service-details/:slug"
           element={
             <ServiceDetails
               setCurrentNav={setCurrentNav}

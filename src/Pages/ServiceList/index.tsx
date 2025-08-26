@@ -31,21 +31,22 @@ interface NavProps {
 }
 
 export default function ServiceList({ setCurrentNav, currentNav }: NavProps) {
-  const { id } = useParams();
+  const { slug } = useParams();
   const Navigate = useNavigate();
   setCurrentNav("Services");
   const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector((state: RootState) => state.service);
   const category = useSelector((state: RootState) => state.category);
 
+  const currentCategory = category?.data.find((val) => val?.Slug === slug)
 
-  const currentCategory = category?.data.find((val) => val._id === id);
+
 
 
   let Product_list: ServiceDataType[] = [];
 
   if (data.length) {
-    Product_list = data.filter((pr) => pr?.category?.id === id);
+    Product_list = data.filter((pr) => pr?.category?.id === currentCategory?._id);
   }
 
   useEffect(() => {
@@ -74,7 +75,7 @@ export default function ServiceList({ setCurrentNav, currentNav }: NavProps) {
           <p className="navigateText">
             <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
             <span className="navSeparator"> &gt; </span>
-            <span onClick={() => Navigate("/services")} className="navPageT">{Product_list[0]?.category?.title}</span>
+            <span className="navPageT">{currentCategory?.category}</span>
           </p>
 
 

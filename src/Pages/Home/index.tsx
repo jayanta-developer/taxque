@@ -91,21 +91,16 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   function HeroHeader() {
     return (
       <div className="text-center mt-10">
-        {/* <h1 className="text-4xl font-bold">
-          Welcome to <span className="text-green-500">Tax</span>
-          <span className="text-orange-500">Que</span>
-        </h1> */}
+        <h1 className="text-4xl font-bold"> Welcome to </h1>
 
         <TypeAnimation
           sequence={[
-            'Welcome to', // First text
-            2000,                         // Wait 2s
-            'TaxQue', // Second text
+            'TaxQue',
             2000,
-            'Simplifying Taxes for You!',  // Third text
+            'Simplifying Taxes for You!',
             2000,
           ]}
-          wrapper="h1"
+          wrapper="h2"
           cursor={true}
           repeat={Infinity}
           className="text-2xl font-semibold mt-3 text-gray-800"
@@ -160,7 +155,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
               {
                 filteredProducts?.map((val, i: number) => (
                   <div onClick={() => {
-                    Navigate(`/services/service-details/${val?._id}/${val?.Slug.toLowerCase().replace(/\s+/g, "-")}`)
+                    Navigate(`/services/service-details/${val?._id}/${val?.Slug}`)
                     dispatch(setLabel(false));
                   }} key={i} className="spCategoryItemBox">
                     <p>{val.title}</p>
