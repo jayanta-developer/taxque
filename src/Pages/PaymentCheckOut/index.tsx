@@ -99,6 +99,7 @@ export default function PaymentCheckOut({
               razorpay_signature: response.razorpay_signature,
               userId,
               serviceId,
+              purchasePlan: planDrop
             }),
           });
 
@@ -312,7 +313,7 @@ export default function PaymentCheckOut({
                 defaultVal={currentPriceData?.title || "Choose Price Plan"}
               />
             </div>
-            <p className="serviceTitle">ECA Assisted -Standard</p>
+            <p className="serviceTitle">ECA Assisted - Standard</p>
             <p className="pcbasPrice">
               Basic Price: {currentPriceData?.basicPrice} <span></span>
             </p>

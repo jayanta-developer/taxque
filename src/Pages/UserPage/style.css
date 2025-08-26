@@ -354,3 +354,10 @@
 .udServiceCardActive {
   background: #5ab15b;
 }
+.serviceList {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}

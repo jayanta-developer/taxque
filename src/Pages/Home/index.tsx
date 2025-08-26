@@ -28,7 +28,6 @@ import HomeCarousel from "../../components/HomeCarousel";
 import { AppBtn } from "../../components/Buttons";
 import { GoTop } from "../../components/Tools";
 
-import { FetchCategory } from "../../store/categorySlice";
 import { FetchBlog } from "../../store/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";

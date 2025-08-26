@@ -42,9 +42,11 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const Category = useSelector((state: RootState) => state.category);
   const dispatch = useDispatch<AppDispatch>();
   const [fileUrls, setFileUrls] = useState<string[]>([]);
-  const [selectProduct, setSelectProduct] = useState<ServiceDataType>();
-  const [selectProductId, setSelectProductId] = useState<string>();
   const [selectProductIndex, setSelectProductIndex] = useState<number>();
+
+  const [selectProductId, setSelectProductId] = useState<string>();
+  const [selectProduct, setSelectProduct] = useState<ServiceDataType>();
+
 
   const [activePage, setActivePage] = useState<string>("Product");
   const [activeMenu, setActiveMenu] = useState<string>();
@@ -210,6 +212,20 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
       toast.warn("Product id not found!");
       return;
     }
+
+
+    useEffect(() => {
+      const res = data.filter((val) => val._id === selectProductId);
+      console.log(res);
+
+      // setSelectProduct(res)
+    }, [selectProductId])
+console.log(selectProductId);
+
+
+
+
+
 
     // console.log(user?.data[0]?._id);
     // console.log(purchases?.[index]?._id);
@@ -399,21 +415,17 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
           {/* Service Listing */}
           <div className={ActivePage === "Order" ? "userDMainSectin userDMainActiveSectin" : "userDMainSectin"}>
             <h2>Your Service List</h2>
-
             <div className="serviceList">
               {
                 productList?.map((val, i) => (
-                  <div onClick={() => val?._id ? localStorage.setItem("udCategoryId", val?._id) : null} key={i} className="udServiceCard">
+                  <div onClick={() => setSelectProductId(val?._id)} key={i} className="udServiceCard">
                     <h4>{val?.title}</h4>
                     <p> <b>Category :</b> {val?.category?.title}</p>
                   </div>
                 ))
               }
             </div>
-
           </div>
-
-
 
           <div className="serviceDetailsBox userInfoBox">
             <h2 style={{ marginBottom: "20px" }}>Product Features</h2>
