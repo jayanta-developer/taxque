@@ -43,9 +43,9 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [fileUrls, setFileUrls] = useState<string[]>([]);
   const [selectProductIndex, setSelectProductIndex] = useState<number>();
+  const [selectProductId, setSelectProductId] = useState<string>("");
+  const [selectProduct, setSelectProduct] = useState<ServiceDataType[]>([]);
 
-  const [selectProductId, setSelectProductId] = useState<string>();
-  const [selectProduct, setSelectProduct] = useState<ServiceDataType>();
 
 
   const [activePage, setActivePage] = useState<string>("Product");
@@ -96,6 +96,14 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
       }
     }
   }, [activeMenu]);
+
+  useEffect(() => {
+    const savedMenu = localStorage.getItem("activeMenu");
+    if (savedMenu) {
+      setActiveMenu(savedMenu);
+    }
+  }, []);
+
 
   //side menu list
   interface sideMenuType {
@@ -198,6 +206,13 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
       (product) => product._id && idList.includes(product._id)
     );
   }
+  useEffect(() => {
+    if (!productList[0]?._id || selectProductId.length) return
+    setSelectProductId(productList[0]?._id)
+  }, [productList])
+
+
+  console.log(selectProductId);
 
   const docUpload = async () => {
     if (!user?.data[0]?._id) {
@@ -212,33 +227,18 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
       toast.warn("Product id not found!");
       return;
     }
-
-
-    useEffect(() => {
-      const res = data.filter((val) => val._id === selectProductId);
-      console.log(res);
-
-      // setSelectProduct(res)
-    }, [selectProductId])
-console.log(selectProductId);
-
-
-
-
-
-
     // console.log(user?.data[0]?._id);
     // console.log(purchases?.[index]?._id);
 
     const docData: docType[] = [];
 
-    selectProduct?.documentsRequired?.tableData?.map((val: any, i: number) => {
-      docData.push({
-        docTitle: val.documentType,
-        docUrl: [fileUrls[i]],
-        status: "Panding",
-      });
-    });
+    // selectProduct[0]?.documentsRequired?.tableData?.map((val: any, i: number) => {
+    //   docData.push({
+    //     docTitle: val.documentType,
+    //     docUrl: [fileUrls[i]],
+    //     status: "Panding",
+    //   });
+    // });
     // console.log({
     //   data: docData,
     //   userId: user?.data[0]?._id,
@@ -253,6 +253,13 @@ console.log(selectProductId);
       })
     );
   };
+
+  useEffect(() => {
+    const res = data?.filter((val) => val?._id === selectProductId);
+    setSelectProduct(res)
+  }, [selectProductId])
+
+
 
   useEffect(() => {
     dispatch(FetchService());
@@ -305,6 +312,10 @@ console.log(selectProductId);
         <img src={smPageBG} className="smPageBG" />
       </div>
       <div className="userBox">
+
+
+
+        {/* --------Side Menu-------------------- */}
         <div className="sideMenu">
           <div className="sideMenuItem_Box">
             {sideMenuList?.map((sm, i) => (
@@ -355,36 +366,12 @@ console.log(selectProductId);
               </div>
             ))}{" "}
           </div>
-
-          {/* <div className="ProductList">
-            {productList?.map((el: ProductDataType, i: number) => (
-              <div
-                className={
-                  productIndex === i.toString()
-                    ? "sideProductItem sideProductItemActive"
-                    : "sideProductItem"
-                }
-                key={i}
-                onClick={() => {
-                  setSelectProduct(productList[i]);
-                  setSelectProductId(el?._id);
-                  localStorage.setItem("productIndex", i.toString());
-                }}
-              >
-                <img
-                  src={
-                    productIndex === i.toString()
-                      ? Image.ProductActiveIcon
-                      : Image.ProductIcon
-                  }
-                  alt=""
-                />
-                <p>{el?.title}</p>
-              </div>
-            ))}
-          </div> */}
         </div>
+
+
         <div className="userMainSection">
+
+          {/* ----User Info Top Box---- */}
           <div className="userInfoTopBox">
             <div className="user_Box userInfoBox">
               <div className="userIngBox">
@@ -411,155 +398,98 @@ console.log(selectProductId);
             </div>
           </div>
 
-          {/* contanat section */}
-          {/* Service Listing */}
-          <div className={ActivePage === "Order" ? "userDMainSectin userDMainActiveSectin" : "userDMainSectin"}>
-            <h2>Your Service List</h2>
-            <div className="serviceList">
-              {
-                productList?.map((val, i) => (
-                  <div onClick={() => setSelectProductId(val?._id)} key={i} className="udServiceCard">
-                    <h4>{val?.title}</h4>
-                    <p> <b>Category :</b> {val?.category?.title}</p>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-
-          <div className="serviceDetailsBox userInfoBox">
-            <h2 style={{ marginBottom: "20px" }}>Product Features</h2>
-
-            {(selectProduct?.feturePoints ?? productList[0]?.feturePoints)?.map(
-              (fp: { title: string; summary: string }, i: number) => (
-                <div key={i} className="usFeatureBox">
-                  <h4>
-                    <img src={Image.featureIcon} alt="" /> {fp?.title}
-                  </h4>
-                  <p>{fp?.summary}</p>
-                </div>
-              )
-            )}
-          </div>
-
-          <div className="userInfoBox docRequerBox">
-            <h2>Documents Required</h2>
-            <div className="docUploadBox">
-              {purchases?.[index]?.requireDoc?.length !== undefined ? (
-                <>
-                  {purchases?.[index]?.requireDoc?.map((val, i) => (
-                    <div key={i} className="docBox">
-                      <h4>{val?.docTitle}</h4>
-
-                      <label htmlFor={`doc${i}`}>
-                        {fileUrls[i] ? (
-                          <iframe
-                            src={fileUrls[i]}
-                            width="100%"
-                            height="600px"
-                            title="PDF Viewer"
-                            className="DocIframe"
-                          />
-                        ) : (
-                          <img
-                            className={
-                              val.status === "Approve"
-                                ? "docUploadIcon docA"
-                                : val.status === "Panding"
-                                  ? "docUploadIcon docP"
-                                  : val.status === "Reject"
-                                    ? "docUploadIcon docR"
-                                    : "docUploadIcon"
-                            }
-                            src={val?.docUrl[0]}
-                            alt=""
-                          />
-                        )}
-                      </label>
-                      <img
-                        style={{
-                          display: selectProductIndex === i ? "block" : "none",
-                        }}
-                        src={Image.uploadIcon}
-                        alt=""
-                        className="DocuploadIcon"
-                        onClick={() => handleDocUpload(val?._id)}
-                      />
-                      <input
-                        id={`doc${i}`}
-                        type="file"
-                        onChange={(e) => handleFileChange(e, i)}
-                      />
-
-                      <p
-                        className={
-                          val.status === "Panding"
-                            ? "docStatusText pandingDocState"
-                            : val.status === "Approve"
-                              ? "docStatusText successDocState"
-                              : val.status === "Reject"
-                                ? "docStatusText rejectDocState"
-                                : "docStatusText"
-                        }
-                      >
-                        {val.rejectMessage}
-                      </p>
+          {/* Order section ----------------------------------------------*/}
+          {/* Service Listing ---------------*/}
+          <div style={{ display: ActivePage === "Order" ? "flex" : "none" }} className="UDContaintSection">
+            <div className="userDMainSectin">
+              <h2>Your Service List</h2>
+              <div className="serviceList">
+                {
+                  productList?.map((val, i) => (
+                    <div onClick={() => setSelectProductId(val?._id || "")} key={i} className={selectProductId === val?._id ? "udServiceCard udServiceCardActive" : "udServiceCard"}>
+                      <h4>{val?.title}</h4>
+                      <p> <b>Category :</b> {val?.category?.title}</p>
                     </div>
-                  ))}
-                </>
-              ) : (
-                <>
-                  {selectProduct?.documentsRequired?.tableData?.map(
-                    (doc: any, i: number) => (
-                      <div key={i} className="docBox">
-                        <h4>{doc?.documentType}</h4>
+                  ))
+                }
+              </div>
+            </div>
 
-                        <label htmlFor={`doc${i}`}>
-                          {fileUrls[i] ? (
-                            <iframe
-                              src={fileUrls[i]}
-                              width="100%"
-                              height="600px"
-                              title="PDF Viewer"
-                            />
-                          ) : (
-                            <img
-                              className="docUploadIcon"
-                              src={Image.docUploadIcon}
-                              alt=""
-                            />
-                          )}
-                        </label>
-                        <input
-                          id={`doc${i}`}
-                          type="file"
-                          onChange={(e) => handleFileChange(e, i)}
-                        />
-
-                        <p className="docStatusText successDocState">
-                          <img src={Image.docSuccessIcon} alt="" /> Success
-                        </p>
-                      </div>
-                    )
-                  )}
-                </>
+            {/* Product Features--------------------- */}
+            <div className="serviceDetailsBox userInfoBox">
+              <h2 style={{ marginBottom: "20px" }}>Product Features</h2>
+              {selectProduct[0]?.feturePoints?.map(
+                (fp: { title: string; summary: string }, i: number) => (
+                  <div key={i} className="usFeatureBox">
+                    <h4>
+                      <img src={Image.featureIcon} alt="" /> {fp?.summary}
+                    </h4>
+                  </div>
+                )
               )}
             </div>
-            {fileUrls.length >= 3 ? (
-              <div className="btnBox">
-                <AppBtn btnText="Upload" onClick={docUpload} />
+
+
+
+            {/* Document require section -------------------- */}
+            <div className="userInfoBox docRequerBox">
+              <h2>Documents Required</h2>
+              <div className="docUploadBox">
+
+                {selectProduct[0]?.documentsRequired?.tableData?.headers?.map((doc: any, i: number) => (
+                  <div key={i} className="docBox">
+                    <h4>{doc}</h4>
+
+                    <label htmlFor={`doc${i}`}>
+                      {fileUrls[i] ? (
+                        <iframe
+                          src={fileUrls[i]}
+                          width="100%"
+                          height="600px"
+                          title="PDF Viewer"
+                        />
+                      ) : (
+                        <img
+                          className="docUploadIcon"
+                          src={Image.docUploadIcon}
+                          alt=""
+                        />
+                      )}
+                    </label>
+                    <input
+                      id={`doc${i}`}
+                      type="file"
+                      onChange={(e) => handleFileChange(e, i)}
+                    />
+
+                    <p className="docStatusText successDocState">
+                      <img src={Image.docSuccessIcon} alt="" /> Success
+                    </p>
+                  </div>
+                ))}
+
               </div>
-            ) : (
-              <p className="docSelectText">Select all your Documents !</p>
-            )}
+              {fileUrls.length >= 3 ? (
+                <div className="btnBox">
+                  <AppBtn btnText="Upload" onClick={docUpload} />
+                </div>
+              ) : (
+                <p className="docSelectText">Select all your Documents !</p>
+              )}
+            </div>
           </div>
 
-          <h1 className="usHeader">All Relative Services</h1>
+
+
+
+
+
+          {/* <h1 className="usHeader">All Relative Services</h1>
           <div className="serviceMainSection userServiceSection">
             {Category?.data?.map((el, i) => (
               <ServiceCard {...el} key={i} />
             ))}
-          </div>
+          </div> */}
         </div>
       </div >
       <Footer />
