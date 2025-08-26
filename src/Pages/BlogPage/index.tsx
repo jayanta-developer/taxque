@@ -26,7 +26,6 @@ export default function BlogPage({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.blog);
   const [blogType, setBlogType] = useState<string>();
-  console.log(blogType);
 
   interface BlogMenuType {
     title: string;

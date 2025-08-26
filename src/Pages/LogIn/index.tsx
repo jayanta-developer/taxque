@@ -160,7 +160,7 @@ export default function Login({ setCurrentNav, currentNav }: NavProps) {
         })
       ).unwrap();
 
-      console.log("User created successfully:", response._id);
+      // console.log("User created successfully:", response._id);
       if (response._id) {
         localStorage.setItem("userId", response._id);
       }

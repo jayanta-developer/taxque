@@ -44,7 +44,6 @@ export default function ServiceDetails({
   const { slug } = useParams();
 
   const { Service, status } = useSelector((state: RootState) => state.service);
-  console.log(Service, status);
 
   const Category = useSelector((state: RootState) => state.category)
   const dispatch = useDispatch<AppDispatch>();
@@ -83,7 +82,6 @@ export default function ServiceDetails({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log("Intersecting:", entry.target.id);
             setActiveSection(entry.target.id);
           }
         });
@@ -94,7 +92,6 @@ export default function ServiceDetails({
     ParaSection.forEach((el) => {
       const section = document.getElementById(el?.id);
       if (section) {
-        console.log("Observing:", el?.id);
         observer.observe(section);
       }
     });
@@ -111,17 +108,13 @@ export default function ServiceDetails({
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // console.log("Visible section:", entry?.target?.id);
           setActiveSection(entry.target.id);
-
         }
       });
     }, { threshold: 0.5 });
 
     navItems.forEach((item) => {
       const el = document.getElementById(item.toUpperCase());
-      // console.log(el);
-
       if (el) observer.observe(el);
     });
 

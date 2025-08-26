@@ -115,7 +115,7 @@ export default function PaymentCheckOut({
               body: JSON.stringify({ userId, serviceName, amount }),
             });
             const invoiceData = await invoiceRes.json();
-            console.log("Invoice:", invoiceData.invoice);
+            // console.log("Invoice:", invoiceData.invoice);
           } else {
             alert("Payment failed!");
           }

@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { MemberCard } from "../../components/Tools";
 
 function AppSlider({ data, cardName }: any) {
-  console.log(data, cardName);
 
   var settings = {
     dots: false,

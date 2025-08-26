@@ -121,7 +121,6 @@ export default function NavBar({ currentNav }: NavProps) {
 
   //handle go Category page
   const handleCategoryClick = (categroyId: string, slug: string) => {
-    console.log(categroyId);
     navigate(`/category/${slug}`)
     GoTop();
   };

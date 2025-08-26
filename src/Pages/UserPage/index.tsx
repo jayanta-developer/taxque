@@ -212,7 +212,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   }, [productList])
 
 
-  console.log(selectProductId);
 
   const docUpload = async () => {
     if (!user?.data[0]?._id) {
@@ -227,8 +226,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
       toast.warn("Product id not found!");
       return;
     }
-    // console.log(user?.data[0]?._id);
-    // console.log(purchases?.[index]?._id);
 
     const docData: docType[] = [];
 

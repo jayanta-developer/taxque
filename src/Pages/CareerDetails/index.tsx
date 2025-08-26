@@ -61,8 +61,6 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
     expectedSalary: "",
   })
   const [fileUrls, setFileUrls] = useState<string>("");
-  console.log(fileUrls);
-
 
 
   //variables
