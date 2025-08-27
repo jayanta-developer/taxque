@@ -173,7 +173,7 @@ export const BlogCard = ({
   date,
   blogText,
   imageUrl,
-  _id,
+  Slug
 }: BlogDataType) => {
   const Navigate = useNavigate();
 
@@ -203,10 +203,7 @@ export const BlogCard = ({
         src={Image.UPRightArrow}
         className="UpRArrow"
         onClick={() => {
-          if (_id) {
-            localStorage.setItem("blogId", _id);
-          }
-          Navigate("/blog-details");
+          Navigate(`/blog-details/${Slug}`);
           GoTop();
         }}
       />
@@ -248,7 +245,7 @@ export const BlogRowCard = ({
   blogText,
   date,
   imageUrl,
-  _id,
+  Slug,
 }: BlogDataType) => {
   const Navigate = useNavigate();
   const truncatedHTML = truncate(blogText[0]?.summarys[0]?.summary, 200, { byWords: false });
@@ -268,28 +265,20 @@ export const BlogRowCard = ({
             <p>{date}</p>
           </div>
         </div>
-
         <p
           onClick={() => {
-            if (_id) {
-              localStorage.setItem("blogId", _id);
-            }
-            Navigate("/blog-details");
+            Navigate(`/blog-details/${Slug}`);
             GoTop();
           }}
           className="BlogTitle">{title}</p>
         <p className="BlogSummery">
           {parse(truncatedHTML)}
-          {/* {blogText[0]?.summarys[0]?.summary?.length > 200 ? "..." : "."} */}
         </p>
         <img
           src={Image.UPRightArrow}
           className="UpRArrow"
           onClick={() => {
-            if (_id) {
-              localStorage.setItem("blogId", _id);
-            }
-            Navigate("/blog-details");
+            Navigate(`/blog-details/${Slug}`);
             GoTop();
           }}
         />

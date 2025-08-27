@@ -28,6 +28,7 @@ interface paraType {
   title: string;
   id: string;
 }
+import type { LocationData } from "../../store/statusTypes"
 
 export const servicesData = [
   {
@@ -164,37 +165,10 @@ export const ParaSection: paraType[] = [
 
 
 
-export const CityList = [
-  "Connaught Place",
-  "Karol Bagh",
-  "Chanakyapuri",
-  "South Extension",
-  "Lajpat Nagar",
-  "Saket",
-  "Dwarka",
-  "Vasant Kunj",
-  "Rohini",
-  "Mayur Vihar",
-  "Okhla",
-  "New Friends Colony",
-  "Rajouri Garden",
-  "Patel Nagar",
-  "Tilak Nagar",
-]
-export const cityPin = [
-  { city: "Connaught Place", pincode: "110001" },
-  { city: "Karol Bagh", pincode: "110005" },
-  { city: "Chanakyapuri", pincode: "110021" },
-  { city: "South Extension", pincode: "110049" },
-  { city: "Lajpat Nagar", pincode: "110024" },
-  { city: "Saket", pincode: "110017" },
-  { city: "Dwarka", pincode: "110075" },
-  { city: "Vasant Kunj", pincode: "110070" },
-  { city: "Rohini", pincode: "110085" },
-  { city: "Mayur Vihar", pincode: "110091" },
-  { city: "Okhla", pincode: "110020" },
-  { city: "New Friends Colony", pincode: "110025" },
-  { city: "Rajouri Garden", pincode: "110027" },
-  { city: "Patel Nagar", pincode: "110008" },
-  { city: "Tilak Nagar", pincode: "110018" }
-]
+export const locationList: LocationData[] = [
+  { state: "West Bengal", city: "Kolkata", pin: "700001" },
+  { state: "West Bengal", city: "Howrah", pin: "711101" },
+  { state: "Maharashtra", city: "Mumbai", pin: "400001" },
+  { state: "Delhi", city: "New Delhi", pin: "110001" },
+  { state: "Delhi", city: "New Delhi", pin: "7110001" },
+];

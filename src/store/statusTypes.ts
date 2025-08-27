@@ -3,3 +3,9 @@ export enum STATUSES {
   IDLE = "idle",
   ERROR = "error"
 }
+
+export interface LocationData {
+  state: string;
+  city: string;
+  pin: string;
+}

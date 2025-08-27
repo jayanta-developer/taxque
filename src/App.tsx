@@ -25,6 +25,7 @@ import TermsOfUse from "./Pages/TermsOfUse";
 import Reffer from "./Pages/Reffer";
 import UserPage from "./Pages/UserPage";
 import PaymentCheckOut from "./Pages/PaymentCheckOut";
+import TestPage from "./Pages/text"
 
 //Protect Route
 import ProtectedRoute from "./Util/Tools/ProtectedRoute";
@@ -91,7 +92,7 @@ function App() {
           }
         />
         <Route
-          path="/blog-details"
+          path="/blog-details/:slug"
           element={
             // <ProtectedRoute>
             <BlogDetails
@@ -195,7 +196,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/services/product-details/payment-checkout"
           element={
             <ProtectedRoute>
@@ -205,9 +206,10 @@ function App() {
               />
             </ProtectedRoute>
           }
-        />
+        /> */}
 
         <Route path="*" element={<GlobalPage />} />
+        <Route path="/test" element={<TestPage />} />
       </Routes>
     </>
   );

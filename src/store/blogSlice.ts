@@ -11,6 +11,9 @@ export interface blogTextType {
 }
 export interface BlogDataType {
   title: string;
+  Slug: string;
+  metaTitle: string;
+  metaDescription: string
   imageUrl?: string;
   blogText: blogTextType[];
   date?: string;
@@ -23,11 +26,14 @@ interface UpdateBlogArgs {
 }
 interface blogState {
   data: BlogDataType[];
+  Blog: BlogDataType | null;
   status: STATUSES;
 }
+
 // Initial state
 const initialState: blogState = {
   data: [],
+  Blog: null,
   status: STATUSES.LOADING,
 };
 
@@ -38,6 +44,16 @@ export const FetchBlog = createAsyncThunk<BlogDataType[]>(
     const response = await fetch(`${baseURL}/blogs`);
     const data = await response.json();
     return data.blog;
+  }
+);
+
+
+export const FetchBlogBySlug = createAsyncThunk<BlogDataType, { slug: string }>(
+  "blogBySlug/fetch",
+  async ({ slug }) => {
+    const response = await fetch(`${baseURL}/blog/${slug}`);
+    const data = await response.json();
+    return data;
   }
 );
 
@@ -109,6 +125,18 @@ const blogSlice = createSlice({
         state.status = STATUSES.IDLE;
       })
       .addCase(FetchBlog.rejected, (state) => {
+        state.status = STATUSES.ERROR;
+      });
+
+    builder
+      .addCase(FetchBlogBySlug.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(FetchBlogBySlug.fulfilled, (state, action) => {
+        state.Blog = action.payload;
+        state.status = STATUSES.IDLE;
+      })
+      .addCase(FetchBlogBySlug.rejected, (state) => {
         state.status = STATUSES.ERROR;
       });
   },

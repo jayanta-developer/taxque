@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 import parse from 'html-react-parser';
+import { useParams } from "react-router-dom";
+
 
 
 //images
@@ -18,7 +20,7 @@ import MyCarousel from "../../components/Carousel";
 import Subscribe from "../../components/Subscribe";
 import { ServiceCard, GoTop } from "../../components/Tools";
 
-import { FetchBlog } from "../../store/blogSlice";
+import { FetchBlogBySlug } from "../../store/blogSlice";
 import { FetchCategory } from "../../store/categorySlice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -29,19 +31,22 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
+  const { slug } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const Navigate = useNavigate();
-  const selectedBlogId = localStorage.getItem("blogId");
-  const { data, status } = useSelector((state: RootState) => state.blog);
+  const { Blog, status } = useSelector((state: RootState) => state.blog);
   const categoryData = useSelector((state: RootState) => state.category);
-  const blogData = data.find((val) => val._id === selectedBlogId);
+  
+  console.log(Blog);
+  
 
 
   useEffect(() => {
-    dispatch(FetchBlog());
-    if (data?.length < 0) {
-      dispatch(FetchBlog());
-    }
+    if (!slug) return;
+    dispatch(FetchBlogBySlug({ slug }));
+    // if (data?.length < 0) {
+    //   dispatch(FetchBlogBySlug({ slug }));
+    // }
   }, []);
   useEffect(() => {
     dispatch(FetchCategory());
@@ -61,15 +66,15 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
           <p className="navigateText">
             <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
             <span className="navSeparator"> &gt; </span>
-            <span onClick={() => Navigate("/learn")} className="navPageT">{blogData?.category}</span>
+            <span onClick={() => Navigate("/learn")} className="navPageT">{Blog?.category}</span>
             <span className="navSeparator"> &gt; </span>
-            <span className="navSubPageT">{blogData?.title}</span>
+            <span className="navSubPageT">{Blog?.title}</span>
           </p>
 
         </div>
         <div className="productDetailBox">
           <div className="productInfoSection">
-            <img src={blogData?.imageUrl} alt="" className="blogCoverImg" />
+            <img src={Blog?.imageUrl} alt="" className="blogCoverImg" />
 
             <div className="blogBUserInfoBox">
               <div className="buABox">
@@ -79,13 +84,13 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
 
               <div className="buABox">
                 <img src={watchIcom} />
-                <p>{blogData?.date}</p>
+                <p>{Blog?.date}</p>
               </div>
             </div>
 
-            <h1 className="blogMtitle blogMainTitle">{blogData?.title}</h1>
+            <h1 className="blogMtitle blogMainTitle">{Blog?.title}</h1>
 
-            {blogData?.blogText?.map((el, i) => (
+            {Blog?.blogText?.map((el, i) => (
               <div key={i}>
                 <h2 className="blogMtitle">{el.title}</h2>
                 {el?.summarys?.map((sm, ind: number) => (
@@ -119,7 +124,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
         {/* Blog section */}
         <div className="pricePlaneBox BlogSection">
           <p className="sectionHeader">Our Latest News</p>
-          <MyCarousel data={data} cardName="BlogCard" />
+          {/* <MyCarousel data={data} cardName="BlogCard" /> */}
         </div>
         {/* email section */}
         <Subscribe />

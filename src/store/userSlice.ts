@@ -56,8 +56,11 @@ export interface contactUserType {
   name: string;
   email: string;
   phone: string;
-  pincode: string;
-  city: string;
+  location: {
+    city: string,
+    pin: string,
+    state: string
+  };
   date: string
 }
 export interface FindUserResponseType {

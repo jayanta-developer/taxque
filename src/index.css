@@ -106,3 +106,203 @@
     font-size: 20px;
   }
 }
+
+/* Base Section Style */
+.section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+}
+
+/* Background colors */
+.fade-slide {
+  background: #22c55e;
+} /* Green */
+.rotate {
+  background: #a855f7;
+} /* Purple */
+.scale-bounce {
+  background: #facc15;
+  color: #111;
+} /* Yellow */
+.flip {
+  background: #06b6d4;
+} /* Cyan */
+.zoom {
+  background: #ef4444;
+} /* Red */
+.slide-left {
+  background: #3b82f6;
+} /* Blue */
+.skew {
+  background: #f97316;
+} /* Orange */
+.footer {
+  background: #111827;
+} /* Dark */
+
+/* Common trigger when visible */
+.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Specific Animations */
+.fade-slide.animate {
+  animation: fadeSlide 1s ease forwards;
+}
+
+.rotate.animate {
+  animation: rotateIn 1s ease forwards;
+}
+
+.scale-bounce.animate {
+  animation: scaleBounce 1.2s ease forwards;
+}
+
+.flip.animate {
+  animation: flipIn 1s ease forwards;
+}
+
+.zoom.animate {
+  animation: zoomInOut 1.2s ease forwards;
+}
+
+.slide-left.animate {
+  animation: slideLeft 1s ease forwards;
+}
+
+.skew.animate {
+  animation: skewIn 1s ease forwards;
+}
+
+/* Keyframes */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes scaleBounce {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes flipIn {
+  from {
+    opacity: 0;
+    transform: rotateY(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0);
+  }
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes skewIn {
+  from {
+    opacity: 0;
+    transform: skewX(30deg);
+  }
+  to {
+    opacity: 1;
+    transform: skewX(0);
+  }
+}
+
+.container {
+  width: 100%;
+}
+
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.fade {
+  background: #1abc9c;
+}
+
+.rotate {
+  background: #9b59b6;
+}
+
+.scale {
+  background: #f1c40f;
+  color: #333;
+}
+
+.slide {
+  background: #e67e22;
+}
+
+.flip {
+  background: #3498db;
+}
+
+.footer {
+  background: #2c3e50;
+}
