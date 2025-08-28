@@ -36,24 +36,19 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
   const Navigate = useNavigate();
   const { Blog, status } = useSelector((state: RootState) => state.blog);
   const categoryData = useSelector((state: RootState) => state.category);
-  
+
   console.log(Blog);
-  
+
 
 
   useEffect(() => {
     if (!slug) return;
     dispatch(FetchBlogBySlug({ slug }));
-    // if (data?.length < 0) {
-    //   dispatch(FetchBlogBySlug({ slug }));
-    // }
-  }, []);
-  useEffect(() => {
-    dispatch(FetchCategory());
-    if (categoryData?.data?.length < 0) {
-      dispatch(FetchCategory());
+    if (Blog) {
+      dispatch(FetchBlogBySlug({ slug }));
     }
   }, []);
+
   return (
     <>
       <div className="productPage blogDetailsPage">
@@ -137,7 +132,7 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
               {categoryData?.data?.slice(0, 20).map((el, i) => (
                 <div
                   onClick={() => {
-                    Navigate(`/category/${el?._id}/${el?.Slug}`);
+                    Navigate(`/category/${el?.Slug}`);
                     GoTop();
                   }}
                   key={i} className="chip">

@@ -16,9 +16,8 @@ import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard } from "../../components/Tools";
 
-import { FetchCategory } from "../../store/categorySlice";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 interface NavProps {
   currentNav: string;
@@ -27,17 +26,11 @@ interface NavProps {
 
 export default function Category({ setCurrentNav, currentNav }: NavProps) {
   const Navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.category);
-
   setCurrentNav("Services");
 
-  useEffect(() => {
-    dispatch(FetchCategory());
-    if (data?.length < 0) {
-      dispatch(FetchCategory());
-    }
-  }, []);
+
+
   return (
     <>
       <div className="servicesPage">

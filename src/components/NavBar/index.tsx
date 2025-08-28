@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import { toggleLabel, setLabel } from "../../store/stateSlice";
+
 
 //images
 import { Image } from "../../assets/images";
@@ -20,14 +22,14 @@ import { FetchService } from "../../store/serviceSlice";
 import { FetchCategory } from "../../store/categorySlice"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
-import { setLabel } from "../../store/stateSlice";
 
 
 export default function NavBar({ currentNav }: NavProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { data } = useSelector((state: RootState) => state.service);
-  const category = useSelector((state: RootState) => state.category);
+  //Data fetch---
+  const Service = useSelector((state: RootState) => state.service);
+  const Category = useSelector((state: RootState) => state.category);
 
   const [nav, setNav] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -35,6 +37,23 @@ export default function NavBar({ currentNav }: NavProps) {
   const { user } = useContext(AuthContext)!;
   const [userDrop, setUserDrop] = useState(false);
   const [categoryPop, setCategoryPop] = useState<boolean>(false);
+
+  const label = useSelector((state: RootState) => state.label.value);
+  //state
+  const [searchTerm, setSearchTerm] = useState("");
+
+
+
+  //Search function 
+  const filteredProducts = Service.data?.filter((product) => {
+    const lowerCaseTitle = product?.title?.toLowerCase();
+    const lowerCaseInput = searchTerm?.toLowerCase();
+    if (searchTerm === "") return false;
+    if (lowerCaseTitle === lowerCaseInput) return true;
+    return lowerCaseTitle.includes(lowerCaseInput);
+  });
+
+
 
   const closeNav = (e: any) => {
     if (e.target.id === "grayBox") {
@@ -120,7 +139,7 @@ export default function NavBar({ currentNav }: NavProps) {
 
 
   //handle go Category page
-  const handleCategoryClick = (categroyId: string, slug: string) => {
+  const handleCategoryClick = (slug: string) => {
     navigate(`/category/${slug}`)
     GoTop();
   };
@@ -128,10 +147,10 @@ export default function NavBar({ currentNav }: NavProps) {
   useEffect(() => {
     dispatch(FetchService());
     dispatch(FetchCategory());
-    if (data?.length < 0) {
+    if (Service.data?.length < 0) {
       dispatch(FetchService());
     }
-    if (category?.data?.length < 0) {
+    if (Category?.data?.length < 0) {
       dispatch(FetchCategory());
     }
   }, []);
@@ -139,6 +158,53 @@ export default function NavBar({ currentNav }: NavProps) {
   return (
     <>
       <div ref={divRef} className="navBar">
+        {/*Search pop */}
+        <div
+          id="searchGrayBox"
+          style={{ width: label ? "100%" : "0%" }}
+          className="grayBox"
+          onClick={(e) => {
+            const target = e.target as HTMLElement;
+            if (target.id === "searchGrayBox") {
+              dispatch(setLabel(false));
+            }
+          }}
+        >
+          <div className="searchBox">
+            <h2>Search Service</h2>
+            <div className="search_InputBox">
+              <input type="text" placeholder="Search Categorys..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            </div>
+            <div className="SPcategoryListBox">
+
+              {
+                filteredProducts?.map((val, i: number) => (
+                  <div onClick={() => {
+                    navigate(`/services/service-details/${val?._id}/${val?.Slug}`)
+                    dispatch(setLabel(false));
+                  }} key={i} className="spCategoryItemBox">
+                    <p>{val.title}</p>
+                    <span >{val?.category?.title}</span>
+                  </div>
+                ))
+              }
+
+
+
+
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+
+
+
+
+
         <div className="clogoBox">
           <img src={Image.Clogo} onClick={() => navigate("/")} />
         </div>
@@ -219,8 +285,8 @@ export default function NavBar({ currentNav }: NavProps) {
               }}
             >
               {
-                category.data?.map((subM, i) => (
-                  <div onClick={() => handleCategoryClick(subM?._id || "", subM?.Slug || "")} className="categoryItemBox" key={i}>
+                Category.data?.map((subM, i) => (
+                  <div onClick={() => handleCategoryClick(subM?.Slug || "")} className="categoryItemBox" key={i}>
                     <p>{subM?.title}</p>
                     <img src={Image.rightArrowV2} alt="" />
                   </div>

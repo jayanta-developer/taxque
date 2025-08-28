@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
@@ -19,10 +19,9 @@ import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { ProductCard } from "../../components/Tools";
 
-import { FetchService, ServiceDataType } from "../../store/serviceSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../store/store";
-import { FetchCategory } from "../../store/categorySlice";
+import { ServiceDataType } from "../../store/serviceSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 
 interface NavProps {
@@ -34,7 +33,6 @@ export default function ServiceList({ setCurrentNav, currentNav }: NavProps) {
   const { slug } = useParams();
   const Navigate = useNavigate();
   setCurrentNav("Services");
-  const dispatch = useDispatch<AppDispatch>();
   const { data, status } = useSelector((state: RootState) => state.service);
   const category = useSelector((state: RootState) => state.category);
 
@@ -48,17 +46,6 @@ export default function ServiceList({ setCurrentNav, currentNav }: NavProps) {
   if (data.length) {
     Product_list = data.filter((pr) => pr?.category?.id === currentCategory?._id);
   }
-
-  useEffect(() => {
-    dispatch(FetchService());
-    dispatch(FetchCategory());
-    if (data?.length < 0) {
-      dispatch(FetchService());
-    }
-    if (category?.data?.length < 0) {
-      dispatch(FetchCategory());
-    }
-  }, []);
 
   return (
     <>

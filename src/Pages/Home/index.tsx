@@ -13,7 +13,6 @@ import Reffer from "../../assets/images/refferlIcon.png";
 import taxImg from "../../assets/images/taxImg.svg";
 import GreenBg from "../../assets/images/GreenBg.svg";
 import taxQueImg from "../../assets/images/TaxQueImg.png";
-import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -32,7 +31,6 @@ import { FetchBlog } from "../../store/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 import { FetchService } from "../../store/serviceSlice";
-import { toggleLabel, setLabel } from "../../store/stateSlice";
 
 
 interface NavProps {
@@ -49,20 +47,9 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
   const Service = useSelector((state: RootState) => state.service);
   const [currentDisplayPrice, setCurrentDisplayPrice] = useState<string>()
 
-  const label = useSelector((state: RootState) => state.label.value);
-  //state
-  const [searchTerm, setSearchTerm] = useState("");
 
 
 
-  //Search function 
-  const filteredProducts = Service.data?.filter((product) => {
-    const lowerCaseTitle = product?.title?.toLowerCase();
-    const lowerCaseInput = searchTerm?.toLowerCase();
-    if (searchTerm === "") return false;
-    if (lowerCaseTitle === lowerCaseInput) return true;
-    return lowerCaseTitle.includes(lowerCaseInput);
-  });
 
 
 
@@ -108,20 +95,6 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
     );
   }
 
-
-
-  useEffect(() => {
-    dispatch(FetchService());
-    if (data?.length < 0) {
-      dispatch(FetchService());
-    }
-  }, []);
-  useEffect(() => {
-    dispatch(FetchService());
-    if (Service?.data?.length < 0) {
-      dispatch(FetchService());
-    }
-  }, []);
   useEffect(() => {
     dispatch(FetchBlog());
     if (blogData?.data?.length < 0) {
@@ -132,47 +105,7 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
     <>
       <div className="heroBox">
         <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
-        {/*Search pop */}
-        <div
-          id="searchGrayBox"
-          style={{ width: label ? "100%" : "0%" }}
-          className="grayBox"
-          onClick={(e) => {
-            const target = e.target as HTMLElement;
-            if (target.id === "searchGrayBox") {
-              dispatch(setLabel(false));
-            }
-          }}
-        >
-          <div className="searchBox">
-            <h2>Search Service</h2>
-            <div className="search_InputBox">
-              <input type="text" placeholder="Search Categorys..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-            </div>
-            <div className="SPcategoryListBox">
 
-              {
-                filteredProducts?.map((val, i: number) => (
-                  <div onClick={() => {
-                    Navigate(`/services/service-details/${val?._id}/${val?.Slug}`)
-                    dispatch(setLabel(false));
-                  }} key={i} className="spCategoryItemBox">
-                    <p>{val.title}</p>
-                    <span >{val?.category?.title}</span>
-                  </div>
-                ))
-              }
-
-
-
-
-            </div>
-
-
-
-          </div>
-
-        </div>
 
 
 
