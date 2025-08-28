@@ -442,7 +442,12 @@ export default function ServiceDetails({
                   </p>
                 ))}
 
-                <div className="tableOuterBox productViewDifTable">
+                <div style={{
+                  width:
+                    (Service?.documentsRequired?.tableData?.headers?.length ?? 0) > 1
+                      ? "100%"
+                      : "45%",
+                }} className="tableOuterBox productViewDifTable">
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">

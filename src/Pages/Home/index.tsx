@@ -71,14 +71,10 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
     }
   })
 
-
-
-
   function HeroHeader() {
     return (
       <div className="text-center mt-10">
         <h1 className="text-4xl font-bold"> Welcome to </h1>
-
         <TypeAnimation
           sequence={[
             'TaxQue',
@@ -105,9 +101,6 @@ export default function Home({ setCurrentNav, currentNav }: NavProps) {
     <>
       <div className="heroBox">
         <NavBar setCurrentNav={setCurrentNav} currentNav={currentNav} />
-
-
-
 
         <img src={homeBg} className="homeBg" alt="" />
         {/*-Hero section --  */}

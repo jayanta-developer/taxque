@@ -18,7 +18,6 @@ interface NavProps {
   setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
-
 //Redux
 import { FetchCategory } from "../../store/categorySlice";
 import { FetchService, ServiceDataType } from "../../store/serviceSlice";
@@ -30,7 +29,6 @@ import {
 } from "../../store/userSlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-
 
 export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const ActivePage = localStorage.getItem("ActivePage");
@@ -45,8 +43,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const [selectProductIndex, setSelectProductIndex] = useState<number>();
   const [selectProductId, setSelectProductId] = useState<string>("");
   const [selectProduct, setSelectProduct] = useState<ServiceDataType[]>([]);
-
-
 
   const [activePage, setActivePage] = useState<string>("Product");
   const [activeMenu, setActiveMenu] = useState<string>();
@@ -103,7 +99,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
       setActiveMenu(savedMenu);
     }
   }, []);
-
 
   //side menu list
   interface sideMenuType {
@@ -207,11 +202,9 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     );
   }
   useEffect(() => {
-    if (!productList[0]?._id || selectProductId.length) return
-    setSelectProductId(productList[0]?._id)
-  }, [productList])
-
-
+    if (!productList[0]?._id || selectProductId.length) return;
+    setSelectProductId(productList[0]?._id);
+  }, [productList]);
 
   const docUpload = async () => {
     if (!user?.data[0]?._id) {
@@ -253,10 +246,8 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
 
   useEffect(() => {
     const res = data?.filter((val) => val?._id === selectProductId);
-    setSelectProduct(res)
-  }, [selectProductId])
-
-
+    setSelectProduct(res);
+  }, [selectProductId]);
 
   useEffect(() => {
     dispatch(FetchService());
@@ -284,7 +275,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const index = Number(productIndex) ?? 0;
 
   const handleDocUpload = (id: string | undefined) => {
-    if (!selectProductIndex || !id || !logUserId) {
+    if (!selectProductIndex || !id || !logUserId || !selectProductId) {
       return;
     }
 
@@ -309,9 +300,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
         <img src={smPageBG} className="smPageBG" />
       </div>
       <div className="userBox">
-
-
-
         {/* --------Side Menu-------------------- */}
         <div className="sideMenu">
           <div className="sideMenuItem_Box">
@@ -365,9 +353,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
           </div>
         </div>
 
-
         <div className="userMainSection">
-
           {/* ----User Info Top Box---- */}
           <div className="userInfoTopBox">
             <div className="user_Box userInfoBox">
@@ -397,18 +383,30 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
 
           {/* Order section ----------------------------------------------*/}
           {/* Service Listing ---------------*/}
-          <div style={{ display: ActivePage === "Order" ? "flex" : "none" }} className="UDContaintSection">
+          <div
+            style={{ display: ActivePage === "Order" ? "flex" : "none" }}
+            className="UDContaintSection"
+          >
             <div className="userDMainSectin">
               <h2>Your Service List</h2>
               <div className="serviceList">
-                {
-                  productList?.map((val, i) => (
-                    <div onClick={() => setSelectProductId(val?._id || "")} key={i} className={selectProductId === val?._id ? "udServiceCard udServiceCardActive" : "udServiceCard"}>
-                      <h4>{val?.title}</h4>
-                      <p> <b>Category :</b> {val?.category?.title}</p>
-                    </div>
-                  ))
-                }
+                {productList?.map((val, i) => (
+                  <div
+                    onClick={() => setSelectProductId(val?._id || "")}
+                    key={i}
+                    className={
+                      selectProductId === val?._id
+                        ? "udServiceCard udServiceCardActive"
+                        : "udServiceCard"
+                    }
+                  >
+                    <h4>{val?.title}</h4>
+                    <p>
+                      {" "}
+                      <b>Category :</b> {val?.category?.title}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -426,46 +424,56 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
               )}
             </div>
 
-
-
             {/* Document require section -------------------- */}
             <div className="userInfoBox docRequerBox">
               <h2>Documents Required</h2>
-              <div className="docUploadBox">
+              {selectProduct[0]?.documentsRequired?.tableData?.headers?.map(
+                (header: any, i: number) => (
+                  <div key={i} className="docUploadBox">
+                    <h4 className="tableDocTitle">
+                      {i + 1}. {header}
+                    </h4>
 
-                {selectProduct[0]?.documentsRequired?.tableData?.headers?.map((doc: any, i: number) => (
-                  <div key={i} className="docBox">
-                    <h4>{doc}</h4>
+                    {
+                      selectProduct[0]?.documentsRequired?.tableData?.rows?.map((row, j) => (
 
-                    <label htmlFor={`doc${i}`}>
-                      {fileUrls[i] ? (
-                        <iframe
-                          src={fileUrls[i]}
-                          width="100%"
-                          height="600px"
-                          title="PDF Viewer"
-                        />
-                      ) : (
-                        <img
-                          className="docUploadIcon"
-                          src={Image.docUploadIcon}
-                          alt=""
-                        />
-                      )}
-                    </label>
-                    <input
-                      id={`doc${i}`}
-                      type="file"
-                      onChange={(e) => handleFileChange(e, i)}
-                    />
+                        <div key={j} className="docBox">
+                          <h4 >{Object.entries(row)[i][1]}</h4>
+                          <label htmlFor={`doc${i}`}>
+                            {fileUrls[i] ? (
+                              <iframe
+                                src={fileUrls[i]}
+                                width="100%"
+                                height="600px"
+                                title="PDF Viewer"
+                              />
+                            ) : (
+                              <img
+                                className="docUploadIcon"
+                                src={Image.docUploadIcon}
+                                alt=""
+                              />
+                            )}
+                          </label>
+                          <input
+                            id={`doc${i}`}
+                            type="file"
+                            onChange={(e) => handleFileChange(e, i)}
+                          />
 
-                    <p className="docStatusText successDocState">
-                      <img src={Image.docSuccessIcon} alt="" /> Success
-                    </p>
+                          <p className="docStatusText successDocState">
+                            <img src={Image.docSuccessIcon} alt="" /> Success
+                          </p>
+                        </div>
+
+                      ))
+                    }
+
+
                   </div>
-                ))}
+                )
+              )}
 
-              </div>
               {fileUrls.length >= 3 ? (
                 <div className="btnBox">
                   <AppBtn btnText="Upload" onClick={docUpload} />
@@ -476,11 +484,6 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
             </div>
           </div>
 
-
-
-
-
-
           {/* <h1 className="usHeader">All Relative Services</h1>
           <div className="serviceMainSection userServiceSection">
             {Category?.data?.map((el, i) => (
@@ -488,7 +491,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
             ))}
           </div> */}
         </div>
-      </div >
+      </div>
       <Footer />
     </>
   );

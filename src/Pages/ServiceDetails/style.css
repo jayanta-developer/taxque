@@ -295,7 +295,6 @@
 }
 
 .tableOuterBox {
-  width: 100%;
   overflow-x: scroll;
 }
 .PRow {
@@ -320,21 +319,22 @@
     rgba(184, 255, 146, 0.418) 0%,
     rgb(253, 255, 200) 59%
   );
-}.stepSectionBox{
+}
+.stepSectionBox {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.stepSummary{
+.stepSummary {
   font-size: 1rem;
   color: #000;
   margin-bottom: 20px;
 }
-.stepUlSection{
+.stepUlSection {
   margin: 30px 0;
   padding-left: 50px;
 }
-.stepUlSection li{
+.stepUlSection li {
   margin-bottom: 10px;
   font-size: 1.2rem;
 }

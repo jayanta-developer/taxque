@@ -253,6 +253,14 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
+  position: relative;
+  margin-top: 50px;
+}
+.tableDocTitle{
+  position: absolute;
+  left: 0px;
+  top: -32px;
+
 }
 .docBox {
   display: flex;
