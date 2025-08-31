@@ -8,8 +8,7 @@ import policyPointIcon from "../../assets/images/policyPointIcon.svg";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { openMail } from "../../components/Tools"
-
+import { openMail } from "../../components/Tools";
 
 interface NavProps {
   currentNav: string;
@@ -45,7 +44,7 @@ export default function RefundPolicy({ setCurrentNav, currentNav }: NavProps) {
             <p>
               The Refund shall be only considered in the event there is a clear,
               visible deficiency with the service or product purchased from
-              VakilSearch.
+              TaxQue.
             </p>
           </div>
           <div className="policyPoint">
@@ -99,9 +98,19 @@ export default function RefundPolicy({ setCurrentNav, currentNav }: NavProps) {
               relevant service engagement.
             </li>
             <li>
-              Emailing us at <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a> with details of your issue,
-              including transaction ID, service details, and a description of
-              the concern.
+              Emailing us at{" "}
+              <a
+                style={{
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+                onClick={() => openMail("info@taxque.in")}
+              >
+                info@taxque.in
+              </a>{" "}
+              with details of your issue, including transaction ID, service
+              details, and a description of the concern.
             </li>
             <li>
               {" "}
@@ -179,8 +188,18 @@ export default function RefundPolicy({ setCurrentNav, currentNav }: NavProps) {
             <li>
               {" "}
               <b>Process :</b> Log into the Platform and select "Get Help" to
-              initiate a service change request, or email <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a> with
-              transaction details and the desired service.{" "}
+              initiate a service change request, or email{" "}
+              <a
+                style={{
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+                onClick={() => openMail("info@taxque.in")}
+              >
+                info@taxque.in
+              </a>{" "}
+              with transaction details and the desired service.{" "}
             </li>
             <li>
               You are granted access to the Platform for the requested service
@@ -211,14 +230,38 @@ export default function RefundPolicy({ setCurrentNav, currentNav }: NavProps) {
             <li>
               {" "}
               <b>Process :</b> Log into the Platform and select "Get Help" to
-              initiate a service change request, or email <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a> with
-              transaction details and the desired service.{" "}
+              initiate a service change request, or email{" "}
+              <a
+                style={{
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+                onClick={() => openMail("info@taxque.in")}
+              >
+                info@taxque.in
+              </a>{" "}
+              with transaction details and the desired service.{" "}
             </li>
             <li>
               Log into the Platform, navigate to the relevant service
               engagement, and submit a "Not Satisfied" or "Refund Request" form.
             </li>
-            <li> Alternatively, email <a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a> with:</li>
+            <li>
+              {" "}
+              Alternatively, email{" "}
+              <a
+                style={{
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+                onClick={() => openMail("info@taxque.in")}
+              >
+                info@taxque.in
+              </a>{" "}
+              with:
+            </li>
             <li>Transaction ID or payment confirmation details. </li>
             <li>
               Description of the service and reason for the refund request.
@@ -362,26 +405,63 @@ export default function RefundPolicy({ setCurrentNav, currentNav }: NavProps) {
               will attempt to resolve disputes through good-faith negotiations
               within 14 business days.
             </li>
-            <li> <b>Escalation :</b> : If the issue remains unresolved, you may escalate the matter to our Grievance Officer (details below).
-              8.3 Legal Recourse: Disputes not resolved through negotiation are subject to the governing law and jurisdiction outlined in our Terms and Conditions (courts in Patna, Bihar, India). </li>
+            <li>
+              {" "}
+              <b>Escalation :</b> : If the issue remains unresolved, you may
+              escalate the matter to our Grievance Officer (details below). 8.3
+              Legal Recourse: Disputes not resolved through negotiation are
+              subject to the governing law and jurisdiction outlined in our
+              Terms and Conditions (courts in Patna, Bihar, India).{" "}
+            </li>
           </ul>
-
         </div>
-
-
 
         <div className="noticeBox">
           <p className="policyNoteHText">Contact Information</p>
           <ul>
-            <li>For refund requests, questions, or assistance, please contact:
+            <li>
+              For refund requests, questions, or assistance, please contact:
             </li>
-            <li><b>TaxQue by ARB FinTech LLP</b></li>
-            <li><b>Contact Person :
-            </b>Md Afzal</li>
-            <li><b>Email : </b><a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a></li>
-            <li><b>Address :</b>Surbhi Vihar, Mithapur, Patna, Bihar 800001, India</li>
-            <li><b>Grievance Officer :</b> Md Afzal (<a style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }} onClick={() => openMail("info@taxque.in")}>info@taxque.in</a>)</li>
-            <li><b>Response Time :</b>Refund and grievance inquiries will be acknowledged within 2-3 business days and resolved within 7-14 business days, depending on the issue.
+            <li>
+              <b>TaxQue by ARB FinTech LLP</b>
+            </li>
+            <li>
+              <b>Contact Person :</b>Md Afzal
+            </li>
+            <li>
+              <b>Email : </b>
+              <a
+                style={{
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+                onClick={() => openMail("info@taxque.in")}
+              >
+                info@taxque.in
+              </a>
+            </li>
+            <li>
+              <b>Address :</b>Surbhi Vihar, Mithapur, Patna, Bihar 800001, India
+            </li>
+            <li>
+              <b>Grievance Officer :</b> Md Afzal (
+              <a
+                style={{
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+                onClick={() => openMail("info@taxque.in")}
+              >
+                info@taxque.in
+              </a>
+              )
+            </li>
+            <li>
+              <b>Response Time :</b>Refund and grievance inquiries will be
+              acknowledged within 2-3 business days and resolved within 7-14
+              business days, depending on the issue.
             </li>
           </ul>
         </div>
@@ -389,15 +469,31 @@ export default function RefundPolicy({ setCurrentNav, currentNav }: NavProps) {
         <div className="noticeBox">
           <p className="policyNoteHText">Miscellaneous</p>
           <ul>
-            <li><b>Alignment with Terms :</b> This Refund Policy is subject to and governed by our Terms and Conditions. In case of any conflict, the Terms and Conditions prevail.
+            <li>
+              <b>Alignment with Terms :</b> This Refund Policy is subject to and
+              governed by our Terms and Conditions. In case of any conflict, the
+              Terms and Conditions prevail.
             </li>
-            <li><b>Updates :</b> TaxQue reserves the right to update this Refund Policy at any time. Changes will be communicated via the Platform, email, or by updating the “Effective Date” below. Continued use of the Platform constitutes acceptance of the updated policy</li>
-            <li><b>Consumer Protection :</b> This policy complies with applicable Indian laws, including the Consumer Protection Act, 2019, and related regulations.
+            <li>
+              <b>Updates :</b> TaxQue reserves the right to update this Refund
+              Policy at any time. Changes will be communicated via the Platform,
+              email, or by updating the “Effective Date” below. Continued use of
+              the Platform constitutes acceptance of the updated policy
             </li>
-            <li><b>Severability :</b>If any provision of this policy is found to be invalid or unenforceable, the remaining provisions remain in full force and effect. </li>
-            <li><b>Effective Date :</b>January 20, 2025</li>
+            <li>
+              <b>Consumer Protection :</b> This policy complies with applicable
+              Indian laws, including the Consumer Protection Act, 2019, and
+              related regulations.
+            </li>
+            <li>
+              <b>Severability :</b>If any provision of this policy is found to
+              be invalid or unenforceable, the remaining provisions remain in
+              full force and effect.{" "}
+            </li>
+            <li>
+              <b>Effective Date :</b>January 20, 2025
+            </li>
           </ul>
-
         </div>
       </div>
       <Footer />

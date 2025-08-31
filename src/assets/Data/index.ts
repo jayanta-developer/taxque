@@ -23,12 +23,10 @@ import tailoredIcon from "../../assets/images/tailoredIcon.svg";
 import timelyIcom from "../../assets/images/timelyIcon.svg";
 import securityIcon from "../../assets/images/securityIcon.svg";
 
-
 interface paraType {
   title: string;
   id: string;
 }
-import type { LocationData } from "../../store/statusTypes"
 
 export const servicesData = [
   {
@@ -110,7 +108,8 @@ export const TaxQueData = [
   {
     icon: timelyIcom,
     title: "Nationwide Reach",
-    summery: "Serving clients across India, we understand both local and national compliance requirements",
+    summery:
+      "Serving clients across India, we understand both local and national compliance requirements",
   },
   {
     icon: securityIcon,
@@ -125,8 +124,6 @@ export const TaxQueData = [
       "We provide high-value services at competitive prices with no hidden costs",
   },
 ];
-
-
 
 export const ParaSection: paraType[] = [
   {
@@ -161,14 +158,4 @@ export const ParaSection: paraType[] = [
     title: "FAQ's",
     id: "FAQ",
   },
-];
-
-
-
-export const locationList: LocationData[] = [
-  { state: "West Bengal", city: "Kolkata", pin: "700001" },
-  { state: "West Bengal", city: "Howrah", pin: "711101" },
-  { state: "Maharashtra", city: "Mumbai", pin: "400001" },
-  { state: "Delhi", city: "New Delhi", pin: "110001" },
-  { state: "Delhi", city: "New Delhi", pin: "7110001" },
 ];

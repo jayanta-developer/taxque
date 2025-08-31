@@ -13,7 +13,7 @@
   z-index: -1;
 }
 .paymentCheckBox {
-  width: 70%;
+  width: 80%;
   border-radius: 25px;
   box-shadow: 0px 0px 25px 0px #efdfdd99;
   padding: 20px;
@@ -22,6 +22,10 @@
   background: #fff;
   gap: 30px;
   margin-top: 6%;
+}
+.PaymentMainSection .contactBox {
+  width: 50%;
+  justify-content: space-between;
 }
 .paymentBox {
   width: 50%;

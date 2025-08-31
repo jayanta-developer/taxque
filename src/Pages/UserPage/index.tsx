@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { ServiceCard } from "../../components/Tools";
+// import { ServiceCard } from "../../components/Tools";
 import { AppBtn } from "../../components/Buttons";
 
 //images
@@ -35,18 +35,80 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const logUserId = localStorage.getItem("userId");
   const productIndex = localStorage.getItem("productIndex");
   setCurrentNav("");
-  const { data, status } = useSelector((state: RootState) => state.service);
+  const { data } = useSelector((state: RootState) => state.service);
   const user = useSelector((state: RootState) => state.user);
   const Category = useSelector((state: RootState) => state.category);
   const dispatch = useDispatch<AppDispatch>();
   const [fileUrls, setFileUrls] = useState<string[]>([]);
   const [selectProductIndex, setSelectProductIndex] = useState<number>();
+  console.log(selectProductIndex);
   const [selectProductId, setSelectProductId] = useState<string>("");
+  console.log(selectProductId);
+
   const [selectProduct, setSelectProduct] = useState<ServiceDataType[]>([]);
 
-  const [activePage, setActivePage] = useState<string>("Product");
+  const [_, setActivePage] = useState<string>("Product");
   const [activeMenu, setActiveMenu] = useState<string>();
   const subMenuRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [docSectionIndex, setDocSectionIndex] = useState<number[]>([]);
+  const [requireDoc, setRequireDoc] = useState([
+    {
+      docCategory: "",
+      docUrlArray: [
+        {
+          docTitle: "",
+          docUrl: "",
+          status: "pending",
+          rejectMessage: "",
+        },
+      ],
+    },
+  ]);
+
+  console.log(requireDoc);
+
+  useEffect(() => {
+    const tableData = selectProduct[0]?.documentsRequired?.tableData;
+    if (!tableData) return;
+
+    const structuredDocs: any = [];
+
+    // Loop headers + rows
+    tableData.headers.forEach((header) => {
+      const docUrlArray: any[] = [];
+
+      tableData.rows.forEach((row) => {
+        const docTitle = row[header];
+        if (docTitle && docTitle.trim().length > 0) {
+          docUrlArray.push({
+            docTitle: docTitle,
+            docUrl: "", // initially empty, will be updated when uploaded
+            status: "Pending",
+            rejectMessage: "",
+          });
+        }
+      });
+
+      if (docUrlArray.length > 0) {
+        structuredDocs.push({
+          docCategory: header,
+          docUrlArray: docUrlArray,
+        });
+      }
+    });
+
+    setRequireDoc(structuredDocs);
+  }, [selectProduct]);
+
+  //handle function
+  const handleActiveDocSeciton = (section: number) => {
+    if (docSectionIndex.includes(section)) {
+      const arr = docSectionIndex.filter((ind) => ind !== section);
+      setDocSectionIndex(arr);
+    } else {
+      setDocSectionIndex((prv) => [...prv, section]);
+    }
+  };
 
   // Side menu function
   if (!ActivePage) {
@@ -68,7 +130,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   useEffect(() => {
     const index = sideMenuList.findIndex((item) => item.title === activeMenu);
 
-    subMenuRefs.current.forEach((submenu, i) => {
+    subMenuRefs.current.forEach((submenu) => {
       if (submenu) {
         submenu.style.transition = "height 0.3s ease";
         submenu.style.height = "0px";
@@ -152,11 +214,12 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     },
   ];
 
+  //Multipal file upload
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number
+    catIndex: number,
+    docIndex: number
   ) => {
-    setSelectProductIndex(index);
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -170,6 +233,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
           "Content-Type": file.type || "application/octet-stream",
         },
       });
+
       const { url } = await res.json();
 
       if (!res.ok) {
@@ -177,20 +241,30 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
         try {
           const errorData = await res.json();
           errorDetail = errorData?.detail || errorData?.error || errorDetail;
-        } catch {
-          // Non-JSON response
-        }
+        } catch {}
         toast.error(`Upload failed for some error! ${errorDetail}`);
         throw new Error(errorDetail);
       }
 
-      setFileUrls((prev) => {
-        const updated = [...prev];
-        updated[index] = url;
-        return updated;
-      });
+      // ✅ Update the exact doc inside docUrlArray
+      setRequireDoc((prev) =>
+        prev.map((doc, i) =>
+          i === catIndex
+            ? {
+                ...doc,
+                docUrlArray: doc.docUrlArray.map((d, j) =>
+                  j === docIndex ? { ...d, docUrl: url } : d
+                ),
+                status: "Success",
+              }
+            : doc
+        )
+      );
     } catch (err) {
-      console.error(`Upload failed for file ${index + 1}:`, err);
+      console.error(
+        `Upload failed for category ${catIndex + 1}, doc ${docIndex + 1}:`,
+        err
+      );
     }
   };
 
@@ -271,24 +345,19 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
     }
   }, [logUserId]);
 
-  const purchases = user?.data?.[0]?.purchase;
-  const index = Number(productIndex) ?? 0;
+  // const purchases = user?.data?.[0]?.purchase;
+  // const index = Number(productIndex) ?? 0;
 
-  const handleDocUpload = (id: string | undefined) => {
-    if (!selectProductIndex || !id || !logUserId || !selectProductId) {
+  const handleDocUpload = () => {
+    if (!logUserId || !selectProductId) {
       return;
     }
 
     dispatch(
       UpdateDocUrl({
-        data: {
-          userId: logUserId,
-          productId: selectProductId || productList[0]?._id,
-          docId: id,
-          newMessage: "",
-          status: "Panding",
-          docUrl: fileUrls[selectProductIndex],
-        },
+        userId: logUserId,
+        productId: selectProductId,
+        requireDoc: requireDoc,
       })
     );
   };
@@ -425,63 +494,82 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
             </div>
 
             {/* Document require section -------------------- */}
-            <div className="userInfoBox docRequerBox">
+            <div className="docRequerBox">
               <h2>Documents Required</h2>
-              {selectProduct[0]?.documentsRequired?.tableData?.headers?.map(
-                (header: any, i: number) => (
-                  <div key={i} className="docUploadBox">
-                    <h4 className="tableDocTitle">
-                      {i + 1}. {header}
-                    </h4>
+              {requireDoc.map((doc, i) => (
+                <div
+                  key={i}
+                  className={
+                    docSectionIndex.includes(i)
+                      ? "docUploadBox docUploadActiveBox"
+                      : "docUploadBox"
+                  }
+                >
+                  <p className="tableDocTitle">
+                    {i + 1}. {doc.docCategory}
+                  </p>
+                  <img
+                    onClick={() => handleActiveDocSeciton(i)}
+                    className="docSectionArrow"
+                    src={Image.MenuArrow}
+                  />
 
-                    {
-                      selectProduct[0]?.documentsRequired?.tableData?.rows?.map((row, j) => (
+                  {doc.docUrlArray.map((docItem, j) => (
+                    <div
+                      style={{
+                        display: docSectionIndex.includes(i) ? "flex" : "none",
+                      }}
+                      key={j}
+                      className="docBox"
+                    >
+                      <p className="docTitle">{docItem.docTitle}</p>
 
-                        <div key={j} className="docBox">
-                          <h4 >{Object.entries(row)[i][1]}</h4>
-                          <label htmlFor={`doc${i}`}>
-                            {fileUrls[i] ? (
-                              <iframe
-                                src={fileUrls[i]}
-                                width="100%"
-                                height="600px"
-                                title="PDF Viewer"
-                              />
-                            ) : (
-                              <img
-                                className="docUploadIcon"
-                                src={Image.docUploadIcon}
-                                alt=""
-                              />
-                            )}
-                          </label>
-                          <input
-                            id={`doc${i}`}
-                            type="file"
-                            onChange={(e) => handleFileChange(e, i)}
+                      <label htmlFor={`doc${i}-${j}`}>
+                        {docItem.docUrl ? (
+                          <iframe
+                            src={docItem.docUrl}
+                            width="100%"
+                            height="600px"
+                            title="PDF Viewer"
                           />
+                        ) : (
+                          <img
+                            className="docUploadIcon"
+                            src={Image.docUploadIcon}
+                            alt=""
+                          />
+                        )}
+                      </label>
 
-                          <p className="docStatusText successDocState">
+                      <input
+                        id={`doc${i}-${j}`}
+                        type="file"
+                        onChange={(e) => handleFileChange(e, i, j)} // 👈 pass i + j
+                      />
+
+                      <p
+                        className={`docStatusText ${
+                          doc.docUrlArray[j].status === "Success"
+                            ? "successDocState"
+                            : "pendingDocState"
+                        }`}
+                      >
+                        {doc.docUrlArray[j].status === "Success" ? (
+                          <>
                             <img src={Image.docSuccessIcon} alt="" /> Success
-                          </p>
-                        </div>
-
-                      ))
-                    }
-
-
-                  </div>
-                )
-              )}
-
-              {fileUrls.length >= 3 ? (
-                <div className="btnBox">
-                  <AppBtn btnText="Upload" onClick={docUpload} />
+                          </>
+                        ) : (
+                          "Pending"
+                        )}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ) : (
-                <p className="docSelectText">Select all your Documents !</p>
-              )}
+              ))}
             </div>
+          </div>
+          <div className="subDocBtnBox">
+            <AppBtn btnText="Submit Doc" onClick={handleDocUpload} />
           </div>
 
           {/* <h1 className="usHeader">All Relative Services</h1>

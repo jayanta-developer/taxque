@@ -29,7 +29,7 @@ import { RootState, AppDispatch } from "../../store/store";
 
 export default function Careers({ setCurrentNav, currentNav }: NavProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.job);
+  const { data } = useSelector((state: RootState) => state.job);
 
   const Navigate = useNavigate();
   setCurrentNav("");

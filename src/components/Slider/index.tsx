@@ -6,8 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 // card
 import { MemberCard } from "../../components/Tools";
 
-function AppSlider({ data, cardName }: any) {
-
+function AppSlider({ data }: any) {
   var settings = {
     dots: false,
     slidesToShow: 4,

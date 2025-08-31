@@ -33,7 +33,7 @@ export default function ServiceList({ setCurrentNav, currentNav }: NavProps) {
   const { slug } = useParams();
   const Navigate = useNavigate();
   setCurrentNav("Services");
-  const { data, status } = useSelector((state: RootState) => state.service);
+  const { data } = useSelector((state: RootState) => state.service);
   const category = useSelector((state: RootState) => state.category);
 
   const currentCategory = category?.data.find((val) => val?.Slug === slug)

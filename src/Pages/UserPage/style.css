@@ -248,27 +248,63 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+  padding: 20px;
+  gap: 20px;
 }
 .docUploadBox {
+  width: 100%;
+  height: 55px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 20px;
   position: relative;
-  margin-top: 50px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 15px;
+  padding-left: 20px;
 }
-.tableDocTitle{
+.docUploadActiveBox {
+  height: auto;
+  align-items: start;
+  padding: 70px 20px 20px 20px;
+}
+.docUploadActiveBox .tableDocTitle {
   position: absolute;
-  left: 0px;
-  top: -32px;
-
+  left: 20px;
+  top: 16px;
 }
+.tableDocTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+.docTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3d3d3d;
+}
+.docSectionArrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20px;
+  transition: 0.5s all;
+  flex-wrap: wrap;
+}
+.docUploadActiveBox .docSectionArrow {
+  rotate: 180deg;
+}
+
 .docBox {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: start;
+  justify-content: space-between;
   padding: 16px;
   border-radius: 10px;
   border: 1px solid rgba(128, 128, 128, 0.301);
+  max-width: 300px;
+  min-width: 300px;
+  height: -webkit-fill-available;
 }
 .docBox input {
   display: none;
@@ -288,8 +324,8 @@
 }
 .docUploadIcon,
 .docBox iframe {
-  width: 65px;
-  height: 65px;
+  width: 100px;
+  height: 100px;
   margin-top: 10px;
 }
 .docStatusText {
@@ -368,4 +404,9 @@
 }
 .UDContaintSection {
   flex-direction: column;
+}
+.subDocBtnBox{
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }

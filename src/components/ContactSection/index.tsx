@@ -2,13 +2,13 @@ import { useState } from "react";
 import "./style.css";
 
 import { AppBtn } from "../Buttons";
-import { DropBox } from "../../components/Tools"
+import { DropBox } from "../../components/Tools";
 
 //dataType
-import type { LocationData } from "../../store/statusTypes"
+import type { LocationData } from "../../store/statusTypes";
 
 //data
-import { locationList } from "../../assets/Data";
+import rawLocations from "../../assets/Data/Location/index.json";
 
 //Images
 import { Image } from "../../assets/images";
@@ -18,54 +18,65 @@ import type { CategoryDataType } from "../../store/categorySlice";
 import { toast } from "react-toastify";
 import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
-import { CreateContactUser } from "../../store/userSlice"
+import { CreateContactUser } from "../../store/userSlice";
 
 export default function ContactSection({ subjectList }: any) {
   const dispatch = useDispatch<AppDispatch>();
   const [subjectDrop, setSubjectDrop] = useState<string>("");
 
-  const newList: string[] = []
+  const newList: string[] = [];
   if (subjectList) {
     subjectList?.map((el: CategoryDataType) => {
-      newList.push(el?.title)
-    })
+      newList.push(el?.title);
+    });
   }
 
   const [contactUser, setContactUser] = useState({
     name: "",
     email: "",
-    phone: ""
+    phone: "",
   });
 
   // city/pin search
   const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState<LocationData[]>([]);
   const [selected, setSelected] = useState<LocationData | null>(null);
-  console.log(selected);
+  // console.log(selected);
 
+  // Normalize keys and convert Pincode to string
+  const locationList: LocationData[] = (rawLocations as any[]).map((loc) => ({
+    PostOffice: loc["Post Office"] || "",
+    City: loc.City || "",
+    State: loc.State || "",
+    Pincode: String(loc.Pincode || ""),
+  }));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
     setQuery(input);
 
-    if (!input.trim()) {
+    // Only start filtering if input length >= 3
+    if (input.trim().length < 3) {
       setFiltered([]);
       return;
     }
 
+    const lowerInput = input.toLowerCase();
+
     // Detect if user typing number (PIN) or text (City/State)
     if (/^\d+$/.test(input)) {
-      // Filter by PIN
+      // Filter by Pincode (normalize to string)
       const match = locationList.filter((loc) =>
-        loc.pin.startsWith(input)
+        String(loc.Pincode).startsWith(input)
       );
       setFiltered(match);
     } else {
       // Filter by City or State name
       const match = locationList.filter(
         (loc) =>
-          loc.city.toLowerCase().includes(input.toLowerCase()) ||
-          loc.state.toLowerCase().includes(input.toLowerCase())
+          loc.PostOffice.toLowerCase().includes(lowerInput) ||
+          loc.City.toLowerCase().includes(lowerInput) ||
+          loc.State.toLowerCase().includes(lowerInput)
       );
       setFiltered(match);
     }
@@ -73,11 +84,11 @@ export default function ContactSection({ subjectList }: any) {
 
   const handleSelect = (item: LocationData) => {
     setSelected(item);
-    setQuery(`${item.city}, ${item.state} (${item.pin})`);
+    setQuery(
+      `${item.PostOffice}, ${item.City}, ${item.State} (${item.Pincode})`
+    );
     setFiltered([]);
   };
-
-
 
   // create contact user
   const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,22 +105,23 @@ export default function ContactSection({ subjectList }: any) {
       !contactUser.name ||
       !contactUser.email ||
       !contactUser.phone ||
-      !selected?.city.length ||
+      !selected?.City.length ||
       !subjectDrop
     ) {
-      toast.warn("Please fill all the fields!")
-      return
+      toast.warn("Please fill all the fields!");
+      return;
     } else {
-      dispatch(CreateContactUser({
-        name: contactUser.name,
-        email: contactUser.email,
-        phone: contactUser.phone,
-        location: selected,
-        date: new Date().toLocaleDateString("en-GB"),
-      }))
+      dispatch(
+        CreateContactUser({
+          name: contactUser.name,
+          email: contactUser.email,
+          phone: contactUser.phone,
+          location: selected,
+          date: new Date().toLocaleDateString("en-GB"),
+        })
+      );
     }
-  }
-
+  };
 
   return (
     <>
@@ -117,20 +129,38 @@ export default function ContactSection({ subjectList }: any) {
         <p className="contactHeader">We’re Here To Get In Touch</p>
 
         <div className="BoxInput">
-          <input value={contactUser.name} placeholder="Full Name" name="name" onChange={handleUserChange} type="text" />
+          <input
+            value={contactUser.name}
+            placeholder="Full Name"
+            name="name"
+            onChange={handleUserChange}
+            type="text"
+          />
           <img className="inputUserIcon" src={Image.inputUserIcon} alt="" />
         </div>
         <div className="BoxInput">
-          <input value={contactUser.email} placeholder="Email Address" name="email" onChange={handleUserChange} type="text" />
+          <input
+            value={contactUser.email}
+            placeholder="Email Address"
+            name="email"
+            onChange={handleUserChange}
+            type="text"
+          />
           <img className="inputMailIcon" src={Image.inputMailIcon} alt="" />
         </div>
         <div className="BoxInput">
-          <input value={contactUser.phone} placeholder="Phone Number" name="phone" onChange={(e) => {
-            const val = e.target.value;
-            if (/^\d{0,10}$/.test(val)) {
-              handleUserChange(e);
-            }
-          }} type="phone" />
+          <input
+            value={contactUser.phone}
+            placeholder="Phone Number"
+            name="phone"
+            onChange={(e) => {
+              const val = e.target.value;
+              if (/^\d{0,10}$/.test(val)) {
+                handleUserChange(e);
+              }
+            }}
+            type="phone"
+          />
           <img className="inputMailIcon" src={Image.inputPhoneIcon} alt="" />
         </div>
 
@@ -141,8 +171,7 @@ export default function ContactSection({ subjectList }: any) {
             value={query}
             onChange={handleChange}
           />
-           <img className="pincodeIcon" src={Image.pincodeIcon} alt="" />
-
+          <img className="pincodeIcon" src={Image.pincodeIcon} alt="" />
 
           {filtered.length > 0 && (
             <ul
@@ -167,7 +196,7 @@ export default function ContactSection({ subjectList }: any) {
                     borderBottom: "1px solid #eee",
                   }}
                 >
-                  {item.city}, {item.state} - {item.pin}
+                  {item.PostOffice}, {item.City}, {item.State} - {item.Pincode}
                 </li>
               ))}
             </ul>
@@ -180,8 +209,13 @@ export default function ContactSection({ subjectList }: any) {
           defaultVal="Select A Service"
         />
 
-        <AppBtn onClick={handlePostUser} width="150px" height="40px" btnText="Submit Now" />
-      </div >
+        <AppBtn
+          onClick={handlePostUser}
+          width="150px"
+          height="40px"
+          btnText="Submit Now"
+        />
+      </div>
     </>
   );
 }

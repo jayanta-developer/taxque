@@ -3,8 +3,19 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { Reloader } from "../components/Tools";
 import { baseURL } from "../App";
-import { STATUSES } from "./statusTypes";
+import { STATUSES, LocationData } from "./statusTypes";
 
+
+interface requireDocType {
+  docCategory: string;
+  docUrlArray: {
+    docTitle: string;
+    docUrl: string,
+    status: string;
+    rejectMessage: string;
+  }[]
+  _id?: string;
+}
 
 export interface UserDataType {
   name: string;
@@ -12,15 +23,7 @@ export interface UserDataType {
   token?: string;
   purchase?: {
     orderData: string;
-    requireDoc: [
-      {
-        docTitle: String;
-        docUrl: String;
-        status: String;
-        rejectMessage: String;
-        _id?: string;
-      }
-    ];
+    requireDoc: requireDocType[];
     productId: string;
     _id?: string;
   }[];
@@ -37,6 +40,11 @@ export interface UserUpdateDataType {
     rejectMessage: String;
   }
   _id?: string;
+}
+interface requireDocUpdateArge {
+  requireDoc: requireDocType[]
+  userId: string;
+  productId: string;
 }
 export interface docType {
   docTitle?: String;
@@ -56,11 +64,7 @@ export interface contactUserType {
   name: string;
   email: string;
   phone: string;
-  location: {
-    city: string,
-    pin: string,
-    state: string
-  };
+  location: LocationData;
   date: string
 }
 export interface FindUserResponseType {
@@ -166,20 +170,35 @@ export const UpdateDoc = createAsyncThunk<UserUpdateDataType, UpdateUserArgs>(
     }
   }
 );
-export const UpdateDocUrl = createAsyncThunk<UpdateDocArgs, UpdateDocArgs>(
-  "user/updateDOCUrl",
-  async ({ data }, { rejectWithValue }) => {
+export const UpdateDocUrl = createAsyncThunk<requireDocType, requireDocUpdateArge>(
+  "user/updateDOC_Url",
+  async ({ userId, productId, requireDoc }, { rejectWithValue }) => {
     try {
-      const response = await Axios.post(`${baseURL}/user/update_doc_url`, data);
-      toast.success("Document updated successfully !");
+      const response = await Axios.post(`${baseURL}/user/update_doc/${userId}/${productId}`, requireDoc);
+      toast.success("Document URL updated successfully !");
       // Reloader(1000);
       return response.data;
     } catch (error: any) {
-      toast.error("Failed to update document");
+      toast.error("Failed to update document url");
       return rejectWithValue(error.response?.data || "An error occurred");
     }
   }
 );
+
+// export const UpdateDocUrl = createAsyncThunk<UpdateDocArgs, UpdateDocArgs>(
+//   "user/updateDOCUrl",
+//   async ({ data }, { rejectWithValue }) => {
+//     try {
+//       const response = await Axios.post(`${baseURL}/user/update_doc_url`, data);
+//       toast.success("Document updated successfully !");
+//       // Reloader(1000);
+//       return response.data;
+//     } catch (error: any) {
+//       toast.error("Failed to update document");
+//       return rejectWithValue(error.response?.data || "An error occurred");
+//     }
+//   }
+// );
 
 //create contact user 
 export const CreateContactUser = createAsyncThunk<contactUserType, contactUserType>(

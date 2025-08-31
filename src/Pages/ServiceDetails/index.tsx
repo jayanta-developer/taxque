@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
 import "./style.css";
 
@@ -45,7 +45,7 @@ export default function ServiceDetails({
 
   const { Service, status } = useSelector((state: RootState) => state.service);
 
-  const Category = useSelector((state: RootState) => state.category)
+  const Category = useSelector((state: RootState) => state.category);
   const dispatch = useDispatch<AppDispatch>();
   const [activeSection, setActiveSection] = useState<string>("");
 
@@ -53,13 +53,13 @@ export default function ServiceDetails({
   const [questionIndex, setQuestionIndex] = useState<number>(999999);
   const [navItems, setNavItems] = useState<string[]>([]);
 
-
   const handlePDClick = (props: string) => {
-    setLoading(false)
+    setLoading(false);
     const section = document.getElementById(props);
     if (section) {
       const offset = 100;
-      const topPosition = section.getBoundingClientRect().top + window.scrollY - offset;
+      const topPosition =
+        section.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: topPosition, behavior: "smooth" });
     }
     // scrollToSection(props?.id);
@@ -71,9 +71,7 @@ export default function ServiceDetails({
     window.open(url, "_blank");
   };
 
-
-
-  // section Observe function 
+  // section Observe function
   useEffect(() => {
     if (!ParaSection || ParaSection.length === 0) return;
 
@@ -101,17 +99,19 @@ export default function ServiceDetails({
     };
   }, [ParaSection, navItems]);
 
-
   useEffect(() => {
     if (!navItems.length) return; // wait until navItems exist
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    }, { threshold: 0.5 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
 
     navItems.forEach((item) => {
       const el = document.getElementById(item.toUpperCase());
@@ -121,8 +121,6 @@ export default function ServiceDetails({
     return () => observer.disconnect();
   }, [navItems, Service]);
 
-
-
   const handleQuestionIndex = (i: number) => {
     if (i === questionIndex) {
       setQuestionIndex(999999);
@@ -130,8 +128,6 @@ export default function ServiceDetails({
       setQuestionIndex(i);
     }
   };
-
-
 
   //Create Service Section array
 
@@ -148,9 +144,7 @@ export default function ServiceDetails({
     { key: "Steps", label: "Steps" },
     { key: "ThresholdLimits", label: "Threshold Limits" },
     { key: "FAQ", label: "FAQ" },
-
   ];
-
 
   useEffect(() => {
     if (!Service) return;
@@ -162,10 +156,11 @@ export default function ServiceDetails({
 
         if (Array.isArray(value)) return value.length > 0;
         if (typeof value === "object") {
-          return Object.values(value).some(v => {
+          return Object.values(value).some((v) => {
             if (Array.isArray(v)) return v.length > 0;
             if (typeof v === "string") return v.trim().length > 0;
-            if (typeof v === "object" && v !== null) return Object.keys(v).length > 0;
+            if (typeof v === "object" && v !== null)
+              return Object.keys(v).length > 0;
             return false;
           });
         }
@@ -184,17 +179,18 @@ export default function ServiceDetails({
     if (Service) {
       dispatch(FetchServiceById({ slug }));
     }
-  }, [slug])
-
+  }, [slug]);
 
   return (
     <>
       <div className="productPage">
         <Helmet>
           <title>{Service?.metaTitle || Service?.title}</title>
-          <meta name="description" content={Service?.metaDescription || 'Default description'} />
+          <meta
+            name="description"
+            content={Service?.metaDescription || "Default description"}
+          />
         </Helmet>
-
 
         {/* Loader */}
         <Loader loding={loding || status === "loading" ? true : false} />
@@ -247,9 +243,7 @@ export default function ServiceDetails({
 
                     <p
                       className="viewPackage"
-                      onClick={() =>
-                        handlePDClick("priceBox")
-                      }
+                      onClick={() => handlePDClick("priceBox")}
                     >
                       <img src={viewIcon} alt="" />
                       View Package
@@ -276,16 +270,22 @@ export default function ServiceDetails({
                 {navItems?.map((el, i) => (
                   <p
                     className={
-                      activeSection === el.toUpperCase().replace(/\s+/g, "") ? "productNavActive" : ""}
-                    onClick={() => handlePDClick(el.toUpperCase().replace(/\s+/g, ""))}
-                    key={i}>
-                    {el === "What is" ? `What is ${Service?.displayName || Service?.title}` : el}
+                      activeSection === el.toUpperCase().replace(/\s+/g, "")
+                        ? "productNavActive"
+                        : ""
+                    }
+                    onClick={() =>
+                      handlePDClick(el.toUpperCase().replace(/\s+/g, ""))
+                    }
+                    key={i}
+                  >
+                    {el === "What is"
+                      ? `What is ${Service?.displayName || Service?.title}`
+                      : el}
                   </p>
                 ))}
               </div>
             </div>
-
-
 
             {/* Overview section--------------------------------------------------- */}
             {navItems.includes("Overview") ? (
@@ -300,13 +300,9 @@ export default function ServiceDetails({
               </div>
             ) : null}
 
-
             {/* what Is----------------------------------------------- */}
             {navItems.includes("What is") ? (
-              <div
-                id="WHATIS"
-                className="paraSubSection privateLC"
-              >
+              <div id="WHATIS" className="paraSubSection privateLC">
                 <p className="privateSHeader">
                   What Is a <b>{Service?.title}</b>
                 </p>
@@ -405,23 +401,37 @@ export default function ServiceDetails({
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Service?.difference?.tableData?.headers?.map((val: string, i: number) => (
-                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
-                          <p className="tableHeaderText">{val}</p>
-                        </div>
-                      ))}
+                      {Service?.difference?.tableData?.headers?.map(
+                        (val: string, i: number) => (
+                          <div
+                            key={i}
+                            className="tableSel"
+                            style={{ width: "-webkit-fill-available" }}
+                          >
+                            <p className="tableHeaderText">{val}</p>
+                          </div>
+                        )
+                      )}
                     </div>
 
                     {/* Data Rows */}
-                    {Service?.difference?.tableData?.rows?.map((row: any, i: number) => (
-                      <div className="PRow NHeaderRow" key={i}>
-                        {Service?.difference?.tableData?.headers?.map((header: string, j: number) => (
-                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
-                            <p className="tableNText">{row[header]}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ))}
+                    {Service?.difference?.tableData?.rows?.map(
+                      (row: any, i: number) => (
+                        <div className="PRow NHeaderRow" key={i}>
+                          {Service?.difference?.tableData?.headers?.map(
+                            (header: string, j: number) => (
+                              <div
+                                className="tableSel"
+                                key={j}
+                                style={{ width: "-webkit-fill-available" }}
+                              >
+                                <p className="tableNText">{row[header]}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -442,32 +452,50 @@ export default function ServiceDetails({
                   </p>
                 ))}
 
-                <div style={{
-                  width:
-                    (Service?.documentsRequired?.tableData?.headers?.length ?? 0) > 1
-                      ? "100%"
-                      : "45%",
-                }} className="tableOuterBox productViewDifTable">
+                <div
+                  style={{
+                    width:
+                      (Service?.documentsRequired?.tableData?.headers?.length ??
+                        0) > 1
+                        ? "100%"
+                        : "45%",
+                  }}
+                  className="tableOuterBox productViewDifTable"
+                >
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Service?.documentsRequired?.tableData?.headers?.map((val: string, i: number) => (
-                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
-                          <p className="tableHeaderText">{val}</p>
-                        </div>
-                      ))}
+                      {Service?.documentsRequired?.tableData?.headers?.map(
+                        (val: string, i: number) => (
+                          <div
+                            key={i}
+                            className="tableSel"
+                            style={{ width: "-webkit-fill-available" }}
+                          >
+                            <p className="tableHeaderText">{val}</p>
+                          </div>
+                        )
+                      )}
                     </div>
 
                     {/* Data Rows */}
-                    {Service?.documentsRequired?.tableData?.rows?.map((row: any, i: number) => (
-                      <div className="PRow NHeaderRow" key={i}>
-                        {Service?.documentsRequired?.tableData?.headers?.map((header: string, j: number) => (
-                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
-                            <p className="tableNText">{row[header]}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ))}
+                    {Service?.documentsRequired?.tableData?.rows?.map(
+                      (row: any, i: number) => (
+                        <div className="PRow NHeaderRow" key={i}>
+                          {Service?.documentsRequired?.tableData?.headers?.map(
+                            (header: string, j: number) => (
+                              <div
+                                className="tableSel"
+                                key={j}
+                                style={{ width: "-webkit-fill-available" }}
+                              >
+                                <p className="tableNText">{row[header]}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -490,23 +518,37 @@ export default function ServiceDetails({
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Service?.MCACompliance?.tableData?.headers?.map((val: string, i: number) => (
-                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
-                          <p className="tableHeaderText">{val}</p>
-                        </div>
-                      ))}
+                      {Service?.MCACompliance?.tableData?.headers?.map(
+                        (val: string, i: number) => (
+                          <div
+                            key={i}
+                            className="tableSel"
+                            style={{ width: "-webkit-fill-available" }}
+                          >
+                            <p className="tableHeaderText">{val}</p>
+                          </div>
+                        )
+                      )}
                     </div>
 
                     {/* Data Rows */}
-                    {Service?.MCACompliance?.tableData?.rows?.map((row: any, i: number) => (
-                      <div className="PRow NHeaderRow" key={i}>
-                        {Service?.MCACompliance?.tableData?.headers?.map((header: string, j: number) => (
-                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
-                            <p className="tableNText">{row[header]}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ))}
+                    {Service?.MCACompliance?.tableData?.rows?.map(
+                      (row: any, i: number) => (
+                        <div className="PRow NHeaderRow" key={i}>
+                          {Service?.MCACompliance?.tableData?.headers?.map(
+                            (header: string, j: number) => (
+                              <div
+                                className="tableSel"
+                                key={j}
+                                style={{ width: "-webkit-fill-available" }}
+                              >
+                                <p className="tableNText">{row[header]}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -516,7 +558,7 @@ export default function ServiceDetails({
             {navItems.includes("Due Date") ? (
               <div id="DUEDATE" className="privateLC DifferenceSection">
                 <p className="privateSHeader">
-                  <b>Due Date for </b>   {Service?.displayName}
+                  <b>Due Date for </b> {Service?.displayName}
                 </p>
                 {Service?.DueDate?.summarys?.map((sm, i) => (
                   <p className="prNText" key={i}>
@@ -528,67 +570,87 @@ export default function ServiceDetails({
                   <div className="pricePanaleTableBox">
                     {/* Header Row */}
                     <div className="PRow PheaderRow headerRow">
-                      {Service?.DueDate?.tableData?.headers?.map((val: string, i: number) => (
-                        <div key={i} className="tableSel" style={{ width: "-webkit-fill-available" }}>
-                          <p className="tableHeaderText">{val}</p>
-                        </div>
-                      ))}
+                      {Service?.DueDate?.tableData?.headers?.map(
+                        (val: string, i: number) => (
+                          <div
+                            key={i}
+                            className="tableSel"
+                            style={{ width: "-webkit-fill-available" }}
+                          >
+                            <p className="tableHeaderText">{val}</p>
+                          </div>
+                        )
+                      )}
                     </div>
 
                     {/* Data Rows */}
-                    {Service?.DueDate?.tableData?.rows?.map((row: any, i: number) => (
-                      <div className="PRow NHeaderRow" key={i}>
-                        {Service?.DueDate?.tableData?.headers?.map((header: string, j: number) => (
-                          <div className="tableSel" key={j} style={{ width: "-webkit-fill-available" }}>
-                            <p className="tableNText">{row[header]}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ))}
+                    {Service?.DueDate?.tableData?.rows?.map(
+                      (row: any, i: number) => (
+                        <div className="PRow NHeaderRow" key={i}>
+                          {Service?.DueDate?.tableData?.headers?.map(
+                            (header: string, j: number) => (
+                              <div
+                                className="tableSel"
+                                key={j}
+                                style={{ width: "-webkit-fill-available" }}
+                              >
+                                <p className="tableNText">{row[header]}</p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
             ) : null}
 
-
             {/* Step */}
             {navItems.includes("Steps") ? (
               <div id="STEPS" className="privateLC DifferenceSection">
-                <p className="privateSHeader"><b>Steps</b></p>
+                <p className="privateSHeader">
+                  <b>Steps</b>
+                </p>
                 {Service?.Steps?.map((stp, i) => (
                   <div key={i} className="stepSectionBox">
-                    <p className="privateSHeader"><b></b>{stp.title}</p>
-                    {
-                      stp?.summary?.map((stpSum, j) => (
-                        <p key={j} className="stepSummary">{stpSum?.summary}</p>
-                      ))
-                    }
+                    <p className="privateSHeader">
+                      <b></b>
+                      {stp.title}
+                    </p>
+                    {stp?.summary?.map((stpSum, j) => (
+                      <p key={j} className="stepSummary">
+                        {stpSum?.summary}
+                      </p>
+                    ))}
                     <ul className="stepUlSection">
-                      {
-                        stp?.steps?.map((sstp, k) => (
-                          <li key={k}>Step{k + 1} :  {sstp?.step}</li>
-                        ))
-                      }
+                      {stp?.steps?.map((sstp, k) => (
+                        <li key={k}>
+                          Step{k + 1} : {sstp?.step}
+                        </li>
+                      ))}
                     </ul>
                   </div>
-                ))
-                }
+                ))}
               </div>
             ) : null}
 
             {/* ThresholdLimits---------- */}
             {navItems.includes("Threshold Limits") ? (
               <div id="THRESHOLDLIMITS" className="privateLC DifferenceSection">
-                <p className="privateSHeader"><b>Threshold Limits</b></p>
-                <p className="privateSHeader">{Service?.ThresholdLimits?.title}</p>
-                {
-                  Service?.ThresholdLimits?.summarys?.map((stpSum, j) => (
-                    <p key={j} className="stepSummary">{stpSum}</p>
-                  ))
-                }
+                <p className="privateSHeader">
+                  <b>Threshold Limits</b>
+                </p>
+                <p className="privateSHeader">
+                  {Service?.ThresholdLimits?.title}
+                </p>
+                {Service?.ThresholdLimits?.summarys?.map((stpSum, j) => (
+                  <p key={j} className="stepSummary">
+                    {stpSum}
+                  </p>
+                ))}
               </div>
             ) : null}
-
 
             {/* FAQ section------------------------------------------ */}
             {navItems.includes("FAQ") ? (

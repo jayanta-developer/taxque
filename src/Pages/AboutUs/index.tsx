@@ -38,7 +38,7 @@ export default function AboutUs({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("About Us");
   const Navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.team);
+  const { data } = useSelector((state: RootState) => state.team);
 
   useEffect(() => {
     dispatch(FetchTeam());

@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
-
-
 
 //images
 import smPageBG from "../../assets/images/smPageBG.svg";
@@ -16,13 +14,11 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppHoloBtn } from "../../components/Buttons";
 import ContactSection from "../../components/ContactSection";
-import MyCarousel from "../../components/Carousel";
 import Subscribe from "../../components/Subscribe";
 import { ServiceCard, GoTop } from "../../components/Tools";
 
+//Redux
 import { FetchBlogBySlug } from "../../store/blogSlice";
-import { FetchCategory } from "../../store/categorySlice";
-
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
@@ -34,12 +30,8 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
   const { slug } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const Navigate = useNavigate();
-  const { Blog, status } = useSelector((state: RootState) => state.blog);
+  const { Blog } = useSelector((state: RootState) => state.blog);
   const categoryData = useSelector((state: RootState) => state.category);
-
-  console.log(Blog);
-
-
 
   useEffect(() => {
     if (!slug) return;
@@ -59,13 +51,16 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
 
         <div className="productPageMainSection">
           <p className="navigateText">
-            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span onClick={() => Navigate("/")} className="navHomeT">
+              Home
+            </span>
             <span className="navSeparator"> &gt; </span>
-            <span onClick={() => Navigate("/learn")} className="navPageT">{Blog?.category}</span>
+            <span onClick={() => Navigate("/learn")} className="navPageT">
+              {Blog?.category}
+            </span>
             <span className="navSeparator"> &gt; </span>
             <span className="navSubPageT">{Blog?.title}</span>
           </p>
-
         </div>
         <div className="productDetailBox">
           <div className="productInfoSection">
@@ -117,10 +112,10 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
           </div>
         </div>
         {/* Blog section */}
-        <div className="pricePlaneBox BlogSection">
+        {/* <div className="pricePlaneBox BlogSection">
           <p className="sectionHeader">Our Latest News</p>
-          {/* <MyCarousel data={data} cardName="BlogCard" /> */}
-        </div>
+          <MyCarousel data={data} cardName="BlogCard" />
+        </div> */}
         {/* email section */}
         <Subscribe />
 
@@ -135,7 +130,9 @@ export default function BlogDetails({ setCurrentNav, currentNav }: NavProps) {
                     Navigate(`/category/${el?.Slug}`);
                     GoTop();
                   }}
-                  key={i} className="chip">
+                  key={i}
+                  className="chip"
+                >
                   <p>{el?.title}</p>
                 </div>
               ))}

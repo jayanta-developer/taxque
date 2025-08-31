@@ -27,7 +27,7 @@ export default function Teams({ setCurrentNav, currentNav }: NavProps) {
   const Navigate = useNavigate();
   setCurrentNav("Home");
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.team);
+  const { data } = useSelector((state: RootState) => state.team);
 
 
 

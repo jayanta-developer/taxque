@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID;
 
 //images
@@ -10,7 +10,6 @@ import GreenTik from "../../assets/images/GreenTik.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
 import { baseURL } from "../../App";
 //data
-import { CityList, cityPin } from "../../assets/Data";
 
 //components
 import NavBar from "../../components/NavBar";
@@ -20,14 +19,14 @@ import MyCarousel from "../../components/Carousel";
 import Subscribe from "../../components/Subscribe";
 import { useNavigate } from "react-router-dom";
 import { DropBox, GoTop } from "../../components/Tools";
+import ContactSection from "../../components/ContactSection";
 
-import { GetUser, CreateContactUser } from "../../store/userSlice";
+import { GetUser } from "../../store/userSlice";
 import {
   FetchService,
   ServiceDataType,
   priceDataProps,
 } from "../../store/serviceSlice";
-import { FetchCategory } from "../../store/categorySlice";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -41,7 +40,6 @@ export default function PaymentCheckOut({
 }: NavProps) {
   const Navigate = useNavigate();
   const selectedProductId = localStorage.getItem("selectedProduct");
-  const checkoutProduct = localStorage.getItem("checkoutProduct");
   const PriceId = localStorage.getItem("planPriceId");
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: RootState) => state.service);
@@ -50,19 +48,8 @@ export default function PaymentCheckOut({
   const [currentPriceData, setCurrentPriceData] = useState<priceDataProps>();
   const [featureView, setFeatureView] = useState(false);
   const [Product, setProduct] = useState<ServiceDataType>();
-  //user state
-  const [contactUser, setContactUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    pincode: "",
-  });
-  const [cityDrop, setCityDrop] = useState<string>("");
-  const [policyCheck, setPolicyCheck] = useState<boolean>();
   const [planDrop, setPlanDrop] = useState<string>();
-
   const planArray = Product?.priceData?.map((val) => val.title) || [];
-
   const userId = localStorage.getItem("userId");
   const serviceId = localStorage.getItem("planServiceId");
   const amount = currentPriceData?.price?.replace(/,/g, "") ?? "0";
@@ -99,7 +86,7 @@ export default function PaymentCheckOut({
               razorpay_signature: response.razorpay_signature,
               userId,
               serviceId,
-              purchasePlan: planDrop
+              purchasePlan: planDrop,
             }),
           });
 
@@ -109,12 +96,12 @@ export default function PaymentCheckOut({
             // alert("Payment Successful!");
             Navigate("/user-profile");
             GoTop();
-            const invoiceRes = await fetch(baseURL + "/send-invoice", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ userId, serviceName, amount }),
-            });
-            const invoiceData = await invoiceRes.json();
+            // const invoiceRes = await fetch(baseURL + "/send-invoice", {
+            //   method: "POST",
+            //   headers: { "Content-Type": "application/json" },
+            //   body: JSON.stringify({ userId, serviceName, amount }),
+            // });
+            // const invoiceData = await invoiceRes.json();
             // console.log("Invoice:", invoiceData.invoice);
           } else {
             alert("Payment failed!");
@@ -141,42 +128,6 @@ export default function PaymentCheckOut({
     }
   };
 
-  // create contact user
-  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setContactUser((prv) => ({
-      ...prv,
-      [name]: value,
-    }));
-  };
-  const PostContactUser = () => {
-    if (!policyCheck) {
-      toast.warn("Please check the Terms and Policy box!");
-      return;
-    }
-    if (
-      !contactUser?.name ||
-      !contactUser.email ||
-      !contactUser.phone ||
-      !contactUser.pincode ||
-      !cityDrop
-    ) {
-      toast.warn("Please fill all the fields !");
-      return;
-    }
-
-    dispatch(
-      CreateContactUser({
-        name: contactUser?.name,
-        email: contactUser?.email,
-        phone: contactUser?.phone,
-        city: cityDrop,
-        pincode: contactUser?.pincode,
-        date: new Date().toLocaleDateString("en-GB").slice(0, 8),
-      })
-    );
-  };
-
   //Handel change plan------------------------
   useEffect(() => {
     if (!Product?.priceData?.length) return;
@@ -196,15 +147,6 @@ export default function PaymentCheckOut({
     setCurrentPriceData(updatedData);
   }, [planDrop, Product?.priceData]);
 
-  //pincode----------------
-  useEffect(() => {
-    const selectedPin = cityPin.find((val) => val.city === cityDrop);
-    setContactUser((prv) => ({
-      ...prv,
-      ["pincode"]: selectedPin?.pincode || "",
-    }));
-  }, [cityDrop]);
-  //find current product-------
   useEffect(() => {
     setProduct(data?.find((pr) => pr?._id === selectedProductId));
   }, [data, Product]);
@@ -239,70 +181,6 @@ export default function PaymentCheckOut({
       <div className="PaymentMainSection">
         <img src={paymentBg} alt="" className="paymentPageBg" />
         <div className="paymentCheckBox">
-          <div className="paymentBox">
-            <h2>Your Information</h2>
-            <div className="inputBox">
-              <p className="inputLabel">Full Name *</p>
-              <input
-                name="name"
-                type="text"
-                value={contactUser.name}
-                onChange={handleUserChange}
-              />
-            </div>
-            <div className="inputBox">
-              <p className="inputLabel">Phone</p>
-              <input
-                type="text"
-                name="phone"
-                value={contactUser.phone}
-                onChange={handleUserChange}
-              />
-            </div>
-            <div className="inputBox">
-              <p className="inputLabel">Email Address</p>
-              <input
-                type="text"
-                name="email"
-                value={contactUser.email}
-                onChange={handleUserChange}
-              />
-            </div>
-            <div className="inputBox">
-              <p className="inputLabel">City</p>
-              <DropBox
-                list={CityList}
-                setDropVal={setCityDrop}
-                defaultVal="Select city"
-              />
-            </div>
-            <div className="inputBox">
-              <p className="inputLabel">Pincode</p>
-              <input
-                type="text"
-                name="pincode"
-                value={contactUser.pincode}
-                onChange={handleUserChange}
-              />
-            </div>
-
-            <div className="tikBox">
-              <input
-                type="checkBox"
-                onChange={(e) => setPolicyCheck(e.target.checked)}
-              />
-              <p>I Agree to Terms & Conditions and Privacy Policy</p>
-            </div>
-
-            {policyCheck ? (
-              <AppBtn btnText="Submit Now" onClick={PostContactUser} />
-            ) : (
-              <div className="desibalBtn">
-                <p>Submit Now</p>
-              </div>
-            )}
-          </div>
-
           <div className="paymentBox">
             <div className="planTopBox">
               <h3>Your Current Plan</h3>
@@ -367,25 +245,18 @@ export default function PaymentCheckOut({
                     GoTop();
                   }}
                 />
-              ) : checkoutProduct === selectedProductId ? (
+              ) : (
                 <AppBtn
                   btnText="Go For Final Payment"
                   width="232px"
                   onClick={handleBuy}
                 />
-              ) : (
-                <div className="desibalBtn">
-                  <p>Go For Final Payment</p>
-                </div>
               )}
             </div>
           </div>
-        </div>
 
-        {/*Price plane Box*/}
-        {/* <div className="productPageMainSection">
-          <PriceSection product={Product} />
-        </div> */}
+          <ContactSection />
+        </div>
 
         {/* -Our services section-- */}
         <div className="serviceSection">

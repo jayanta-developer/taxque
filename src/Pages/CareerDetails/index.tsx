@@ -42,8 +42,7 @@ export default function CareerDetails({ setCurrentNav, currentNav }: NavProps) {
   setCurrentNav("");
   const selectedJodId = localStorage.getItem("selectedJodId")
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status } = useSelector((state: RootState) => state.job);
-  const Application = useSelector((state: RootState) => state.application);
+  const { data } = useSelector((state: RootState) => state.job);
   const Category = useSelector((state: RootState) => state.category);
   const jobData = data.find((val) => val?._id === selectedJodId)
 

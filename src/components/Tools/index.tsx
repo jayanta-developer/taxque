@@ -1,16 +1,14 @@
 import "./style.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import parse from 'html-react-parser';
-import truncate from 'truncate-html';
+import parse from "html-react-parser";
+import truncate from "truncate-html";
 
 //images
 import { Image } from "../../assets/images";
 
-
 //components
 import { AppOrangeBtn, AppHoloBtn } from "../Buttons";
-
 
 import { CategoryDataType } from "../../store/categorySlice";
 import { BlogDataType } from "../../store/blogSlice";
@@ -22,8 +20,8 @@ interface TaxQueCardProps {
 }
 
 import { ServiceDataType } from "../../store/serviceSlice";
-import { TeamDataType } from "../../store/teamSlice"
-import { JobDataType } from "../../store/jobSlice"
+import { TeamDataType } from "../../store/teamSlice";
+import { JobDataType } from "../../store/jobSlice";
 interface PriceCardProps {
   title: string;
   basicPrice: string;
@@ -69,15 +67,16 @@ export const ServiceCard = ({
     <div className="serviceCard">
       <div className="svrCardHeader">
         <img src={Image.ITNIcon} />
-        <p
-          onClick={handleCategoryClick}
-        >{title}</p>
+        <p onClick={handleCategoryClick}>{title}</p>
       </div>
       <div className="hrLine"></div>
-      <p className="svrCardSummery">
-        {parse(truncatedHTML)}
-      </p>
-      <AppHoloBtn onClick={handleCategoryClick} btnText="Red More" height="30px" width="130px" />
+      <p className="svrCardSummery">{parse(truncatedHTML)}</p>
+      <AppHoloBtn
+        onClick={handleCategoryClick}
+        btnText="Red More"
+        height="30px"
+        width="130px"
+      />
       <div className="sveCardImgBox">
         <img onClick={handleCategoryClick} src={imageUrl} alt="" />
       </div>
@@ -173,7 +172,7 @@ export const BlogCard = ({
   date,
   blogText,
   imageUrl,
-  Slug
+  Slug,
 }: BlogDataType) => {
   const Navigate = useNavigate();
 
@@ -203,7 +202,7 @@ export const BlogCard = ({
         src={Image.UPRightArrow}
         className="UpRArrow"
         onClick={() => {
-          Navigate(`/blog-details/${Slug}`);
+          Navigate(`/learn/${Slug}`);
           GoTop();
         }}
       />
@@ -248,7 +247,9 @@ export const BlogRowCard = ({
   Slug,
 }: BlogDataType) => {
   const Navigate = useNavigate();
-  const truncatedHTML = truncate(blogText[0]?.summarys[0]?.summary, 200, { byWords: false });
+  const truncatedHTML = truncate(blogText[0]?.summarys[0]?.summary, 200, {
+    byWords: false,
+  });
 
   return (
     <div className="blogRowCard">
@@ -267,18 +268,19 @@ export const BlogRowCard = ({
         </div>
         <p
           onClick={() => {
-            Navigate(`/blog-details/${Slug}`);
+            Navigate(`/learn/${Slug}`);
             GoTop();
           }}
-          className="BlogTitle">{title}</p>
-        <p className="BlogSummery">
-          {parse(truncatedHTML)}
+          className="BlogTitle"
+        >
+          {title}
         </p>
+        <p className="BlogSummery">{parse(truncatedHTML)}</p>
         <img
           src={Image.UPRightArrow}
           className="UpRArrow"
           onClick={() => {
-            Navigate(`/blog-details/${Slug}`);
+            Navigate(`/learn/${Slug}`);
             GoTop();
           }}
         />
@@ -295,7 +297,7 @@ export const TeamCard = ({
   imgUrl,
   role,
   summary,
-  media
+  media,
 }: TeamDataType) => {
   return (
     <div className="teamCard">
@@ -304,7 +306,11 @@ export const TeamCard = ({
         <div className="mbCardInfo">
           <div className="mbIconBox">
             {media?.facebook && media.facebook.trim() && (
-              <a href={media.facebook} target="_blank" rel="noopener noreferrer">
+              <a
+                href={media.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={Image.facebookIcon} alt="Facebook" />
               </a>
             )}
@@ -314,7 +320,11 @@ export const TeamCard = ({
               </a>
             )}
             {media?.linkedin && media.linkedin.trim() && (
-              <a href={media.linkedin} target="_blank" rel="noopener noreferrer">
+              <a
+                href={media.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={Image.linkdinIcon} alt="LinkedIn" />
               </a>
             )}
@@ -358,8 +368,7 @@ export const JobCard = ({
   location,
   type,
   description,
-  _id
-
+  _id,
 }: JobDataType) => {
   const Navigate = useNavigate();
 
@@ -389,7 +398,7 @@ export const JobCard = ({
         width="60%"
         onClick={() => {
           Navigate("/career-details");
-          _id ? localStorage.setItem("selectedJodId", _id) : null
+          _id ? localStorage.setItem("selectedJodId", _id) : null;
           GoTop();
         }}
       />
@@ -412,15 +421,13 @@ export const ProductCard = ({
   const handleClickProductCard = () => {
     Navigate(`/services/service-details/${Slug}`);
     GoTop();
-  }
+  };
 
   return (
     <div className="serviceCard productCard">
       <div className="svrCardHeader">
         <img src={Image.ITNIcon} />
-        <p
-          onClick={handleClickProductCard}
-        >{title}</p>
+        <p onClick={handleClickProductCard}>{title}</p>
       </div>
       <div className="hrLine"></div>
 
@@ -515,7 +522,6 @@ export const DropBox = ({ setDropVal, list, defaultVal, width }: dropProps) => {
     </select>
   );
 };
-
 
 export const openMail = (email: string, subject?: string, body?: string) => {
   let mailtoLink = `mailto:${email}`;

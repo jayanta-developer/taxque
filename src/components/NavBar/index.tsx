@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import { toggleLabel, setLabel } from "../../store/stateSlice";
+import { setLabel } from "../../store/stateSlice";
 
 
 //images

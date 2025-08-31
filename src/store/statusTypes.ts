@@ -5,7 +5,8 @@ export enum STATUSES {
 }
 
 export interface LocationData {
-  state: string;
-  city: string;
-  pin: string;
+  State: string;
+  City: string;
+  Pincode: string | number;
+  PostOffice: string ;
 }

@@ -92,7 +92,7 @@ function App() {
           }
         />
         <Route
-          path="/blog-details/:slug"
+          path="/learn/:slug"
           element={
             // <ProtectedRoute>
             <BlogDetails
@@ -196,7 +196,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* <Route
+        <Route
           path="/services/product-details/payment-checkout"
           element={
             <ProtectedRoute>
@@ -206,7 +206,7 @@ function App() {
               />
             </ProtectedRoute>
           }
-        /> */}
+        />
 
         <Route path="*" element={<GlobalPage />} />
         <Route path="/test" element={<TestPage />} />
