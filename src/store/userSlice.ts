@@ -71,17 +71,17 @@ export interface FindUserResponseType {
   user: UserDataType;
 }
 
-interface UpdateDocArgs {
-  data: {
-    userId: string;
-    productId: string;
-    docId: string;
-    newMessage: string;
-    status: string;
-    docUrl: string;
-    _id?: string;
-  }
-}
+// interface UpdateDocArgs {
+//   data: {
+//     userId: string;
+//     productId: string;
+//     docId: string;
+//     newMessage: string;
+//     status: string;
+//     docUrl: string;
+//     _id?: string;
+//   }
+// }
 
 interface userState {
   data: UserDataType[];

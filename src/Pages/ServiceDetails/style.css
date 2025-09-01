@@ -35,7 +35,7 @@
   align-items: center;
 }
 .productHeader p {
-  font-size: 20px;
+  font-size: 18px;
   font-family: "poppinsBold";
   color: #000;
 }
@@ -119,7 +119,7 @@
   padding: 0 10px;
 }
 .overViewSection p {
-  font-size: 18px;
+  font-size: 14px;
   color: #555555;
   margin-bottom: 16px;
 }
@@ -129,7 +129,7 @@
   margin-bottom: 30px;
 }
 .privateLC .privateSHeader {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 20px;
   color: #000;
@@ -141,7 +141,7 @@
   list-style-type: none;
 }
 .prNText {
-  font-size: 18px;
+  font-size: 14px;
   color: #555555;
   margin-bottom: 16px;
 }
@@ -206,8 +206,16 @@
   border: 1px solid rgba(128, 128, 128, 0.26);
 }
 .productViewDifTable .tableHeaderText {
-  font-size: 16px;
   padding-left: 16px;
+}
+.headerRow p {
+  font-size: 13px;
+}
+.NHeaderRow p {
+  font-size: 11px;
+}
+.tableSel {
+  min-width: 170px;
 }
 .productFeatures {
   width: 100%;
@@ -222,6 +230,9 @@
   flex-direction: row;
   gap: 10px;
   align-items: start;
+}
+.productFeatures .checkBox p {
+  font-size: 14px;
 }
 .checkBox span {
   font-weight: 600;
@@ -326,7 +337,7 @@
   flex-direction: column;
 }
 .stepSummary {
-  font-size: 1rem;
+  font-size: 14px;
   color: #000;
   margin-bottom: 20px;
 }
@@ -336,7 +347,7 @@
 }
 .stepUlSection li {
   margin-bottom: 10px;
-  font-size: 1.2rem;
+  font-size: 14px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {
@@ -378,6 +389,33 @@
   .productHeroMainSection {
     padding-top: 16%;
   }
+  .productFeatures .checkBox p {
+    font-size: 16px;
+  }
+  .overViewSection p {
+    font-size: 18px;
+  }
+  .prNText {
+    font-size: 18px;
+  }
+  .productViewDifTable .tableHeaderText {
+    font-size: 16px;
+  }
+  .headerRow p {
+    font-size: 16px;
+  }
+  .NHeaderRow p {
+    font-size: 14px;
+  }
+  .tableSel {
+    min-width: 170px;
+  }
+  .stepSummary {
+    font-size: 16px;
+  }
+  .stepUlSection li {
+    font-size: 19px;
+  }
 }
 
 /* Desktop view */
@@ -406,5 +444,8 @@
   }
   .paraNavOuterBox {
     display: block;
+  }
+  .tableSel {
+    min-width: 170px;
   }
 }

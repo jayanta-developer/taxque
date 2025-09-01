@@ -7,14 +7,13 @@ import pageBg from "../../assets/images/otherPageBg.svg";
 import MobileImg from "../../assets/images/MobileImg.png";
 import subBg from "../../assets/images/subBg.svg";
 import rightArrow from "../../assets/images/rightArrow.svg";
-import GRatingImg from "../../assets/images/GRatingImg.svg";
-import reviewTemImg from "../../assets//images/reviewTemImg.svg";
 
 //components
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { AppBtn } from "../../components/Buttons";
 import { ServiceCard } from "../../components/Tools";
+import GoogleReviewsWidget from "google-reviews-widget";
 
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -29,8 +28,6 @@ export default function Category({ setCurrentNav, currentNav }: NavProps) {
   const { data } = useSelector((state: RootState) => state.category);
   setCurrentNav("Services");
 
-
-
   return (
     <>
       <div className="servicesPage">
@@ -39,7 +36,9 @@ export default function Category({ setCurrentNav, currentNav }: NavProps) {
           <img src={pageBg} className="pageBg" />
 
           <p className="navigateText">
-            <span onClick={() => Navigate("/")} className="navHomeT">Home</span>
+            <span onClick={() => Navigate("/")} className="navHomeT">
+              Home
+            </span>
             <span className="navSeparator"> &gt; </span>
             <span className="navPageT">Services</span>
           </p>
@@ -54,8 +53,9 @@ export default function Category({ setCurrentNav, currentNav }: NavProps) {
         {/* Review section */}
         <div className="reviewSection">
           <p className="sectionHeader">Success Stories & Reviews</p>
-          <img src={GRatingImg} className="grating" />
-          <img src={reviewTemImg} className="gratingTemImg" />
+          {/* <img src={GRatingImg} className="grating" />
+        <img src={reviewTemImg} className="gratingTemImg" /> */}
+          <GoogleReviewsWidget instanceId="ifBALHbY33CFXCUyhXns" />
         </div>
         {/* Subscribe section */}
         <div className="subscribeSection">

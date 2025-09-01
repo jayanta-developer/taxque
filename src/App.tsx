@@ -25,7 +25,7 @@ import TermsOfUse from "./Pages/TermsOfUse";
 import Reffer from "./Pages/Reffer";
 import UserPage from "./Pages/UserPage";
 import PaymentCheckOut from "./Pages/PaymentCheckOut";
-import TestPage from "./Pages/text"
+import TestPage from "./Pages/text";
 
 //Protect Route
 import ProtectedRoute from "./Util/Tools/ProtectedRoute";
@@ -167,10 +167,7 @@ function App() {
           path="/contact-us"
           element={
             // <ProtectedRoute>
-            <ContactUs
-              setCurrentNav={setCurrentNav}
-              currentNav={currentNav}
-            />
+            <ContactUs setCurrentNav={setCurrentNav} currentNav={currentNav} />
             // </ProtectedRoute>
           }
         />

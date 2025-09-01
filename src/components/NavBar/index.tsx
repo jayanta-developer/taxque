@@ -72,8 +72,8 @@ export default function NavBar({ currentNav }: NavProps) {
       icon: Image.homeIcon,
     },
     {
-      title: "Services",
-      url: "/services",
+      title: "Category",
+      url: "/categorys",
       icon: Image.serviceIcon,
     },
     {

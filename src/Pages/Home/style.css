@@ -22,7 +22,6 @@
   margin-top: 20%;
 }
 .heroMainSection .hrSummeryText {
-  padding-left: 5%;
   text-align: start;
 }
 .hrTextBox {
@@ -58,13 +57,13 @@
 }
 .hrMainText {
   width: 80%;
-  font-size: 2.813rem;
+  font-size: 20px;
   font-weight: 800;
   color: #000;
   text-align: center;
 }
 .hrSummeryText {
-  font-size: 20px;
+  font-size: 16px;
   color: #4d4d4d;
   text-align: center;
 }
@@ -93,7 +92,7 @@
 }
 .sectionHeader {
   width: 90%;
-  font-size: 25px;
+  font-size: 18px;
   color: #000;
   font-weight: 700;
   font-family: "poppinsBold";
@@ -142,7 +141,7 @@
   text-align: center;
 }
 .taxTextBox .taxSummery {
-  font-size: 1.25rem;
+  font-size: 15px;
   color: #4d4d4d;
   margin: 30px 0;
 }
@@ -317,7 +316,7 @@
 }
 .reviewSection {
   width: 100%;
-  padding: 2% 9%;
+  padding: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -359,12 +358,15 @@
 .hHText2 {
   color: #76d541;
 }
-
-.text-center h1{
-  font-size: 45px;
+.text-center {
+  width: 100%;
+  padding: 2%;
 }
-.text-center h2{
-  font-size: 35px;
+.text-center h1 {
+  font-size: 30px;
+}
+.text-center h2 {
+  font-size: 20px;
 }
 /* Tabe view */
 @media only screen and (min-width: 768px) {
@@ -375,6 +377,7 @@
   .hrMainText {
     width: unset;
     text-align: start;
+    font-size: 45px;
   }
   .heroBox {
     min-height: 1000px;
@@ -395,7 +398,7 @@
   }
   .sectionHeader {
     width: unset;
-    font-size: 40px;
+    font-size: 26px;
   }
   .hrTextBox {
     align-items: start;
@@ -454,6 +457,21 @@
   }
   .refferIconBox {
     margin-left: 60px;
+  }
+  .taxTextBox .taxSummery {
+    font-size: 16px;
+  }
+  .text-center h1 {
+    font-size: 45px;
+  }
+  .text-center h2 {
+    font-size: 35px;
+  }
+  .hrSummeryText {
+    font-size: 20px;
+  }
+  .reviewSection {
+    padding: 2% 9%;
   }
 }
 /* Desktop view */
@@ -523,5 +541,8 @@
   }
   .priceSelectTab {
     display: none;
+  }
+  .taxTextBox .taxSummery {
+    font-size: 20px;
   }
 }

@@ -135,7 +135,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #2f1e21;
-  margin-bottom: 18px;
+  margin-bottom: 23px;
   line-height: 19px;
 }
 .faqanswer {
@@ -190,6 +190,9 @@
   }
   .faqquestion {
     font-size: 17px;
+  }
+  .faqquestion {
+    margin-bottom: 18px;
   }
 }
 

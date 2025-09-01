@@ -39,9 +39,9 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
   const user = useSelector((state: RootState) => state.user);
   const Category = useSelector((state: RootState) => state.category);
   const dispatch = useDispatch<AppDispatch>();
-  const [fileUrls, setFileUrls] = useState<string[]>([]);
-  const [selectProductIndex, setSelectProductIndex] = useState<number>();
-  console.log(selectProductIndex);
+  // const [fileUrls, setFileUrls] = useState<string[]>([]);
+  // const [selectProductIndex, setSelectProductIndex] = useState<number>();
+  // console.log(selectProductIndex);
   const [selectProductId, setSelectProductId] = useState<string>("");
   console.log(selectProductId);
 
@@ -568,7 +568,7 @@ export default function UserPage({ setCurrentNav, currentNav }: NavProps) {
               ))}
             </div>
           </div>
-          <div className="subDocBtnBox">
+          <div onClick={docUpload} className="subDocBtnBox">
             <AppBtn btnText="Submit Doc" onClick={handleDocUpload} />
           </div>
 
